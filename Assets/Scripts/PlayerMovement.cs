@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody rb;
     public bool isMoving = false;
     [SerializeField] float moveSpeed;
+    [SerializeField] Vector3 offset;
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -19,12 +20,13 @@ public class PlayerMovement : MonoBehaviour
     {
         float xInput = Input.GetAxis("Horizontal");
         float yInput = Input.GetAxis("Vertical");
-        Vector3 velocity = new Vector3(xInput,0f,yInput);
+        Vector3 lookDirection = new Vector3(xInput,0f,yInput);
             
         if (xInput != 0 || yInput != 0)
         {
             isMoving = true;
-            rb.velocity = velocity.normalized*moveSpeed * Time.fixedDeltaTime;
+            transform.rotation = Quaternion.LookRotation(lookDirection, Vector3.up);
+            rb.velocity = transform.forward*moveSpeed * Time.fixedDeltaTime;
         }
         else
         {
