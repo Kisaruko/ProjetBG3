@@ -26,13 +26,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7180655236366214205}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.54, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0.6}
   m_LocalScale: {x: 0.7118061, y: 0.37139, z: 0.37139}
   m_Children: []
   m_Father: {fileID: 7180655237124408676}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!33 &7180655236366214145
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -149,7 +149,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a6bdafb5652e4d446b733a60e40ad937, type: 2}
+  - {fileID: 2100000, guid: f6e0d93fee79aae4aa6f8c6df6e7b8d1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -195,7 +195,7 @@ GameObject:
   - component: {fileID: 7180655237124408674}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -230,6 +230,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isMoving: 0
   moveSpeed: 500
+  offset: {x: 0, y: 0, z: 0}
 --- !u!54 &7180655237124408674
 Rigidbody:
   m_ObjectHideFlags: 0
