@@ -13,13 +13,14 @@ public class TopDownSmoothCam : MonoBehaviour
     public float maxRange = 2.0f;
     private Vector3 baseOffset;
     public Vector3 behindWallPos;
+    
 
     private void Start()
     {
         target = GameObject.FindGameObjectWithTag("Player");
         baseOffset = offset;
     }
-    void Update()
+    void LateUpdate()
     {
         MoveCam();
         ClippingCheck();
@@ -54,11 +55,15 @@ public class TopDownSmoothCam : MonoBehaviour
     {
         if(isBehindWall == true)
         {
+            
             offset = Vector3.Lerp(offset,behindWallPos,smoothSpeed);
+            transform.eulerAngles = Vector3.Lerp(transform.eulerAngles, new Vector3(60, transform.eulerAngles.y, transform.eulerAngles.z), smoothSpeed);
         }
         else
         {
             offset = Vector3.Lerp(offset, baseOffset, smoothSpeed);
+            transform.eulerAngles = Vector3.Lerp(transform.eulerAngles, new Vector3(60, transform.eulerAngles.y, transform.eulerAngles.z), smoothSpeed);
+
         }
     }
  }

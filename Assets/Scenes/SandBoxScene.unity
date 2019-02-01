@@ -297,7 +297,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 572359969}
   m_LocalRotation: {x: 0.5, y: 0, z: 0, w: 0.8660254}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 20.53, z: -3.96}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 867242346}
@@ -317,11 +317,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   followTarget: 1
-  smoothSpeed: 0.0425
-  offset: {x: 0, y: 20, z: -5}
+  smoothSpeed: 0.025
+  offset: {x: 0, y: 20, z: -12}
   isBehindWall: 0
   maxRange: 20
-  behindWallPos: {x: 0, y: 20, z: 0}
+  behindWallPos: {x: 0, y: 20, z: -7}
 --- !u!1 &702799760
 GameObject:
   m_ObjectHideFlags: 0
@@ -710,7 +710,6 @@ GameObject:
   - component: {fileID: 867242346}
   - component: {fileID: 867242345}
   - component: {fileID: 867242344}
-  - component: {fileID: 867242347}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -782,24 +781,6 @@ Transform:
   m_Father: {fileID: 572359970}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &867242347
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 867242343}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7fed9784f23ed9c418a96d2096920f5e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  followTarget: 1
-  smoothSpeed: 0.0425
-  offset: {x: 0, y: 10, z: -5}
-  isBehindWall: 0
-  maxRange: 20
-  behindWallPos: {x: 0, y: 10, z: 0}
 --- !u!1 &1815726479
 GameObject:
   m_ObjectHideFlags: 0
@@ -849,7 +830,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 3226ce80ada1030449a2c27f75c8a78b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -921,7 +902,7 @@ PrefabInstance:
     - target: {fileID: 7180655237124408676, guid: a3c1d6cf401a08740bf1df56e38ced20,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 7.3
       objectReference: {fileID: 0}
     - target: {fileID: 7180655237124408676, guid: a3c1d6cf401a08740bf1df56e38ced20,
         type: 3}
