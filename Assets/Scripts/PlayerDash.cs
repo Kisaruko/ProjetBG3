@@ -9,11 +9,13 @@ public class PlayerDash : MonoBehaviour
     public float dashStoppingSpeed;
 
     private float currentDashTime;
+    private TrailRenderer trail;
 
     // Start is called before the first frame update
     void Start()
     {
         currentDashTime = maxDashTime;
+        trail = GetComponent<TrailRenderer>();
     }
 
     // Update is called once per frame
@@ -23,6 +25,7 @@ public class PlayerDash : MonoBehaviour
         if (Input.GetButtonDown("Fire2"))
         {
             currentDashTime = 0f;
+            trail.enabled = true;
         }
         if(currentDashTime < maxDashTime)
         {
