@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -393,6 +393,33 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &724292916 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7180655237124408675, guid: a3c1d6cf401a08740bf1df56e38ced20,
+    type: 3}
+  m_PrefabInstance: {fileID: 7180655237628818465}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &724292917
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 724292916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1f3c308c432f3d4eb682e5db8a9d50c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ref_bullet: {fileID: 6260880710944425492, guid: 6591ed834345e4f4cab6a404f3492896,
+    type: 3}
+  coolDown: 0.1
+  time: 1
+  player: {fileID: 0}
+  rotationSpeed: 60
+  shootWithTrigger: 0
+  shootWithJoystick: 0
+  shootWithTriggerAndJoystick: 1
 --- !u!1 &748983861
 GameObject:
   m_ObjectHideFlags: 0
