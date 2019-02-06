@@ -28,18 +28,26 @@ public class PlayerMovement : MonoBehaviour
 
         if (xInput != 0 || yInput != 0)
         {
-            if (GetComponent<Shoot>().shootWithTrigger == true)
+            if (GetComponent<Shoot>().shootWithJoystick == true)
             {
                 isMoving = true;
-                transform.rotation = Quaternion.LookRotation(lookDirection, Vector3.up);
-                rb.velocity = transform.forward * moveSpeed * Time.fixedDeltaTime;
+                if (lookDirection2 == Vector3.zero)
+                {
+                    transform.rotation = Quaternion.LookRotation(lookDirection, Vector3.up);
+                }
+                if(lookDirection2 != Vector3.zero)
+                {
+                    transform.rotation = Quaternion.LookRotation(lookDirection2, Vector3.up);
+                }
+                rb.velocity = new Vector3(xInput, 0f, yInput).normalized * moveSpeed * Time.fixedDeltaTime;
+                //rb.velocity = transform.forward * moveSpeed * Time.fixedDeltaTime;
             }
-            if(GetComponent<Shoot>().shootWithJoystick == true || GetComponent<Shoot>().shootWithTriggerAndJoystick== true)
+           /* if(GetComponent<Shoot>().shootWithJoystick == true || GetComponent<Shoot>().shootWithTriggerAndJoystick== true)
             {
                 isMoving = true;
                 transform.rotation = Quaternion.LookRotation(lookDirection2, Vector3.up);
                 rb.velocity = new Vector3(xInput, 0f, yInput).normalized * moveSpeed * Time.fixedDeltaTime;
-            }
+            }*/
         }
         else
         {
