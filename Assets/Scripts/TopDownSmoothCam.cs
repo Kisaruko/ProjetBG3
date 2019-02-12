@@ -13,7 +13,7 @@ public class TopDownSmoothCam : MonoBehaviour
     public float maxRange = 2.0f;
     private Vector3 baseOffset;
     public Vector3 behindWallPos;
-
+    [SerializeField] float xRotation;
     [Header("Camera Positioning")]
     private Vector3 targetDirection;
     public float xCameraPosOffset;
@@ -93,12 +93,12 @@ public class TopDownSmoothCam : MonoBehaviour
         {
 
             offset = Vector3.Lerp(offset, behindWallPos, smoothSpeed);
-            transform.eulerAngles = Vector3.Lerp(transform.eulerAngles, new Vector3(60, transform.eulerAngles.y, transform.eulerAngles.z), smoothSpeed);
+            transform.eulerAngles = Vector3.Lerp(transform.eulerAngles, new Vector3(xRotation, transform.eulerAngles.y, transform.eulerAngles.z), smoothSpeed);
         }
         else
         {
             offset = Vector3.Lerp(offset, baseOffset, smoothSpeed);
-            transform.eulerAngles = Vector3.Lerp(transform.eulerAngles, new Vector3(60, transform.eulerAngles.y, transform.eulerAngles.z), smoothSpeed);
+            transform.eulerAngles = Vector3.Lerp(transform.eulerAngles, new Vector3(xRotation, transform.eulerAngles.y, transform.eulerAngles.z), smoothSpeed);
 
         }
     }
