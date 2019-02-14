@@ -19,6 +19,7 @@ public class RecoilEnemy : MonoBehaviour
     }
     public void TakeHit()
     {
+        GetComponent<EnemyBehaviour>().playerIsInRange = false;
         StartCoroutine(Blink(1.0f));
         hasBeenHit = true;
         player = GameObject.FindGameObjectWithTag("Player");
@@ -30,6 +31,7 @@ public class RecoilEnemy : MonoBehaviour
     {
         yield return new WaitForSeconds(recoilTime);
         hasBeenHit = false;
+        GetComponent<EnemyBehaviour>().playerIsInRange = true;
         StopCoroutine("RecoilTime");
     }
     IEnumerator Blink(float waitTime)

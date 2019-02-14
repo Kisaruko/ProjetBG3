@@ -34,7 +34,6 @@ public class BulletBehaviour : MonoBehaviour
 
         if(doubleSize == true)
         {
-
             GetComponent<SphereCollider>().radius = GetComponent<SphereCollider>().radius *3;
             GetComponentInChildren<ParticleSystem>().startSize = GetComponentInChildren<ParticleSystem>().startSize * 3;
         }
@@ -49,7 +48,7 @@ public class BulletBehaviour : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag != "Player" && other.gameObject.tag != "Enemy")
+        if (other.gameObject.tag != "Player" && other.gameObject.tag != "Enemy" && other.gameObject.tag != "Zone")
         {
             Instantiate(ref_explode, transform.position, Quaternion.identity);
             if (destroyOnImpact == true)

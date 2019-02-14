@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class SeenPlayer : MonoBehaviour
 {
-    void OnTriggerEnter2D(Collider2D other)
+    void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.tag == "Player")
         {
-            GetComponentInParent<RecoilManager>().playerIsInRange = true;
+            GetComponentInParent<EnemyBehaviour>().playerIsInRange = true;
         }
     }
 
