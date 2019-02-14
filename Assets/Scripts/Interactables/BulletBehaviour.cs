@@ -53,10 +53,10 @@ public class BulletBehaviour : MonoBehaviour
     {
         if (other.gameObject.tag != "Player" && other.gameObject.tag != "Bullet" && other.gameObject.tag !="Gun")
         {
-            //Instantiate(ref_explode, transform.position, Quaternion.identity);
+            Instantiate(ref_explode, transform.position, Quaternion.identity);
             if (destroyOnImpact == true)
             {
-              //  Destroy(this.gameObject);
+               Destroy(this.gameObject);
             }
         }
     }

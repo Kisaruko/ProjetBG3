@@ -8,6 +8,11 @@ public class PlayerMovement : MonoBehaviour
     public bool isMoving = false;
     [SerializeField] float moveSpeed;
     [SerializeField] Vector3 offset;
+    public bool isDashing;
+    public bool isReadyToDash;
+    public float dashingTime;
+    public float coolDown;
+    public float dashSpeed;
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -15,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         Movement();
+        Dashing();
     }
     void Movement()
     {
@@ -22,11 +28,12 @@ public class PlayerMovement : MonoBehaviour
         float yInput = Input.GetAxis("Vertical");
         float xInput2 = Input.GetAxis("Horizontal2");
         float yInput2 = Input.GetAxis("Vertical2");
+
         Vector3 lookDirection = new Vector3(xInput,0f,yInput);
         Vector3 lookDirection2 = new Vector3(xInput2,0f,yInput2);
 
 
-        if (xInput != 0 || yInput != 0)
+        if (xInput != 0 || yInput != 0 && isDashing == false)
         {
             if (GetComponent<Shoot>().shootWithJoystick == true)
             {
@@ -35,24 +42,44 @@ public class PlayerMovement : MonoBehaviour
                 {
                     transform.rotation = Quaternion.LookRotation(lookDirection, Vector3.up);
                 }
-                if(lookDirection2 != Vector3.zero)
-                {
-                    transform.rotation = Quaternion.LookRotation(lookDirection2, Vector3.up);
-                }
-                rb.velocity = new Vector3(xInput, 0f, yInput).normalized * moveSpeed * Time.fixedDeltaTime;
-                //rb.velocity = transform.forward * moveSpeed * Time.fixedDeltaTime;
+                rb.velocity = new Vector3(xInput, 0f, yInput).normalized * moveSpeed;
+
             }
-           /* if(GetComponent<Shoot>().shootWithJoystick == true || GetComponent<Shoot>().shootWithTriggerAndJoystick== true)
-            {
-                isMoving = true;
-                transform.rotation = Quaternion.LookRotation(lookDirection2, Vector3.up);
-                rb.velocity = new Vector3(xInput, 0f, yInput).normalized * moveSpeed * Time.fixedDeltaTime;
-            }*/
         }
         else
         {
             isMoving = false;
             rb.velocity = Vector3.zero;
         }
+        if (lookDirection2 != Vector3.zero)
+        {
+            transform.rotation = Quaternion.LookRotation(lookDirection2, Vector3.up);
+        }
+    }
+    void Dashing()
+    {
+        if(Input.GetButtonDown("Dash") && isReadyToDash == true)
+        {
+            isReadyToDash = false;
+            isDashing = true;
+            StartCoroutine("DashTime");
+            Debug.Log("few");
+
+        }
+        if(isDashing == true)
+        {
+            float xInput = Input.GetAxis("Horizontal");
+            float yInput = Input.GetAxis("Vertical");
+            rb.velocity = new Vector3(xInput, 0f, yInput).normalized * dashSpeed;
+        }
+    }
+    IEnumerator DashTime()
+    {
+        yield return new WaitForSeconds(dashingTime);
+        isDashing = false;
+        yield return new WaitForSeconds(coolDown);
+        isReadyToDash = true;
+        StopCoroutine("DashTime");
+
     }
 }
