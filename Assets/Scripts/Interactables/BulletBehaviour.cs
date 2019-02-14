@@ -25,8 +25,11 @@ public class BulletBehaviour : MonoBehaviour
 
         rb = GetComponent<Rigidbody>();
         player = GameObject.FindGameObjectWithTag("Player");
-        
-        rb.velocity = new Vector3(Input.GetAxis("Horizontal2"), 0f, Input.GetAxis("Vertical2")).normalized * bulletSpeed;        
+
+        if (player.GetComponent<PlayerShoot>().enabled == true)
+        {
+            rb.velocity = new Vector3(Input.GetAxis("Horizontal2"), 0f, Input.GetAxis("Vertical2")).normalized * bulletSpeed;
+        }
         Destroy(this.gameObject, LifeTime);
 
         if(doubleSize == true)

@@ -26,7 +26,7 @@ public class PlayerShoot : MonoBehaviour
         if ((Input.GetAxisRaw("Horizontal2") != 0 || Input.GetAxisRaw("Vertical2") != 0) && time >= coolDown)
         {
             
-            rb.AddForce((transform.forward * -1) * recoilStrength, ForceMode.Impulse);
+           rb.AddForce((transform.forward * -1) * recoilStrength, ForceMode.Impulse);
            Instantiate(ref_bullet, transform.position, Quaternion.identity);
            canShootAgain = false;
            time = 0f;
