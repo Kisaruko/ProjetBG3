@@ -17,6 +17,7 @@ public class BulletBehaviour : MonoBehaviour
     public static bool destroyOnImpact = true;
     public float LifeTime;
     private GameObject player;
+    public int bulletDamage = 1;
 
     private void Start()
     {
@@ -45,12 +46,21 @@ public class BulletBehaviour : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag != "Player" && other.gameObject.tag != "Bullet" && other.gameObject.tag !="Gun")
+        if (other.gameObject.tag != "Player" && other.gameObject.tag != "Enemy")
         {
             Instantiate(ref_explode, transform.position, Quaternion.identity);
             if (destroyOnImpact == true)
             {
                Destroy(this.gameObject);
+            }
+        }
+        if(other.gameObject.CompareTag("Enemy"))
+        {
+            Instantiate(ref_explode, transform.position, Quaternion.identity);
+            other.GetComponent<EnemyLife>().LostLifePoint(bulletDamage);
+            if (destroyOnImpact == true)
+            {
+                Destroy(this.gameObject);
             }
         }
     }

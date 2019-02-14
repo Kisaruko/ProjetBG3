@@ -61,7 +61,6 @@ public class PlayerMovement : MonoBehaviour
             isReadyToDash = false;
             isDashing = true;
             StartCoroutine("DashTime");
-            Debug.Log("few");
 
         }
         if(isDashing == true)
