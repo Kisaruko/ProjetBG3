@@ -24,14 +24,8 @@ public class BulletBehaviour : MonoBehaviour
 
         rb = GetComponent<Rigidbody>();
         player = GameObject.FindGameObjectWithTag("Player");
-        if (player.GetComponent<Shoot>().shootWithJoystick == true)
-        {
-            rb.velocity = new Vector3(Input.GetAxis("Horizontal2"), 0f, Input.GetAxis("Vertical2")).normalized * bulletSpeed;
-        }
-        if (player.GetComponent<Shoot>().shootWithTrigger == true || player.GetComponent<Shoot>().shootWithTriggerAndJoystick == true)
-        {
-            rb.velocity = player.transform.forward.normalized * bulletSpeed;
-        }
+        
+        rb.velocity = new Vector3(Input.GetAxis("Horizontal2"), 0f, Input.GetAxis("Vertical2")).normalized * bulletSpeed;        
         Destroy(this.gameObject, LifeTime);
 
         if(doubleSize == true)

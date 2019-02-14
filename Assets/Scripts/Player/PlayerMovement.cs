@@ -35,8 +35,6 @@ public class PlayerMovement : MonoBehaviour
 
         if (xInput != 0 || yInput != 0 && isDashing == false)
         {
-            if (GetComponent<Shoot>().shootWithJoystick == true)
-            {
                 isMoving = true;
                 if (lookDirection2 == Vector3.zero)
                 {
@@ -44,7 +42,7 @@ public class PlayerMovement : MonoBehaviour
                 }
                 rb.velocity = new Vector3(xInput, 0f, yInput).normalized * moveSpeed;
 
-            }
+            
         }
         else
         {
