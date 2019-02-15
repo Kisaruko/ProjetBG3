@@ -193,12 +193,12 @@ GameObject:
   m_Component:
   - component: {fileID: 7180655237124408676}
   - component: {fileID: 7180655237124408677}
-  - component: {fileID: 7180655237124408674}
-  - component: {fileID: 724292923}
-  - component: {fileID: 724292917}
-  - component: {fileID: 724292918}
-  - component: {fileID: 724292919}
   - component: {fileID: 724292920}
+  - component: {fileID: 7180655237124408674}
+  - component: {fileID: 724292919}
+  - component: {fileID: 724292923}
+  - component: {fileID: 724292918}
+  - component: {fileID: 724292917}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -242,6 +242,19 @@ MonoBehaviour:
   dashingTime: 0.1
   coolDown: 0.2
   dashSpeed: 100
+--- !u!114 &724292920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7180655237124408675}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ce6117ba5702ee4eb72573225a1b4c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gravityScale: 50
 --- !u!54 &7180655237124408674
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -258,55 +271,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 2
---- !u!114 &724292923
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7180655237124408675}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a22c8a4fa3d566647b993df2f7c959fa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fxAttack: {fileID: 1749737620644416, guid: 50092502fedae254c860eb8bbfc73020, type: 3}
-  strength: 1
---- !u!114 &724292917
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7180655237124408675}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6867a492d832fdd4692eb79734acad53, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ref_bullet: {fileID: 6260880710944425492, guid: 6591ed834345e4f4cab6a404f3492896,
-    type: 3}
-  coolDown: 0.1
-  time: 1
-  rotationSpeed: 60
-  recoilStrength: 100
---- !u!114 &724292918
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7180655237124408675}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ec2381cd4271dc438901b4b11caa689, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  loadingTime: 0
-  loadedTime: 1
-  bullet: {fileID: 6260880710944425492, guid: 6591ed834345e4f4cab6a404f3492896, type: 3}
-  recoilStrength: 100
-  bulletSpeed: 100
 --- !u!114 &724292919
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -329,7 +293,7 @@ MonoBehaviour:
   lifeRegen: 5
   canShoot: 0
   canDash: 0
---- !u!114 &724292920
+--- !u!114 &724292923
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -338,7 +302,43 @@ MonoBehaviour:
   m_GameObject: {fileID: 7180655237124408675}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ce6117ba5702ee4eb72573225a1b4c9, type: 3}
+  m_Script: {fileID: 11500000, guid: a22c8a4fa3d566647b993df2f7c959fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gravityScale: 50
+  fxAttack: {fileID: 1749737620644416, guid: 50092502fedae254c860eb8bbfc73020, type: 3}
+  strength: 1
+--- !u!114 &724292918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7180655237124408675}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ec2381cd4271dc438901b4b11caa689, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  loadingTime: 0
+  loadedTime: 1
+  bullet: {fileID: 6260880710944425492, guid: 6591ed834345e4f4cab6a404f3492896, type: 3}
+  recoilStrength: 100
+  bulletSpeed: 100
+--- !u!114 &724292917
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7180655237124408675}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6867a492d832fdd4692eb79734acad53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ref_bullet: {fileID: 6260880710944425492, guid: 6591ed834345e4f4cab6a404f3492896,
+    type: 3}
+  coolDown: 0.1
+  time: 1
+  rotationSpeed: 60
+  recoilStrength: 100

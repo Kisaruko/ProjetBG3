@@ -13,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
     public float dashingTime;
     public float coolDown;
     public float dashSpeed;
+    Quaternion lastRotation;
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -32,7 +33,6 @@ public class PlayerMovement : MonoBehaviour
         Vector3 lookDirection = new Vector3(xInput,0f,yInput);
         Vector3 lookDirection2 = new Vector3(xInput2,0f,yInput2);
 
-
         if (xInput != 0 || yInput != 0 && isDashing == false)
         {
                 isMoving = true;
@@ -40,16 +40,20 @@ public class PlayerMovement : MonoBehaviour
                 {
                     transform.rotation = Quaternion.LookRotation(lookDirection, Vector3.up);
                 }
-                rb.velocity = new Vector3(xInput,0f, yInput).normalized * moveSpeed;     
+                rb.velocity = new Vector3(xInput,0f, yInput).normalized * moveSpeed;
+                lastRotation = transform.rotation;
         }
         else
         {
             isMoving = false;
             rb.velocity = Vector3.zero;
+            transform.rotation = lastRotation;
+            
         }
         if (lookDirection2 != Vector3.zero)
         {
             transform.rotation = Quaternion.LookRotation(lookDirection2, Vector3.up);
+            lastRotation = transform.rotation;
         }
     }
     void Dashing()
@@ -67,9 +71,7 @@ public class PlayerMovement : MonoBehaviour
         }
         if(isDashing == true)
         {
-            float xInput = Input.GetAxis("Horizontal");
-            float yInput = Input.GetAxis("Vertical");
-            rb.velocity = new Vector3(xInput, 0f, yInput).normalized * dashSpeed;
+            rb.velocity = transform.forward * dashSpeed;
         }
     }
     IEnumerator DashTime()
