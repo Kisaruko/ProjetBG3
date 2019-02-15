@@ -7,7 +7,6 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody rb;
     public bool isMoving = false;
     [SerializeField] float moveSpeed;
-    [SerializeField] Vector3 offset;
     public bool isDashing;
     public bool isReadyToDash;
     public float dashingTime;
