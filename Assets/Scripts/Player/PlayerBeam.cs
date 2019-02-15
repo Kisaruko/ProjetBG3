@@ -32,9 +32,13 @@ public class PlayerBeam : MonoBehaviour
         {
             if(loadingTime>= loadedTime)
             {
-                rb.AddForce((transform.forward * -1) * recoilStrength, ForceMode.Impulse);
-                GameObject clone = Instantiate(bullet, transform.position, Quaternion.identity);
-                clone.GetComponent<Rigidbody>().velocity = lastInput.normalized * bulletSpeed;
+                if (GetComponent<PlayerBehaviour>().canShoot == true)
+                {
+                    GetComponent<PlayerBehaviour>().UseLifeOnShoot();
+                    rb.AddForce((transform.forward * -1) * recoilStrength, ForceMode.Impulse);
+                    GameObject clone = Instantiate(bullet, transform.position, Quaternion.identity);
+                    clone.GetComponent<Rigidbody>().velocity = lastInput.normalized * bulletSpeed;
+                }
             }
             loadingTime = 0f;
         }

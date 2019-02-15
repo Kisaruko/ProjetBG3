@@ -12,64 +12,83 @@ public class PlayerBehaviour : MonoBehaviour
 
     [Header("Life Skills Attributes", order = 0)]
     [Space(10, order = 1)]
-    public float maxLifeToShoot;
+    public float minLifeToShoot;
     public float lifeUsageOnShoot;
     [Space(5, order = 2)]
-    public float maxLifeToDash;
+    public float minLifeToDash;
     public float lifeUsageOnDash;
     [Space(5, order = 3)]
     public float lifeRegen;
 
-    private bool canShoot;
-    private bool canDash;
+    public bool canShoot;
+    public bool canDash;
 
-    void Update()
+    private void Start()
     {
+        currentLife = maxLife;
         CheckIfPlayerCanUseSkills();
 
-        //Regenerate player life
-        if(Input.GetMouseButtonDown(0))
-        {
-            if(currentLife < maxLife && currentLife > minLife)
+    }
+    public void RegenLifeOnCac()
+    {
+            if (currentLife < maxLife && currentLife > minLife)
             {
                 currentLife += lifeRegen;
-            }
-        }
+                if(currentLife > maxLife)
+                {
+                    currentLife = maxLife;
+                }
+                if(currentLife< minLife)
+                {
+                  currentLife = minLife;
+                }
 
+            }
+        CheckIfPlayerCanUseSkills();
+
+    }
+    public void UseLifeOnShoot()
+    {
+        CheckIfPlayerCanUseSkills();
         //Use X% of player maxLife
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            if(canShoot)
+        if (canShoot)
             {
                 currentLife -= lifeUsageOnShoot;
-            }
-        }
+                CheckIfPlayerCanUseSkills();
 
+        }
+    }
+    public void UseLifeOnDash()
+    {
+        CheckIfPlayerCanUseSkills();
         //Use X% of player maxLife
-        if (Input.GetMouseButtonDown(1))
-        {
-            if(canDash)
+            if (canDash)
             {
                 currentLife -= lifeUsageOnDash;
-            }
+                CheckIfPlayerCanUseSkills();
+
         }
 
-        currentLife = Mathf.Round(currentLife);
     }
-
     private void CheckIfPlayerCanUseSkills()
     {
-        if (currentLife < maxLifeToDash && currentLife > minLife)
+        if (currentLife < minLifeToDash && currentLife > minLife)
         {
             canDash = false;
         }
         else
+        {
             canDash = true;
-        if (currentLife < maxLifeToShoot && currentLife > minLife)
+        }
+
+        if (currentLife < minLifeToShoot && currentLife > minLife)
         {
             canShoot = false;
         }
         else
+        {
             canShoot = true;
+        }
+
     }
 }

@@ -40,7 +40,7 @@ public class PlayerMovement : MonoBehaviour
                 {
                     transform.rotation = Quaternion.LookRotation(lookDirection, Vector3.up);
                 }
-                rb.velocity = new Vector3(xInput, 0f, yInput).normalized * moveSpeed;     
+                rb.velocity = new Vector3(xInput,0f, yInput).normalized * moveSpeed;     
         }
         else
         {
@@ -54,11 +54,15 @@ public class PlayerMovement : MonoBehaviour
     }
     void Dashing()
     {
-        if(Input.GetButtonDown("Dash") && isReadyToDash == true)
+        if(Input.GetButtonDown("Dash") && isReadyToDash == true )
         {
-            isReadyToDash = false;
-            isDashing = true;
-            StartCoroutine("DashTime");
+            if (GetComponent<PlayerBehaviour>().canDash == true)
+            {
+                GetComponent<PlayerBehaviour>().UseLifeOnDash();
+                isReadyToDash = false;
+                isDashing = true;
+                StartCoroutine("DashTime");
+            }
 
         }
         if(isDashing == true)

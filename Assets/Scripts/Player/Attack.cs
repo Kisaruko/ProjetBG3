@@ -16,6 +16,7 @@ public class Attack : MonoBehaviour
             {
                 if (hitcol.gameObject.tag == "Enemy")
                 {
+                    GetComponent<PlayerBehaviour>().RegenLifeOnCac();
                     hitcol.gameObject.GetComponent<EnemyLife>().LostLifePoint(strength);
                 }
             }
