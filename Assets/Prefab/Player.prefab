@@ -86,7 +86,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7180655236366214205}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -102,7 +102,7 @@ GameObject:
   - component: {fileID: 7180655237011717778}
   - component: {fileID: 7180655237011717779}
   - component: {fileID: 7180655237011717776}
-  - component: {fileID: 440220649}
+  - component: {fileID: 7180655237011717777}
   m_Layer: 0
   m_Name: Body
   m_TagString: Player
@@ -119,7 +119,7 @@ Transform:
   m_GameObject: {fileID: 7180655237011717774}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1.7, z: 1}
   m_Children: []
   m_Father: {fileID: 7180655237124408676}
   m_RootOrder: 0
@@ -131,7 +131,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7180655237011717774}
-  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &7180655237011717776
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -169,8 +169,8 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!136 &440220649
-CapsuleCollider:
+--- !u!65 &7180655237011717777
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -179,9 +179,8 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7180655237124408675
 GameObject:
@@ -195,10 +194,7 @@ GameObject:
   - component: {fileID: 7180655237124408677}
   - component: {fileID: 7180655237124408674}
   - component: {fileID: 724292923}
-  - component: {fileID: 724292917}
-  - component: {fileID: 724292918}
-  - component: {fileID: 724292919}
-  - component: {fileID: 724292920}
+  - component: {fileID: 6039547160184210977}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -235,13 +231,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isMoving: 0
-  moveSpeed: 30
+  moveSpeed: 500
   offset: {x: 0, y: 0, z: 0}
   isDashing: 0
-  isReadyToDash: 1
-  dashingTime: 0.1
-  coolDown: 0.2
-  dashSpeed: 100
+  isReadyToDash: 0
+  dashingTime: 0
+  coolDown: 0
+  dashSpeed: 0
 --- !u!54 &7180655237124408674
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -253,11 +249,11 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 0
+  m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 80
-  m_CollisionDetection: 2
+  m_CollisionDetection: 0
 --- !u!114 &724292923
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -272,25 +268,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fxAttack: {fileID: 1749737620644416, guid: 50092502fedae254c860eb8bbfc73020, type: 3}
   strength: 1
---- !u!114 &724292917
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7180655237124408675}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6867a492d832fdd4692eb79734acad53, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ref_bullet: {fileID: 6260880710944425492, guid: 6591ed834345e4f4cab6a404f3492896,
-    type: 3}
-  coolDown: 0.1
-  time: 1
-  rotationSpeed: 60
-  recoilStrength: 100
---- !u!114 &724292918
+--- !u!114 &6039547160184210977
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -299,46 +277,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 7180655237124408675}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ec2381cd4271dc438901b4b11caa689, type: 3}
+  m_Script: {fileID: 11500000, guid: 09d526d688a2dab4eae9833dc987acad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  loadingTime: 0
-  loadedTime: 1
-  bullet: {fileID: 6260880710944425492, guid: 6591ed834345e4f4cab6a404f3492896, type: 3}
-  recoilStrength: 100
-  bulletSpeed: 100
---- !u!114 &724292919
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7180655237124408675}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74d98df80ee2da74e85ea6df6b432142, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentLife: 0
-  maxLife: 100
-  minLife: 0
-  minLifeToShoot: 18
-  lifeUsageOnShoot: 15
-  minLifeToDash: 3
-  lifeUsageOnDash: 2
-  lifeRegen: 5
-  canShoot: 0
-  canDash: 0
---- !u!114 &724292920
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7180655237124408675}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ce6117ba5702ee4eb72573225a1b4c9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gravityScale: 50
+  itemsList: []
+  itemPositionWhenPickup: {x: 100, y: 100, z: 100}
