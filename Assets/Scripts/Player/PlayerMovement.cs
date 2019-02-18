@@ -39,16 +39,17 @@ public class PlayerMovement : MonoBehaviour
                 {
                     transform.rotation = Quaternion.LookRotation(lookDirection, Vector3.up);
                 }
-                rb.velocity = new Vector3(xInput,0f, yInput).normalized * moveSpeed;
+                rb.velocity = new Vector3(xInput,0f, yInput) * moveSpeed;
                 lastRotation = transform.rotation;
         }
+
         else
         {
             isMoving = false;
             rb.velocity = Vector3.zero;
             transform.rotation = lastRotation;
-            
         }
+
         if (lookDirection2 != Vector3.zero)
         {
             transform.rotation = Quaternion.LookRotation(lookDirection2, Vector3.up);
