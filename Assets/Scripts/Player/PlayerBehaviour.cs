@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class PlayerBehaviour : MonoBehaviour
 {
@@ -33,7 +34,6 @@ public class PlayerBehaviour : MonoBehaviour
         lantern = GetComponentInChildren<Light>();
         currentLife = maxLife;
         CheckIfPlayerCanUseSkills();
-
     }
 
     public void RegenLifeOnCac()
@@ -41,6 +41,7 @@ public class PlayerBehaviour : MonoBehaviour
         if (currentLife < maxLife && currentLife > minLife)
         {
             currentLife += lifeRegen;
+            DOTween.To(() => lantern.intensity, x => lantern.intensity = x, lantern.intensity + lightRegen, .2f);
             lantern.intensity += lightRegen;
             if (currentLife > maxLife)
             {
@@ -62,7 +63,8 @@ public class PlayerBehaviour : MonoBehaviour
         if (canShoot)
         {
             currentLife -= lifeUsageOnShoot;
-            lantern.intensity -= lightUsageOnShoot;
+            DOTween.To(() => lantern.intensity, x => lantern.intensity = x, lantern.intensity + 300f, 0.2f);
+            DOTween.To(() => lantern.intensity, x => lantern.intensity = x, lantern.intensity - lightUsageOnShoot, .5f);
             CheckIfPlayerCanUseSkills();
 
         }
@@ -74,7 +76,7 @@ public class PlayerBehaviour : MonoBehaviour
         if (canDash)
         {
             currentLife -= lifeUsageOnDash;
-            lantern.intensity -= lightUsageOnDash;
+            DOTween.To(() => lantern.intensity, x => lantern.intensity = x, lantern.intensity - lightUsageOnDash, .5f);
             CheckIfPlayerCanUseSkills();
 
         }
