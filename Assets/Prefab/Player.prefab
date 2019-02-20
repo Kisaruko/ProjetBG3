@@ -42,7 +42,7 @@ Light:
   serializedVersion: 8
   m_Type: 2
   m_Color: {r: 1, g: 0, b: 0, a: 1}
-  m_Intensity: 1
+  m_Intensity: 100
   m_Range: 10
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -306,7 +306,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isMoving: 0
-  moveSpeed: 35
+  moveSpeed: 20
   isDashing: 0
   isReadyToDash: 1
   dashingTime: 0.2
@@ -372,12 +372,12 @@ MonoBehaviour:
   minLife: 0
   minLifeToShoot: 18
   lifeUsageOnShoot: 15
-  lightUsageOnShoot: 0
+  lightUsageOnShoot: 15
   minLifeToDash: 2
   lifeUsageOnDash: 2
-  lightUsageOnDash: 0
+  lightUsageOnDash: 2
   lifeRegen: 5
-  lightRegen: 0
+  lightRegen: 5
   canShoot: 0
   canDash: 0
 --- !u!114 &724292923
