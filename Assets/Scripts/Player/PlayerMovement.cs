@@ -13,6 +13,9 @@ public class PlayerMovement : MonoBehaviour
     public float coolDown;
     public float dashSpeed;
     Quaternion lastRotation;
+    public bool isRecoiling = false;
+    public float recoilDuration;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -32,33 +35,36 @@ public class PlayerMovement : MonoBehaviour
         Vector3 lookDirection = new Vector3(xInput,0f,yInput);
         Vector3 lookDirection2 = new Vector3(xInput2,0f,yInput2);
 
-        if (xInput != 0 || yInput != 0 && isDashing == false)
+        if (isRecoiling == false)
         {
+            if (xInput != 0 || yInput != 0 && isDashing == false)
+            {
                 isMoving = true;
                 if (lookDirection2 == Vector3.zero)
                 {
                     transform.rotation = Quaternion.LookRotation(lookDirection, Vector3.up);
                 }
-                rb.velocity = new Vector3(xInput,0f, yInput) * moveSpeed;
+                rb.velocity = new Vector3(xInput, 0f, yInput) * moveSpeed;
                 lastRotation = transform.rotation;
-        }
+            }
 
-        else
-        {
-            isMoving = false;
-            rb.velocity = Vector3.zero;
-            transform.rotation = lastRotation;
-        }
+            else
+            {
+                isMoving = false;
+                rb.velocity = Vector3.zero;
+                transform.rotation = lastRotation;
+            }
 
-        if (lookDirection2 != Vector3.zero)
-        {
-            transform.rotation = Quaternion.LookRotation(lookDirection2, Vector3.up);
-            lastRotation = transform.rotation;
+            if (lookDirection2 != Vector3.zero)
+            {
+                transform.rotation = Quaternion.LookRotation(lookDirection2, Vector3.up);
+                lastRotation = transform.rotation;
+            }
         }
     }
     void Dashing()
     {
-        if(Input.GetButtonDown("Dash") && isReadyToDash == true )
+        if(Input.GetButtonDown("Dash") && isReadyToDash == true && isRecoiling == false)
         {
             if (GetComponent<PlayerBehaviour>().canDash == true)
             {
@@ -81,6 +87,24 @@ public class PlayerMovement : MonoBehaviour
         yield return new WaitForSeconds(coolDown);
         isReadyToDash = true;
         StopCoroutine("DashTime");
-
     }
+
+    public void Recoil(Transform enemy, float recoilSpeed)
+    {
+        if (GetComponent<PlayerBehaviour>().isInvicible == false)
+        {
+            isRecoiling = true;
+            Vector3 recoilDirection = (enemy.position - transform.position).normalized;
+            rb.velocity = (recoilDirection * recoilSpeed) * -1;
+            StartCoroutine("RecoilTime");
+        }
+    }
+    IEnumerator RecoilTime()
+    {
+       yield return new WaitForSeconds(recoilDuration);
+        isRecoiling = false;
+        StopCoroutine("RecoilTime");
+       
+    }
+
 }

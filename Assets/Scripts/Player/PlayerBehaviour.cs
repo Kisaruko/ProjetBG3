@@ -10,6 +10,8 @@ public class PlayerBehaviour : MonoBehaviour
     public float currentLife;
     public float maxLife;
     public float minLife;
+    public bool isInvicible;
+    public float invincibleDuration;
 
     [Header("Life Skills Attributes", order = 0)]
     [Space(10, order = 1)]
@@ -23,10 +25,8 @@ public class PlayerBehaviour : MonoBehaviour
     [Space(5, order = 3)]
     public float lifeRegen;
     public float lightRegen;
-
     public bool canShoot;
     public bool canDash;
-
     private Light lantern;
 
     private void Start()
@@ -101,6 +101,21 @@ public class PlayerBehaviour : MonoBehaviour
         {
             canShoot = true;
         }
-
+        
+    }
+    public void TakeHit(int damage)
+    {
+        if (isInvicible == false)
+        {
+            currentLife -= damage;
+            isInvicible = true;
+            StartCoroutine("InvicibleTime");
+        }
+    }
+    IEnumerator InvicibleTime()
+    {
+        yield return new WaitForSeconds(invincibleDuration);
+        isInvicible = false;
+        StopCoroutine("InvincibleTime");
     }
 }

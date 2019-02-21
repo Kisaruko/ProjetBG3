@@ -10,8 +10,8 @@ public class EnemyBehaviour : MonoBehaviour
     private GameObject player;
     private float minDistanceToAttack =3f;
     public float attackRange;
-    public float stength;
-
+    public int strength;
+    public float recoilInflincted;
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
@@ -31,7 +31,7 @@ public class EnemyBehaviour : MonoBehaviour
     {
         float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
         if (minDistanceToAttack > distanceToPlayer && playerIsInRange == true)
-        {
+        { 
             playerIsInRange = false;
             StartCoroutine("Attacking");
         }
@@ -39,18 +39,17 @@ public class EnemyBehaviour : MonoBehaviour
     IEnumerator Attacking()
     {
         yield return new WaitForSeconds(0.5f);
-        foreach (Collider hitcol in Physics.OverlapSphere(transform.position + transform.forward, 1f))
+        foreach (Collider hitcol in Physics.OverlapSphere(transform.position + transform.forward, attackRange))
         {
             if (hitcol.gameObject.tag == "Player")
             {
-               // hitcol.gameObject.GetComponent<PlayerBehaviour>().LostLifePoint(strength);
+                player.GetComponent<PlayerMovement>().Recoil(transform, recoilInflincted);
+                player.GetComponent<PlayerBehaviour>().TakeHit(strength);
+
             }
-        }
-    
+        }    
         Debug.Log("Attack!!");
         yield return new WaitForSeconds(1f);
         playerIsInRange = true;
-        
-
     }
 }

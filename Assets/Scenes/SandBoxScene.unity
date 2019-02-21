@@ -224,6 +224,11 @@ PrefabInstance:
       propertyPath: isBehindWall
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3757883784052550090, guid: 61959929ca4fdd6438a1f92f1f26e75a,
+        type: 3}
+      propertyPath: target
+      value: 
+      objectReference: {fileID: 1233759544}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 61959929ca4fdd6438a1f92f1f26e75a, type: 3}
 --- !u!1 &242664351
@@ -323,7 +328,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh12140
+  m_Name: pb_Mesh15040
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -1278,6 +1283,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 75}
+--- !u!4 &1233759544 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7180655237124408676, guid: a3c1d6cf401a08740bf1df56e38ced20,
+    type: 3}
+  m_PrefabInstance: {fileID: 7180655237628818465}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1483042185
 GameObject:
   m_ObjectHideFlags: 0
@@ -1532,6 +1543,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4761251568013390898, guid: 0fc7d5446df41204fbe40a4aea0ec0ef,
+        type: 3}
+      propertyPath: strength
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4761251568013390898, guid: 0fc7d5446df41204fbe40a4aea0ec0ef,
+        type: 3}
+      propertyPath: attackRange
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4761251568013390898, guid: 0fc7d5446df41204fbe40a4aea0ec0ef,
+        type: 3}
+      propertyPath: recoilInflincted
+      value: 45
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0fc7d5446df41204fbe40a4aea0ec0ef, type: 3}
 --- !u!1001 &7180655237628818465
@@ -1616,10 +1642,25 @@ PrefabInstance:
       propertyPath: coolDown
       value: 0.15
       objectReference: {fileID: 0}
+    - target: {fileID: 7180655237124408677, guid: a3c1d6cf401a08740bf1df56e38ced20,
+        type: 3}
+      propertyPath: recoilDuration
+      value: 0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 7180655237124408674, guid: a3c1d6cf401a08740bf1df56e38ced20,
         type: 3}
       propertyPath: m_CollisionDetection
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8237557225746929092, guid: a3c1d6cf401a08740bf1df56e38ced20,
+        type: 3}
+      propertyPath: invincibleDuration
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7180655236366214207, guid: a3c1d6cf401a08740bf1df56e38ced20,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a3c1d6cf401a08740bf1df56e38ced20, type: 3}
