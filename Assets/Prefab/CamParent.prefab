@@ -91,7 +91,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6913696441364486494}
-  - component: {fileID: 6913696441364486495}
+  - component: {fileID: 3757883784052550090}
   m_Layer: 0
   m_Name: CamParent
   m_TagString: Untagged
@@ -106,15 +106,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6913696441364486493}
-  m_LocalRotation: {x: 0.08715578, y: 0, z: 0, w: 0.9961947}
-  m_LocalPosition: {x: 0, y: 20.53, z: -3.96}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6913696441118821654}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 10, y: 0, z: 0}
---- !u!114 &6913696441364486495
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3757883784052550090
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -123,15 +123,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 6913696441364486493}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7fed9784f23ed9c418a96d2096920f5e, type: 3}
+  m_Script: {fileID: 11500000, guid: 60ab74a304a6b744e8c0bd1793dae9a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  followTarget: 1
-  smoothSpeed: 0.025
-  offset: {x: 0, y: 20, z: -12}
-  isBehindWall: 0
-  maxRange: 20
-  behindWallPos: {x: 0, y: 20, z: -7}
-  xRotation: 60
-  xCameraPosOffset: 0
-  zCameraPosOffset: 0
+  target: {fileID: 0}
+  camHeight: 20
+  camDistance: 10
+  camAngle: 0
+  xCamRotation: 60
+  smoothSpeed: 0.5
