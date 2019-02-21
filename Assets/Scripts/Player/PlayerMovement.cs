@@ -6,7 +6,7 @@ public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody rb;
     public bool isMoving = false;
-    [SerializeField] float moveSpeed;
+    public float moveSpeed;
     public bool isDashing;
     public bool isReadyToDash;
     public float dashingTime;
@@ -93,10 +93,12 @@ public class PlayerMovement : MonoBehaviour
     {
         if (GetComponent<PlayerBehaviour>().isInvicible == false)
         {
+            transform.rotation = lastRotation;
             isRecoiling = true;
             Vector3 recoilDirection = (enemy.position - transform.position).normalized;
             rb.velocity = (recoilDirection * recoilSpeed) * -1;
             StartCoroutine("RecoilTime");
+
         }
     }
     IEnumerator RecoilTime()

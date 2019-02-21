@@ -48,7 +48,6 @@ public class EnemyBehaviour : MonoBehaviour
 
             }
         }    
-        Debug.Log("Attack!!");
         yield return new WaitForSeconds(1f);
         playerIsInRange = true;
     }

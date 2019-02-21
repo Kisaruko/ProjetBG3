@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Shoot : MonoBehaviour
 {
-    public GameObject ref_bullet;
+ /*   public GameObject ref_bullet;
     private bool canShootAgain = true;
     public float coolDown =0.1f;
     public float time = 1f;
@@ -62,6 +62,6 @@ public class Shoot : MonoBehaviour
             canShootAgain = true;
         }
         
-    }
+    }*/
 
 }

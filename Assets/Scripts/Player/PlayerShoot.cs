@@ -6,7 +6,7 @@ public class PlayerShoot : MonoBehaviour
 
 {
     public GameObject ref_bullet;
-    private bool canShootAgain = true;
+ //   private bool canShootAgain = true;
     public float coolDown = 0.1f;
     public float time = 1f;
     public float recoilStrength;
@@ -29,7 +29,7 @@ public class PlayerShoot : MonoBehaviour
                 GetComponent<PlayerBehaviour>().UseLifeOnShoot();
                 rb.AddForce((transform.forward * -1) * recoilStrength, ForceMode.Impulse);
                 Instantiate(ref_bullet, transform.position, Quaternion.identity);
-                canShootAgain = false;
+         //       canShootAgain = false;
                 time = 0f;
             }
         }
@@ -41,7 +41,7 @@ public class PlayerShoot : MonoBehaviour
 
         if (time > coolDown)
         {
-            canShootAgain = true;
+            //canShootAgain = true;
         }
 
     }

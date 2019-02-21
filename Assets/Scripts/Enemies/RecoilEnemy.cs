@@ -8,7 +8,6 @@ public class RecoilEnemy : MonoBehaviour
     public float recoilVelocity;
     private Rigidbody rb;
     public float recoilTime;
-    private bool hasBeenHit;
     private MeshRenderer mesh;
 
     void Start()
@@ -20,8 +19,7 @@ public class RecoilEnemy : MonoBehaviour
     public void TakeHit()
     {
         GetComponent<EnemyBehaviour>().playerIsInRange = false;
-        StartCoroutine(Blink(1.0f));
-        hasBeenHit = true;
+        StartCoroutine(Blink(1.0f));;
         player = GameObject.FindGameObjectWithTag("Player");
         Vector3 recoilDirection = transform.position - player.transform.position;
         rb.velocity = recoilDirection * recoilVelocity;
@@ -30,7 +28,6 @@ public class RecoilEnemy : MonoBehaviour
     IEnumerator RecoilTime()
     {
         yield return new WaitForSeconds(recoilTime);
-        hasBeenHit = false;
         GetComponent<EnemyBehaviour>().playerIsInRange = true;
         StopCoroutine("RecoilTime");
     }

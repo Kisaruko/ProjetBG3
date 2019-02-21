@@ -8,8 +8,6 @@ public class BulletBehaviour : MonoBehaviour
     public float bulletSpeed = 50f;
     private Rigidbody rb;
     public GameObject ref_explode;
-    private float frequency = 20f;
-    private float magnitude = 0.5f;
     private Vector3 axis;
     private Vector3 pos;
     public float LifeTime;

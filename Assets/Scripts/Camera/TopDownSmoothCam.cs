@@ -6,14 +6,14 @@ public class TopDownSmoothCam : MonoBehaviour
 {
     public bool followTarget = true;
     private GameObject target;
-    [SerializeField] float smoothSpeed = 0.0125f;
-    [SerializeField] Vector3 offset;
+    public float smoothSpeed = 0.0125f;
+    public Vector3 offset;
     private RaycastHit hit;
     public bool isBehindWall;
     public float maxRange = 2.0f;
     private Vector3 baseOffset;
     public Vector3 behindWallPos;
-    [SerializeField] float xRotation;
+    public float xRotation;
     [Header("Camera Positioning")]
     private Vector3 targetDirection;
     public float xCameraPosOffset;
