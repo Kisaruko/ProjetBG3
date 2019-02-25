@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class CameraBehaviour : MonoBehaviour
 {
+    #region Variables
     public Transform target;
     public float camHeight = 10f;
     public float camDistance = 20f;
     public float camAngle = 60f;
     public float xCamRotation = 60f;
     public float smoothSpeed = 0.5f;
-
+    
     private Vector3 refVelocity;
+    #endregion
 
-
-
-    // Start is called before the first frame update
+    #region Main Methods
     void Start()
     {
         HandleCamera();
@@ -25,7 +25,9 @@ public class CameraBehaviour : MonoBehaviour
     {
         HandleCamera();
     }
+    #endregion
 
+    #region Custom Methods
     protected virtual void HandleCamera()
     {
         if (!target)
@@ -52,12 +54,14 @@ public class CameraBehaviour : MonoBehaviour
         transform.rotation = Quaternion.Euler(new Vector3(xCamRotation, 0f, 0f));
 
     }
+    #endregion
 
     private void OnDrawGizmos()
     {
         Gizmos.color = new Color(0f, 1f, 0f, 0.25f);
         if (target)
         {
+            //Draw a line from the camera to the target and draw a sphere to both objects
             Gizmos.DrawLine(transform.position, target.position);
             Gizmos.DrawSphere(target.position, 1.5f);
         }
