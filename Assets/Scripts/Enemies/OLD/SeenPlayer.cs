@@ -6,9 +6,9 @@ public class SeenPlayer : MonoBehaviour
 {
     void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag == "Player")
+        if(other.gameObject.CompareTag("Player")) // si le joueur entre en collision avec cet objet
         {
-            GetComponentInParent<EnemyBehaviour>().playerIsInRange = true;
+            GetComponentInParent<EnemyBehaviour>().playerIsInRange = true; // l'ennemi a vu le joueur
         }
     }
 
