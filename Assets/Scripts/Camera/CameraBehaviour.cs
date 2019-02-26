@@ -8,7 +8,7 @@ public class CameraBehaviour : MonoBehaviour
     public Transform target;
     public float camHeight = 10f;
     public float camDistance = 20f;
-    public float camAngle = 60f;
+    public float camAngle = 0f;
     public float xCamRotation = 60f;
     public float smoothSpeed = 0.5f;
     
