@@ -11,6 +11,8 @@ public class CameraBehaviour : MonoBehaviour
     public float camAngle = 0f;
     public float xCamRotation = 60f;
     public float smoothSpeed = 0.5f;
+
+    public bool followTarget;
     
     private Vector3 refVelocity;
     #endregion

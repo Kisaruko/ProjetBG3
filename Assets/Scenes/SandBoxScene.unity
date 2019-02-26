@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4498875, g: 0.49994814, b: 0.57557154, a: 1}
+  m_IndirectSpecularColor: {r: 0.44988698, g: 0.49994743, b: 0.575571, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -284,6 +284,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: CamParent
       objectReference: {fileID: 0}
+    - target: {fileID: 6913696441364486493, guid: 61959929ca4fdd6438a1f92f1f26e75a,
+        type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000,
+        type: 0}
     - target: {fileID: 6913696441364486494, guid: 61959929ca4fdd6438a1f92f1f26e75a,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -339,6 +345,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3757883784052550090, guid: 61959929ca4fdd6438a1f92f1f26e75a,
+        type: 3}
+      propertyPath: target
+      value: 
+      objectReference: {fileID: 1233759544}
+    - target: {fileID: 3757883784052550090, guid: 61959929ca4fdd6438a1f92f1f26e75a,
+        type: 3}
+      propertyPath: camDistance
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 6913696441364486495, guid: 61959929ca4fdd6438a1f92f1f26e75a,
         type: 3}
       propertyPath: xRotation
@@ -383,16 +399,6 @@ PrefabInstance:
         type: 3}
       propertyPath: isBehindWall
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3757883784052550090, guid: 61959929ca4fdd6438a1f92f1f26e75a,
-        type: 3}
-      propertyPath: target
-      value: 
-      objectReference: {fileID: 1233759544}
-    - target: {fileID: 3757883784052550090, guid: 61959929ca4fdd6438a1f92f1f26e75a,
-        type: 3}
-      propertyPath: camDistance
-      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 61959929ca4fdd6438a1f92f1f26e75a, type: 3}
@@ -1611,11 +1617,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 5932710067458847871, guid: a3c1d6cf401a08740bf1df56e38ced20,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7180655237124408676, guid: a3c1d6cf401a08740bf1df56e38ced20,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1671,11 +1672,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7125780571477410717, guid: a3c1d6cf401a08740bf1df56e38ced20,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7180655237124408677, guid: a3c1d6cf401a08740bf1df56e38ced20,
         type: 3}
       propertyPath: dashingTime
@@ -1716,9 +1712,44 @@ PrefabInstance:
       propertyPath: minLifeToDash
       value: 2.1
       objectReference: {fileID: 0}
+    - target: {fileID: 724292923, guid: a3c1d6cf401a08740bf1df56e38ced20, type: 3}
+      propertyPath: fxAttack
+      value: 
+      objectReference: {fileID: 829196638602730265, guid: 2aed405ccf01a8040ac1f209491d9ddc,
+        type: 3}
+    - target: {fileID: 724292923, guid: a3c1d6cf401a08740bf1df56e38ced20, type: 3}
+      propertyPath: range
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2760558132870874611, guid: a3c1d6cf401a08740bf1df56e38ced20,
+        type: 3}
+      propertyPath: loadingFx
+      value: 
+      objectReference: {fileID: 1455115025}
+    - target: {fileID: 2760558132870874611, guid: a3c1d6cf401a08740bf1df56e38ced20,
+        type: 3}
+      propertyPath: loadedFx
+      value: 
+      objectReference: {fileID: 9146908943192436300, guid: eeda18a0544cb684da0e6a0bdecdc0e2,
+        type: 3}
+    - target: {fileID: 9051084610870082688, guid: a3c1d6cf401a08740bf1df56e38ced20,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7180655236366214207, guid: a3c1d6cf401a08740bf1df56e38ced20,
         type: 3}
       propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5932710067458847871, guid: a3c1d6cf401a08740bf1df56e38ced20,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7125780571477410717, guid: a3c1d6cf401a08740bf1df56e38ced20,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5932710067458847865, guid: a3c1d6cf401a08740bf1df56e38ced20,
@@ -1751,35 +1782,10 @@ PrefabInstance:
       propertyPath: InitialModule.startLifetime.minScalar
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 724292923, guid: a3c1d6cf401a08740bf1df56e38ced20, type: 3}
-      propertyPath: fxAttack
-      value: 
-      objectReference: {fileID: 829196638602730265, guid: 2aed405ccf01a8040ac1f209491d9ddc,
-        type: 3}
-    - target: {fileID: 724292923, guid: a3c1d6cf401a08740bf1df56e38ced20, type: 3}
-      propertyPath: range
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2760558132870874611, guid: a3c1d6cf401a08740bf1df56e38ced20,
-        type: 3}
-      propertyPath: loadingFx
-      value: 
-      objectReference: {fileID: 1455115025}
-    - target: {fileID: 2760558132870874611, guid: a3c1d6cf401a08740bf1df56e38ced20,
-        type: 3}
-      propertyPath: loadedFx
-      value: 
-      objectReference: {fileID: 9146908943192436300, guid: eeda18a0544cb684da0e6a0bdecdc0e2,
-        type: 3}
     - target: {fileID: 7125780571477410707, guid: a3c1d6cf401a08740bf1df56e38ced20,
         type: 3}
       propertyPath: EmissionModule.enabled
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9051084610870082688, guid: a3c1d6cf401a08740bf1df56e38ced20,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a3c1d6cf401a08740bf1df56e38ced20, type: 3}

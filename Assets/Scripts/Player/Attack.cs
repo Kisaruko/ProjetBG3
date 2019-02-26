@@ -4,15 +4,27 @@ using UnityEngine;
 
 public class Attack : MonoBehaviour
 {
+    #region Variables
     public GameObject fxAttack;
     public int strength;
     public float range;
+    #endregion
+
+
+    #region Main Methods
+    private void Update()
+    {
+        DoAttack();
+    }
+    #endregion
+
+    #region Custom Methods
     void DoAttack()
     {
         if (Input.GetButtonDown("Fire1")) // Si le joueur appuie sur l'input d'attack
         {
             Instantiate(fxAttack, transform.position + transform.forward, Quaternion.identity); // Instantier le fx d'attaque
-            foreach (Collider hitcol in Physics.OverlapSphere(transform.position+ transform.forward, range)) // Crée une sphère devant le joueur de radius range
+            foreach (Collider hitcol in Physics.OverlapSphere(transform.position + transform.forward, range)) // Crée une sphère devant le joueur de radius range
             {
                 if (hitcol.gameObject.tag == "Enemy") // pour chaque ennemi dans la sphere
                 {
@@ -22,8 +34,5 @@ public class Attack : MonoBehaviour
             }
         }
     }
-    private void Update()
-    {
-        DoAttack();
-    }
+    #endregion
 }

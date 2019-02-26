@@ -26,18 +26,18 @@ public class PlayerBeam : MonoBehaviour
     }
     void ShootBeam()
     {
-        float xInput = Input.GetAxis("Horizontal2"); 
+        float xInput = Input.GetAxis("Horizontal2");
         float yInput = Input.GetAxis("Vertical2");
-        if (xInput != 0 || yInput!= 0) // si le joueur touche le joystick droit
+        if (xInput != 0 || yInput != 0) // si le joueur touche le joystick droit
         {
             loadingTime += Time.deltaTime; // augmente le temps de load en fonction du temps
-            lastInput  = new Vector3(xInput, 0f, yInput); // garde le dernier input en mémoire pour garder la rotation 
+            lastInput = new Vector3(xInput, 0f, yInput); // garde le dernier input en mémoire pour garder la rotation 
             isLoading = true; // le joueur est en train de load un tir
             SfxCheck(); // dois-je instantier des fx?
         }
         else
         {
-            if(loadingTime>= loadedTime) // si le joueur ne touche pas le joystick est-ce que le joueur a suffisament chargé pour tirer?
+            if (loadingTime >= loadedTime) // si le joueur ne touche pas le joystick est-ce que le joueur a suffisament chargé pour tirer?
             {
                 if (GetComponent<PlayerBehaviour>().canShoot == true)// check si le joueur a assez de lumière pour tirer
                 {
@@ -56,7 +56,7 @@ public class PlayerBeam : MonoBehaviour
     }
     void SfxCheck()
     {
-        if(isLoading == true&& GetComponent<PlayerBehaviour>().canShoot == true) // si je peux tirer
+        if (isLoading == true && GetComponent<PlayerBehaviour>().canShoot == true) // si je peux tirer
         {
             loadingFx.SetActive(true); // activer le fx de load
         }
@@ -65,12 +65,12 @@ public class PlayerBeam : MonoBehaviour
             loadingFx.SetActive(false); // desactiver le fx de load
 
         }
-        if (loadingTime >= loadedTime && alreadyInstantiate== false&& GetComponent<PlayerBehaviour>().canShoot == true) //si le tir est chargé et que le joueur peut tirer
+        if (loadingTime >= loadedTime && alreadyInstantiate == false && GetComponent<PlayerBehaviour>().canShoot == true) //si le tir est chargé et que le joueur peut tirer
         {
-            Instantiate(loadedFx, transform.position, Quaternion.EulerAngles(45f,0f,0f)); //j'instantie le fx qui prévient que le tir est chargé
+            Instantiate(loadedFx, transform.position, Quaternion.Euler(45f, 0f, 0f)); //j'instantie le fx qui prévient que le tir est chargé
             alreadyInstantiate = true; // le fx a déjà été instantié
         }
 
     }
-} 
+}
 
