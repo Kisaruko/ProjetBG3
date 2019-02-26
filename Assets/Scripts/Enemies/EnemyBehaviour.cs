@@ -14,41 +14,41 @@ public class EnemyBehaviour : MonoBehaviour
     public float recoilInflincted;
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
+        player = GameObject.FindGameObjectWithTag("Player"); 
         rb = GetComponent<Rigidbody>();
     }
     private void FixedUpdate()
     {
-        if(playerIsInRange == true)
+        if(playerIsInRange == true) //si le player a été vu
         {
-            transform.LookAt(player.transform);
-            rb.velocity = (transform.forward.normalized) * moveSpeed;
+            transform.LookAt(player.transform); //l'ennemi regarde le joueur
+            rb.velocity = (transform.forward.normalized) * moveSpeed; //Il avance toujours vers l'avant
         }
         Attack();
     }
 
     void Attack()
     {
-        float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
-        if (minDistanceToAttack > distanceToPlayer && playerIsInRange == true)
+        float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position); // Calcule la distance entre lui meme et le joueur
+        if (minDistanceToAttack > distanceToPlayer && playerIsInRange == true) // si le joueur a été vu et est a portée
         { 
-            playerIsInRange = false;
-            StartCoroutine("Attacking");
+            playerIsInRange = false; // L'ennemi s'arrête
+            StartCoroutine("Attacking"); //Lance la coroutine d'attaque
         }
     }
     IEnumerator Attacking()
     {
-        yield return new WaitForSeconds(0.5f);
-        foreach (Collider hitcol in Physics.OverlapSphere(transform.position + transform.forward, attackRange))
+        yield return new WaitForSeconds(0.5f); // on attends quelques secondes
+        foreach (Collider hitcol in Physics.OverlapSphere(transform.position + transform.forward, attackRange)) // Draw une sphere devant l'ennemi de radius attackrange
         {
-            if (hitcol.gameObject.tag == "Player")
+            if (hitcol.gameObject.tag == "Player") //Pour chaque joueur dans la zone
             {
-                player.GetComponent<PlayerMovement>().Recoil(transform, recoilInflincted);
-                player.GetComponent<PlayerBehaviour>().TakeHit(strength);
+                player.GetComponent<PlayerMovement>().Recoil(transform, recoilInflincted); //Appelle la fonction recoil du joueur et inflige un recul de valeur recoilInflected
+                player.GetComponent<PlayerBehaviour>().TakeHit(strength); // Appelle la fonction qui fait perdre des pdv au joueur , le joueur perd 'strength' pdv
 
             }
         }    
-        yield return new WaitForSeconds(1f);
-        playerIsInRange = true;
+        yield return new WaitForSeconds(1f);// on attends quelques secondes
+        playerIsInRange = true; // l'ennemi reprend son déplacement
     }
 }
