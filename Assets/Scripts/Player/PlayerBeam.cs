@@ -15,6 +15,7 @@ public class PlayerBeam : MonoBehaviour
     private bool alreadyInstantiate = false;
     public GameObject loadingFx;
     public GameObject loadedFx;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();

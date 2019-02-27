@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody rb;
     public bool isMoving = false;
     public float moveSpeed;
+    private float BaseSpeed;
     public bool isDashing;
     public bool isReadyToDash;
     public float dashingTime;
@@ -16,11 +17,13 @@ public class PlayerMovement : MonoBehaviour
     public bool isRecoiling = false;
     public float recoilDuration;
     private ParticleSystem ps;
+    public float moveSpeedWhileAiming;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
         ps = GetComponentInChildren<ParticleSystem>();
+        BaseSpeed = moveSpeed;
     }
     private void FixedUpdate()
     {
@@ -61,6 +64,11 @@ public class PlayerMovement : MonoBehaviour
             {
                 transform.rotation = Quaternion.LookRotation(lookDirection2, Vector3.up); // il regarde dans la dirdction du joystick droit: ça override l'autre joystick
                 lastRotation = transform.rotation; //le joueur regarde dans la derniere direction de l'input
+                moveSpeed = moveSpeedWhileAiming;
+            }
+            else
+            {
+                moveSpeed = BaseSpeed;
             }
         }
     }
