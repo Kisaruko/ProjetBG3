@@ -63,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 3226ce80ada1030449a2c27f75c8a78b, type: 2}
+  - {fileID: 2100000, guid: eac4ed77cda7a5a458ed24cc3e03eb03, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -126,6 +126,8 @@ MonoBehaviour:
   maxLifePoints: 10
   currentLifePoints: 0
   deathFx: {fileID: 3012052741162816228, guid: 60d05c36004155141951aa50a827c8f5, type: 3}
+  stealLightFx: {fileID: 6225698924652219529, guid: 8f2eb5d94f9b78f479af53e2ed015248,
+    type: 3}
 --- !u!114 &4761251568013390898
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -140,6 +142,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerIsInRange: 0
   moveSpeed: 5
+  attackRange: 1
+  strength: 10
+  recoilInflincted: 45
 --- !u!54 &4761251568013390897
 Rigidbody:
   m_ObjectHideFlags: 0

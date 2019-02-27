@@ -8,6 +8,7 @@ public class Attack : MonoBehaviour
     public GameObject fxAttack;
     public int strength;
     public float range;
+    public GameObject stealLightFx;
     #endregion
 
 
@@ -30,9 +31,17 @@ public class Attack : MonoBehaviour
                 {
                     GetComponent<PlayerBehaviour>().RegenLifeOnCac(); // appelle la fonction regen de lumière
                     hitcol.gameObject.GetComponent<EnemyLife>().LostLifePoint(strength); // appelle la fonction de perte de pdv du monstre, les dégats infligés sont égaux a strength
+                    Instantiate(stealLightFx, hitcol.transform.position, Quaternion.identity); // instantie le fx de vol de light
                 }
             }
         }
+    }
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        //Check that it is being run in Play Mode, so it doesn't try to draw this in Editor mode
+            //Draw a cube where the OverlapBox is (positioned where your GameObject is as well as a size)
+            Gizmos.DrawWireSphere(transform.position+ transform.forward, range);
     }
     #endregion
 }

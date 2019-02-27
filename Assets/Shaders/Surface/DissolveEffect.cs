@@ -13,8 +13,7 @@ public class DissolveEffect : MonoBehaviour
     {
         if(dissolve == true)
         { 
-            mat.SetFloat("_Level", Mathf.Lerp(mat.GetFloat("_Level"), 1f, dissolveSpeed)); // je dissolve l'objet
-            
+            mat.SetFloat("_Level", Mathf.Lerp(mat.GetFloat("_Level"), 1f, dissolveSpeed)); // je dissolve l'objet     
         }
     }
     public void Ressolve()

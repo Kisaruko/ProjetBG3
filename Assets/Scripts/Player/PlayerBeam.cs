@@ -67,7 +67,7 @@ public class PlayerBeam : MonoBehaviour
         }
         if (loadingTime >= loadedTime && alreadyInstantiate == false && GetComponent<PlayerBehaviour>().canShoot == true) //si le tir est chargé et que le joueur peut tirer
         {
-            Instantiate(loadedFx, transform.position, Quaternion.Euler(45f, 0f, 0f)); //j'instantie le fx qui prévient que le tir est chargé
+            Instantiate(loadedFx, transform.position, Quaternion.identity); //j'instantie le fx qui prévient que le tir est chargé
             alreadyInstantiate = true; // le fx a déjà été instantié
         }
 

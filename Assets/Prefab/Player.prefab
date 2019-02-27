@@ -127,7 +127,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 3226ce80ada1030449a2c27f75c8a78b, type: 2}
+  - {fileID: 2100000, guid: eac4ed77cda7a5a458ed24cc3e03eb03, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -156,7 +156,7 @@ BoxCollider:
   m_GameObject: {fileID: 7180655236366214205}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -172,6 +172,7 @@ GameObject:
   - component: {fileID: 7180655237011717779}
   - component: {fileID: 7180655237011717776}
   - component: {fileID: 2985551222083697387}
+  - component: {fileID: 1801393677}
   m_Layer: 0
   m_Name: Body
   m_TagString: Player
@@ -252,6 +253,22 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1801393677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7180655237011717774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdd8546ca5c702349b1c5e5a0c2485f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mat: {fileID: 2100000, guid: f6e0d93fee79aae4aa6f8c6df6e7b8d1, type: 2}
+  dissolveSpeed: 0.2
+  dissolve: 0
+  ressolve: 0
 --- !u!1 &7180655237124408675
 GameObject:
   m_ObjectHideFlags: 0
@@ -308,14 +325,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isMoving: 0
-  moveSpeed: 20
+  moveSpeed: 25
   isDashing: 0
   isReadyToDash: 1
-  dashingTime: 0.2
-  coolDown: 0.1
+  dashingTime: 0.05
+  coolDown: 0.15
   dashSpeed: 100
   isRecoiling: 0
-  recoilDuration: 0
+  recoilDuration: 0.3
 --- !u!114 &2751258488737858186
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -358,7 +375,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 80
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!114 &8237557225746929092
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -375,11 +392,11 @@ MonoBehaviour:
   maxLife: 100
   minLife: 0
   isInvicible: 0
-  invincibleDuration: 0
+  invincibleDuration: 1
   minLifeToShoot: 18
   lifeUsageOnShoot: 15
   lightUsageOnShoot: 15
-  minLifeToDash: 2
+  minLifeToDash: 2.1
   lifeUsageOnDash: 2
   lightUsageOnDash: 2
   lifeRegen: 5
@@ -398,8 +415,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a22c8a4fa3d566647b993df2f7c959fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fxAttack: {fileID: 1749737620644416, guid: 50092502fedae254c860eb8bbfc73020, type: 3}
+  fxAttack: {fileID: 829196638602730265, guid: 2aed405ccf01a8040ac1f209491d9ddc, type: 3}
   strength: 1
+  range: 1
+  stealLightFx: {fileID: 6225698924652219529, guid: 8f2eb5d94f9b78f479af53e2ed015248,
+    type: 3}
 --- !u!114 &2760558132870874611
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -417,6 +437,9 @@ MonoBehaviour:
   bullet: {fileID: 6260880710944425492, guid: 6591ed834345e4f4cab6a404f3492896, type: 3}
   recoilStrength: 15
   bulletSpeed: 50
+  loadingFx: {fileID: 7125780571477410717}
+  loadedFx: {fileID: 9146908943192436300, guid: eeda18a0544cb684da0e6a0bdecdc0e2,
+    type: 3}
 --- !u!114 &9051084610870082688
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -445,11 +468,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: lightdashParticles
-      objectReference: {fileID: 0}
-    - target: {fileID: 5384941650365448869, guid: a6ba460297490dc49960ef13a8ae3d20,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5384941650365448864, guid: a6ba460297490dc49960ef13a8ae3d20,
         type: 3}
@@ -506,11 +524,52 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5384941650365448867, guid: a6ba460297490dc49960ef13a8ae3d20,
+        type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5384941650365448867, guid: a6ba460297490dc49960ef13a8ae3d20,
+        type: 3}
+      propertyPath: InitialModule.startLifetime.minScalar
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5384941650365448867, guid: a6ba460297490dc49960ef13a8ae3d20,
+        type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5384941650365448867, guid: a6ba460297490dc49960ef13a8ae3d20,
+        type: 3}
+      propertyPath: InitialModule.startSize.minScalar
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5384941650365448867, guid: a6ba460297490dc49960ef13a8ae3d20,
+        type: 3}
+      propertyPath: EmissionModule.enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5384941650365448867, guid: a6ba460297490dc49960ef13a8ae3d20,
+        type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 5384941650365448867, guid: a6ba460297490dc49960ef13a8ae3d20,
+        type: 3}
+      propertyPath: LightsModule.light
+      value: 
+      objectReference: {fileID: 5932710068561519565}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a6ba460297490dc49960ef13a8ae3d20, type: 3}
 --- !u!4 &5932710067458847866 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5384941650365448864, guid: a6ba460297490dc49960ef13a8ae3d20,
+    type: 3}
+  m_PrefabInstance: {fileID: 1796408184562890458}
+  m_PrefabAsset: {fileID: 0}
+--- !u!108 &5932710068561519565 stripped
+Light:
+  m_CorrespondingSourceObject: {fileID: 5384941649313371415, guid: a6ba460297490dc49960ef13a8ae3d20,
     type: 3}
   m_PrefabInstance: {fileID: 1796408184562890458}
   m_PrefabAsset: {fileID: 0}
@@ -525,6 +584,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: LoadShot
+      objectReference: {fileID: 0}
+    - target: {fileID: 2665685101228152076, guid: 95fa9363329517e4696a52b5f2b702b2,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2665685101228152067, guid: 95fa9363329517e4696a52b5f2b702b2,
         type: 3}
@@ -583,6 +647,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 95fa9363329517e4696a52b5f2b702b2, type: 3}
+--- !u!1 &7125780571477410717 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2665685101228152076, guid: 95fa9363329517e4696a52b5f2b702b2,
+    type: 3}
+  m_PrefabInstance: {fileID: 5052389885827864209}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7125780571477410706 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2665685101228152067, guid: 95fa9363329517e4696a52b5f2b702b2,
