@@ -15,10 +15,11 @@ public class PlayerBeam : MonoBehaviour
     private bool alreadyInstantiate = false;
     public GameObject loadingFx;
     public GameObject loadedFx;
-
+    private LineRenderer lineRenderer;
     private void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody>(); // get le rigidbody
+        lineRenderer = GetComponent<LineRenderer>(); // get le line renderer
     }
     private void Update()
     {
@@ -26,12 +27,13 @@ public class PlayerBeam : MonoBehaviour
     }
     void ShootBeam()
     {
-        LineRenderer lineRenderer = GetComponent<LineRenderer>(); // get le line renderer
+
         float xInput = Input.GetAxis("Horizontal2");
         float yInput = Input.GetAxis("Vertical2");
+
+        
         if (xInput != 0 || yInput != 0) // si le joueur touche le joystick droit
         {
-
             lineRenderer.SetVertexCount(2); // la ligne fait possede 2 vertex
             lineRenderer.SetPosition(0, transform.position); // le premier point est sur le player
             lineRenderer.SetPosition(1, transform.forward * 40 + transform.position); // le deuxieme point est devant le player + une range de 20
