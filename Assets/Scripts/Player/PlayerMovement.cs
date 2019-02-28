@@ -123,7 +123,7 @@ public class PlayerMovement : MonoBehaviour
             isRecoiling = true; //le joueur recul
             Vector3 recoilDirection = (enemy.position - transform.position).normalized; // calcule la direction entre le player et l'ennemi
             rb.velocity = (recoilDirection * recoilSpeed) * -1; // fait reculer le player par rapport à l'ennemi
-            StartCoroutine("RecoilTime")
+            StartCoroutine("RecoilTime");
 
         }
     }
