@@ -31,8 +31,8 @@ public class PlayerBeam : MonoBehaviour
         float xInput = Input.GetAxis("Horizontal2");
         float yInput = Input.GetAxis("Vertical2");
 
-        
-        if (xInput != 0 || yInput != 0) // si le joueur touche le joystick droit
+
+        if (xInput >= 0.5f || xInput <= -0.5f || yInput >= 0.5f || yInput <-0.5f) // si le joueur touche le joystick droit
         {
             lineRenderer.SetVertexCount(2); // la ligne fait possede 2 vertex
             lineRenderer.SetPosition(0, transform.position); // le premier point est sur le player

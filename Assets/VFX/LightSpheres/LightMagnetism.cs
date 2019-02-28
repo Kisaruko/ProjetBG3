@@ -5,20 +5,24 @@ using UnityEngine;
 [RequireComponent(typeof(ParticleSystem))]
 public class LightMagnetism : MonoBehaviour
 {
-#region Variables
+    #region Variables
+    public static int nbParticles;
     private Transform lanternSpot;
+    public ParticleSystem ps;
     ParticleSystem m_System;
     ParticleSystem.Particle[] m_Particles;
+    List<ParticleSystem.Particle> enter = new List<ParticleSystem.Particle>();
     private float particleSpeed;
     private bool newMovement = false;
-    public GameObject subEmitterPs;
 #endregion
-#region Main Methods
+    #region Main Methods
     private void Start()
     {
+        ps = GetComponent<ParticleSystem>();
         lanternSpot = GameObject.FindGameObjectWithTag("Player").transform; // Get le spot ou les particules doivent aller
         StartCoroutine("CallMagnetism"); // Appelle la coroutine
         particleSpeed = 1; // Set la vitesse des particules a 1
+        nbParticles = ps.emission.GetBurst(0).maxCount;
         
     }
 
@@ -29,8 +33,24 @@ public class LightMagnetism : MonoBehaviour
             ParticleMagnetism(); // Appelle la fonction de magnetisme au spot toute les frames
         }
     }
+
+    private void OnParticleTrigger()
+    {
+        int numEnter = ps.GetTriggerParticles(ParticleSystemTriggerEventType.Enter, enter); // nb de particules qui ont trigger
+
+        for (int i = 0; i < numEnter; i++) // pour chaque particle qui ont trigger
+        {
+            ParticleSystem.Particle p = enter[i]; // crée le tableau
+            lanternSpot.gameObject.GetComponent<PlayerBehaviour>().RegenLifeOnCac(); // appelle la fonction regen
+            p.remainingLifetime = 0f; // destruction de la particle en mettant son lifetime a 0
+            enter[i] = p; // ajoute au tableau
+        }
+        ps.SetTriggerParticles(ParticleSystemTriggerEventType.Enter, enter); // Applique les changements
+
+
+    }
     #endregion mainMethods
-#region Custom Methods
+    #region Custom Methods
 
     void ParticleMagnetism()
     {

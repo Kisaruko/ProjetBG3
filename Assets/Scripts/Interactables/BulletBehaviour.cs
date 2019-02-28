@@ -15,6 +15,7 @@ public class BulletBehaviour : MonoBehaviour
 
     private void Start()
     {
+        CameraShake.Shake(0.2f, 1f);
         rb = GetComponent<Rigidbody>(); // get le rigidbody
         player = GameObject.FindGameObjectWithTag("Player"); // find le player
 
@@ -30,16 +31,14 @@ public class BulletBehaviour : MonoBehaviour
         if (other.gameObject.tag != "Player" && other.gameObject.tag != "Enemy" && other.gameObject.tag != "Zone") // Si la collision n'est pas le joueur, ni l'ennemi, ni une zone("trigger")
         {
             Instantiate(ref_explode, transform.position, Quaternion.identity); // instantie le fx de touche qqchose
-            // Destroy(this.gameObject);  // detruit l'objet
-            GetComponent<SphereCollider>().enabled = false;// ligne a enlever c'était pour ne pas detruire le fx de la balle immédiatement 
+             Destroy(this.gameObject);  // detruit l'objet
             
         }
         if(other.gameObject.CompareTag("Enemy"))
         {
             Instantiate(ref_explode, transform.position, Quaternion.identity); // instantie le fx de touche qqchose
             other.GetComponent<EnemyLife>().LostLifePoint(bulletDamage); // appel la fonction de perte de pdv de l'ennemi
-          //  Destroy(this.gameObject); // detruie l'objet
-            GetComponent<SphereCollider>().enabled = false;// ligne a enlever c'était pour ne pas detruire le fx de la balle immédiatement 
+             Destroy(this.gameObject); // detruit l'objet
         }
     }
 
