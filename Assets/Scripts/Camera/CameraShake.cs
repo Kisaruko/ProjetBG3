@@ -11,7 +11,7 @@ public class CameraShake : MonoBehaviour
     {
         _originalPos = transform.localPosition;
 
-        _instance = this;
+        _instance = this; 
     }
 
     public static void Shake(float duration, float amount)

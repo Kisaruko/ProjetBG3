@@ -68,7 +68,7 @@ public class PlayerMovement : MonoBehaviour
             }
             else
             {
-                moveSpeed = BaseSpeed;
+                moveSpeed = BaseSpeed; // reviens à la vitesse originelle
             }
         }
     }
@@ -92,12 +92,12 @@ public class PlayerMovement : MonoBehaviour
         if(isDashing == true) //si le joueur est en train de dasher
         {
             rb.velocity = transform.forward * dashSpeed; // il dash et sa vitesse augmente 
-            GetComponent<CustomGravity>().gravityScale = 0f;
+            GetComponent<CustomGravity>().gravityScale = 0f; // desactive la gravité pendant le dash
 
         }
         else
         {
-            GetComponent<CustomGravity>().gravityScale = 50f;
+            GetComponent<CustomGravity>().gravityScale = 50f; // réactive la gravité
 
         }
     }
@@ -117,21 +117,21 @@ public class PlayerMovement : MonoBehaviour
 
     public void Recoil(Transform enemy, float recoilSpeed)
     {
-        if (GetComponent<PlayerBehaviour>().isInvicible == false)
+        if (GetComponent<PlayerBehaviour>().isInvicible == false) // si le joueur n'est pas invincible
         {
-            transform.rotation = lastRotation;
-            isRecoiling = true;
-            Vector3 recoilDirection = (enemy.position - transform.position).normalized;
-            rb.velocity = (recoilDirection * recoilSpeed) * -1;
-            StartCoroutine("RecoilTime");
+            transform.rotation = lastRotation; // la rotation = le dernier input sur joystick enregistré
+            isRecoiling = true; //le joueur recul
+            Vector3 recoilDirection = (enemy.position - transform.position).normalized; // calcule la direction entre le player et l'ennemi
+            rb.velocity = (recoilDirection * recoilSpeed) * -1; // fait reculer le player par rapport à l'ennemi
+            StartCoroutine("RecoilTime")
 
         }
     }
     IEnumerator RecoilTime()
     {
-       yield return new WaitForSeconds(recoilDuration);
-        isRecoiling = false;
-        StopCoroutine("RecoilTime");
+       yield return new WaitForSeconds(recoilDuration); // attends 'recoilduration"
+        isRecoiling = false; // le joueur ne recule plus
+        StopCoroutine("RecoilTime"); // stop recule
        
     }
 

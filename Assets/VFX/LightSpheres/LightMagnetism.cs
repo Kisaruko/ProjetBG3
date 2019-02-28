@@ -15,7 +15,7 @@ public class LightMagnetism : MonoBehaviour
     private float particleSpeed;
     private bool newMovement = false;
 #endregion
-#region Main Methods
+    #region Main Methods
     private void Start()
     {
         ps = GetComponent<ParticleSystem>();
@@ -36,16 +36,16 @@ public class LightMagnetism : MonoBehaviour
 
     private void OnParticleTrigger()
     {
-        int numEnter = ps.GetTriggerParticles(ParticleSystemTriggerEventType.Enter, enter);
+        int numEnter = ps.GetTriggerParticles(ParticleSystemTriggerEventType.Enter, enter); // nb de particules qui ont trigger
 
-        for (int i = 0; i < numEnter; i++)
+        for (int i = 0; i < numEnter; i++) // pour chaque particle qui ont trigger
         {
-            ParticleSystem.Particle p = enter[i];
-            lanternSpot.gameObject.GetComponent<PlayerBehaviour>().RegenLifeOnCac();
-            p.remainingLifetime = 0f;
-            enter[i] = p;
+            ParticleSystem.Particle p = enter[i]; // crée le tableau
+            lanternSpot.gameObject.GetComponent<PlayerBehaviour>().RegenLifeOnCac(); // appelle la fonction regen
+            p.remainingLifetime = 0f; // destruction de la particle en mettant son lifetime a 0
+            enter[i] = p; // ajoute au tableau
         }
-        ps.SetTriggerParticles(ParticleSystemTriggerEventType.Enter, enter);
+        ps.SetTriggerParticles(ParticleSystemTriggerEventType.Enter, enter); // Applique les changements
 
 
     }
