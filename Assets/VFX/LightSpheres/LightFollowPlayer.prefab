@@ -3752,9 +3752,9 @@ ParticleSystem:
     collisionShape3: {fileID: 0}
     collisionShape4: {fileID: 0}
     collisionShape5: {fileID: 0}
-    inside: 1
+    inside: 0
     outside: 0
-    enter: 1
+    enter: 2
     exit: 0
     radiusScale: 1
   SubModule:
@@ -3882,7 +3882,7 @@ ParticleSystem:
         m_RotationOrder: 4
     maxLights: 20
   TrailModule:
-    enabled: 1
+    enabled: 0
     mode: 0
     ratio: 1
     lifetime:
@@ -4707,8 +4707,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e77821733a558140864a6ba2d972b48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  subEmitterPs: {fileID: 1749737620644416, guid: 50092502fedae254c860eb8bbfc73020,
-    type: 3}
+  ps: {fileID: 6225698924652219531}
 --- !u!199 &6225698924652219528
 ParticleSystemRenderer:
   serializedVersion: 6

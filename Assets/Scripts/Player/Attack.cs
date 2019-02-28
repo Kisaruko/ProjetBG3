@@ -29,7 +29,7 @@ public class Attack : MonoBehaviour
             {
                 if (hitcol.gameObject.tag == "Enemy") // pour chaque ennemi dans la sphere
                 {
-                    GetComponent<PlayerBehaviour>().RegenLifeOnCac(); // appelle la fonction regen de lumière
+                    //GetComponent<PlayerBehaviour>().RegenLifeOnCac(); // appelle la fonction regen de lumière
                     hitcol.gameObject.GetComponent<EnemyLife>().LostLifePoint(strength); // appelle la fonction de perte de pdv du monstre, les dégats infligés sont égaux a strength
                     Instantiate(stealLightFx, hitcol.transform.position, Quaternion.identity); // instantie le fx de vol de light
                 }
