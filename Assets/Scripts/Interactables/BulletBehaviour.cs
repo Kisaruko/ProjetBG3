@@ -15,6 +15,7 @@ public class BulletBehaviour : MonoBehaviour
 
     private void Start()
     {
+        CameraShake.Shake(0.2f, 1f);
         rb = GetComponent<Rigidbody>(); // get le rigidbody
         player = GameObject.FindGameObjectWithTag("Player"); // find le player
 

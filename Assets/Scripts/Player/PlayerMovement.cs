@@ -92,6 +92,12 @@ public class PlayerMovement : MonoBehaviour
         if(isDashing == true) //si le joueur est en train de dasher
         {
             rb.velocity = transform.forward * dashSpeed; // il dash et sa vitesse augmente 
+            GetComponent<CustomGravity>().gravityScale = 0f;
+
+        }
+        else
+        {
+            GetComponent<CustomGravity>().gravityScale = 50f;
 
         }
     }
