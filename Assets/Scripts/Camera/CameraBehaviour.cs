@@ -51,9 +51,20 @@ public class CameraBehaviour : MonoBehaviour
         //Debug.DrawLine(target.position, rotatedVector, Color.green);
 
         //Build anticipated vector
+            //Variables du joystick gauche
         float xInput = Input.GetAxis("Horizontal");
         float yInput = Input.GetAxis("Vertical");
+            //Variables du joystick droit
+        float xInputShot = Input.GetAxis("Horizontal2");
+        float yInputShot = Input.GetAxis("Vertical2");
+
         Vector3 anticipatedVector = new Vector3(xInput, 0f, yInput) *  anticipationFactor;
+        Vector3 anticipatedShotVector = new Vector3(xInputShot, 0f, yInputShot);
+
+        if (xInputShot != 0 || yInputShot != 0) //Override the anticipated vector with the shot vector when the player use right joystick
+        {
+            anticipatedVector = anticipatedShotVector;
+        }
 
         //Move the position
         Vector3 flatTargetPosition = target.position;
