@@ -11,9 +11,10 @@ public class CameraBehaviour : MonoBehaviour
     public float camAngle = 0f;
     public float xCamRotation = 60f;
     public float smoothSpeed = 0.5f;
+    public float anticipationFactor = 10f;
 
     public bool followTarget;
-    
+
     private Vector3 refVelocity;
     #endregion
 
@@ -25,7 +26,10 @@ public class CameraBehaviour : MonoBehaviour
 
     private void LateUpdate()
     {
-        HandleCamera();
+        if (followTarget)
+        {
+            HandleCamera();
+        }
     }
     #endregion
 
@@ -46,10 +50,15 @@ public class CameraBehaviour : MonoBehaviour
         Vector3 rotatedVector = Quaternion.AngleAxis(camAngle, Vector3.right) * worldPosition;
         //Debug.DrawLine(target.position, rotatedVector, Color.green);
 
+        //Build anticipated vector
+        float xInput = Input.GetAxis("Horizontal");
+        float yInput = Input.GetAxis("Vertical");
+        Vector3 anticipatedVector = new Vector3(xInput, 0f, yInput) *  anticipationFactor;
+
         //Move the position
         Vector3 flatTargetPosition = target.position;
         flatTargetPosition.y = 0f;
-        Vector3 finalPosition = flatTargetPosition + rotatedVector;
+        Vector3 finalPosition = flatTargetPosition + rotatedVector + anticipatedVector;
         //Debug.DrawLine(target.position, finalPosition, Color.blue);
 
         transform.position = Vector3.SmoothDamp(transform.position, finalPosition, ref refVelocity, smoothSpeed);
