@@ -12,12 +12,13 @@ public class EnemyBehaviour : MonoBehaviour
     public float attackRange;
     public int strength;
     public float recoilInflincted;
+
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player"); 
         rb = GetComponent<Rigidbody>();
     }
-    private void FixedUpdate()
+    private void Update()
     {
         if(playerIsInRange == true) //si le player a été vu
         {
@@ -38,7 +39,7 @@ public class EnemyBehaviour : MonoBehaviour
     }
     IEnumerator Attacking()
     {
-        yield return new WaitForSeconds(0.5f); // on attends quelques secondes
+        yield return new WaitForSeconds(1f); // on attends quelques secondes
         foreach (Collider hitcol in Physics.OverlapSphere(transform.position + transform.forward, attackRange)) // Draw une sphere devant l'ennemi de radius attackrange
         {
             if (hitcol.gameObject.tag == "Player") //Pour chaque joueur dans la zone
@@ -48,7 +49,7 @@ public class EnemyBehaviour : MonoBehaviour
 
             }
         }    
-        yield return new WaitForSeconds(1f);// on attends quelques secondes
         playerIsInRange = true; // l'ennemi reprend son déplacement
+        StopCoroutine("Attacking");
     }
 }

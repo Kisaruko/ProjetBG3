@@ -47,8 +47,6 @@ public class LightMagnetism : MonoBehaviour
 
         for (int i = 0; i < numEnter; i++) // pour chaque particle qui ont trigger
         {
-            Debug.LogWarning("ParticleTrigger");
-
             ParticleSystem.Particle p = enter[i]; // crée le tableau
             //lanternSpot.gameObject.GetComponent<PlayerBehaviour>().RegenLifeOnCac(); // appelle la fonction regen
             playerBehaviour.RegenLifeOnCac();

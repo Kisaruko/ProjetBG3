@@ -9,12 +9,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4761251568013390861}
+  - component: {fileID: 4761251568013390898}
   - component: {fileID: 4761251568013390862}
   - component: {fileID: 4761251568013390863}
   - component: {fileID: 4761251568013390856}
   - component: {fileID: 4761251568013390899}
   - component: {fileID: 4761251568013390860}
-  - component: {fileID: 4761251568013390898}
   - component: {fileID: 4761251568013390897}
   m_Layer: 0
   m_Name: BasicEnemy
@@ -38,6 +38,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4761251568013390898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4761251568013390857}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56daf3e73267ef040a648bb92e5ec34d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerIsInRange: 0
+  moveSpeed: 5
+  attackRange: 1
+  strength: 10
+  recoilInflincted: 45
 --- !u!33 &4761251568013390862
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -126,23 +143,6 @@ MonoBehaviour:
   maxLifePoints: 10
   currentLifePoints: 0
   deathFx: {fileID: 3012052741162816228, guid: 60d05c36004155141951aa50a827c8f5, type: 3}
---- !u!114 &4761251568013390898
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4761251568013390857}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 56daf3e73267ef040a648bb92e5ec34d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerIsInRange: 0
-  moveSpeed: 5
-  attackRange: 1
-  strength: 10
-  recoilInflincted: 45
 --- !u!54 &4761251568013390897
 Rigidbody:
   m_ObjectHideFlags: 0
