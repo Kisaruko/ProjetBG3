@@ -18,14 +18,18 @@ public class PlayerMovement : MonoBehaviour
     public float recoilDuration;
     private ParticleSystem ps;
     public float moveSpeedWhileAiming;
+    private PlayerBehaviour playerbehaviour;
+    private CustomGravity customgravity;
 
     private void Start()
     {
+        playerbehaviour = GetComponent<PlayerBehaviour>();
+        customgravity = GetComponent<CustomGravity>();
         rb = GetComponent<Rigidbody>();
         ps = GetComponentInChildren<ParticleSystem>();
         BaseSpeed = moveSpeed;
     }
-    private void FixedUpdate()
+    private void Update()
     {
         Movement();
         Dashing();
@@ -76,13 +80,13 @@ public class PlayerMovement : MonoBehaviour
     {
         if(Input.GetButtonDown("Dash") && isReadyToDash == true && isRecoiling == false) // si le joueur peut dasher, qu'il ne subit pas de recul et qu'il appuie sur l'input
         {
-            if (GetComponent<PlayerBehaviour>().canDash == true) // si le joueur a assez de lumière pour dasher
+            if (playerbehaviour.canDash == true) // si le joueur a assez de lumière pour dasher
             {
                 ps.enableEmission = true; // active l'emission du fx de dash
 
                 GetComponentInChildren<DissolveEffect>().dissolve = true; // dissolve le joueur
                 GetComponentInChildren<DissolveEffect>().ressolve = false; // desactive le ressolve du joueur
-                GetComponent<PlayerBehaviour>().UseLifeOnDash(); //consomme de la lumière
+                playerbehaviour.UseLifeOnDash(); //consomme de la lumière
                 isReadyToDash = false; // le joueur ne peut pas redasher
                 isDashing = true; // le joueur est en train de dasher
                 StartCoroutine("DashTime"); // on lance la coroutine du cooldown du dash
@@ -92,12 +96,12 @@ public class PlayerMovement : MonoBehaviour
         if(isDashing == true) //si le joueur est en train de dasher
         {
             rb.velocity = transform.forward * dashSpeed; // il dash et sa vitesse augmente 
-            GetComponent<CustomGravity>().gravityScale = 0f; // desactive la gravité pendant le dash
+           customgravity.gravityScale = 0f; // desactive la gravité pendant le dash
 
         }
         else
         {
-            GetComponent<CustomGravity>().gravityScale = 50f; // réactive la gravité
+           customgravity.gravityScale = 50f; // réactive la gravité
 
         }
     }
@@ -117,7 +121,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void Recoil(Transform enemy, float recoilSpeed)
     {
-        if (GetComponent<PlayerBehaviour>().isInvicible == false) // si le joueur n'est pas invincible
+        if (playerbehaviour.isInvicible == false) // si le joueur n'est pas invincible
         {
             transform.rotation = lastRotation; // la rotation = le dernier input sur joystick enregistré
             isRecoiling = true; //le joueur recul

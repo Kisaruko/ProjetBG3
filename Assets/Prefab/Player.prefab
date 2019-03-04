@@ -302,7 +302,6 @@ GameObject:
   - component: {fileID: 8237557225746929092}
   - component: {fileID: 724292923}
   - component: {fileID: 2760558132870874611}
-  - component: {fileID: 9051084610870082688}
   - component: {fileID: 7180655237628818467}
   m_Layer: 0
   m_Name: Player
@@ -420,8 +419,8 @@ MonoBehaviour:
   lightUsageOnDash: 2
   lifeRegen: 5
   lightRegen: 5
-  canShoot: 0
-  canDash: 0
+  canShoot: 1
+  canDash: 1
 --- !u!114 &724292923
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -459,23 +458,6 @@ MonoBehaviour:
   loadingFx: {fileID: 7125780571477410717}
   loadedFx: {fileID: 9146908943192436300, guid: eeda18a0544cb684da0e6a0bdecdc0e2,
     type: 3}
---- !u!114 &9051084610870082688
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7180655237124408675}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6867a492d832fdd4692eb79734acad53, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ref_bullet: {fileID: 6260880710944425492, guid: 6591ed834345e4f4cab6a404f3492896,
-    type: 3}
-  coolDown: 0.1
-  time: 1
-  recoilStrength: 0
 --- !u!120 &7180655237628818467
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -637,6 +619,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5384941650365448867, guid: a6ba460297490dc49960ef13a8ae3d20,
+        type: 3}
+      propertyPath: cullingMode
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5384941650365448867, guid: a6ba460297490dc49960ef13a8ae3d20,
         type: 3}
