@@ -40,7 +40,7 @@ public class PlayerBehaviour : MonoBehaviour
     {
         if (currentLife < maxLife && currentLife > minLife)
         {
-            currentLife += lifeRegen;
+            currentLife += lifeRegen / LightMagnetism.nbParticles;
             DOTween.To(() => lantern.intensity, x => lantern.intensity = x, lantern.intensity + lightRegen, .2f);
             lantern.intensity += lightRegen;
             if (currentLife > maxLife)

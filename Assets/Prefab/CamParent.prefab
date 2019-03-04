@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 6913696441118821654}
   - component: {fileID: 6913696441118821653}
   - component: {fileID: 6913696441118821652}
+  - component: {fileID: 1975590013}
+  - component: {fileID: 1975590014}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -82,6 +84,31 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6913696441118821659}
   m_Enabled: 1
+--- !u!114 &1975590013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6913696441118821659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a5e3d5ec3155264f909b471cfdeb09e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 2100000, guid: 0d1b27043ec0bb34eacf2e464acb2bfe, type: 2}
+--- !u!114 &1975590014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6913696441118821659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 763729c683dcbbb4bb744bf7756af1e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6913696441364486493
 GameObject:
   m_ObjectHideFlags: 0
@@ -92,10 +119,11 @@ GameObject:
   m_Component:
   - component: {fileID: 6913696441364486494}
   - component: {fileID: 3757883784052550090}
+  - component: {fileID: 214986965}
   m_Layer: 0
   m_Name: CamParent
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -132,3 +160,21 @@ MonoBehaviour:
   camAngle: 0
   xCamRotation: 60
   smoothSpeed: 0.5
+  anticipationFactor: 10
+  followTarget: 1
+--- !u!114 &214986965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6913696441364486493}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf62b0d47e21a594284a4919d793d347, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isBehindWall: 0
+  mat: {fileID: 2100000, guid: cce984a51a27fbf4f9021417e35a9214, type: 2}
+  maxRange: 20
+  dissolveSpeed: 0.1
