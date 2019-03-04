@@ -17,6 +17,7 @@ public class BulletBehaviour : MonoBehaviour
     public static bool destroyOnImpact = true;
     public float LifeTime;
     private GameObject player;
+    public int bulletDamage = 1;
 
     private void Start()
     {
@@ -24,19 +25,15 @@ public class BulletBehaviour : MonoBehaviour
 
         rb = GetComponent<Rigidbody>();
         player = GameObject.FindGameObjectWithTag("Player");
-        if (player.GetComponent<Shoot>().shootWithJoystick == true)
+
+        if (player.GetComponent<PlayerShoot>().enabled == true)
         {
             rb.velocity = new Vector3(Input.GetAxis("Horizontal2"), 0f, Input.GetAxis("Vertical2")).normalized * bulletSpeed;
-        }
-        if (player.GetComponent<Shoot>().shootWithTrigger == true || player.GetComponent<Shoot>().shootWithTriggerAndJoystick == true)
-        {
-            rb.velocity = player.transform.forward.normalized * bulletSpeed;
         }
         Destroy(this.gameObject, LifeTime);
 
         if(doubleSize == true)
         {
-
             GetComponent<SphereCollider>().radius = GetComponent<SphereCollider>().radius *3;
             GetComponentInChildren<ParticleSystem>().startSize = GetComponentInChildren<ParticleSystem>().startSize * 3;
         }
@@ -51,12 +48,21 @@ public class BulletBehaviour : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag != "Player" && other.gameObject.tag != "Bullet" && other.gameObject.tag !="Gun")
+        if (other.gameObject.tag != "Player" && other.gameObject.tag != "Enemy" && other.gameObject.tag != "Zone")
         {
-            //Instantiate(ref_explode, transform.position, Quaternion.identity);
+            Instantiate(ref_explode, transform.position, Quaternion.identity);
             if (destroyOnImpact == true)
             {
-              //  Destroy(this.gameObject);
+               Destroy(this.gameObject);
+            }
+        }
+        if(other.gameObject.CompareTag("Enemy"))
+        {
+            Instantiate(ref_explode, transform.position, Quaternion.identity);
+            other.GetComponent<EnemyLife>().LostLifePoint(bulletDamage);
+            if (destroyOnImpact == true)
+            {
+                Destroy(this.gameObject);
             }
         }
     }
