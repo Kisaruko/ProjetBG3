@@ -8,62 +8,32 @@ public class BulletBehaviour : MonoBehaviour
     public float bulletSpeed = 50f;
     private Rigidbody rb;
     public GameObject ref_explode;
-    private float frequency = 20f;
-    private float magnitude = 0.5f;
-    private Vector3 axis;
     private Vector3 pos;
-    public static bool doZigzag= false;
-    public static bool doubleSize = false;
-    public static bool destroyOnImpact = true;
     public float LifeTime;
-    private GameObject player;
     public int bulletDamage = 1;
 
     private void Start()
     {
-        axis = transform.right - transform.forward;
+        CameraShake.Shake(0.2f, 1f);
+        rb = GetComponent<Rigidbody>(); // get le rigidbody
 
-        rb = GetComponent<Rigidbody>();
-        player = GameObject.FindGameObjectWithTag("Player");
 
-        if (player.GetComponent<PlayerShoot>().enabled == true)
-        {
-            rb.velocity = new Vector3(Input.GetAxis("Horizontal2"), 0f, Input.GetAxis("Vertical2")).normalized * bulletSpeed;
-        }
-        Destroy(this.gameObject, LifeTime);
-
-        if(doubleSize == true)
-        {
-            GetComponent<SphereCollider>().radius = GetComponent<SphereCollider>().radius *3;
-            GetComponentInChildren<ParticleSystem>().startSize = GetComponentInChildren<ParticleSystem>().startSize * 3;
-        }
+        Destroy(this.gameObject, LifeTime); // detruire la balle au bout de "lifetime" secondes
     }
-    private void Update()
-    {
-        if (doZigzag == true)
-        {
-            pos = transform.position;
-            transform.localPosition = pos + axis * Mathf.Sin(Time.time * frequency) * magnitude;
-        }
-    }
+    
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag != "Player" && other.gameObject.tag != "Enemy" && other.gameObject.tag != "Zone")
+        if (other.gameObject.tag != "Player" && other.gameObject.tag != "Enemy" && other.gameObject.tag != "Zone") // Si la collision n'est pas le joueur, ni l'ennemi, ni une zone("trigger")
         {
-            Instantiate(ref_explode, transform.position, Quaternion.identity);
-            if (destroyOnImpact == true)
-            {
-               Destroy(this.gameObject);
-            }
+            Instantiate(ref_explode, transform.position, Quaternion.identity); // instantie le fx de touche qqchose
+             Destroy(this.gameObject);  // detruit l'objet
+            
         }
         if(other.gameObject.CompareTag("Enemy"))
         {
-            Instantiate(ref_explode, transform.position, Quaternion.identity);
-            other.GetComponent<EnemyLife>().LostLifePoint(bulletDamage);
-            if (destroyOnImpact == true)
-            {
-                Destroy(this.gameObject);
-            }
+            Instantiate(ref_explode, transform.position, Quaternion.identity); // instantie le fx de touche qqchose
+            other.GetComponent<EnemyLife>().LostLifePoint(bulletDamage); // appel la fonction de perte de pdv de l'ennemi
+             Destroy(this.gameObject); // detruit l'objet
         }
     }
 

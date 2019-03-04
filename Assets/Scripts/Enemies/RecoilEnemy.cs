@@ -8,42 +8,39 @@ public class RecoilEnemy : MonoBehaviour
     public float recoilVelocity;
     private Rigidbody rb;
     public float recoilTime;
-    private bool hasBeenHit;
     private MeshRenderer mesh;
 
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody>(); 
         player = GameObject.FindGameObjectWithTag("Player");
         mesh = GetComponent<MeshRenderer>();
     }
     public void TakeHit()
     {
-        GetComponent<EnemyBehaviour>().playerIsInRange = false;
-        StartCoroutine(Blink(1.0f));
-        hasBeenHit = true;
-        player = GameObject.FindGameObjectWithTag("Player");
-        Vector3 recoilDirection = transform.position - player.transform.position;
-        rb.velocity = recoilDirection * recoilVelocity;
-        StartCoroutine("RecoilTime");
+        GetComponent<EnemyBehaviour>().playerIsInRange = false; //arrêt du mouvement du monstre
+        StartCoroutine(Blink(1.0f)); //Le monstre clignote pour signaler qu'il a pris un coup
+        player = GameObject.FindGameObjectWithTag("Player"); // get le player
+        Vector3 recoilDirection = transform.position - player.transform.position; //calcul de la direction du recul
+        rb.velocity = recoilDirection * recoilVelocity; // calcule et execute le recul 
+        StartCoroutine("RecoilTime");// lance la coroutine qui indique la durée du recul
     }
     IEnumerator RecoilTime()
     {
-        yield return new WaitForSeconds(recoilTime);
-        hasBeenHit = false;
-        GetComponent<EnemyBehaviour>().playerIsInRange = true;
-        StopCoroutine("RecoilTime");
+        yield return new WaitForSeconds(recoilTime);// attendre la durée du recul
+        GetComponent<EnemyBehaviour>().playerIsInRange = true; // relance le mouvement normal du monstre
+        StopCoroutine("RecoilTime");// arrêt de la coroutine
     }
     IEnumerator Blink(float waitTime)
     {
-        float endTime = Time.time + waitTime;
-        while (Time.time < endTime)
+        float endTime = Time.time + waitTime; // durée du blink
+        while (Time.time < endTime)// tant que le temps n'est pas supérieur au temps indiqué pour blink
         {
-            mesh.enabled = false;
-            yield return new WaitForSeconds(0.1f);
-            mesh.enabled = true;
-            yield return new WaitForSeconds(0.1f);
+            mesh.enabled = false; // desactive le mesh
+            yield return new WaitForSeconds(0.1f); // attends un peu
+            mesh.enabled = true; // réactive le mesh
+            yield return new WaitForSeconds(0.1f); // attends un peu
         }
-        StopCoroutine("Blink");
+        StopCoroutine("Blink"); // arrêt de la coroutine
     }
 }
