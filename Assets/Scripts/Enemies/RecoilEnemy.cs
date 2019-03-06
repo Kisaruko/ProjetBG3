@@ -21,12 +21,11 @@ public class RecoilEnemy : MonoBehaviour
         GetComponent<EnemyBehaviour>().playerIsInRange = false; //arrêt du mouvement du monstre
         StartCoroutine(Blink(1.0f)); //Le monstre clignote pour signaler qu'il a pris un coup
         player = GameObject.FindGameObjectWithTag("Player"); // get le player
+    }
+    public IEnumerator RecoilTime()
+    {
         Vector3 recoilDirection = transform.position - player.transform.position; //calcul de la direction du recul
         rb.velocity = recoilDirection * recoilVelocity; // calcule et execute le recul 
-        StartCoroutine("RecoilTime");// lance la coroutine qui indique la durée du recul
-    }
-    IEnumerator RecoilTime()
-    {
         yield return new WaitForSeconds(recoilTime);// attendre la durée du recul
         GetComponent<EnemyBehaviour>().playerIsInRange = true; // relance le mouvement normal du monstre
         StopCoroutine("RecoilTime");// arrêt de la coroutine

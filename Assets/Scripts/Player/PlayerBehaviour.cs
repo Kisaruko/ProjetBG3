@@ -19,13 +19,19 @@ public class PlayerBehaviour : MonoBehaviour
     public float lifeUsageOnShoot;
     public float lightUsageOnShoot;
     [Space(5, order = 2)]
+    public float minLifeToBeam;
+    public float lifeUsageToLoadBeam;
+    public float lifeUsageEachInterval;
+    public float lightUsageOnBeam;
+    [Space(5, order = 3)]
     public float minLifeToDash;
     public float lifeUsageOnDash;
     public float lightUsageOnDash;
-    [Space(5, order = 3)]
+    [Space(5, order = 4)]
     public float lifeRegen;
     public float lightRegen;
     public bool canShoot;
+    public bool canBeam;
     public bool canDash;
     private Light lantern;
 
@@ -69,6 +75,32 @@ public class PlayerBehaviour : MonoBehaviour
 
         }
     }
+
+    public void UseLifeEachInterval()
+    {
+        CheckIfPlayerCanUseSkills();
+
+        if(canBeam)
+        {
+            currentLife -= lifeUsageEachInterval;
+            DOTween.To(() => lantern.intensity, x => lantern.intensity = x, lantern.intensity - lifeUsageEachInterval, 0.5f);
+            CheckIfPlayerCanUseSkills();
+        }
+    }
+
+    public void UseLifeToLoadBeam()
+    {
+        CheckIfPlayerCanUseSkills();
+        
+        if(canBeam)
+        {
+            currentLife -= lifeUsageToLoadBeam;
+            DOTween.To(() => lantern.intensity, x => lantern.intensity = x, lantern.intensity - lifeUsageToLoadBeam, 0.5f);
+            CheckIfPlayerCanUseSkills();
+        }
+    }
+    
+
     public void UseLifeOnDash()
     {
         CheckIfPlayerCanUseSkills();
@@ -100,6 +132,15 @@ public class PlayerBehaviour : MonoBehaviour
         else
         {
             canShoot = true;
+        }
+
+        if(currentLife < minLifeToBeam && currentLife > minLife)
+        {
+            canBeam = false;
+        }
+        else
+        {
+            canBeam = true;
         }
         
     }
