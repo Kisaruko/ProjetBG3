@@ -7,7 +7,10 @@ public class Attack : MonoBehaviour
     #region Variables
     [Header("Values", order = 0)]
     [Space(10, order = 1)]
-    public int strength;
+    public int strengthAttack1;
+    public int strengthAttack2;
+    public int strengthAttack3;
+    public int multiplierLightRegenAttack3;
     public float range;
     public float speedWhileAttacking;
     [Header("Vfx", order = 0)]
@@ -20,16 +23,16 @@ public class Attack : MonoBehaviour
     //Time when last button was clicked
     float lastClickedTime = 0;
     //Delay between clicks for which clicks will be considered as combo
-    float maxComboDelay = 1;
+    float maxComboDelay = 0.5f;
 
     #endregion
 
     #region Main Methods
     void Start()
     {
-        anim = GetComponentInChildren<Animator>();
-        playermovement = GetComponentInParent<PlayerMovement>();
-        anim.SetBool("Attack1", false);
+        anim = GetComponentInChildren<Animator>(); // get L'animator
+        playermovement = GetComponentInParent<PlayerMovement>(); // get le mouvement
+        anim.SetBool("Attack1", false); //On set toutes les variables d'animation a false par précaution
         anim.SetBool("Attack2", false);
         anim.SetBool("Attack3", false);
     }
@@ -38,18 +41,18 @@ public class Attack : MonoBehaviour
     {
         if (Input.GetButtonDown("Attack"))
         {
-            OnButtonClick();
+            OnButtonClick(); 
         }
-        if (Time.time - lastClickedTime > maxComboDelay)
+        if (Time.time - lastClickedTime > maxComboDelay) // si le joueur n'a pas appuyé de maniere répétée assez vite
         {
-            noOfClicks = 0;
-            anim.SetBool("Attack1", false);
+            noOfClicks = 0; // reinitialise le combo
+            anim.SetBool("Attack1", false); //Reset toutes les variables d'anim a false
             anim.SetBool("Attack2", false);
             anim.SetBool("Attack3", false);
         }
         if(noOfClicks != 0)
         {
-            playermovement.moveSpeed = speedWhileAttacking;
+            playermovement.moveSpeed = speedWhileAttacking; // le player ralenti
         }
     }
     #endregion
@@ -59,15 +62,14 @@ public class Attack : MonoBehaviour
     void OnButtonClick()
     {
         //Record time of last button click
-        lastClickedTime = Time.time;
-        noOfClicks++;
+        lastClickedTime = Time.time; // get le moment ou j'ai appuyé
+        noOfClicks++;//add 1click
         if (noOfClicks == 1)
         {
             anim.SetBool("Attack1", true);
         }
         //limit/clamp no of clicks between 0 and 3 because you have combo for 3 clicks
         noOfClicks = Mathf.Clamp(noOfClicks, 0, 3);
-        Debug.Log(noOfClicks);
     }
 
     public void ComboCheck1()
@@ -82,7 +84,7 @@ public class Attack : MonoBehaviour
         {
             noOfClicks = 0;
         }
-    }
+    }// Check si le player a réappuyé
     public void ComboCheck2()
     {
         anim.SetBool("Attack1", false);
@@ -93,7 +95,7 @@ public class Attack : MonoBehaviour
             noOfClicks = 0;
 
         }
-    }
+    }// Check si le player a réappuyé
     #endregion
 
     #region AttackBehaviour 
@@ -104,7 +106,7 @@ public class Attack : MonoBehaviour
         {
             if (hitcol.gameObject.tag == "Enemy") // pour chaque ennemi dans la sphere
             {
-                hitcol.gameObject.GetComponent<EnemyLife>().LostLifePoint(strength); // appelle la fonction de perte de pdv du monstre, les dégats infligés sont égaux a strength
+                hitcol.gameObject.GetComponent<EnemyLife>().LostLifePoint(strengthAttack1); // appelle la fonction de perte de pdv du monstre, les dégats infligés sont égaux a strength
                 Instantiate(stealLightFx, hitcol.transform.position, Quaternion.identity); // instantie le fx de vol de light
             }
         }
@@ -117,7 +119,7 @@ public class Attack : MonoBehaviour
         {
             if (hitcol.gameObject.tag == "Enemy") // pour chaque ennemi dans la sphere
             {
-                hitcol.gameObject.GetComponent<EnemyLife>().LostLifePoint(strength); // appelle la fonction de perte de pdv du monstre, les dégats infligés sont égaux a strength
+                hitcol.gameObject.GetComponent<EnemyLife>().LostLifePoint(strengthAttack2); // appelle la fonction de perte de pdv du monstre, les dégats infligés sont égaux a strength
                 Instantiate(stealLightFx, hitcol.transform.position, Quaternion.identity); // instantie le fx de vol de light
             }
         }
@@ -130,9 +132,11 @@ public class Attack : MonoBehaviour
         {
             if (hitcol.gameObject.tag == "Enemy") // pour chaque ennemi dans la sphere
             {
-                hitcol.gameObject.GetComponent<EnemyLife>().LostLifePoint(strength+1); // appelle la fonction de perte de pdv du monstre, les dégats infligés sont égaux a strength
-                Instantiate(stealLightFx, hitcol.transform.position, Quaternion.identity); // instantie le fx de vol de light
-                Instantiate(stealLightFx, hitcol.transform.position, Quaternion.identity); // instantie le fx de vol de light
+                hitcol.gameObject.GetComponent<EnemyLife>().LostLifePoint(strengthAttack3); // appelle la fonction de perte de pdv du monstre, les dégats infligés sont égaux a strength
+                for (int i = 0; i < multiplierLightRegenAttack3; i++) // répéter nbMultiplierlig... de fois l'action
+                {
+                    Instantiate(stealLightFx, hitcol.transform.position, Quaternion.identity); // instantie le fx de vol de light
+                }
             }
         }
     }
