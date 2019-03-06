@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4498875, g: 0.49994814, b: 0.57557154, a: 1}
+  m_IndirectSpecularColor: {r: 0.18277282, g: 0.22847888, b: 0.3070378, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -118,7 +118,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh12300
+  m_Name: pb_Mesh23314
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -1768,3 +1768,47 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a3c1d6cf401a08740bf1df56e38ced20, type: 3}
+--- !u!1 &7180655237628818466 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7180655237124408675, guid: a3c1d6cf401a08740bf1df56e38ced20,
+    type: 3}
+  m_PrefabInstance: {fileID: 7180655237628818465}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7180655237628818467 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7125780571477410717, guid: a3c1d6cf401a08740bf1df56e38ced20,
+    type: 3}
+  m_PrefabInstance: {fileID: 7180655237628818465}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7180655237628818468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7180655237628818466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6867a492d832fdd4692eb79734acad53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isProjectile: 1
+  isBeam: 0
+  isSwitch: 0
+  canUseBeam: 1
+  switchingCooldown: 1
+  bullet: {fileID: 6260880710944425492, guid: 6591ed834345e4f4cab6a404f3492896, type: 3}
+  bulletSpeed: 50
+  loadingTime: 0
+  loadedTime: 1
+  recoilStrength: 15
+  laserStart: {fileID: 3234466397415241846, guid: 93dba98f2f34d6543bbde2fe87fbfc3b,
+    type: 3}
+  laserMiddle: {fileID: 6221250136021273580, guid: f7a00d798314ea04e84d9df275bcbe31,
+    type: 3}
+  laserEnd: {fileID: 4447147770942041407, guid: 0c8c74600d0035e4683404d1263f9b4e,
+    type: 3}
+  laserSize: 20
+  loadingFx: {fileID: 7180655237628818467}
+  loadedFx: {fileID: 9146908943192436300, guid: eeda18a0544cb684da0e6a0bdecdc0e2,
+    type: 3}
