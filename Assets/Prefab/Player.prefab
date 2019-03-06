@@ -397,12 +397,17 @@ MonoBehaviour:
   minLifeToShoot: 18
   lifeUsageOnShoot: 15
   lightUsageOnShoot: 15
+  minLifeToBeam: 10.1
+  lifeUsageToLoadBeam: 15
+  lifeUsageEachInterval: 5
+  lightUsageOnBeam: 5
   minLifeToDash: 2.1
   lifeUsageOnDash: 2
   lightUsageOnDash: 2
   lifeRegen: 5
   lightRegen: 5
   canShoot: 1
+  canBeam: 1
   canDash: 1
 --- !u!114 &724292923
 MonoBehaviour:
@@ -450,6 +455,10 @@ MonoBehaviour:
   laserEnd: {fileID: 4447147770942041407, guid: 0c8c74600d0035e4683404d1263f9b4e,
     type: 3}
   laserSize: 20
+  laserDamage: 3
+  loadingBeamTime: 0
+  loadedBeamTime: 1
+  damageInterval: 0.5
   loadingFx: {fileID: 7125780571477410717}
   loadedFx: {fileID: 9146908943192436300, guid: eeda18a0544cb684da0e6a0bdecdc0e2,
     type: 3}
