@@ -52,15 +52,16 @@ public class PlayerShoot : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetAxis("Triggers") > 0.5f || Input.GetAxis("Triggers") < -0.5f)
+        if (Input.GetAxis("Triggers") > 0.5f || Input.GetAxis("Triggers") < -0.5f) //Check if the triggers are pulled
         {
-            if (isSwitch == false)
+            if (isSwitch == false) //When isSwitch is false it makes it true and launch the coroutine
             {
                 isSwitch = true;
                 StartCoroutine("SwitchShootMethod");
             }
 
         }
+        //Choosing the shoot method (depends of the coroutine result)
         if (isProjectile)
         {
             ShootProjectile();
@@ -75,8 +76,11 @@ public class PlayerShoot : MonoBehaviour
     #region Custom Methods
     IEnumerator SwitchShootMethod()
     {
+        //Invert the boolean in order to switch the shoot mode
         isBeam = !isBeam;
         isProjectile = !isProjectile;
+
+        //Launch a cooldown and makes isSwitch false back to use the switch again
         yield return new WaitForSeconds(switchingCooldown);
         isSwitch = false;
         StopCoroutine("SwitchShootMethod");
@@ -122,19 +126,23 @@ public class PlayerShoot : MonoBehaviour
 
     void ShootBeam()
     {
+        //Did the player unlocked the beam ?
         if(canUseBeam)
         {
             float xInput = Input.GetAxis("Horizontal2");
             float yInput = Input.GetAxis("Vertical2");
 
-            if (xInput >= 0.5f || xInput <= -0.5f || yInput >= 0.5f || yInput < -0.5f) // si le joueur touche le joystick droit
+            //Build the input detection
+            if (xInput >= 0.5f || xInput <= -0.5f || yInput >= 0.5f || yInput < -0.5f)
             {
+                //Build the start of the laser beam
                 if (start == null)
                 {
                     start = Instantiate(laserStart) as GameObject;
                     start.transform.parent = this.transform;
                     start.transform.localPosition = Vector3.zero;
                 }
+                //Build the middle of the laser
                 if (middle == null)
                 {
                     middle = Instantiate(laserMiddle) as GameObject;
@@ -142,17 +150,21 @@ public class PlayerShoot : MonoBehaviour
                     middle.transform.localPosition = Vector3.zero;
                 }
 
+                //Build a raycast with the direction of the laser and its size from the player
                 Vector3 laserDirection = new Vector3(xInput, 0.0f, yInput);
 
                 RaycastHit hit;
                 Physics.Raycast(this.transform.position, laserDirection, out hit, laserSize);
                 Debug.DrawRay(transform.position, laserDirection * laserSize, Color.black);
+
+                //Build the collider detection
                 if (hit.collider != null)
                 {
                     //Touched something --> Do something
                     Debug.Log("J'ai touché : " + hit.collider.gameObject.name);
                 }
 
+                //Build the end of the laser beam
                 if (end == null)
                 {
                     end = Instantiate(laserEnd) as GameObject;
@@ -160,23 +172,26 @@ public class PlayerShoot : MonoBehaviour
                     end.transform.localPosition = Vector3.zero;
                 }
 
-                //Place things
-                float startWidth = start.GetComponent<MeshRenderer>().bounds.size.x;
+                //Placing the instatiated objects
+                float startWidth = start.GetComponent<MeshRenderer>().bounds.size.x; //Storing the width of the start object
                 start.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
                 float endWidth = 0f;
                 if (end != null)
-                    endWidth = end.GetComponent<MeshRenderer>().bounds.size.x;
+                    endWidth = end.GetComponent<MeshRenderer>().bounds.size.x; //Storing the width of the end object
 
+                //Build the middle object transform (scale and position) in order to have an object as a laserbeam
                 middle.transform.localScale = new Vector3(middle.transform.localScale.x, middle.transform.localScale.y, laserSize - startWidth);
                 middle.transform.localPosition = new Vector3(0f, 0f, laserSize / 2f);
                 middle.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
 
-                end.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
+                //Build the end object position and rotation
                 if (end != null)
                 {
                     end.transform.localPosition = new Vector3(0f, 0f, laserSize);
+                    end.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
                 }
             }
+            //When the player is not using the right stick it destroy the instatiated objects
             else
             {
                 Destroy(start);

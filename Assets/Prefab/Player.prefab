@@ -285,7 +285,6 @@ GameObject:
   - component: {fileID: 8237557225746929092}
   - component: {fileID: 724292923}
   - component: {fileID: 4974952715049822751}
-  - component: {fileID: 2760558132870874611}
   - component: {fileID: 7180655237628818467}
   m_Layer: 0
   m_Name: Player
@@ -437,27 +436,23 @@ MonoBehaviour:
   isProjectile: 1
   isBeam: 0
   isSwitch: 0
+  canUseBeam: 1
   switchingCooldown: 1
   bullet: {fileID: 6260880710944425492, guid: 6591ed834345e4f4cab6a404f3492896, type: 3}
+  bulletSpeed: 50
   loadingTime: 0
   loadedTime: 1
   recoilStrength: 15
-  bulletSpeed: 50
+  laserStart: {fileID: 3234466397415241846, guid: 93dba98f2f34d6543bbde2fe87fbfc3b,
+    type: 3}
+  laserMiddle: {fileID: 6221250136021273580, guid: f7a00d798314ea04e84d9df275bcbe31,
+    type: 3}
+  laserEnd: {fileID: 4447147770942041407, guid: 0c8c74600d0035e4683404d1263f9b4e,
+    type: 3}
+  laserSize: 20
   loadingFx: {fileID: 7125780571477410717}
   loadedFx: {fileID: 9146908943192436300, guid: eeda18a0544cb684da0e6a0bdecdc0e2,
     type: 3}
---- !u!114 &2760558132870874611
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7180655237124408675}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ec2381cd4271dc438901b4b11caa689, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!120 &7180655237628818467
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -655,22 +650,11 @@ PrefabInstance:
       propertyPath: EmissionModule.rateOverTime.scalar
       value: 500
       objectReference: {fileID: 0}
-    - target: {fileID: 5384941650365448867, guid: a6ba460297490dc49960ef13a8ae3d20,
-        type: 3}
-      propertyPath: LightsModule.light
-      value: 
-      objectReference: {fileID: 5932710068561519565}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a6ba460297490dc49960ef13a8ae3d20, type: 3}
 --- !u!4 &5932710067458847866 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5384941650365448864, guid: a6ba460297490dc49960ef13a8ae3d20,
-    type: 3}
-  m_PrefabInstance: {fileID: 1796408184562890458}
-  m_PrefabAsset: {fileID: 0}
---- !u!108 &5932710068561519565 stripped
-Light:
-  m_CorrespondingSourceObject: {fileID: 5384941649313371415, guid: a6ba460297490dc49960ef13a8ae3d20,
     type: 3}
   m_PrefabInstance: {fileID: 1796408184562890458}
   m_PrefabAsset: {fileID: 0}
@@ -685,11 +669,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: LoadShot
-      objectReference: {fileID: 0}
-    - target: {fileID: 2665685101228152076, guid: 95fa9363329517e4696a52b5f2b702b2,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2665685101228152067, guid: 95fa9363329517e4696a52b5f2b702b2,
         type: 3}
