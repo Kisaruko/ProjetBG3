@@ -167,21 +167,6 @@ public class Attack : MonoBehaviour
             CameraShake.Shake(0.2f, 2f);
         }
     }
-    /*  void DoAttack()
-       {
-           if (Input.GetButtonDown("Attack")) // Si le joueur appuie sur l'input d'attack
-           {
-               Instantiate(fxAttack, transform.position + transform.forward, Quaternion.identity); // Instantier le fx d'attaque
-               foreach (Collider hitcol in Physics.OverlapSphere(transform.position + transform.forward, range)) // Crée une sphère devant le joueur de radius range
-               {
-                   if (hitcol.gameObject.tag == "Enemy") // pour chaque ennemi dans la sphere
-                   {
-                       hitcol.gameObject.GetComponent<EnemyLife>().LostLifePoint(strength); // appelle la fonction de perte de pdv du monstre, les dégats infligés sont égaux a strength
-                       Instantiate(stealLightFx, hitcol.transform.position, Quaternion.identity); // instantie le fx de vol de light
-                   }
-               }
-           }
-       }*/
     #endregion
     #endregion
     #region Debug

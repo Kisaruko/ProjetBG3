@@ -13,39 +13,48 @@ public class LoadedAttack : MonoBehaviour
     public LayerMask destroyableWalls;
     public int strength;
     public GameObject stealLightFxVariant;
-
+    public GameObject loadedAttackFx;
+    public GameObject loadingFx;
     void Start()
     {
-        anim = GetComponent<Animator>();
+        anim = GetComponent<Animator>(); // get l'animator
     }
     void AttackTimer()
     {
-        if (Input.GetButton("Attack"))
+        if (Input.GetButton("Attack")) // si le pj attack
         {
-            anim.SetBool("LoadCancel", false);
+            anim.SetBool("LoadCancel", false); // remets a false par précaution
 
             loadingTime += Time.deltaTime; // augmente le temps de load en fonction du temps
-            if (loadingTime >= loadedTime /5)
+
+            if (loadingTime >= loadedTime /5) // lance l'animation de cast 
             {
-                anim.SetBool("isCasting", true);
+                loadingFx.SetActive(true); // active le fx de load
+                anim.SetBool("isCasting", true); // le joueur cast
             }
         }
-        if (Input.GetButtonUp("Attack"))
+        if (Input.GetButtonUp("Attack")) // lache le bouton
         {
-            if (loadingTime >= loadedTime)
+
+            if (loadingTime >= loadedTime) // check si le chargement est validé
             {
-                anim.SetBool("isAttackLoaded", true);
+                anim.SetBool("isAttackLoaded", true); // le cast est chargé
             }
             else
             {
-                anim.SetBool("LoadCancel", true);
+                anim.SetBool("LoadCancel", true); // le load est cancel
+                loadingFx.SetActive(false); // desactive fx de load
             }
-            loadingTime = 0f;
-            anim.SetBool("isCasting", false);
+            loadingTime = 0f; // le temps est remis a 0
+            anim.SetBool("isCasting", false); // le joueur ne cast plus
         }
+
+
     }
     public void DoChargedAttack()
     {
+        Instantiate(loadedAttackFx, transform.position, Quaternion.identity); // instantie le fx de vol de light
+        loadingFx.SetActive(false); //stop le fx de load
         foreach (Collider hitcol in Physics.OverlapSphere(transform.position, attackRange, attackSphereDetection))
         {
             hitcol.GetComponent<EnemyLife>().LostLifePoint(strength); // appelle la fonction de perte de pdv du monstre, les dégats infligés sont égaux a strength
@@ -57,6 +66,8 @@ public class LoadedAttack : MonoBehaviour
         }
         anim.SetBool("isAttackLoaded", false);
         CameraShake.Shake(0.5f, 0.75f);
+        loadingFx.SetActive(false);
+
     }
     private void Update()
     {
