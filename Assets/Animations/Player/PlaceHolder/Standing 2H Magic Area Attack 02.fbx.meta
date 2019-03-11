@@ -149,6 +149,7 @@ ModelImporter:
     4300002: Alpha_Joints
     7400000: Cast
     7400002: Release
+    7400004: CastLoop
     9500000: //RootNode
     13700000: Alpha_Joints
     13700002: Alpha_Surface
@@ -188,10 +189,10 @@ ModelImporter:
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
-      cycleOffset: 40
+      cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -220,6 +221,41 @@ ModelImporter:
       loop: 0
       hasAdditiveReferencePose: 0
       loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events:
+      - time: 0.16666667
+        functionName: DoChargedAttack
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: CastLoop
+      takeName: mixamo.com
+      firstFrame: 30
+      lastFrame: 50
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0

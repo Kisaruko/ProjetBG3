@@ -10,8 +10,10 @@ public class LoadedAttack : MonoBehaviour
     public float loadedTime = 2f;
     public float attackRange;
     public LayerMask attackSphereDetection;
+    public LayerMask destroyableWalls;
     public int strength;
     public GameObject stealLightFxVariant;
+
     void Start()
     {
         anim = GetComponent<Animator>();
@@ -20,6 +22,8 @@ public class LoadedAttack : MonoBehaviour
     {
         if (Input.GetButton("Attack"))
         {
+            anim.SetBool("LoadCancel", false);
+
             loadingTime += Time.deltaTime; // augmente le temps de load en fonction du temps
             if (loadingTime >= loadedTime /5)
             {
@@ -30,7 +34,11 @@ public class LoadedAttack : MonoBehaviour
         {
             if (loadingTime >= loadedTime)
             {
-                DoChargedAttack();
+                anim.SetBool("isAttackLoaded", true);
+            }
+            else
+            {
+                anim.SetBool("LoadCancel", true);
             }
             loadingTime = 0f;
             anim.SetBool("isCasting", false);
@@ -43,6 +51,12 @@ public class LoadedAttack : MonoBehaviour
             hitcol.GetComponent<EnemyLife>().LostLifePoint(strength); // appelle la fonction de perte de pdv du monstre, les dégats infligés sont égaux a strength
             Instantiate(stealLightFxVariant, hitcol.transform.position, Quaternion.identity); // instantie le fx de vol de light
         }
+        foreach (Collider hitcol in Physics.OverlapSphere(transform.position, attackRange,destroyableWalls))
+        {
+            Destroy(hitcol.gameObject);
+        }
+        anim.SetBool("isAttackLoaded", false);
+        CameraShake.Shake(0.5f, 0.75f);
     }
     private void Update()
     {
