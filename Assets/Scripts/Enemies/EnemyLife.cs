@@ -1,0 +1,29 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class EnemyLife : MonoBehaviour
+{
+    public int maxLifePoints;
+    public int currentLifePoints;
+    public GameObject deathFx;
+
+    private void Start()
+    {
+        currentLifePoints = maxLifePoints; // les pdv de départ de l'enemy sont au maximum
+    }
+    public void LostLifePoint(int damageDeal) //DamageDeal est une valeur qui doit être rentrée lors de l'appel de cette fonction et elle indique le nombre de pdv infligés à l'ennemi
+    {
+        currentLifePoints = currentLifePoints - damageDeal;  // les pdv sont égaux aux pdv actuels - les dommage causées lors de l'appel de la fonction
+        GetComponent<RecoilEnemy>().TakeHit(); // Appel la fonction recul de l'ennemi
+        if (currentLifePoints <= 0) // si les pv sont inférieurs ou égaux a 0
+        {
+            Death(); // l'ennemi meurt
+        }
+    }
+    void Death()
+    {
+        Instantiate(deathFx, transform.position, Quaternion.identity);// instantier le fx de mort
+        Destroy(this.gameObject);//detruire l'objet
+    }
+}
