@@ -33,6 +33,7 @@ public class BulletBehaviour : MonoBehaviour
         {
             Instantiate(ref_explode, transform.position, Quaternion.identity); // instantie le fx de touche qqchose
             other.GetComponent<EnemyLife>().LostLifePoint(bulletDamage); // appel la fonction de perte de pdv de l'ennemi
+            other.GetComponent<RecoilEnemy>().StartCoroutine("RecoilTime");
              Destroy(this.gameObject); // detruit l'objet
         }
     }

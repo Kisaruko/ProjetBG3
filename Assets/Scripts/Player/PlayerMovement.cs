@@ -82,7 +82,8 @@ public class PlayerMovement : MonoBehaviour
         {
             if (playerbehaviour.canDash == true) // si le joueur a assez de lumière pour dasher
             {
-                ps.enableEmission = true; // active l'emission du fx de dash
+                var emission = ps.emission;
+                emission.enabled = true; // active l'emission du fx de dash
 
                 GetComponentInChildren<DissolveEffect>().dissolve = true; // dissolve le joueur
                 GetComponentInChildren<DissolveEffect>().ressolve = false; // desactive le ressolve du joueur
@@ -114,7 +115,8 @@ public class PlayerMovement : MonoBehaviour
         GetComponentInChildren<DissolveEffect>().ressolve = true; // fait réapparaitre le player
         yield return new WaitForSeconds(coolDown); //lance le cooldown
         isReadyToDash = true; // le joueur peut redasher
-        ps.enableEmission = false; // arrete l'emission de particules de dash
+        var emission = ps.emission;
+        emission.enabled = false; // arrete l'emission de particules de dash
 
         StopCoroutine("DashTime");// stop la coroutine
     }
