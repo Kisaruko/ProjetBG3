@@ -11,8 +11,15 @@ public class Attack : MonoBehaviour
     public int strengthAttack2;
     public int strengthAttack3;
     public int multiplierLightRegenAttack3;
-    public float range;
     public float speedWhileAttacking;
+
+    [Header("Detection", order = 0)]
+    [Space(10, order = 1)]
+    [Range(0, 180)]
+    public float angle;
+    public float range;
+    public LayerMask attackSphereDetection;
+
     [Header("Vfx", order = 0)]
     [Space(10, order = 1)]
     public GameObject stealLightFx;
@@ -41,7 +48,7 @@ public class Attack : MonoBehaviour
     {
         if (Input.GetButtonDown("Attack"))
         {
-            OnButtonClick(); 
+            OnButtonClick();
         }
         if (Time.time - lastClickedTime > maxComboDelay) // si le joueur n'a pas appuyé de maniere répétée assez vite
         {
@@ -50,14 +57,14 @@ public class Attack : MonoBehaviour
             anim.SetBool("Attack2", false);
             anim.SetBool("Attack3", false);
         }
-        if(noOfClicks != 0)
+        if (noOfClicks != 0)
         {
             playermovement.moveSpeed = speedWhileAttacking; // le player ralenti
         }
     }
     #endregion
     #region Custom Methods
-    
+
     #region InputDetection
     void OnButtonClick()
     {
@@ -75,7 +82,7 @@ public class Attack : MonoBehaviour
     public void ComboCheck1()
     {
         anim.SetBool("Attack1", false);
-        if (noOfClicks>= 2 )
+        if (noOfClicks >= 2)
         {
             anim.SetBool("Attack2", true);
 
@@ -99,71 +106,85 @@ public class Attack : MonoBehaviour
     #endregion
 
     #region AttackBehaviour 
+
+    private List<EnemyLife> DetectEnemiesInRange()
+    {
+        List<EnemyLife> enemies = new List<EnemyLife>(); //crée une liste
+        foreach (Collider hitcol in Physics.OverlapSphere(transform.position, range, attackSphereDetection)) // crée une sphere de detection
+        {
+            Vector3 toCollider = hitcol.transform.position - transform.position; // get le vecteur entre ennemi et player
+            Ray ray = new Ray(transform.position, toCollider); // trace un rayon entre les deux
+            if (!Physics.Raycast(ray, toCollider.magnitude, ~attackSphereDetection)) // si le ray touche l'ennemi
+            {
+                float angleToCollider = Vector3.Angle(transform.forward, toCollider.normalized); //check l'angle entre le player et l'ennemi
+                if (angleToCollider <= angle / 2) // si l'angle est inférieur à la range du joueur
+                {
+                    EnemyLife enemyLife = hitcol.GetComponent<EnemyLife>(); 
+                    if (enemyLife != null) // si l'ennemi a le composant enemy life
+                    {
+                        enemies.Add(enemyLife);// add un composant a la liste
+                    }
+                }
+            }
+        }
+        return enemies;// retourne la liste
+    }
+
     public void Attack1()
     {
-        Instantiate(fxAttack, transform.position + transform.forward, Quaternion.identity); // Instantier le fx d'attaque
-        foreach (Collider hitcol in Physics.OverlapSphere(transform.position + transform.forward, range)) // Crée une sphère devant le joueur de radius range
+        Instantiate(fxAttack, transform.position + transform.forward, Quaternion.identity);
+        List<EnemyLife> touchedEnemies = DetectEnemiesInRange();
+        foreach (EnemyLife enemyLife in touchedEnemies)
         {
-            if (hitcol.gameObject.tag == "Enemy") // pour chaque ennemi dans la sphere
-            {
-                hitcol.gameObject.GetComponent<EnemyLife>().LostLifePoint(strengthAttack1); // appelle la fonction de perte de pdv du monstre, les dégats infligés sont égaux a strength
-                Instantiate(stealLightFx, hitcol.transform.position, Quaternion.identity); // instantie le fx de vol de light
-            }
+            enemyLife.LostLifePoint(strengthAttack1); // appelle la fonction de perte de pdv du monstre, les dégats infligés sont égaux a strength
+            Instantiate(stealLightFx, enemyLife.transform.position, Quaternion.identity); // instantie le fx de vol de light
         }
     }
 
     public void Attack2()
     {
-        Instantiate(fxAttack, transform.position + transform.forward, Quaternion.identity); // Instantier le fx d'attaque
-        foreach (Collider hitcol in Physics.OverlapSphere(transform.position + transform.forward, range)) // Crée une sphère devant le joueur de radius range
+        Instantiate(fxAttack, transform.position + transform.forward, Quaternion.identity);
+        List<EnemyLife> touchedEnemies = DetectEnemiesInRange();
+        foreach (EnemyLife enemyLife in touchedEnemies)
         {
-            if (hitcol.gameObject.tag == "Enemy") // pour chaque ennemi dans la sphere
-            {
-                hitcol.gameObject.GetComponent<EnemyLife>().LostLifePoint(strengthAttack2); // appelle la fonction de perte de pdv du monstre, les dégats infligés sont égaux a strength
-                Instantiate(stealLightFx, hitcol.transform.position, Quaternion.identity); // instantie le fx de vol de light
-            }
+            enemyLife.LostLifePoint(strengthAttack2); // appelle la fonction de perte de pdv du monstre, les dégats infligés sont égaux a strength
+            Instantiate(stealLightFx, enemyLife.transform.position, Quaternion.identity); // instantie le fx de vol de light
         }
     }
 
     public void Attack3()
     {
         Instantiate(fxAttack, transform.position + transform.forward, Quaternion.identity); // Instantier le fx d'attaque
-        foreach (Collider hitcol in Physics.OverlapSphere(transform.position + transform.forward, range)) // Crée une sphère devant le joueur de radius range
+        List<EnemyLife> touchedEnemies = DetectEnemiesInRange();
+        foreach (EnemyLife enemyLife in touchedEnemies)
         {
-            if (hitcol.gameObject.tag == "Enemy") // pour chaque ennemi dans la sphere
+            enemyLife.LostLifePoint(strengthAttack2);  //appelle la fonction de perte de pdv du monstre, les dégats infligés sont égaux a strength
+            for (int i = 0; i < multiplierLightRegenAttack3; i++) // répéter nbMultiplierlig... de fois l'action
             {
-                hitcol.gameObject.GetComponent<EnemyLife>().LostLifePoint(strengthAttack3); // appelle la fonction de perte de pdv du monstre, les dégats infligés sont égaux a strength
-                for (int i = 0; i < multiplierLightRegenAttack3; i++) // répéter nbMultiplierlig... de fois l'action
-                {
-                    Instantiate(stealLightFx, hitcol.transform.position, Quaternion.identity); // instantie le fx de vol de light
-                }
+                Instantiate(stealLightFx, enemyLife.transform.position, Quaternion.identity); // instantie le fx de vol de light
             }
+            CameraShake.Shake(0.2f, 2f);
         }
     }
-
-    /*  void DoAttack()
-       {
-           if (Input.GetButtonDown("Attack")) // Si le joueur appuie sur l'input d'attack
-           {
-               Instantiate(fxAttack, transform.position + transform.forward, Quaternion.identity); // Instantier le fx d'attaque
-               foreach (Collider hitcol in Physics.OverlapSphere(transform.position + transform.forward, range)) // Crée une sphère devant le joueur de radius range
-               {
-                   if (hitcol.gameObject.tag == "Enemy") // pour chaque ennemi dans la sphere
-                   {
-                       hitcol.gameObject.GetComponent<EnemyLife>().LostLifePoint(strength); // appelle la fonction de perte de pdv du monstre, les dégats infligés sont égaux a strength
-                       Instantiate(stealLightFx, hitcol.transform.position, Quaternion.identity); // instantie le fx de vol de light
-                   }
-               }
-           }
-       }*/
     #endregion
     #endregion
     #region Debug
     private void OnDrawGizmosSelected()
     {
-        Gizmos.color = Color.red;
-     //Use the same vars you use to draw your Overlap SPhere to draw your Wire Sphere.
-    // Gizmos.DrawWireSphere(transform.position + m_Position, m_Radius);       
+        Gizmos.color = Color.black;
+        Gizmos.DrawWireSphere(transform.position, range);
+
+        Vector3 startPos = transform.position;
+        Vector3 endPos = Vector3.zero;
+        Vector3 direction = transform.forward * range;
+        Quaternion rotation = Quaternion.AngleAxis(angle / 2, Vector3.up);
+        endPos = startPos + rotation * direction;
+
+        Gizmos.DrawLine(startPos, endPos);
+        rotation = Quaternion.AngleAxis(-angle / 2, Vector3.up);
+        endPos = startPos + rotation * direction;
+        Gizmos.DrawLine(startPos, endPos);
+
     }
     #endregion
 }
