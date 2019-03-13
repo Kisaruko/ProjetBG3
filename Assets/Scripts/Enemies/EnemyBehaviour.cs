@@ -8,21 +8,21 @@ public class EnemyBehaviour : MonoBehaviour
     public bool playerIsInRange = false;
     public float moveSpeed;
     private GameObject player;
-    private float minDistanceToAttack =3f;
-    public float attackRange;
-    public int strength;
-    public float recoilInflincted;
+    public float minDistanceToAttack =3f;
+    private Animator anim;
 
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player"); 
         rb = GetComponent<Rigidbody>();
+        anim = GetComponentInChildren<Animator>();
     }
     private void Update()
     {
         if(playerIsInRange == true) //si le player a été vu
         {
-            transform.LookAt(player.transform); //l'ennemi regarde le joueur
+            anim.SetBool("Chasing", true);
+            transform.LookAt(new Vector3(player.transform.position.x, 0f, player.transform.position.z)); //l'ennemi regarde le joueur
             rb.velocity = (transform.forward.normalized) * moveSpeed; //Il avance toujours vers l'avant
         }
         DetectIfCanAttack();
@@ -32,7 +32,8 @@ public class EnemyBehaviour : MonoBehaviour
     {
         float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position); // Calcule la distance entre lui meme et le joueur
         if (minDistanceToAttack > distanceToPlayer && playerIsInRange == true) // si le joueur a été vu et est a portée
-        { 
+        {
+            anim.SetBool("Chasing", false);
             playerIsInRange = false; // L'ennemi s'arrête
             StartCoroutine("Attacking"); //Lance la coroutine d'attaque
         }
@@ -40,15 +41,9 @@ public class EnemyBehaviour : MonoBehaviour
     IEnumerator Attacking()
     {
         yield return new WaitForSeconds(1f); // on attends quelques secondes
-        foreach (Collider hitcol in Physics.OverlapSphere(transform.position + transform.forward, attackRange)) // Draw une sphere devant l'ennemi de radius attackrange
-        {
-            if (hitcol.gameObject.tag == "Player") //Pour chaque joueur dans la zone
-            {
-                player.GetComponent<PlayerMovement>().Recoil(transform, recoilInflincted); //Appelle la fonction recoil du joueur et inflige un recul de valeur recoilInflected
-                player.GetComponent<PlayerBehaviour>().TakeHit(strength); // Appelle la fonction qui fait perdre des pdv au joueur , le joueur perd 'strength' pdv
+        anim.SetBool("Attack", true);
+        yield return new WaitForSeconds(1f); // on attends quelques secondes
 
-            }
-        }    
         playerIsInRange = true; // l'ennemi reprend son déplacement
         StopCoroutine("Attacking");
     }
