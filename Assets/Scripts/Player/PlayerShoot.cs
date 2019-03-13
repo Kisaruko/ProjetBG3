@@ -13,8 +13,9 @@ public class PlayerShoot : MonoBehaviour
     public bool canUseBeam;
     public float switchingCooldown;
 
-    [Header("Bullet Variables", order = 2)]
-    [Space(10, order = 3)]
+    [Header("Bullet Variables", order = 0)]
+    [Space(10, order = 1)]
+    public float lifeUsageOnShoot;
     public GameObject bullet;
     public float bulletSpeed;
     public float loadingTime;
@@ -26,25 +27,32 @@ public class PlayerShoot : MonoBehaviour
     public float recoilStrength;
     Vector3 lastInput;
 
-    [Header("Laser Variables", order = 4)]
-    [Space(10, order = 5)]
+    [Header("Laser Variables", order = 0)]
+    [Space(10, order = 1)]
     public GameObject laserStart;
     public GameObject laserMiddle;
     public GameObject laserEnd;
     private GameObject start;
     private GameObject middle;
     private GameObject end;
+    [Space(5, order = 2)]
+    public float lifeUsageToLoadBeam;
+    public float lifeUsageEachInterval;
+    [Space(5, order = 3)]
     public float laserSize = 20f;
     public int laserDamage;
-    public float loadingBeamTime;
+    [Space(5, order = 4)]
     public float loadedBeamTime;
+    private float loadingBeamTime;
     private bool isBeamLoaded;
-    private float currentDamageInterval;
+    [Space(5, order = 5)]
     public float damageInterval;
+    private float currentDamageInterval;
+    
 
 
-    [Header("VFX References", order = 6)]
-    [Space(10, order = 7)]
+    [Header("VFX References", order = 0)]
+    [Space(10, order = 1)]
     public GameObject loadingFx;
     public GameObject loadedFx;
     private LineRenderer viseur;
@@ -122,7 +130,7 @@ public class PlayerShoot : MonoBehaviour
             {
                 if (GetComponent<PlayerBehaviour>().canShoot == true)// check si le joueur a assez de lumière pour tirer
                 {
-                    GetComponent<PlayerBehaviour>().UseLifeOnShoot(); // utilise de la lumière
+                    GetComponent<PlayerBehaviour>().UseLifeOnShoot(lifeUsageOnShoot); // utilise de la lumière
                     rb.AddForce((transform.forward * -1) * recoilStrength, ForceMode.Impulse); // le joueur recule a cause du tir
                     GameObject clone = Instantiate(bullet, transform.position, Quaternion.identity); // j'instantie un clone de ma balle pour pouvoir la modifier elle et seulement elle
                     clone.GetComponent<Rigidbody>().velocity = lastInput.normalized * bulletSpeed; // je calcule la velocité de ma balle
@@ -164,7 +172,7 @@ public class PlayerShoot : MonoBehaviour
                     //Execute the life usage only 1 time
                     if(isBeamLoaded == false)
                     {
-                        GetComponent<PlayerBehaviour>().UseLifeToLoadBeam();
+                        GetComponent<PlayerBehaviour>().UseLifeToLoadBeam(lifeUsageToLoadBeam);
                         isBeamLoaded = true;
                     }
 
@@ -175,7 +183,7 @@ public class PlayerShoot : MonoBehaviour
                     if (currentDamageInterval >= damageInterval)
                     {
                         //Call life usage methods
-                        GetComponent<PlayerBehaviour>().UseLifeEachInterval();
+                        GetComponent<PlayerBehaviour>().UseLifeEachInterval(lifeUsageEachInterval);
                         currentDamageInterval = 0f;
 
                     }
@@ -209,7 +217,7 @@ public class PlayerShoot : MonoBehaviour
                     {
                         if (hits[i].collider != null)
                         {
-                            if (hits[i].collider.tag == "Enemy")
+                            if (hits[i].collider.CompareTag("Enemy"))
                             {
 
                                 currentDamageInterval += Time.deltaTime;
