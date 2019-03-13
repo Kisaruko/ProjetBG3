@@ -25,10 +25,10 @@ public class EnemyBehaviour : MonoBehaviour
             transform.LookAt(player.transform); //l'ennemi regarde le joueur
             rb.velocity = (transform.forward.normalized) * moveSpeed; //Il avance toujours vers l'avant
         }
-        Attack();
+        DetectIfCanAttack();
     }
 
-    void Attack()
+    void DetectIfCanAttack()
     {
         float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position); // Calcule la distance entre lui meme et le joueur
         if (minDistanceToAttack > distanceToPlayer && playerIsInRange == true) // si le joueur a été vu et est a portée
