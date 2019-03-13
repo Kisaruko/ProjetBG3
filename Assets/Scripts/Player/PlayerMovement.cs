@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
     public bool isMoving = false;
     public float moveSpeed;
     private float BaseSpeed;
+    public float lifeUsageOnDash;
     public bool isDashing;
     public bool isReadyToDash;
     public float dashingTime;
@@ -87,7 +88,7 @@ public class PlayerMovement : MonoBehaviour
 
                 GetComponentInChildren<DissolveEffect>().dissolve = true; // dissolve le joueur
                 GetComponentInChildren<DissolveEffect>().ressolve = false; // desactive le ressolve du joueur
-                playerbehaviour.UseLifeOnDash(); //consomme de la lumière
+                playerbehaviour.UseLifeOnDash(lifeUsageOnDash); //consomme de la lumière
                 isReadyToDash = false; // le joueur ne peut pas redasher
                 isDashing = true; // le joueur est en train de dasher
                 StartCoroutine("DashTime"); // on lance la coroutine du cooldown du dash
