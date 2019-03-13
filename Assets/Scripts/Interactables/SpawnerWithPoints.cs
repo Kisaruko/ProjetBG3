@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class SpawnerWithPoints : MonoBehaviour
 {
+    #region Variables
     public GameObject gameObjectToSpawn;
     public float detectionRange;
     public LayerMask spawners;
+    #endregion
 
     #region Main Methods
     private void OnTriggerEnter(Collider other)
