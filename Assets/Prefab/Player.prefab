@@ -4906,7 +4906,6 @@ MonoBehaviour:
   strengthAttack3: 3
   multiplierLightRegenAttack3: 2
   speedWhileAttacking: 10
-  debugEnabled: 0
   angle: 120
   range: 3.5
   attackSphereDetection:
@@ -5175,6 +5174,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isMoving: 0
   moveSpeed: 25
+  lifeUsageOnDash: 0
   isDashing: 0
   isReadyToDash: 1
   dashingTime: 0.05
@@ -5244,14 +5244,12 @@ MonoBehaviour:
   isInvicible: 0
   invincibleDuration: 1
   minLifeToShoot: 18
-  lifeUsageOnShoot: 15
-  lightUsageOnShoot: 15
+  minLifeToBeam: 0
   minLifeToDash: 2.1
   lifeUsageOnDash: 2
-  lightUsageOnDash: 2
   lifeRegen: 5
-  lightRegen: 5
   canShoot: 1
+  canBeam: 0
   canDash: 1
 --- !u!120 &7180655237628818467
 LineRenderer:
@@ -5365,6 +5363,7 @@ MonoBehaviour:
   isSwitch: 0
   canUseBeam: 1
   switchingCooldown: 1
+  lifeUsageOnShoot: 15
   bullet: {fileID: 6260880710944425492, guid: 6591ed834345e4f4cab6a404f3492896, type: 3}
   bulletSpeed: 50
   loadingTime: 0
@@ -5376,7 +5375,12 @@ MonoBehaviour:
     type: 3}
   laserEnd: {fileID: 4447147770942041407, guid: 0c8c74600d0035e4683404d1263f9b4e,
     type: 3}
+  lifeUsageToLoadBeam: 15
+  lifeUsageEachInterval: 5
   laserSize: 20
+  laserDamage: 2
+  loadedBeamTime: 1
+  damageInterval: 0.2
   loadingFx: {fileID: 7125780571477410717}
   loadedFx: {fileID: 9146908943192436300, guid: eeda18a0544cb684da0e6a0bdecdc0e2,
     type: 3}
