@@ -12,7 +12,6 @@ public class Attack : MonoBehaviour
     public int strengthAttack3;
     public int multiplierLightRegenAttack3;
     public float speedWhileAttacking;
-    public bool debugEnabled;
 
     [Header("Detection", order = 0)]
     [Space(10, order = 1)]
@@ -186,15 +185,6 @@ public class Attack : MonoBehaviour
         endPos = startPos + rotation * direction;
         Gizmos.DrawLine(startPos, endPos);
 
-
-
-
-        /*if (debugEnabled == true)
-        {
-            Gizmos.matrix = Matrix4x4.TRS(transform.position + transform.forward, Quaternion.AngleAxis(45f, Vector3.up), range);
-            Gizmos.color = Color.red;
-            Gizmos.DrawCube(Vector3.zero, Vector3.one);
-        }*/
     }
     #endregion
 }

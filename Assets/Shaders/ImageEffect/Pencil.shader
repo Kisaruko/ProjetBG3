@@ -47,7 +47,7 @@
  
             #define PI2 6.28318530717959
             #define STEP 2.0
-            #define RANGE 16.0//16base
+            #define RANGE 4.0//16base
             #define ANGLENUM 4.0
             #define GRADTHRESH 0.01
             #define SENSITIVITY 10.0
