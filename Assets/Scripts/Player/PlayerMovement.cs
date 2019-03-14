@@ -4,10 +4,16 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    private Rigidbody rb;
+    #region Variables
+    [Header("Movement Variables", order = 0)]
     public bool isMoving = false;
     public float moveSpeed;
+    private Rigidbody rb;
     private float BaseSpeed;
+    public float moveSpeedWhileAiming;
+    private CustomGravity customgravity;
+
+    [Header("Dash Variables")]
     public float lifeUsageOnDash;
     public bool isDashing;
     public bool isReadyToDash;
@@ -15,12 +21,13 @@ public class PlayerMovement : MonoBehaviour
     public float coolDown;
     public float dashSpeed;
     Quaternion lastRotation;
+    private PlayerBehaviour playerbehaviour;
+
+    [Header("Recoil Variables")]
     public bool isRecoiling = false;
     public float recoilDuration;
     private ParticleSystem ps;
-    public float moveSpeedWhileAiming;
-    private PlayerBehaviour playerbehaviour;
-    private CustomGravity customgravity;
+    #endregion
 
     private void Start()
     {
@@ -42,8 +49,8 @@ public class PlayerMovement : MonoBehaviour
         float xInput2 = Input.GetAxis("Horizontal2"); //Joystick droit horizontal
         float yInput2 = Input.GetAxis("Vertical2"); //Joystick droit vertical
 
-        Vector3 lookDirection = new Vector3(xInput,0f,yInput); // direction du joystick gauche
-        Vector3 lookDirection2 = new Vector3(xInput2,0f,yInput2); // direction du joystick droit
+        Vector3 lookDirection = new Vector3(xInput, 0f, yInput); // direction du joystick gauche
+        Vector3 lookDirection2 = new Vector3(xInput2, 0f, yInput2); // direction du joystick droit
 
         if (isRecoiling == false) // si le joueur ne prend pas un recul
         {
@@ -54,7 +61,7 @@ public class PlayerMovement : MonoBehaviour
                 {
                     transform.rotation = Quaternion.LookRotation(lookDirection, Vector3.up); // le joueur regarde en face de lui
                 }
-                rb.velocity = new Vector3(xInput, 0f, yInput) * moveSpeed; // le joueur avant dans la direction du joystick gauche
+                rb.velocity = new Vector3(xInput, 0f, yInput) * moveSpeed; // le joueur avance dans la direction du joystick gauche
                 lastRotation = transform.rotation; //Enregistre le dernier input du joueur pour qu'il regarde dans la dernière direction dans laquelle il allait
             }
 
@@ -77,43 +84,58 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
-    void Dashing()
+    private void Dashing()
     {
-        if(Input.GetButtonDown("Dash") && isReadyToDash == true && isRecoiling == false) // si le joueur peut dasher, qu'il ne subit pas de recul et qu'il appuie sur l'input
+
+        if (Input.GetButtonDown("Dash") && isReadyToDash == true && isRecoiling == false) // si le joueur peut dasher, qu'il ne subit pas de recul et qu'il appuie sur l'input
         {
             if (playerbehaviour.canDash == true) // si le joueur a assez de lumière pour dasher
             {
+                //Activation des effet de particules
                 var emission = ps.emission;
-                emission.enabled = true; // active l'emission du fx de dash
+                emission.enabled = true;
 
-                GetComponentInChildren<DissolveEffect>().dissolve = true; // dissolve le joueur
-                GetComponentInChildren<DissolveEffect>().ressolve = false; // desactive le ressolve du joueur
                 playerbehaviour.UseLifeOnDash(lifeUsageOnDash); //consomme de la lumière
+
                 isReadyToDash = false; // le joueur ne peut pas redasher
                 isDashing = true; // le joueur est en train de dasher
                 StartCoroutine("DashTime"); // on lance la coroutine du cooldown du dash
             }
 
         }
-        if(isDashing == true) //si le joueur est en train de dasher
+        if (isDashing == true) //si le joueur est en train de dasher
         {
-            rb.velocity = transform.forward * dashSpeed; // il dash et sa vitesse augmente 
-           customgravity.gravityScale = 0f; // desactive la gravité pendant le dash
+            //Build the dash direction and velocity
+            Vector3 dashDirection = transform.forward;
+            Vector3 dashVelocity = dashDirection * dashSpeed;
 
+            //Build the raycast
+            RaycastHit hit;
+
+            //Use the translate method (movement without collider) if an enemy hit in the ray cast
+            if (Physics.Raycast(transform.position, dashVelocity, out hit))
+            {
+                if (hit.collider.CompareTag("Enemy"))
+                {
+                    transform.Translate(dashVelocity * Time.deltaTime, Space.World);
+                }
+                //Use rigidbody for other dash movement in order to not pass through walls
+                else
+                {
+                    rb.velocity = dashVelocity;
+                }
+            }
+            customgravity.gravityScale = 0f; // desactive la gravité pendant le dash
         }
         else
         {
-           customgravity.gravityScale = 50f; // réactive la gravité
-
+            customgravity.gravityScale = 50f; // réactive la gravité
         }
     }
     IEnumerator DashTime()
     {
         yield return new WaitForSeconds(dashingTime); // le temps que le dash dure
         isDashing = false; // le joueur ne dash plus
-
-        GetComponentInChildren<DissolveEffect>().dissolve = false; // desactive le dissolve du player
-        GetComponentInChildren<DissolveEffect>().ressolve = true; // fait réapparaitre le player
         yield return new WaitForSeconds(coolDown); //lance le cooldown
         isReadyToDash = true; // le joueur peut redasher
         var emission = ps.emission;
@@ -136,10 +158,10 @@ public class PlayerMovement : MonoBehaviour
     }
     IEnumerator RecoilTime()
     {
-       yield return new WaitForSeconds(recoilDuration); // attends 'recoilduration"
+        yield return new WaitForSeconds(recoilDuration); // attends 'recoilduration"
         isRecoiling = false; // le joueur ne recule plus
         StopCoroutine("RecoilTime"); // stop recule
-       
+
     }
 
 }
