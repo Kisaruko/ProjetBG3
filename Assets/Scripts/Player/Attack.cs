@@ -132,7 +132,7 @@ public class Attack : MonoBehaviour
 
     public void Attack1()
     {
-        Instantiate(fxAttack, transform.position + transform.forward, Quaternion.identity);
+       // Instantiate(fxAttack, transform.position + transform.forward, Quaternion.identity);
         List<EnemyLife> touchedEnemies = DetectEnemiesInRange();
         foreach (EnemyLife enemyLife in touchedEnemies)
         {
@@ -143,7 +143,7 @@ public class Attack : MonoBehaviour
 
     public void Attack2()
     {
-        Instantiate(fxAttack, transform.position + transform.forward, Quaternion.identity);
+        //Instantiate(fxAttack, transform.position + transform.forward, Quaternion.identity);
         List<EnemyLife> touchedEnemies = DetectEnemiesInRange();
         foreach (EnemyLife enemyLife in touchedEnemies)
         {
@@ -154,7 +154,7 @@ public class Attack : MonoBehaviour
 
     public void Attack3()
     {
-        Instantiate(fxAttack, transform.position + transform.forward, Quaternion.identity); // Instantier le fx d'attaque
+       // Instantiate(fxAttack, transform.position + transform.forward, Quaternion.identity); // Instantier le fx d'attaque
         List<EnemyLife> touchedEnemies = DetectEnemiesInRange();
         foreach (EnemyLife enemyLife in touchedEnemies)
         {
