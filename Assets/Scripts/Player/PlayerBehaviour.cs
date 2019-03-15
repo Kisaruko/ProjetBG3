@@ -168,13 +168,6 @@ public class PlayerBehaviour : MonoBehaviour
         midLight.intensity -= midLightRatio * lifeUsage;
     }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.magenta;
-        Gizmos.DrawWireSphere(this.transform.position, shortLight.range);
-        Gizmos.DrawWireSphere(this.transform.position, midLight.range);
-    }
-
     #region Player Taking Damage
     public void TakeHit(int damage)
     {
