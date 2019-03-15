@@ -26,6 +26,9 @@ public class PlayerMovement : MonoBehaviour
     [Header("Recoil Variables")]
     public bool isRecoiling = false;
     public float recoilDuration;
+
+    [Header("Particles Variables")]
+    public GameObject dashInstanceFx;
     private ParticleSystem ps;
     #endregion
 
@@ -91,6 +94,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if (playerbehaviour.canDash == true) // si le joueur a assez de lumière pour dasher
             {
+                Instantiate(dashInstanceFx, transform.position, transform.rotation);
                 //Activation des effet de particules
                 var emission = ps.emission;
                 emission.enabled = true;
