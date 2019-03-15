@@ -3,100 +3,61 @@ guid: cc22b374228242a47a24cae269d728e1
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
-    100000: ctrl_cou_01
-    100002: ctrl_d_epaule
-    100004: ctrl_d_jambe
-    100006: ctrl_d_main
-    100008: ctrl_d_PV_genou
-    100010: ctrl_dos1
-    100012: ctrl_dos2
-    100014: ctrl_g_epaule
-    100016: ctrl_g_jambe
-    100018: ctrl_g_main
-    100020: ctrl_g_PV_genou
-    100022: ctrl_general
-    100024: ctrl_pv_d_coude
-    100026: ctrl_pv_g_coude
-    100028: ctrl_root
-    100030: ctrl_tete
-    100032: ik_d_jambe
-    100034: ik_g_jambe
-    100036: ikHandle1
-    100038: ikHandle2
-    100040: joint_bassin
-    100042: joint_cou
-    100044: joint_d_clavicule
-    100046: joint_d_coude
-    100048: joint_d_epaule
-    100050: joint_d_genou
-    100052: joint_d_jambe
-    100054: joint_d_main
-    100056: joint_d_pied
-    100058: joint_g_clavicule1
-    100060: joint_g_coude
-    100062: joint_g_epaule
-    100064: joint_g_genou
-    100066: joint_g_jambe1
-    100068: joint_g_main
-    100070: joint_g_pied
-    100072: joint_general
-    100074: joint_nombril
-    100076: joint_tete
-    100078: joint_torse
-    100080: locator1
-    100082: //RootNode
-    100084: trashmob
-    400000: ctrl_cou_01
-    400002: ctrl_d_epaule
-    400004: ctrl_d_jambe
-    400006: ctrl_d_main
-    400008: ctrl_d_PV_genou
-    400010: ctrl_dos1
-    400012: ctrl_dos2
-    400014: ctrl_g_epaule
-    400016: ctrl_g_jambe
-    400018: ctrl_g_main
-    400020: ctrl_g_PV_genou
-    400022: ctrl_general
-    400024: ctrl_pv_d_coude
-    400026: ctrl_pv_g_coude
-    400028: ctrl_root
-    400030: ctrl_tete
-    400032: ik_d_jambe
-    400034: ik_g_jambe
-    400036: ikHandle1
-    400038: ikHandle2
-    400040: joint_bassin
-    400042: joint_cou
-    400044: joint_d_clavicule
-    400046: joint_d_coude
-    400048: joint_d_epaule
-    400050: joint_d_genou
-    400052: joint_d_jambe
-    400054: joint_d_main
-    400056: joint_d_pied
-    400058: joint_g_clavicule1
-    400060: joint_g_coude
-    400062: joint_g_epaule
-    400064: joint_g_genou
-    400066: joint_g_jambe1
-    400068: joint_g_main
-    400070: joint_g_pied
-    400072: joint_general
-    400074: joint_nombril
-    400076: joint_tete
-    400078: joint_torse
-    400080: locator1
-    400082: //RootNode
-    400084: trashmob
+    100000: joint_bassin
+    100002: joint_cou
+    100004: joint_d_clavicule
+    100006: joint_d_coude
+    100008: joint_d_epaule
+    100010: joint_d_genou
+    100012: joint_d_jambe
+    100014: joint_d_main
+    100016: joint_d_pied
+    100018: joint_g_clavicule1
+    100020: joint_g_coude
+    100022: joint_g_epaule
+    100024: joint_g_genou
+    100026: joint_g_jambe1
+    100028: joint_g_main
+    100030: joint_g_pied
+    100032: joint_general
+    100034: joint_nombril
+    100036: joint_tete
+    100038: joint_torse
+    100040: locator1
+    100042: //RootNode
+    100044: trashmob
+    400000: joint_bassin
+    400002: joint_cou
+    400004: joint_d_clavicule
+    400006: joint_d_coude
+    400008: joint_d_epaule
+    400010: joint_d_genou
+    400012: joint_d_jambe
+    400014: joint_d_main
+    400016: joint_d_pied
+    400018: joint_g_clavicule1
+    400020: joint_g_coude
+    400022: joint_g_epaule
+    400024: joint_g_genou
+    400026: joint_g_jambe1
+    400028: joint_g_main
+    400030: joint_g_pied
+    400032: joint_general
+    400034: joint_nombril
+    400036: joint_tete
+    400038: joint_torse
+    400040: locator1
+    400042: //RootNode
+    400044: trashmob
     2100000: Racines
     2100002: lambert2
-    2100004: lambert3
-    2100006: yeux
+    2100004: yeux
     4300000: trashmob
     7400000: Idle
     7400002: Walk
     7400004: Attack
+    7400006: Prise de coup
+    7400008: Charge ( optional )
     9500000: //RootNode
     13700000: trashmob
   externalObjects: {}
@@ -187,7 +148,7 @@ ModelImporter:
       name: Attack
       takeName: Take 001
       firstFrame: 180
-      lastFrame: 230
+      lastFrame: 260
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -195,6 +156,62 @@ ModelImporter:
       loop: 0
       hasAdditiveReferencePose: 0
       loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Prise de coup
+      takeName: Take 001
+      firstFrame: 270
+      lastFrame: 300
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Charge ( optional )
+      takeName: Take 001
+      firstFrame: 310
+      lastFrame: 370
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
