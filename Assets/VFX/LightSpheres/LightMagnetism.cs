@@ -7,6 +7,7 @@ public class LightMagnetism : MonoBehaviour
 {
     #region Variables
     public GameObject player;
+    public float lifeRegen;
     public float timeBeforeParticlesMoveAgain;
     public static int nbParticles;
     private Transform lanternSpot;
