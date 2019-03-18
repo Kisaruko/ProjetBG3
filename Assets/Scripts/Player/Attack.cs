@@ -132,7 +132,7 @@ public class Attack : MonoBehaviour
 
     public void Attack1()
     {
-        Instantiate(fxAttack, transform.position + transform.forward, Quaternion.identity);
+       // Instantiate(fxAttack, transform.position + transform.forward, Quaternion.identity);
         List<EnemyLife> touchedEnemies = DetectEnemiesInRange();
         foreach (EnemyLife enemyLife in touchedEnemies)
         {
@@ -143,7 +143,7 @@ public class Attack : MonoBehaviour
 
     public void Attack2()
     {
-        Instantiate(fxAttack, transform.position + transform.forward, Quaternion.identity);
+        //Instantiate(fxAttack, transform.position + transform.forward, Quaternion.identity);
         List<EnemyLife> touchedEnemies = DetectEnemiesInRange();
         foreach (EnemyLife enemyLife in touchedEnemies)
         {
@@ -154,11 +154,12 @@ public class Attack : MonoBehaviour
 
     public void Attack3()
     {
-        Instantiate(fxAttack, transform.position + transform.forward, Quaternion.identity); // Instantier le fx d'attaque
+       // Instantiate(fxAttack, transform.position + transform.forward, Quaternion.identity); // Instantier le fx d'attaque
         List<EnemyLife> touchedEnemies = DetectEnemiesInRange();
         foreach (EnemyLife enemyLife in touchedEnemies)
         {
             enemyLife.LostLifePoint(strengthAttack2);  //appelle la fonction de perte de pdv du monstre, les dégats infligés sont égaux a strength
+            enemyLife.gameObject.GetComponent<RecoilEnemy>().StartCoroutine("RecoilTime");
             for (int i = 0; i < multiplierLightRegenAttack3; i++) // répéter nbMultiplierlig... de fois l'action
             {
                 Instantiate(stealLightFx, enemyLife.transform.position, Quaternion.identity); // instantie le fx de vol de light

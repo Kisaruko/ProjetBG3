@@ -15,14 +15,18 @@ public class LoadedAttack : MonoBehaviour
     public GameObject stealLightFxVariant;
     public GameObject loadedAttackFx;
     public GameObject loadingFx;
+    public PlayerMovement playermovement;
+
     void Start()
     {
         anim = GetComponent<Animator>(); // get l'animator
+        playermovement = GetComponentInParent<PlayerMovement>(); 
     }
     void AttackTimer()
     {
         if (Input.GetButton("Attack")) // si le pj attack
         {
+            //playermovement.moveSpeed = 0f;
             anim.SetBool("LoadCancel", false); // remets a false par précaution
 
             loadingTime += Time.deltaTime; // augmente le temps de load en fonction du temps
@@ -35,6 +39,7 @@ public class LoadedAttack : MonoBehaviour
         }
         if (Input.GetButtonUp("Attack")) // lache le bouton
         {
+            //playermovement.moveSpeed = 25f;
 
             if (loadingTime >= loadedTime) // check si le chargement est validé
             {

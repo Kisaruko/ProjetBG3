@@ -12,43 +12,52 @@ public class PlayerBehaviour : MonoBehaviour
     public float minLife;
     public bool isInvicible;
     public float invincibleDuration;
-
-    [Header("Life Skills Attributes", order = 0)]
-    [Space(10, order = 1)]
-    public float minLifeToShoot;
-    public float lifeUsageOnShoot;
-    public float lightUsageOnShoot;
-    [Space(5, order = 2)]
-    public float minLifeToBeam;
-    public float lifeUsageToLoadBeam;
-    public float lifeUsageEachInterval;
-    public float lightUsageOnBeam;
-    [Space(5, order = 3)]
-    public float minLifeToDash;
-    public float lifeUsageOnDash;
-    public float lightUsageOnDash;
-    [Space(5, order = 4)]
     public float lifeRegen;
-    public float lightRegen;
+
+    [Header("Life Minimum To Use Skills", order = 0)]
+    public float minLifeToShoot;
+    public float minLifeToBeam;
+    public float minLifeToDash;
+
+
+    [Header("Can Player Use Skills ?", order = 0)]
+    [Space(10, order = 1)]
     public bool canShoot;
     public bool canBeam;
     public bool canDash;
-    private Light lantern;
+
+    [Header("Light Attributes", order = 0)]
+    public Light shortLight;
+    public Light midLight;
+    private float shortLightMaxIntensity;
+    private float midLightMaxIntensity;
+    private float shortLightRatio;
+    private float midLightRatio;
 
     private void Start()
     {
-        lantern = GetComponentInChildren<Light>();
         currentLife = maxLife;
         CheckIfPlayerCanUseSkills();
+
+        CalculateLightRatioForOneHP();
+        shortLightMaxIntensity = shortLight.intensity;
+        midLightMaxIntensity = midLight.intensity;
     }
 
+    #region Custom Methods
+
+    #region Attack Life Methods
     public void RegenLifeOnCac()
     {
         if (currentLife < maxLife && currentLife > minLife)
         {
             currentLife += lifeRegen / LightMagnetism.nbParticles;
-            DOTween.To(() => lantern.intensity, x => lantern.intensity = x, lantern.intensity + lightRegen, .2f);
-            lantern.intensity += lightRegen;
+            if(shortLight.intensity <= shortLightMaxIntensity && midLight.intensity < midLightMaxIntensity)
+            {
+                shortLight.intensity += shortLightRatio * (lifeRegen / LightMagnetism.nbParticles);
+                midLight.intensity += midLightRatio * (lifeRegen / LightMagnetism.nbParticles);
+            }
+            
             if (currentLife > maxLife)
             {
                 currentLife = maxLife;
@@ -60,60 +69,60 @@ public class PlayerBehaviour : MonoBehaviour
 
         }
         CheckIfPlayerCanUseSkills();
-
     }
-    public void UseLifeOnShoot()
+    #endregion
+
+    #region Shoot Life Methods
+    public void UseLifeOnShoot(float lifeUsageOnShoot)
     {
         CheckIfPlayerCanUseSkills();
-        //Use X% of player maxLife
         if (canShoot)
         {
             currentLife -= lifeUsageOnShoot;
-            DOTween.To(() => lantern.intensity, x => lantern.intensity = x, lantern.intensity + 300f, 0.2f);
-            DOTween.To(() => lantern.intensity, x => lantern.intensity = x, lantern.intensity - lightUsageOnShoot, .5f);
-            CheckIfPlayerCanUseSkills();
-
-        }
-    }
-
-    public void UseLifeEachInterval()
-    {
-        CheckIfPlayerCanUseSkills();
-
-        if(canBeam)
-        {
-            currentLife -= lifeUsageEachInterval;
-            DOTween.To(() => lantern.intensity, x => lantern.intensity = x, lantern.intensity - lifeUsageEachInterval, 0.5f);
+            LightUsage(lifeUsageOnShoot);
             CheckIfPlayerCanUseSkills();
         }
     }
+    #endregion
 
-    public void UseLifeToLoadBeam()
+    #region Beam Life Methods
+    public void UseLifeToLoadBeam(float lifeUsageToLoadBeam)
     {
         CheckIfPlayerCanUseSkills();
-        
-        if(canBeam)
+        if (canBeam)
         {
             currentLife -= lifeUsageToLoadBeam;
-            DOTween.To(() => lantern.intensity, x => lantern.intensity = x, lantern.intensity - lifeUsageToLoadBeam, 0.5f);
+            LightUsage(lifeUsageToLoadBeam);
             CheckIfPlayerCanUseSkills();
         }
     }
-    
 
-    public void UseLifeOnDash()
+    public void UseLifeEachInterval(float lifeUsageEachInterval)
     {
         CheckIfPlayerCanUseSkills();
-        //Use X% of player maxLife
+        if (canBeam)
+        {
+            currentLife -= lifeUsageEachInterval;
+            LightUsage(lifeUsageEachInterval);
+            CheckIfPlayerCanUseSkills();
+        }
+    }
+    #endregion
+
+    #region Dash Life Methods
+    public void UseLifeOnDash(float lifeUsageOnDash)
+    {
+        CheckIfPlayerCanUseSkills();
         if (canDash)
         {
             currentLife -= lifeUsageOnDash;
-            DOTween.To(() => lantern.intensity, x => lantern.intensity = x, lantern.intensity - lightUsageOnDash, .5f);
+            LightUsage(lifeUsageOnDash);
             CheckIfPlayerCanUseSkills();
-
         }
-
     }
+    #endregion
+
+    #region Check The Player Life
     private void CheckIfPlayerCanUseSkills()
     {
         if (currentLife < minLifeToDash && currentLife > minLife)
@@ -144,6 +153,22 @@ public class PlayerBehaviour : MonoBehaviour
         }
         
     }
+    #endregion
+
+    private void CalculateLightRatioForOneHP()
+    {
+        shortLightRatio = shortLight.intensity / maxLife ;
+        midLightRatio = midLight.intensity / maxLife;
+        Debug.Log("Short light ratio is : " + shortLightRatio + " | Mid light ratio is : " + midLightRatio);
+    }
+
+    private void LightUsage(float lifeUsage)
+    {
+        shortLight.intensity -= shortLightRatio * lifeUsage;
+        midLight.intensity -= midLightRatio * lifeUsage;
+    }
+
+    #region Player Taking Damage
     public void TakeHit(int damage)
     {
         if (isInvicible == false)
@@ -153,10 +178,14 @@ public class PlayerBehaviour : MonoBehaviour
             StartCoroutine("InvicibleTime");
         }
     }
+
     IEnumerator InvicibleTime()
     {
         yield return new WaitForSeconds(invincibleDuration);
         isInvicible = false;
         StopCoroutine("InvincibleTime");
     }
+    #endregion
+
+    #endregion
 }
