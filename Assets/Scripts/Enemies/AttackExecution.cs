@@ -9,11 +9,14 @@ public class AttackExecution : MonoBehaviour
     public float recoilInflincted;
     public int strength;
     public float attackRange;
-
+    private Rigidbody rb;
+    public TrashMobBehaviour trashmobbehaviour;
     private void Start()
     {
         anim = GetComponent<Animator>();
         player = GameObject.FindGameObjectWithTag("Player");
+        rb = GetComponentInParent<Rigidbody>();
+        trashmobbehaviour = GetComponentInParent<TrashMobBehaviour>();
     }
     public void AttackExecute()
     {
@@ -30,5 +33,13 @@ public class AttackExecution : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.DrawWireSphere(transform.position+transform.right, attackRange);
+    }
+    public void StartCharge()
+    {
+        trashmobbehaviour.isCharging = true;
+    }
+    public void StopCharge()
+    {
+        trashmobbehaviour.isCharging = false;
     }
 }

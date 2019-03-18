@@ -10,7 +10,7 @@ public class EnemyBehaviour : MonoBehaviour
     private GameObject player;
     public float minDistanceToAttack =3f;
     private Animator anim;
-
+    public bool isMoving;
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player"); 
@@ -19,15 +19,21 @@ public class EnemyBehaviour : MonoBehaviour
     }
     private void Update()
     {
-        if(playerIsInRange == true) //si le player a été vu
+        if(playerIsInRange) //si le player a été vu
         {
-            anim.SetBool("Chasing", true);
-            transform.LookAt(new Vector3(player.transform.position.x, 0f, player.transform.position.z)); //l'ennemi regarde le joueur
-            rb.velocity = (transform.forward.normalized) * moveSpeed; //Il avance toujours vers l'avant
+            Chasing();
         }
         DetectIfCanAttack();
     }
 
+    void Chasing()
+    {
+
+        isMoving = true;
+        anim.SetBool("Chasing", true);
+        transform.LookAt(new Vector3(player.transform.position.x, 0f, player.transform.position.z)); //l'ennemi regarde le joueur
+        rb.velocity = (transform.forward.normalized) * moveSpeed; //Il avance toujours vers l'avant
+    }
     void DetectIfCanAttack()
     {
         float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position); // Calcule la distance entre lui meme et le joueur
@@ -42,8 +48,7 @@ public class EnemyBehaviour : MonoBehaviour
     {
         yield return new WaitForSeconds(1f); // on attends quelques secondes
         anim.SetBool("Attack", true);
-        yield return new WaitForSeconds(1f); // on attends quelques secondes
-
+        yield return new WaitForSeconds(10f); // on attends quelques secondes
         playerIsInRange = true; // l'ennemi reprend son déplacement
         StopCoroutine("Attacking");
     }

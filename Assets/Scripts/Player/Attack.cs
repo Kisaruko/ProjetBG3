@@ -114,7 +114,7 @@ public class Attack : MonoBehaviour
         {
             Vector3 toCollider = hitcol.transform.position - transform.position; // get le vecteur entre ennemi et player
             Ray ray = new Ray(transform.position, toCollider); // trace un rayon entre les deux
-            if (!Physics.Raycast(ray, toCollider.magnitude, ~attackSphereDetection)) // si le ray touche l'ennemi
+            if (!Physics.Raycast(ray, toCollider.magnitude, ~attackSphereDetection)) // si le ray ne touche pas de mur
             {
                 float angleToCollider = Vector3.Angle(transform.forward, toCollider.normalized); //check l'angle entre le player et l'ennemi
                 if (angleToCollider <= angle / 2) // si l'angle est inférieur à la range du joueur
@@ -158,8 +158,9 @@ public class Attack : MonoBehaviour
         List<EnemyLife> touchedEnemies = DetectEnemiesInRange();
         foreach (EnemyLife enemyLife in touchedEnemies)
         {
-            enemyLife.LostLifePoint(strengthAttack2);  //appelle la fonction de perte de pdv du monstre, les dégats infligés sont égaux a strength
+            enemyLife.LostLifePoint(strengthAttack3);  //appelle la fonction de perte de pdv du monstre, les dégats infligés sont égaux a strength
             enemyLife.gameObject.GetComponent<RecoilEnemy>().StartCoroutine("RecoilTime");
+
             for (int i = 0; i < multiplierLightRegenAttack3; i++) // répéter nbMultiplierlig... de fois l'action
             {
                 Instantiate(stealLightFx, enemyLife.transform.position, Quaternion.identity); // instantie le fx de vol de light
