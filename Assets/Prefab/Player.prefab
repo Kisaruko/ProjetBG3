@@ -4820,6 +4820,7 @@ MonoBehaviour:
   loadedAttackFx: {fileID: 3945626026086803642, guid: f4f8ed6d59e48c741b75fb3c15228830,
     type: 3}
   loadingFx: {fileID: 1601066883}
+  playermovement: {fileID: 0}
 --- !u!114 &2516944441610963932
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4958,15 +4959,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isMoving: 0
   moveSpeed: 25
-  lifeUsageOnDash: 0
+  moveSpeedWhileAiming: 12.5
+  lifeUsageOnDash: 2
   isDashing: 0
   isReadyToDash: 1
   dashingTime: 0.05
   coolDown: 0.15
   dashSpeed: 100
+  upgradeDashUnlocked: 1
+  loadedDash: 1
+  loadingDash: 0
+  maxNumbersOfDash: 3
   isRecoiling: 0
   recoilDuration: 0.3
-  moveSpeedWhileAiming: 12.5
+  dashInstanceFx: {fileID: 7184516322205300110, guid: 7b5766de1adad3949bb0a94880e1d82b,
+    type: 3}
 --- !u!114 &2751258488737858186
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5241,32 +5248,7 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 7762272393321484076, guid: 45bfbb0aa7173b9478942e249191c776,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7762272393353448673, guid: 45bfbb0aa7173b9478942e249191c776,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7762272394037726386, guid: 45bfbb0aa7173b9478942e249191c776,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7762272394129467886, guid: 45bfbb0aa7173b9478942e249191c776,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7762272394847078930, guid: 45bfbb0aa7173b9478942e249191c776,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7762272395135530570, guid: 45bfbb0aa7173b9478942e249191c776,
         type: 3}
       propertyPath: m_IsActive
       value: 0
