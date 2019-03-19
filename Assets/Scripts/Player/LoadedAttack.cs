@@ -62,8 +62,8 @@ public class LoadedAttack : MonoBehaviour
         loadingFx.SetActive(false); //stop le fx de load
         foreach (Collider hitcol in Physics.OverlapSphere(transform.position, attackRange, attackSphereDetection))
         {
-            hitcol.GetComponent<EnemyLife>().LostLifePoint(strength); // appelle la fonction de perte de pdv du monstre, les dégats infligés sont égaux a strength
             Instantiate(stealLightFxVariant, hitcol.transform.position, Quaternion.identity); // instantie le fx de vol de light
+            hitcol.GetComponent<EnemyLife>().LostLifePoint(strength); // appelle la fonction de perte de pdv du monstre, les dégats infligés sont égaux a strength
         }
         foreach (Collider hitcol in Physics.OverlapSphere(transform.position, attackRange,destroyableWalls))
         {
