@@ -14,7 +14,7 @@ public class AttackExecution : MonoBehaviour
     private void Start()
     {
         anim = GetComponent<Animator>();
-        player = GameObject.FindGameObjectWithTag("Player");
+        player = GameObject.Find("Player");
         rb = GetComponentInParent<Rigidbody>();
         trashmobbehaviour = GetComponentInParent<TrashMobBehaviour>();
     }
