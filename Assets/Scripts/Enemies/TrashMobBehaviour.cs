@@ -47,7 +47,7 @@ public class TrashMobBehaviour : MonoBehaviour
       //  Vector3 pointToLook = new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z);
         Vector3 direction = player.transform.position - this.transform.position;
         this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(direction), 0.1f);
-        rb.velocity = (transform.forward.normalized) * moveSpeed; //Il avance toujours vers l'avant
+        rb.velocity = (transform.forward) * moveSpeed; //Il avance toujours vers l'avant
         CheckIfPlayerCanBeAttacked();
     }
     void CheckIfPlayerCanBeAttacked()
