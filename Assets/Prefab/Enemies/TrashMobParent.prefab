@@ -669,7 +669,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 3.46
+  m_Radius: 5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1398087517
 MonoBehaviour:
@@ -1032,9 +1032,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3806863604507788374, guid: 4016b2c9f77a53d448976fdd296f8e48,
         type: 3}
-      propertyPath: ShapeModule.m_SkinnedMeshRenderer
-      value: 
-      objectReference: {fileID: 5441455549026502204}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 3806863604507788374, guid: 4016b2c9f77a53d448976fdd296f8e48,
         type: 3}
       propertyPath: InitialModule.startLifetime.minScalar
@@ -1042,18 +1042,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3806863604507788374, guid: 4016b2c9f77a53d448976fdd296f8e48,
         type: 3}
-      propertyPath: InitialModule.startLifetime.scalar
-      value: 3
+      propertyPath: InitialModule.gravityModifier.scalar
+      value: -0.001
       objectReference: {fileID: 0}
+    - target: {fileID: 3806863604507788374, guid: 4016b2c9f77a53d448976fdd296f8e48,
+        type: 3}
+      propertyPath: ShapeModule.m_SkinnedMeshRenderer
+      value: 
+      objectReference: {fileID: 5441455549026502204}
     - target: {fileID: 3806863604507788374, guid: 4016b2c9f77a53d448976fdd296f8e48,
         type: 3}
       propertyPath: EmissionModule.rateOverTime.scalar
       value: 300
-      objectReference: {fileID: 0}
-    - target: {fileID: 3806863604507788374, guid: 4016b2c9f77a53d448976fdd296f8e48,
-        type: 3}
-      propertyPath: InitialModule.gravityModifier.scalar
-      value: -0.001
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4016b2c9f77a53d448976fdd296f8e48, type: 3}
