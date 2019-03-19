@@ -31,8 +31,8 @@ public class PlayerBehaviour_Editor : Editor
         labelStyle.normal.textColor = Color.white;
         labelStyle.alignment = TextAnchor.MiddleCenter;
 
-        Handles.Label(new Vector3(playerBehaviour.transform.position.x, playerBehaviour.transform.position.y, playerBehaviour.shortLight.range),"Short Light Range", labelStyle);
-        Handles.Label(new Vector3(playerBehaviour.transform.position.x, playerBehaviour.transform.position.y, playerBehaviour.midLight.range),"Mid Light Range", labelStyle);
+        Handles.Label(new Vector3(playerBehaviour.transform.position.x, playerBehaviour.transform.position.y, playerBehaviour.shortLight.range), "Short Light Range", labelStyle);
+        Handles.Label(new Vector3(playerBehaviour.transform.position.x, playerBehaviour.transform.position.y, playerBehaviour.midLight.range), "Mid Light Range", labelStyle);
 
     }
 }
