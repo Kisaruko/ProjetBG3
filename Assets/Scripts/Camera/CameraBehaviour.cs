@@ -59,7 +59,7 @@ public class CameraBehaviour : MonoBehaviour
         float yInputShot = Input.GetAxis("Vertical2");
 
         Vector3 anticipatedVector = new Vector3(xInput, 0f, yInput) *  anticipationFactor;
-        Vector3 anticipatedShotVector = new Vector3(xInputShot, 0f, yInputShot);
+        Vector3 anticipatedShotVector = new Vector3(xInputShot, 0f, yInputShot) * anticipationFactor;
 
         if (xInputShot != 0 || yInputShot != 0) //Override the anticipated vector with the shot vector when the player use right joystick
         {

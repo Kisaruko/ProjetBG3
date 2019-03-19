@@ -6,6 +6,9 @@ using UnityEngine;
 public class LightMagnetism : MonoBehaviour
 {
     #region Variables
+    public GameObject player;
+    public float lifeRegen;
+    public float timeBeforeParticlesMoveAgain;
     public static int nbParticles;
     private Transform lanternSpot;
     public ParticleSystem ps;
@@ -14,15 +17,21 @@ public class LightMagnetism : MonoBehaviour
     List<ParticleSystem.Particle> enter = new List<ParticleSystem.Particle>();
     private float particleSpeed;
     private bool newMovement = false;
+    public PlayerBehaviour playerBehaviour;
+    public CapsuleCollider playerCollider;
 #endregion
     #region Main Methods
     private void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player"); // Get le spot ou les particules doivent aller
         ps = GetComponent<ParticleSystem>();
-        lanternSpot = GameObject.FindGameObjectWithTag("Player").transform; // Get le spot ou les particules doivent aller
+        lanternSpot = player.transform; // Get le spot ou les particules doivent aller
+        playerCollider = player.GetComponentInChildren<CapsuleCollider>();
+        playerBehaviour = player.GetComponent<PlayerBehaviour>();
         StartCoroutine("CallMagnetism"); // Appelle la coroutine
         particleSpeed = 1; // Set la vitesse des particules a 1
         nbParticles = ps.emission.GetBurst(0).maxCount;
+        InitializeIfNeeded();
         
     }
 
@@ -41,7 +50,7 @@ public class LightMagnetism : MonoBehaviour
         for (int i = 0; i < numEnter; i++) // pour chaque particle qui ont trigger
         {
             ParticleSystem.Particle p = enter[i]; // crée le tableau
-            lanternSpot.gameObject.GetComponent<PlayerBehaviour>().RegenLifeOnCac(); // appelle la fonction regen
+            playerBehaviour.RegenLifeOnCac();
             p.remainingLifetime = 0f; // destruction de la particle en mettant son lifetime a 0
             enter[i] = p; // ajoute au tableau
         }
@@ -75,7 +84,7 @@ public class LightMagnetism : MonoBehaviour
 
     IEnumerator CallMagnetism()
     {
-        yield return new WaitForSeconds(2f);// wait 2 seconds
+        yield return new WaitForSeconds(timeBeforeParticlesMoveAgain);// wait 2 seconds
         ParticleMagnetism(); //Appelle la fonction magnetisme
         StopCoroutine("CallMagnetism"); //Arrete la coroutine
     }
@@ -84,7 +93,7 @@ public class LightMagnetism : MonoBehaviour
         if (m_System == null) // si le particle system n'est pas set
         {
             m_System = GetComponent<ParticleSystem>(); // get le particle system
-            m_System.trigger.SetCollider(1, GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<CapsuleCollider>());// get le collider du player qui doit détruire les particules
+            m_System.trigger.SetCollider(1,playerCollider);// get le collider du player qui doit détruire les particules
            
         }
         
