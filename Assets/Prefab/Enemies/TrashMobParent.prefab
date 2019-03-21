@@ -351,7 +351,7 @@ SkinnedMeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 046f8009ce51a0642b6eb9814cfa29ea, type: 2}
-  - {fileID: 2100000, guid: 1cd113ca0aa825d49bcc43fedd4c828e, type: 2}
+  - {fileID: 2100000, guid: fc3a3d7bf2df6ae409aeac26bce97cec, type: 2}
   - {fileID: 2100000, guid: 046f8009ce51a0642b6eb9814cfa29ea, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -658,6 +658,7 @@ MonoBehaviour:
   strength: 3
   attackRange: 1
   trashmobbehaviour: {fileID: 0}
+  fxHit: {fileID: 2930119308577437415, guid: 0edfdebdd111e744580bed1f63eb1dbf, type: 3}
 --- !u!135 &1398087518
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -974,6 +975,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SmokeFirstShot
+      objectReference: {fileID: 0}
+    - target: {fileID: 3806863604507788372, guid: 4016b2c9f77a53d448976fdd296f8e48,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3806863604507788369, guid: 4016b2c9f77a53d448976fdd296f8e48,
         type: 3}
