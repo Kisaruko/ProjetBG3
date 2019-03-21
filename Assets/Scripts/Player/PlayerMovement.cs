@@ -69,7 +69,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (isRecoiling == false) // si le joueur ne prend pas un recul
         {
-            if (xInput != 0 || yInput != 0 && isDashing == false) // si le joueur bouge mais ne dash pas
+            if (xInput >= 0.5f || xInput <= -0.5f || yInput >= 0.5f || yInput < -0.5f && isDashing == false) // si le joueur bouge mais ne dash pas
             {
                 isMoving = true;//il bouge
                 if (lookDirection2 == Vector3.zero) // si le joueur ne touche pas au joystick droit
