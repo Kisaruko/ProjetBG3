@@ -152,9 +152,15 @@ public class PlayerBehaviour : MonoBehaviour
             canBeam = true;
         }
         
+        if(currentLife < minLife)
+        {
+            Debug.Log("You died");
+            currentLife = 0;
+        }
     }
     #endregion
 
+    //Calculate the light ratio for one hp in order to use it later
     private void CalculateLightRatioForOneHP()
     {
         shortLightRatio = shortLight.intensity / maxLife ;
@@ -162,6 +168,7 @@ public class PlayerBehaviour : MonoBehaviour
         Debug.Log("Short light ratio is : " + shortLightRatio + " | Mid light ratio is : " + midLightRatio);
     }
 
+    //Reduce light intensity with the life usage and multiply it with the light ratio
     private void LightUsage(float lifeUsage)
     {
         shortLight.intensity -= shortLightRatio * lifeUsage;
@@ -174,6 +181,12 @@ public class PlayerBehaviour : MonoBehaviour
         if (isInvicible == false)
         {
             currentLife -= damage;
+            LightUsage(damage);
+            if(currentLife < minLife)
+            {
+                Debug.Log("You died");
+                currentLife = 0;
+            }
             isInvicible = true;
             StartCoroutine("InvicibleTime");
         }
