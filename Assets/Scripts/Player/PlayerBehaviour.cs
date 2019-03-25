@@ -34,6 +34,11 @@ public class PlayerBehaviour : MonoBehaviour
     private float shortLightRatio;
     private float midLightRatio;
 
+    [Header("VFX Stuff", order = 0)]
+    public GameObject PlayerGetLightVFX;
+    public GameObject PlayerLoseLightVFX;
+    public ParticleSystem ShinyBody;
+
     private void Start()
     {
         currentLife = maxLife;
@@ -49,9 +54,11 @@ public class PlayerBehaviour : MonoBehaviour
     #region Attack Life Methods
     public void RegenLifeOnCac()
     {
+        Instantiate(PlayerGetLightVFX, transform.position, Quaternion.identity);
         if (currentLife < maxLife && currentLife > minLife)
         {
             currentLife += lifeRegen / LightMagnetism.nbParticles;
+
             if(shortLight.intensity <= shortLightMaxIntensity && midLight.intensity < midLightMaxIntensity)
             {
                 shortLight.intensity += shortLightRatio * (lifeRegen / LightMagnetism.nbParticles);
@@ -78,6 +85,8 @@ public class PlayerBehaviour : MonoBehaviour
         CheckIfPlayerCanUseSkills();
         if (canShoot)
         {
+            ShinyBody.Play();
+            Instantiate(PlayerLoseLightVFX, transform.position, Quaternion.identity);
             currentLife -= lifeUsageOnShoot;
             LightUsage(lifeUsageOnShoot);
             CheckIfPlayerCanUseSkills();
@@ -89,8 +98,10 @@ public class PlayerBehaviour : MonoBehaviour
     public void UseLifeToLoadBeam(float lifeUsageToLoadBeam)
     {
         CheckIfPlayerCanUseSkills();
+        ShinyBody.Play();
         if (canBeam)
         {
+            Instantiate(PlayerLoseLightVFX, transform.position, Quaternion.identity);
             currentLife -= lifeUsageToLoadBeam;
             LightUsage(lifeUsageToLoadBeam);
             CheckIfPlayerCanUseSkills();
@@ -102,6 +113,9 @@ public class PlayerBehaviour : MonoBehaviour
         CheckIfPlayerCanUseSkills();
         if (canBeam)
         {
+            ShinyBody.Play();
+
+            Instantiate(PlayerLoseLightVFX, transform.position, Quaternion.identity);
             currentLife -= lifeUsageEachInterval;
             LightUsage(lifeUsageEachInterval);
             CheckIfPlayerCanUseSkills();
@@ -115,6 +129,9 @@ public class PlayerBehaviour : MonoBehaviour
         CheckIfPlayerCanUseSkills();
         if (canDash)
         {
+            ShinyBody.Play();
+
+            Instantiate(PlayerLoseLightVFX, transform.position, Quaternion.identity);
             currentLife -= lifeUsageOnDash;
             LightUsage(lifeUsageOnDash);
             CheckIfPlayerCanUseSkills();
