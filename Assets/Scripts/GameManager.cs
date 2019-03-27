@@ -6,10 +6,12 @@ public class GameManager : MonoBehaviour
 {
 
     public static GameManager _instance;
+
     private float myDeltaTime;
     private bool isTimeScaleAltered;
     public Material pencilMat;
     private Camera myCam;
+    private CameraBehaviour camParent;
     private ImageEffect imageeffect;
     private float baseGradTresh;
     private float baseOutlineTresh;
@@ -24,6 +26,7 @@ public class GameManager : MonoBehaviour
         myDeltaTime = 0.03f;
         myCam = Camera.main;
         imageeffect = myCam.GetComponent<ImageEffect>();
+        camParent = myCam.GetComponentInParent<CameraBehaviour>();
 
         pencilMat.SetFloat("_GradThresh", 0.2f);
         pencilMat.SetFloat("_OutLineTresh",20f);
@@ -56,7 +59,6 @@ public class GameManager : MonoBehaviour
         _instance.StopAllCoroutines();
         _instance.StartCoroutine(_instance.ImpactEffect(timeAlteredDuration));
     }
-
     private IEnumerator ImpactEffect(float timeAlteredDuration)
     {
         Time.timeScale = 0.01f;
@@ -70,6 +72,27 @@ public class GameManager : MonoBehaviour
 
         StopCoroutine("ImpactEffect");
     }
+    public static void ShowAZoom(float duration)
+    {
+        _instance.StopAllCoroutines();
+        _instance.StartCoroutine(_instance.ZoomOnAction(duration));
+    }
+    private IEnumerator ZoomOnAction(float duration)
+    {
+        Time.timeScale = 0.01f;
+        isTimeScaleAltered = true;
+        //camParent.camHeight = -5f;
+        //camParent.camDistance = 0f;
+        yield return new WaitForSecondsRealtime(duration);
+        //camParent.camDistance = 6f;
+        //camParent.camHeight = 10f;
+        isTimeScaleAltered = false;
+        Time.timeScale = 1f;
+        
+        
+        StopCoroutine("ZoomOnAction");
+    }
+
     #endregion
 
 

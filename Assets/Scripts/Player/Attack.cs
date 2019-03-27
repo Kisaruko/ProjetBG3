@@ -138,6 +138,7 @@ public class Attack : MonoBehaviour
         {
             enemyLife.LostLifePoint(strengthAttack1); // appelle la fonction de perte de pdv du monstre, les dégats infligés sont égaux a strength
             Instantiate(stealLightFx, enemyLife.transform.position, Quaternion.identity); // instantie le fx de vol de light
+            CameraShake.Shake(0.1f, 0.4f);
         }
     }
 
@@ -149,6 +150,7 @@ public class Attack : MonoBehaviour
         {
             enemyLife.LostLifePoint(strengthAttack2); // appelle la fonction de perte de pdv du monstre, les dégats infligés sont égaux a strength
             Instantiate(stealLightFx, enemyLife.transform.position, Quaternion.identity); // instantie le fx de vol de light
+            CameraShake.Shake(0.1f, 0.4f);
         }
     }
 
@@ -165,7 +167,8 @@ public class Attack : MonoBehaviour
             {
                 Instantiate(stealLightFx, enemyLife.transform.position, Quaternion.identity); // instantie le fx de vol de light
             }
-            CameraShake.Shake(0.2f, 2f);
+            CameraShake.Shake(0.1f, 0.8f);
+
         }
     }
     #endregion
