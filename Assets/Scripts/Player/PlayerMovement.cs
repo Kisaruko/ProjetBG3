@@ -38,6 +38,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Particles Variables")]
     public GameObject dashInstanceFx;
     private ParticleSystem ps;
+    public ParticleSystem trailDashParticles;
     #endregion
 
     #region Main Methods
