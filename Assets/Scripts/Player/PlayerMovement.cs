@@ -85,9 +85,9 @@ public class PlayerMovement : MonoBehaviour
                 transform.rotation = lastRotation; // le joueur regarde dans la dernière direction enregistrée
             }
 
-            if (lookDirection2 != Vector3.zero) // si le joueur touche le joystick droit
+            if (xInput2 >= 0.5f || xInput2 <= -0.5f || yInput2 >= 0.5f || yInput2 < -0.5f) // si le joueur touche le joystick droit
             {
-                transform.rotation = Quaternion.LookRotation(lookDirection2, Vector3.up); // il regarde dans la dirdction du joystick droit: ça override l'autre joystick
+                transform.rotation = Quaternion.LookRotation(lookDirection2, Vector3.up); // il regarde dans la direction du joystick droit: ça override l'autre joystick
                 lastRotation = transform.rotation; //le joueur regarde dans la derniere direction de l'input
                 moveSpeed = moveSpeedWhileAiming;
             }
@@ -181,7 +181,6 @@ public class PlayerMovement : MonoBehaviour
         isDashing = false; // le joueur ne dash plus
         yield return new WaitForSeconds(coolDown); //lance le cooldown
         isReadyToDash = true; // le joueur peut redasher
-
         StopCoroutine("DashTime");// stop la coroutine
     }
 
