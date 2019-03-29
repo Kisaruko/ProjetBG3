@@ -8,14 +8,14 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: feuille
-  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: _ALPHATEST_ON _EMISSION
+  m_Shader: {fileID: 14000, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: GEOM_TYPE_LEAF _ALPHATEST_ON _EMISSION
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: 2450
   stringTagMap:
-    RenderType: TransparentCutout
+    RenderType: TreeTransparentCutout
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
@@ -33,6 +33,10 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailNormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -58,6 +62,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _BumpScale: 1
+    - _Cull: 0
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
@@ -72,7 +77,9 @@ Material:
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _UVSec: 0
+    - _WindQuality: 0
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _EmissionColor: {r: 1.7207954, g: 0.8649024, b: 0.6126392, a: 1}
+    - _EmissionColor: {r: 0.3513666, g: 1.7207954, b: 1.5676355, a: 1}
+    - _HueVariation: {r: 1, g: 0.5, b: 0, a: 0.1}
