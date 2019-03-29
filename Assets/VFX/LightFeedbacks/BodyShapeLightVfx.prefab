@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9001007944419285049}
   - component: {fileID: 1658330145072530419}
+  - component: {fileID: 3341193668081552492}
   - component: {fileID: 7915375375996163963}
   m_Layer: 0
   m_Name: BodyShapeLightVfx
@@ -3899,7 +3900,7 @@ ParticleSystem:
         m_RotationOrder: 4
     maxLights: 20
   TrailModule:
-    enabled: 0
+    enabled: 1
     mode: 0
     ratio: 1
     lifetime:
@@ -4712,6 +4713,18 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
+--- !u!114 &3341193668081552492
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5743886766862983009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73cf4b5d1c1ce77418b7f56fc590c9f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!199 &7915375375996163963
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -4731,7 +4744,7 @@ ParticleSystemRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 89ff19d667a6a5d4bb76df1fcb718402, type: 2}
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 89ff19d667a6a5d4bb76df1fcb718402, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

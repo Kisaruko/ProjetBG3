@@ -130,7 +130,6 @@ public class PlayerBehaviour : MonoBehaviour
         if (canDash)
         {
             ShinyBody.Play();
-
             Instantiate(PlayerLoseLightVFX, transform.position, Quaternion.identity);
             currentLife -= lifeUsageOnDash;
             LightUsage(lifeUsageOnDash);

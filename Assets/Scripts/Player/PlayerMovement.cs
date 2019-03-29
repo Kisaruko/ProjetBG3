@@ -36,9 +36,7 @@ public class PlayerMovement : MonoBehaviour
     public float recoilDuration;
 
     [Header("Particles Variables")]
-    public GameObject dashInstanceFx;
-    private ParticleSystem ps;
-    public ParticleSystem trailDashParticles;
+    public GameObject trailDashParticles;
     #endregion
 
     #region Main Methods
@@ -47,7 +45,6 @@ public class PlayerMovement : MonoBehaviour
         playerbehaviour = GetComponent<PlayerBehaviour>();
         customgravity = GetComponent<CustomGravity>();
         rb = GetComponent<Rigidbody>();
-        ps = GetComponentInChildren<ParticleSystem>();
         BaseSpeed = moveSpeed;
     }
     private void Update()
@@ -106,11 +103,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if (playerbehaviour.canDash == true) // si le joueur a assez de lumière pour dasher
             {
-                Instantiate(dashInstanceFx, transform.position, transform.rotation);
-                //Activation des effet de particules
-                var emission = ps.emission;
-                emission.enabled = true;
-
+                Instantiate(trailDashParticles, transform.position, Quaternion.identity);
                 playerbehaviour.UseLifeOnDash(lifeUsageOnDash); //consomme de la lumière
 
                 isReadyToDash = false; // le joueur ne peut pas redasher
@@ -188,8 +181,6 @@ public class PlayerMovement : MonoBehaviour
         isDashing = false; // le joueur ne dash plus
         yield return new WaitForSeconds(coolDown); //lance le cooldown
         isReadyToDash = true; // le joueur peut redasher
-        var emission = ps.emission;
-        emission.enabled = false; // arrete l'emission de particules de dash
 
         StopCoroutine("DashTime");// stop la coroutine
     }
