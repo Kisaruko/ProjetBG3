@@ -5,6 +5,7 @@ using UnityEngine;
 [ExecuteInEditMode]
 public class ImageEffect : MonoBehaviour
 {
+    public bool isFiltered;
 	#region MonoBehaviour Methods
 	/// <summary>
 	/// Called when image is renderer for graphics
@@ -13,16 +14,24 @@ public class ImageEffect : MonoBehaviour
 	/// <param name="_Destination">Destination Image</param>
 	private void OnRenderImage(RenderTexture _Source, RenderTexture _Destination)
 	{
-		// Set the image to draw. 
+        if (isFiltered)
+        {
+            Graphics.Blit(_Source, _Destination, m_Material);
+        }
+        else
+        {
+            _Destination = null;
+            Graphics.Blit(_Source, null as RenderTexture);
+        }
+        // Set the image to draw. 
         // On fait passer l'image dans un filtre, et on la fait ressortir avant de la rendre à l'image
-		Graphics.Blit(_Source, _Destination, m_Material);
-	}
+    }
 
-	#endregion
+    #endregion
 
-	#region Attributes
+    #region Attributes
 
-	[SerializeField]
+    [SerializeField]
 	public Material m_Material = null;
 
 	#endregion
