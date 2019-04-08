@@ -23,28 +23,38 @@ public class PlayerMovement : MonoBehaviour
     Quaternion lastRotation;
     private PlayerBehaviour playerbehaviour;
 
+    [Header("Upgrade Dash Variables")]
+    public bool upgradeDashUnlocked;
+    public float loadedDash;
+    public float loadingDash;
+    private int numbersOfDash = 0;
+    public int maxNumbersOfDash;
+
+
     [Header("Recoil Variables")]
     public bool isRecoiling = false;
     public float recoilDuration;
 
     [Header("Particles Variables")]
-    public GameObject dashInstanceFx;
-    private ParticleSystem ps;
+    public GameObject trailDashParticles;
     #endregion
 
+    #region Main Methods
     private void Start()
     {
         playerbehaviour = GetComponent<PlayerBehaviour>();
         customgravity = GetComponent<CustomGravity>();
         rb = GetComponent<Rigidbody>();
-        ps = GetComponentInChildren<ParticleSystem>();
         BaseSpeed = moveSpeed;
     }
     private void Update()
     {
         Movement();
-        Dashing();
+        DashDetection();
     }
+    #endregion
+
+    #region Custom Methods
     void Movement()
     {
         float xInput = Input.GetAxis("Horizontal"); //Joystick gauche horizontal
@@ -57,7 +67,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (isRecoiling == false) // si le joueur ne prend pas un recul
         {
-            if (xInput != 0 || yInput != 0 && isDashing == false) // si le joueur bouge mais ne dash pas
+            if (xInput >= 0.5f || xInput <= -0.5f || yInput >= 0.5f || yInput < -0.5f && isDashing == false) // si le joueur bouge mais ne dash pas
             {
                 isMoving = true;//il bouge
                 if (lookDirection2 == Vector3.zero) // si le joueur ne touche pas au joystick droit
@@ -75,9 +85,9 @@ public class PlayerMovement : MonoBehaviour
                 transform.rotation = lastRotation; // le joueur regarde dans la dernière direction enregistrée
             }
 
-            if (lookDirection2 != Vector3.zero) // si le joueur touche le joystick droit
+            if (xInput2 >= 0.5f || xInput2 <= -0.5f || yInput2 >= 0.5f || yInput2 < -0.5f) // si le joueur touche le joystick droit
             {
-                transform.rotation = Quaternion.LookRotation(lookDirection2, Vector3.up); // il regarde dans la dirdction du joystick droit: ça override l'autre joystick
+                transform.rotation = Quaternion.LookRotation(lookDirection2, Vector3.up); // il regarde dans la direction du joystick droit: ça override l'autre joystick
                 lastRotation = transform.rotation; //le joueur regarde dans la derniere direction de l'input
                 moveSpeed = moveSpeedWhileAiming;
             }
@@ -87,26 +97,54 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
-    private void Dashing()
+    public void DashDetection()
     {
-
         if (Input.GetButtonDown("Dash") && isReadyToDash == true && isRecoiling == false) // si le joueur peut dasher, qu'il ne subit pas de recul et qu'il appuie sur l'input
         {
             if (playerbehaviour.canDash == true) // si le joueur a assez de lumière pour dasher
             {
-                Instantiate(dashInstanceFx, transform.position, transform.rotation);
-                //Activation des effet de particules
-                var emission = ps.emission;
-                emission.enabled = true;
-
+                Instantiate(trailDashParticles, transform.position, Quaternion.identity);
                 playerbehaviour.UseLifeOnDash(lifeUsageOnDash); //consomme de la lumière
 
                 isReadyToDash = false; // le joueur ne peut pas redasher
                 isDashing = true; // le joueur est en train de dasher
                 StartCoroutine("DashTime"); // on lance la coroutine du cooldown du dash
             }
-
         }
+        Dash();
+
+        /*                                        /!\ DASH CRANTE NE PAS SUPPRIMER
+        if (upgradeDashUnlocked)
+        {
+            if (Input.GetButton("Dash"))
+            {
+                loadingDash += Time.deltaTime;
+                if (loadingDash > loadedDash)
+                {
+                    loadingDash = 0.0f;
+                    numbersOfDash++;
+                    Debug.Log(numbersOfDash);
+                    if (numbersOfDash >= maxNumbersOfDash)
+                    {
+                        for (int i = 0; i < maxNumbersOfDash; i++)
+                        {
+                            isReadyToDash = false;
+                            isDashing = true;
+                            StartCoroutine("DashTime");
+                            Dash();
+                        }
+                        numbersOfDash = 0;
+                        loadingDash = 0.0f;
+                    }
+                }
+
+            }
+        }*/
+
+    }
+
+    private void Dash()
+    {
         if (isDashing == true) //si le joueur est en train de dasher
         {
             //Build the dash direction and velocity
@@ -136,15 +174,13 @@ public class PlayerMovement : MonoBehaviour
             customgravity.gravityScale = 50f; // réactive la gravité
         }
     }
+
     IEnumerator DashTime()
     {
         yield return new WaitForSeconds(dashingTime); // le temps que le dash dure
         isDashing = false; // le joueur ne dash plus
         yield return new WaitForSeconds(coolDown); //lance le cooldown
         isReadyToDash = true; // le joueur peut redasher
-        var emission = ps.emission;
-        emission.enabled = false; // arrete l'emission de particules de dash
-
         StopCoroutine("DashTime");// stop la coroutine
     }
 
@@ -167,5 +203,5 @@ public class PlayerMovement : MonoBehaviour
         StopCoroutine("RecoilTime"); // stop recule
 
     }
-
+    #endregion
 }

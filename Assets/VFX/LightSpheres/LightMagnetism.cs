@@ -23,7 +23,7 @@ public class LightMagnetism : MonoBehaviour
     #region Main Methods
     private void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player"); // Get le spot ou les particules doivent aller
+        player = GameObject.Find("Player"); // Get le spot ou les particules doivent aller
         ps = GetComponent<ParticleSystem>();
         lanternSpot = player.transform; // Get le spot ou les particules doivent aller
         playerCollider = player.GetComponentInChildren<CapsuleCollider>();

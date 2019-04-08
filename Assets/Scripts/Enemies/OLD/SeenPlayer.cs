@@ -8,7 +8,8 @@ public class SeenPlayer : MonoBehaviour
     {
         if(other.gameObject.CompareTag("Player")) // si le joueur entre en collision avec cet objet
         {
-            GetComponentInParent<EnemyBehaviour>().playerIsInRange = true; // l'ennemi a vu le joueur
+            GetComponentInParent<TrashMobBehaviour>().playerIsDetected = true; // l'ennemi a vu le joueur
+            GetComponent<SphereCollider>().enabled = false;
         }
     }
 
