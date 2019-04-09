@@ -12,6 +12,8 @@ public class TrashMobBehaviour : MonoBehaviour
     public bool playerIsDetected;
     public float minDistToAttack;
     public bool isCharging;
+    public float rotationSpeed;
+    private bool isRotate = false;
 
     void Start()
     {
@@ -22,12 +24,13 @@ public class TrashMobBehaviour : MonoBehaviour
     private void Update()
     {
         Detection();
+        RotateAroundPlayer();
         if (isCharging)
         {
             /*Vector3 pointToLook = new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z);
             transform.LookAt(pointToLook);*/
             Vector3 direction = player.transform.position - this.transform.position;
-            this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(direction), 0.1f);
+            this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(direction), rotationSpeed);
             rb.velocity = (transform.forward.normalized) * moveSpeed * 5; //Il avance toujours vers l'avant
         }
     }
@@ -63,10 +66,38 @@ public class TrashMobBehaviour : MonoBehaviour
     }
     IEnumerator AttackRecovery()
     {
-        yield return new WaitForSeconds(3f);
-        anim.SetBool("Attack", false);
+        yield return new WaitForSeconds(1f);
         playerIsDetected = true;
+        anim.SetBool("Attack", false);
+        anim.SetBool("Chasing", true);
+        isRotate = true;
+        yield return new WaitForSeconds(1.5f);
+        isRotate = false;
         StopCoroutine("AttackRecovery");
     }
+    void RotateAroundPlayer()
+    {
 
+        if (isRotate)
+        {
+            float rotateSpeed =0f;
+            bool chooseDirection = false;
+            if (chooseDirection == false)
+            {
+                int direction = Random.Range(0, 2);
+                if(direction == 0)
+                {
+                    rotateSpeed = 0.6f;
+                }
+                else
+                {
+                    rotateSpeed = 0.6f;
+                }
+                chooseDirection = true;
+            }
+            transform.RotateAround(player.transform.position, Vector3.up, rotateSpeed);
+            transform.LookAt(player.transform);
+        }
+
+    }
 }

@@ -80,10 +80,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad8410400c3d64d4d8a9f6c15b035a1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 1.5
-  playerIsDetected: 0
+  moveSpeed: 4.5
+  playerIsDetected: 1
   minDistToAttack: 2
   isCharging: 0
+  rotationSpeed: 0.1
 --- !u!114 &5630756831710817856
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -655,7 +656,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   recoilInflincted: 30
-  strength: 3
+  strength: 30
   attackRange: 0.5
   trashmobbehaviour: {fileID: 0}
   fxHit: {fileID: 2930119308577437415, guid: 0edfdebdd111e744580bed1f63eb1dbf, type: 3}

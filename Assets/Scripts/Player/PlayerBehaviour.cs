@@ -73,6 +73,14 @@ public class PlayerBehaviour : MonoBehaviour
             {
                 currentLife = minLife;
             }
+            if(shortLight.intensity>4)
+            {
+                shortLight.intensity = 4;
+            }
+            if (midLight.intensity > 2.5f)
+            {
+                midLight.intensity = 2.5f;
+            }
 
         }
         CheckIfPlayerCanUseSkills();
@@ -201,11 +209,17 @@ public class PlayerBehaviour : MonoBehaviour
             if(currentLife < minLife)
             {
                 Debug.Log("You died");
+                Death();
                 currentLife = 0;
             }
             isInvicible = true;
             StartCoroutine("InvicibleTime");
         }
+    }
+
+    void Death()
+    {
+          Destroy(this.gameObject);
     }
 
     IEnumerator InvicibleTime()
