@@ -15,11 +15,20 @@ public class TrashMobBehaviour : MonoBehaviour
     public float rotationSpeed;
     private bool isRotate = false;
 
+    [Header("VFX Stuff", order = 0)]
+    public GameObject trashmobMesh;
+    public ParticleSystem ps;
+    public GameObject fxFading;
+    private bool fxHasBeenUsed = false;
+    private bool fxHasBeenUsed2 = false;
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         rb = GetComponent<Rigidbody>();
         anim = GetComponentInChildren<Animator>();
+
+        //trashmobMesh = GetComponentInChildren<GameObject>();
+        //ps = GetComponentInChildren<ParticleSystem>();
     }
     private void Update()
     {
@@ -77,27 +86,35 @@ public class TrashMobBehaviour : MonoBehaviour
     }
     void RotateAroundPlayer()
     {
+        var emission = ps.emission;
+  
 
         if (isRotate)
         {
-            float rotateSpeed =0f;
-            bool chooseDirection = false;
-            if (chooseDirection == false)
+            float rotateSpeed =0.6f;
+            if (fxHasBeenUsed == false)
             {
-                int direction = Random.Range(0, 2);
-                if(direction == 0)
-                {
-                    rotateSpeed = 0.6f;
-                }
-                else
-                {
-                    rotateSpeed = 0.6f;
-                }
-                chooseDirection = true;
+                Instantiate(fxFading, transform.position, Quaternion.identity);
+                fxHasBeenUsed = true;
+                emission.enabled = true;
             }
+            trashmobMesh.transform.localScale = Vector3.zero;
             transform.RotateAround(player.transform.position, Vector3.up, rotateSpeed);
+            fxHasBeenUsed2 = false;
             transform.LookAt(player.transform);
+        }
+        if(!isRotate)
+        {
+            if(fxHasBeenUsed2 == false)
+            {
+                Instantiate(fxFading, transform.position, Quaternion.identity);
+                fxHasBeenUsed2 = true;
+            }
+            emission.enabled = false;
+            trashmobMesh.transform.localScale = Vector3.one;
+            fxHasBeenUsed = false;
         }
 
     }
 }
+
