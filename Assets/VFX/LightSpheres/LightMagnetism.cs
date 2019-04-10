@@ -7,6 +7,8 @@ public class LightMagnetism : MonoBehaviour
 {
     #region Variables
     public GameObject player;
+    public float lifeRegen;
+    public float timeBeforeParticlesMoveAgain;
     public static int nbParticles;
     private Transform lanternSpot;
     public ParticleSystem ps;
@@ -21,7 +23,7 @@ public class LightMagnetism : MonoBehaviour
     #region Main Methods
     private void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player"); // Get le spot ou les particules doivent aller
+        player = GameObject.Find("Player"); // Get le spot ou les particules doivent aller
         ps = GetComponent<ParticleSystem>();
         lanternSpot = player.transform; // Get le spot ou les particules doivent aller
         playerCollider = player.GetComponentInChildren<CapsuleCollider>();
@@ -48,7 +50,6 @@ public class LightMagnetism : MonoBehaviour
         for (int i = 0; i < numEnter; i++) // pour chaque particle qui ont trigger
         {
             ParticleSystem.Particle p = enter[i]; // crée le tableau
-            //lanternSpot.gameObject.GetComponent<PlayerBehaviour>().RegenLifeOnCac(); // appelle la fonction regen
             playerBehaviour.RegenLifeOnCac();
             p.remainingLifetime = 0f; // destruction de la particle en mettant son lifetime a 0
             enter[i] = p; // ajoute au tableau
@@ -83,7 +84,7 @@ public class LightMagnetism : MonoBehaviour
 
     IEnumerator CallMagnetism()
     {
-        yield return new WaitForSeconds(2f);// wait 2 seconds
+        yield return new WaitForSeconds(timeBeforeParticlesMoveAgain);// wait 2 seconds
         ParticleMagnetism(); //Appelle la fonction magnetisme
         StopCoroutine("CallMagnetism"); //Arrete la coroutine
     }
