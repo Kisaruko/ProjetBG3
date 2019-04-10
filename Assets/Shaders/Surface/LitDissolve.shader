@@ -3,7 +3,7 @@
  _Color ("Color", Color) = (1,1,1,1)
  _MainTex ("Albedo (RGB)", 2D) = "white" {}
  _Glossiness ("Smoothness", Range(0,1)) = 0.5
- _Metallic ("Metallic", Range(0,1)) = 0.0
+ _Metallic ("Metallic",2D) = "black"{}
   _BumpMap ("Normal map", 2D) = "bump" {}
  //Dissolve properties
  _DissolveTexture("Dissolve Texture", 2D) = "white" {} 
@@ -30,7 +30,7 @@
 			  };
  
  half _Glossiness;
- half _Metallic;
+ sampler2D _Metallic;
  fixed4 _Color;
  
  //Dissolve properties
@@ -48,9 +48,10 @@
  
  //Basic shader function
  fixed4 c = tex2D (_MainTex, IN.uv_MainTex) * _Color; 
+ fixed4 cSpec = tex2D(_Metallic, IN.uv_MainTex);
  
  o.Albedo = c.rgb;
- o.Metallic = _Metallic;
+ o.Metallic = cSpec.rgb;
  o.Smoothness = _Glossiness;
  o.Alpha = c.a;
  o.Normal = UnpackNormal (tex2D (_BumpMap, IN.uv_BumpMap));
