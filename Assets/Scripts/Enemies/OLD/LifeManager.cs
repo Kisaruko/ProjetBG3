@@ -49,11 +49,11 @@ public class LifeManager : MonoBehaviour
     {
         if(otherSpawn.Length >0)
         {
-            Vector2 spawnPos = this.transform.position;
+            Vector3 spawnPos = this.transform.position;
             float range =0.5f;
             for (int i = 0; i < otherSpawn.Length; i++)
             {
-                spawnPos = spawnPos + new Vector2(Random.Range(-range,range ), (Random.Range(-range,range)));
+                spawnPos = spawnPos + new Vector3(Random.Range(-range,range ),transform.position.y, (Random.Range(-range,range)));
                 Instantiate(otherSpawn[1], spawnPos, Quaternion.identity);
             }                
         }

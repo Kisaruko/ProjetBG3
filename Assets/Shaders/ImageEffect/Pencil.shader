@@ -4,9 +4,9 @@
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
-        _GradThresh ("Gradiant threshold", range(0.000001, 0.03)) = 0.01
+        _GradThresh ("Gradiant threshold", range(0.000001, 0.2)) = 0.01 // base 0.03
         _ColorThreshold ("Color Threshold", range(0.0, 1)) = 0.5
-        _OutLineTresh("Outline treshold",range(0.1,3.0)) = 2.0
+        _OutLineTresh("Outline treshold",range(0.1,20.0)) = 2.0 // base 3.0
         _DrawingColor("Drawing Color",Color) = (1,1,1,1)
         _BackGroundColor("BackGroundColor",Color) = (0,0,0,0)
     }
@@ -47,7 +47,7 @@
  
             #define PI2 6.28318530717959
             #define STEP 2.0
-            #define RANGE 16.0//16base
+            #define RANGE 4.0//16base
             #define ANGLENUM 4.0
             #define GRADTHRESH 0.01
             #define SENSITIVITY 10.0

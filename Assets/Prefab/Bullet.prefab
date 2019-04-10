@@ -127,6 +127,9 @@ MonoBehaviour:
     type: 3}
   LifeTime: 5
   bulletDamage: 5
+  obstaclesLayer:
+    serializedVersion: 2
+    m_Bits: 16384
 --- !u!1001 &2796744736783273485
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -134,11 +137,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6260880710944425491}
     m_Modifications:
-    - target: {fileID: 6916787835356296893, guid: 41c42af676697414daa2fba261bf3f9c,
-        type: 3}
-      propertyPath: m_Name
-      value: SiphonEffect
-      objectReference: {fileID: 0}
     - target: {fileID: 6916787835356296882, guid: 41c42af676697414daa2fba261bf3f9c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -193,6 +191,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6916787835356296893, guid: 41c42af676697414daa2fba261bf3f9c,
+        type: 3}
+      propertyPath: m_Name
+      value: SiphonEffect
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 41c42af676697414daa2fba261bf3f9c, type: 3}

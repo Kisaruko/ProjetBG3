@@ -68,7 +68,7 @@ public class CameraBehaviour : MonoBehaviour
 
         //Move the position
         Vector3 flatTargetPosition = target.position;
-        flatTargetPosition.y = 0f;
+        //flatTargetPosition.y = 0f;
         Vector3 finalPosition = flatTargetPosition + rotatedVector + anticipatedVector;
         //Debug.DrawLine(target.position, finalPosition, Color.blue);
 
