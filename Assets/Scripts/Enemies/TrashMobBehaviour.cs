@@ -12,22 +12,34 @@ public class TrashMobBehaviour : MonoBehaviour
     public bool playerIsDetected;
     public float minDistToAttack;
     public bool isCharging;
+    public float rotationSpeed;
+    private bool isRotate = false;
 
+    [Header("VFX Stuff", order = 0)]
+    public GameObject trashmobMesh;
+    public ParticleSystem ps;
+    public GameObject fxFading;
+    private bool fxHasBeenUsed = false;
+    private bool fxHasBeenUsed2 = false;
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         rb = GetComponent<Rigidbody>();
         anim = GetComponentInChildren<Animator>();
+
+        //trashmobMesh = GetComponentInChildren<GameObject>();
+        //ps = GetComponentInChildren<ParticleSystem>();
     }
     private void Update()
     {
         Detection();
+        RotateAroundPlayer();
         if (isCharging)
         {
             /*Vector3 pointToLook = new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z);
             transform.LookAt(pointToLook);*/
             Vector3 direction = player.transform.position - this.transform.position;
-            this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(direction), 0.1f);
+            this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(direction), rotationSpeed);
             rb.velocity = (transform.forward.normalized) * moveSpeed * 5; //Il avance toujours vers l'avant
         }
     }
@@ -63,10 +75,46 @@ public class TrashMobBehaviour : MonoBehaviour
     }
     IEnumerator AttackRecovery()
     {
-        yield return new WaitForSeconds(3f);
-        anim.SetBool("Attack", false);
+        yield return new WaitForSeconds(1f);
         playerIsDetected = true;
+        anim.SetBool("Attack", false);
+        anim.SetBool("Chasing", true);
+        isRotate = true;
+        yield return new WaitForSeconds(1.5f);
+        isRotate = false;
         StopCoroutine("AttackRecovery");
     }
+    void RotateAroundPlayer()
+    {
+        var emission = ps.emission;
+  
 
+        if (isRotate)
+        {
+            float rotateSpeed =0.6f;
+            if (fxHasBeenUsed == false)
+            {
+                Instantiate(fxFading, transform.position, Quaternion.identity);
+                fxHasBeenUsed = true;
+                emission.enabled = true;
+            }
+            trashmobMesh.transform.localScale = Vector3.zero;
+            transform.RotateAround(player.transform.position, Vector3.up, rotateSpeed);
+            fxHasBeenUsed2 = false;
+            transform.LookAt(player.transform);
+        }
+        if(!isRotate)
+        {
+            if(fxHasBeenUsed2 == false)
+            {
+                Instantiate(fxFading, transform.position, Quaternion.identity);
+                fxHasBeenUsed2 = true;
+            }
+            emission.enabled = false;
+            trashmobMesh.transform.localScale = Vector3.one;
+            fxHasBeenUsed = false;
+        }
+
+    }
 }
+

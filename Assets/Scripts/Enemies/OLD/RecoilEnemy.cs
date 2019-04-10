@@ -22,9 +22,9 @@ public class RecoilEnemy : MonoBehaviour
     {
         GetComponent<TrashMobBehaviour>().playerIsDetected = false; //arrêt du mouvement du monstre
         GetComponent<TrashMobBehaviour>().isCharging = false; //arrêt du mouvement du monstre
+        GetComponentInChildren<AttackExecution>().StopCharge();
         anim.SetBool("TakeHit",true); //set l'anim
         
-
         StartCoroutine("CoolDownAnimRecoil");
 
     }

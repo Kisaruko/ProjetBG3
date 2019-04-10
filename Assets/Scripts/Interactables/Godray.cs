@@ -5,7 +5,7 @@ using UnityEngine;
 public class Godray : MonoBehaviour
 {
     private PlayerBehaviour playerbehaviour;
-
+    public bool rotatingToCenter;
     private void Start()
     {
         playerbehaviour = GameObject.Find("Player").GetComponent<PlayerBehaviour>();
@@ -16,5 +16,10 @@ public class Godray : MonoBehaviour
         {
             playerbehaviour.RegenLifeOnCac();
         }
+    }
+    private void Update()
+    {
+        if(rotatingToCenter)
+        transform.RotateAround(Vector3.zero, Vector3.up, 0.1f);
     }
 }
