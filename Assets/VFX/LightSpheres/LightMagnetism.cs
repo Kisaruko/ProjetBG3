@@ -55,8 +55,6 @@ public class LightMagnetism : MonoBehaviour
             enter[i] = p; // ajoute au tableau
         }
         ps.SetTriggerParticles(ParticleSystemTriggerEventType.Enter, enter); // Applique les changements
-
-
     }
     #endregion mainMethods
     #region Custom Methods

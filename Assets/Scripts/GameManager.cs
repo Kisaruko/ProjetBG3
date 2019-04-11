@@ -18,12 +18,16 @@ public class GameManager : MonoBehaviour
     private PlayerShoot playershoot;
     private float baseGradTresh;
     private float baseOutlineTresh;
+    public Color impactDrawColor;
+    public Color impactBackGroundColor;
+    public Color flashDrawColor;
+    public Color flashBackGroundColor;
 
     void Awake()
     {
         _instance = this;
     }
-
+    #region MainMethods
     private void Start()
     {
         myDeltaTime = 0.03f;
@@ -58,7 +62,7 @@ public class GameManager : MonoBehaviour
         }
         #endregion
     }
-
+    #endregion
     #region ImpactEffect
     public static void ShowAnImpact(float timeAlteredDuration)
     {
@@ -67,6 +71,8 @@ public class GameManager : MonoBehaviour
     }
     private IEnumerator ImpactEffect(float timeAlteredDuration)
     {
+        pencilMat.SetColor("_DrawingColor", impactDrawColor);
+        pencilMat.SetColor("_BackGroundColor", impactBackGroundColor);
         Time.timeScale = 0.01f;
         imageeffect.isFiltered = true;
         isTimeScaleAltered = true;
@@ -128,5 +134,21 @@ public class GameManager : MonoBehaviour
         yield return null;
     }
 
+    #endregion
+    #region Flash
+    /*public static void Flash(float timeAlteredDuration)
+    {
+        _instance.StopAllCoroutines();
+        _instance.StartCoroutine(_instance.FlashScreen(timeAlteredDuration));
+    }
+    private IEnumerator FlashScreen(float timeAlteredDuration)
+    {
+        pencilMat.SetColor("_DrawingColor", flashDrawColor);
+        pencilMat.SetColor("_BackGroundColor", flashBackGroundColor);
+        imageeffect.isFiltered = true;
+        yield return new WaitForSecondsRealtime(timeAlteredDuration);
+        imageeffect.isFiltered = false;
+        StopCoroutine("FlashScreen");
+    }*/
     #endregion
 }
