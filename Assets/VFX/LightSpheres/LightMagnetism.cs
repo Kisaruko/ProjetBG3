@@ -19,7 +19,7 @@ public class LightMagnetism : MonoBehaviour
     private bool newMovement = false;
     public PlayerBehaviour playerBehaviour;
     public CapsuleCollider playerCollider;
-#endregion
+    #endregion
     #region Main Methods
     private void Start()
     {
