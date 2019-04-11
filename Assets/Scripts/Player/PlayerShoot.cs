@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerShoot : MonoBehaviour
 {
+    public bool AuthorizedToShoot;
     #region Variables
     [Header("Switching Variables", order = 0)]
     [Space(10, order = 1)]
@@ -66,23 +67,26 @@ public class PlayerShoot : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetAxis("Triggers") > 0.5f || Input.GetAxis("Triggers") < -0.5f) //Check if the triggers are pulled
+        if (AuthorizedToShoot)
         {
-            if (isSwitch == false) //When isSwitch is false it makes it true and launch the coroutine
+            if (Input.GetAxis("Triggers") > 0.5f || Input.GetAxis("Triggers") < -0.5f) //Check if the triggers are pulled
             {
-                isSwitch = true;
-                StartCoroutine("SwitchShootMethod");
-            }
+                if (isSwitch == false) //When isSwitch is false it makes it true and launch the coroutine
+                {
+                    isSwitch = true;
+                    StartCoroutine("SwitchShootMethod");
+                }
 
-        }
-        //Choosing the shoot method (depends of the coroutine result)
-        if (isProjectile)
-        {
-            ShootProjectile();
-        }
-        if (isBeam)
-        {
-            ShootBeam();
+            }
+            //Choosing the shoot method (depends of the coroutine result)
+            if (isProjectile)
+            {
+                ShootProjectile();
+            }
+            if (isBeam)
+            {
+                ShootBeam();
+            }
         }
     }
     #endregion

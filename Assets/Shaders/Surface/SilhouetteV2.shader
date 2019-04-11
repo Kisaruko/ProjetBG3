@@ -3,8 +3,9 @@
         _MainTex ("Albedo (RGB)", 2D) = "white" {}
         _Dots("Dots",2D) = "white"{}
         _Size("Size",Vector) = (1,1,1,1)
-        _Glossiness ("Smoothness", Range(0,1)) = 0.5
-        _Metallic ("Metallic", Range(0,1)) = 0.0
+		_BumpMap ("Normal map", 2D) = "bump" {}
+        _Smoothness ("Smoothness", Range(0,1)) =0 
+        _Metallic ("Metallic", 2D) = "white" {}
         _Emissive("Emissive", 2D) = "black" {}
     	_EmissiveColor("_EmissiveColor", Color) = (1,1,1,1)
     	_EmissiveIntensity("_EmissiveIntensity", Range(0,10) ) = 0.5
@@ -27,7 +28,6 @@
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
-
             #include "UnityCG.cginc"
 
             struct appdata
@@ -68,6 +68,7 @@
 
         CGPROGRAM
         #pragma surface surf Standard fullforwardshadows
+	    #pragma shader_feature _METALLICGLOSSMAP
 
         #pragma target 3.0
 
@@ -76,21 +77,26 @@
         float4 _EmissiveColor;
         float _EmissiveIntensity;
 
-        struct Input {
+        struct Input 
+		{
             float2 uv_MainTex;
             float2 uv_Emissive;
-
+			float2 uv_BumpMap;
         };
 
-        half _Glossiness;
-        half _Metallic;
+        sampler2D _Metallic;
         fixed4 _Color;
+	    sampler2D _BumpMap;
+		half _Smoothness;
 
-        void surf (Input IN, inout SurfaceOutputStandard o) {
+        void surf (Input IN, inout SurfaceOutputStandard o) 
+		{
             fixed4 c = tex2D (_MainTex, IN.uv_MainTex);
             o.Albedo = c.rgb;
-            o.Metallic = _Metallic;
-            o.Smoothness = _Glossiness;
+			o.Normal = UnpackNormal (tex2D (_BumpMap, IN.uv_BumpMap));
+            fixed4 cSpec = tex2D(_Metallic, IN.uv_MainTex);
+			o.Metallic = cSpec.rgb;
+			o.Smoothness = _Smoothness * cSpec.a;
             o.Alpha = c.a;
 
            float4 Tex2D1=tex2D(_Emissive,(IN.uv_Emissive.xyxy).xy);

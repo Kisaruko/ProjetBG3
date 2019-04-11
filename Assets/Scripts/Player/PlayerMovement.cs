@@ -5,6 +5,9 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     #region Variables
+
+    public bool controlsAreEnabled;
+
     [Header("Movement Variables", order = 0)]
     public bool isMoving = false;
     public float moveSpeed;
@@ -49,8 +52,11 @@ public class PlayerMovement : MonoBehaviour
     }
     private void Update()
     {
-        Movement();
-        DashDetection();
+        if (controlsAreEnabled)
+        {
+            Movement();
+            DashDetection();
+        }
     }
     #endregion
 
