@@ -32,7 +32,7 @@ public class GodrayParticles : MonoBehaviour
         InitializeIfNeeded();
         playerBehaviour = player.GetComponent<PlayerBehaviour>();
         noise.enabled = true;
-        trail.enabled = false;
+        trail.ratio = 0;
         velocityOverLifetime.enabled = false;
 
     }
@@ -48,7 +48,8 @@ public class GodrayParticles : MonoBehaviour
     {
         if(other.gameObject.CompareTag("Player"))
         {
-            trail.enabled = true;
+            trail.ratio = 1;
+
             noise.enabled = false;
             velocityOverLifetime.enabled = true;
             followPlayer = true;
@@ -61,13 +62,12 @@ public class GodrayParticles : MonoBehaviour
             followPlayer = false;
             noise.enabled = true;
             velocityOverLifetime.enabled = false;
-            trail.enabled = false;
+            trail.ratio = 0;
             ParticlesStopFollowPlayer();
         }
     }
     private void OnParticleTrigger()
     {
-
         int numEnter = ps.GetTriggerParticles(ParticleSystemTriggerEventType.Enter, enter); // nb de particules qui ont trigger
 
         for (int i = 0; i < numEnter; i++) // pour chaque particle qui ont trigger
@@ -78,8 +78,6 @@ public class GodrayParticles : MonoBehaviour
             enter[i] = p; // ajoute au tableau
         }
         ps.SetTriggerParticles(ParticleSystemTriggerEventType.Enter, enter); // Applique les changements
-
-
     }
     #endregion
 
