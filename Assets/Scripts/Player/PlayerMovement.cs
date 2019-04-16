@@ -15,6 +15,7 @@ public class PlayerMovement : MonoBehaviour
     private float BaseSpeed;
     public float moveSpeedWhileAiming;
     private CustomGravity customgravity;
+    private Animator anim;
 
     [Header("Dash Variables")]
     public float lifeUsageOnDash;
@@ -49,6 +50,7 @@ public class PlayerMovement : MonoBehaviour
         customgravity = GetComponent<CustomGravity>();
         rb = GetComponent<Rigidbody>();
         BaseSpeed = moveSpeed;
+        anim = GetComponentInChildren<Animator>();
     }
     private void Update()
     {
@@ -76,6 +78,7 @@ public class PlayerMovement : MonoBehaviour
             if (xInput >= 0.5f || xInput <= -0.5f || yInput >= 0.5f || yInput < -0.5f && isDashing == false) // si le joueur bouge mais ne dash pas
             {
                 isMoving = true;//il bouge
+                anim.SetBool("isMoving", true);
                 if (lookDirection2 == Vector3.zero) // si le joueur ne touche pas au joystick droit
                 {
                     transform.rotation = Quaternion.LookRotation(lookDirection, Vector3.up); // le joueur regarde en face de lui
@@ -86,6 +89,7 @@ public class PlayerMovement : MonoBehaviour
 
             else  // si le joueur ne bouge pas
             {
+                anim.SetBool("isMoving", false);
                 isMoving = false;
                 rb.velocity = Vector3.zero;  // la vitesse du joueur est de 0
                 transform.rotation = lastRotation; // le joueur regarde dans la dernière direction enregistrée
