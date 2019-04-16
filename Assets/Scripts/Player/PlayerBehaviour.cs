@@ -34,6 +34,11 @@ public class PlayerBehaviour : MonoBehaviour
     private float shortLightRatio;
     private float midLightRatio;
 
+    [Header("VFX Stuff", order = 0)]
+    public GameObject PlayerGetLightVFX;
+    public GameObject PlayerLoseLightVFX;
+    public ParticleSystem ShinyBody;
+
     private void Start()
     {
         currentLife = maxLife;
@@ -49,9 +54,11 @@ public class PlayerBehaviour : MonoBehaviour
     #region Attack Life Methods
     public void RegenLifeOnCac()
     {
+        Instantiate(PlayerGetLightVFX, transform.position, Quaternion.identity);
         if (currentLife < maxLife && currentLife > minLife)
         {
             currentLife += lifeRegen / LightMagnetism.nbParticles;
+
             if(shortLight.intensity <= shortLightMaxIntensity && midLight.intensity < midLightMaxIntensity)
             {
                 shortLight.intensity += shortLightRatio * (lifeRegen / LightMagnetism.nbParticles);
@@ -66,6 +73,14 @@ public class PlayerBehaviour : MonoBehaviour
             {
                 currentLife = minLife;
             }
+            if(shortLight.intensity>4)
+            {
+                shortLight.intensity = 4;
+            }
+            if (midLight.intensity > 2.5f)
+            {
+                midLight.intensity = 2.5f;
+            }
 
         }
         CheckIfPlayerCanUseSkills();
@@ -78,6 +93,8 @@ public class PlayerBehaviour : MonoBehaviour
         CheckIfPlayerCanUseSkills();
         if (canShoot)
         {
+            ShinyBody.Play();
+            Instantiate(PlayerLoseLightVFX, transform.position, Quaternion.identity);
             currentLife -= lifeUsageOnShoot;
             LightUsage(lifeUsageOnShoot);
             CheckIfPlayerCanUseSkills();
@@ -89,8 +106,10 @@ public class PlayerBehaviour : MonoBehaviour
     public void UseLifeToLoadBeam(float lifeUsageToLoadBeam)
     {
         CheckIfPlayerCanUseSkills();
+        ShinyBody.Play();
         if (canBeam)
         {
+            Instantiate(PlayerLoseLightVFX, transform.position, Quaternion.identity);
             currentLife -= lifeUsageToLoadBeam;
             LightUsage(lifeUsageToLoadBeam);
             CheckIfPlayerCanUseSkills();
@@ -102,6 +121,9 @@ public class PlayerBehaviour : MonoBehaviour
         CheckIfPlayerCanUseSkills();
         if (canBeam)
         {
+            ShinyBody.Play();
+
+            Instantiate(PlayerLoseLightVFX, transform.position, Quaternion.identity);
             currentLife -= lifeUsageEachInterval;
             LightUsage(lifeUsageEachInterval);
             CheckIfPlayerCanUseSkills();
@@ -115,6 +137,8 @@ public class PlayerBehaviour : MonoBehaviour
         CheckIfPlayerCanUseSkills();
         if (canDash)
         {
+            ShinyBody.Play();
+            Instantiate(PlayerLoseLightVFX, transform.position, Quaternion.identity);
             currentLife -= lifeUsageOnDash;
             LightUsage(lifeUsageOnDash);
             CheckIfPlayerCanUseSkills();
@@ -152,9 +176,15 @@ public class PlayerBehaviour : MonoBehaviour
             canBeam = true;
         }
         
+        if(currentLife < minLife)
+        {
+            Debug.Log("You died");
+            currentLife = 0;
+        }
     }
     #endregion
 
+    //Calculate the light ratio for one hp in order to use it later
     private void CalculateLightRatioForOneHP()
     {
         shortLightRatio = shortLight.intensity / maxLife ;
@@ -162,6 +192,7 @@ public class PlayerBehaviour : MonoBehaviour
         Debug.Log("Short light ratio is : " + shortLightRatio + " | Mid light ratio is : " + midLightRatio);
     }
 
+    //Reduce light intensity with the life usage and multiply it with the light ratio
     private void LightUsage(float lifeUsage)
     {
         shortLight.intensity -= shortLightRatio * lifeUsage;
@@ -174,9 +205,21 @@ public class PlayerBehaviour : MonoBehaviour
         if (isInvicible == false)
         {
             currentLife -= damage;
+            LightUsage(damage);
+            if(currentLife < minLife)
+            {
+                Debug.Log("You died");
+                Death();
+                currentLife = 0;
+            }
             isInvicible = true;
             StartCoroutine("InvicibleTime");
         }
+    }
+
+    void Death()
+    {
+          Destroy(this.gameObject);
     }
 
     IEnumerator InvicibleTime()

@@ -19,11 +19,11 @@ public class LightMagnetism : MonoBehaviour
     private bool newMovement = false;
     public PlayerBehaviour playerBehaviour;
     public CapsuleCollider playerCollider;
-#endregion
+    #endregion
     #region Main Methods
     private void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player"); // Get le spot ou les particules doivent aller
+        player = GameObject.Find("Player"); // Get le spot ou les particules doivent aller
         ps = GetComponent<ParticleSystem>();
         lanternSpot = player.transform; // Get le spot ou les particules doivent aller
         playerCollider = player.GetComponentInChildren<CapsuleCollider>();
@@ -55,8 +55,6 @@ public class LightMagnetism : MonoBehaviour
             enter[i] = p; // ajoute au tableau
         }
         ps.SetTriggerParticles(ParticleSystemTriggerEventType.Enter, enter); // Applique les changements
-
-
     }
     #endregion mainMethods
     #region Custom Methods

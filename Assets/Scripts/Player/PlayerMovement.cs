@@ -5,6 +5,9 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     #region Variables
+
+    public bool controlsAreEnabled;
+
     [Header("Movement Variables", order = 0)]
     public bool isMoving = false;
     public float moveSpeed;
@@ -36,8 +39,7 @@ public class PlayerMovement : MonoBehaviour
     public float recoilDuration;
 
     [Header("Particles Variables")]
-    public GameObject dashInstanceFx;
-    private ParticleSystem ps;
+    public GameObject trailDashParticles;
     #endregion
 
     #region Main Methods
@@ -46,13 +48,15 @@ public class PlayerMovement : MonoBehaviour
         playerbehaviour = GetComponent<PlayerBehaviour>();
         customgravity = GetComponent<CustomGravity>();
         rb = GetComponent<Rigidbody>();
-        ps = GetComponentInChildren<ParticleSystem>();
         BaseSpeed = moveSpeed;
     }
     private void Update()
     {
-        Movement();
-        DashDetection();
+        if (controlsAreEnabled)
+        {
+            Movement();
+            DashDetection();
+        }
     }
     #endregion
 
@@ -69,7 +73,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (isRecoiling == false) // si le joueur ne prend pas un recul
         {
-            if (xInput != 0 || yInput != 0 && isDashing == false) // si le joueur bouge mais ne dash pas
+            if (xInput >= 0.5f || xInput <= -0.5f || yInput >= 0.5f || yInput < -0.5f && isDashing == false) // si le joueur bouge mais ne dash pas
             {
                 isMoving = true;//il bouge
                 if (lookDirection2 == Vector3.zero) // si le joueur ne touche pas au joystick droit
@@ -87,9 +91,9 @@ public class PlayerMovement : MonoBehaviour
                 transform.rotation = lastRotation; // le joueur regarde dans la dernière direction enregistrée
             }
 
-            if (lookDirection2 != Vector3.zero) // si le joueur touche le joystick droit
+            if (xInput2 >= 0.5f || xInput2 <= -0.5f || yInput2 >= 0.5f || yInput2 < -0.5f) // si le joueur touche le joystick droit
             {
-                transform.rotation = Quaternion.LookRotation(lookDirection2, Vector3.up); // il regarde dans la dirdction du joystick droit: ça override l'autre joystick
+                transform.rotation = Quaternion.LookRotation(lookDirection2, Vector3.up); // il regarde dans la direction du joystick droit: ça override l'autre joystick
                 lastRotation = transform.rotation; //le joueur regarde dans la derniere direction de l'input
                 moveSpeed = moveSpeedWhileAiming;
             }
@@ -105,11 +109,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if (playerbehaviour.canDash == true) // si le joueur a assez de lumière pour dasher
             {
-                Instantiate(dashInstanceFx, transform.position, transform.rotation);
-                //Activation des effet de particules
-                var emission = ps.emission;
-                emission.enabled = true;
-
+                Instantiate(trailDashParticles, transform.position, Quaternion.identity);
                 playerbehaviour.UseLifeOnDash(lifeUsageOnDash); //consomme de la lumière
 
                 isReadyToDash = false; // le joueur ne peut pas redasher
@@ -187,9 +187,6 @@ public class PlayerMovement : MonoBehaviour
         isDashing = false; // le joueur ne dash plus
         yield return new WaitForSeconds(coolDown); //lance le cooldown
         isReadyToDash = true; // le joueur peut redasher
-        var emission = ps.emission;
-        emission.enabled = false; // arrete l'emission de particules de dash
-
         StopCoroutine("DashTime");// stop la coroutine
     }
 

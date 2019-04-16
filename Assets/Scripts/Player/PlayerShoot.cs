@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerShoot : MonoBehaviour
 {
+    public bool AuthorizedToShoot;
     #region Variables
     [Header("Switching Variables", order = 0)]
     [Space(10, order = 1)]
@@ -66,23 +67,26 @@ public class PlayerShoot : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetAxis("Triggers") > 0.5f || Input.GetAxis("Triggers") < -0.5f) //Check if the triggers are pulled
+        if (AuthorizedToShoot)
         {
-            if (isSwitch == false) //When isSwitch is false it makes it true and launch the coroutine
+            if (Input.GetAxis("Triggers") > 0.5f || Input.GetAxis("Triggers") < -0.5f) //Check if the triggers are pulled
             {
-                isSwitch = true;
-                StartCoroutine("SwitchShootMethod");
-            }
+                if (isSwitch == false) //When isSwitch is false it makes it true and launch the coroutine
+                {
+                    isSwitch = true;
+                    StartCoroutine("SwitchShootMethod");
+                }
 
-        }
-        //Choosing the shoot method (depends of the coroutine result)
-        if (isProjectile)
-        {
-            ShootProjectile();
-        }
-        if (isBeam)
-        {
-            ShootBeam();
+            }
+            //Choosing the shoot method (depends of the coroutine result)
+            if (isProjectile)
+            {
+                ShootProjectile();
+            }
+            if (isBeam)
+            {
+                ShootBeam();
+            }
         }
     }
     #endregion
@@ -147,7 +151,7 @@ public class PlayerShoot : MonoBehaviour
     void ShootBeam()
     {
         //Did the player unlocked the beam ?
-        if (canUseBeam && GetComponent<PlayerBehaviour>().canBeam == true)
+        if (canUseBeam)
         {
             float xInput = Input.GetAxis("Horizontal2");
             float yInput = Input.GetAxis("Vertical2");
@@ -167,97 +171,99 @@ public class PlayerShoot : MonoBehaviour
                 isLoading = true;
                 if (loadingBeamTime >= loadedBeamTime)
                 {
-                    viseur.positionCount = 0;
-                    isLoading = false;
-                    //Execute the life usage only 1 time
-                    if(isBeamLoaded == false)
+                    if(GetComponent<PlayerBehaviour>().canBeam == true)
                     {
-                        GetComponent<PlayerBehaviour>().UseLifeToLoadBeam(lifeUsageToLoadBeam);
-                        isBeamLoaded = true;
-                    }
-
-                    SfxCheck();
-
-                    //Call method to use life after an interval
-                    currentDamageInterval += Time.deltaTime;
-                    if (currentDamageInterval >= damageInterval)
-                    {
-                        //Call life usage methods
-                        GetComponent<PlayerBehaviour>().UseLifeEachInterval(lifeUsageEachInterval);
-                        currentDamageInterval = 0f;
-
-                    }
-
-
-                    //Build the start of the laser beam
-                    if (start == null)
-                    {
-                        start = Instantiate(laserStart) as GameObject;
-                        start.transform.parent = this.transform;
-                        start.transform.localPosition = Vector3.zero;
-                    }
-                    //Build the middle of the laser
-                    if (middle == null)
-                    {
-                        middle = Instantiate(laserMiddle) as GameObject;
-                        middle.transform.parent = this.transform;
-                        middle.transform.localPosition = Vector3.zero;
-                    }
-
-                    //Build a raycast with the direction of the laser and its size from the player
-                    Vector3 laserDirection = new Vector3(xInput, 0.0f, yInput);
-
-                    //Build the array that store every hit touched with raycastall
-                    RaycastHit[] hits;
-                    hits = Physics.RaycastAll(this.transform.position, laserDirection, laserSize);
-                    Debug.DrawRay(transform.position, laserDirection * laserSize, Color.black);
-
-                    //Build the collider detection
-                    for (int i = 0; i < hits.Length; i++)
-                    {
-                        if (hits[i].collider != null)
+                        viseur.positionCount = 0;
+                        isLoading = false;
+                        //Execute the life usage only 1 time
+                        if (isBeamLoaded == false)
                         {
-                            if (hits[i].collider.CompareTag("Enemy"))
-                            {
+                            GetComponent<PlayerBehaviour>().UseLifeToLoadBeam(lifeUsageToLoadBeam);
+                            isBeamLoaded = true;
+                        }
 
-                                currentDamageInterval += Time.deltaTime;
-                                if (currentDamageInterval >= damageInterval)
+                        SfxCheck();
+
+                        //Call method to use life after an interval
+                        currentDamageInterval += Time.deltaTime;
+                        if (currentDamageInterval >= damageInterval)
+                        {
+                            //Call life usage methods
+                            GetComponent<PlayerBehaviour>().UseLifeEachInterval(lifeUsageEachInterval);
+                            currentDamageInterval = 0f;
+
+                        }
+
+
+                        //Build the start of the laser beam
+                        if (start == null)
+                        {
+                            start = Instantiate(laserStart) as GameObject;
+                            start.transform.parent = this.transform;
+                            start.transform.localPosition = Vector3.zero;
+                        }
+                        //Build the middle of the laser
+                        if (middle == null)
+                        {
+                            middle = Instantiate(laserMiddle) as GameObject;
+                            middle.transform.parent = this.transform;
+                            middle.transform.localPosition = Vector3.zero;
+                        }
+
+                        //Build a raycast with the direction of the laser and its size from the player
+                        Vector3 laserDirection = new Vector3(xInput, 0.0f, yInput);
+
+                        //Build the array that store every hit touched with raycastall
+                        RaycastHit[] hits;
+                        hits = Physics.RaycastAll(this.transform.position, laserDirection, laserSize);
+                        Debug.DrawRay(transform.position, laserDirection * laserSize, Color.black);
+
+                        //Build the collider detection
+                        for (int i = 0; i < hits.Length; i++)
+                        {
+                            if (hits[i].collider != null)
+                            {
+                                if (hits[i].collider.CompareTag("Enemy"))
                                 {
-                                    CameraShake.Shake(0.1f, 0.5f);
-                                    hits[i].collider.GetComponent<EnemyLife>().LostLifePoint(laserDamage);
-                                    currentDamageInterval = 0f;
+
+                                    currentDamageInterval += Time.deltaTime;
+                                    if (currentDamageInterval >= damageInterval)
+                                    {
+                                        CameraShake.Shake(0.1f, 0.5f);
+                                        hits[i].collider.GetComponent<EnemyLife>().LostLifePoint(laserDamage);
+                                        currentDamageInterval = 0f;
+                                    }
                                 }
                             }
                         }
+
+                        //Build the end of the laser beam
+                        if (end == null)
+                        {
+                            end = Instantiate(laserEnd) as GameObject;
+                            end.transform.parent = this.transform;
+                            end.transform.localPosition = Vector3.zero;
+                        }
+
+                        //Placing the instatiated objects
+                        float startWidth = start.GetComponent<MeshRenderer>().bounds.size.x; //Storing the width of the start object
+                        start.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
+                        float endWidth = 0f;
+                        if (end != null)
+                            endWidth = end.GetComponent<MeshRenderer>().bounds.size.x; //Storing the width of the end object
+
+                        //Build the middle object transform (scale and position) in order to have an object as a laserbeam
+                        middle.transform.localScale = new Vector3(middle.transform.localScale.x, middle.transform.localScale.y, laserSize - startWidth);
+                        middle.transform.localPosition = new Vector3(0f, 0f, laserSize / 2f);
+                        middle.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
+
+                        //Build the end object position and rotation
+                        if (end != null)
+                        {
+                            end.transform.localPosition = new Vector3(0f, 0f, laserSize);
+                            end.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
+                        }
                     }
-
-                    //Build the end of the laser beam
-                    if (end == null)
-                    {
-                        end = Instantiate(laserEnd) as GameObject;
-                        end.transform.parent = this.transform;
-                        end.transform.localPosition = Vector3.zero;
-                    }
-
-                    //Placing the instatiated objects
-                    float startWidth = start.GetComponent<MeshRenderer>().bounds.size.x; //Storing the width of the start object
-                    start.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
-                    float endWidth = 0f;
-                    if (end != null)
-                        endWidth = end.GetComponent<MeshRenderer>().bounds.size.x; //Storing the width of the end object
-
-                    //Build the middle object transform (scale and position) in order to have an object as a laserbeam
-                    middle.transform.localScale = new Vector3(middle.transform.localScale.x, middle.transform.localScale.y, laserSize - startWidth);
-                    middle.transform.localPosition = new Vector3(0f, 0f, laserSize / 2f);
-                    middle.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
-
-                    //Build the end object position and rotation
-                    if (end != null)
-                    {
-                        end.transform.localPosition = new Vector3(0f, 0f, laserSize);
-                        end.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
-                    }
-
                 }
             }
             //When the player is not using the right stick

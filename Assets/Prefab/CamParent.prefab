@@ -96,6 +96,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a5e3d5ec3155264f909b471cfdeb09e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isFiltered: 0
   m_Material: {fileID: 2100000, guid: 0d1b27043ec0bb34eacf2e464acb2bfe, type: 2}
 --- !u!114 &1975590014
 MonoBehaviour:
@@ -119,6 +120,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6913696441364486494}
   - component: {fileID: 3757883784052550090}
+  - component: {fileID: 184069419}
+  - component: {fileID: 184069417}
+  - component: {fileID: 184069418}
   m_Layer: 0
   m_Name: CamParent
   m_TagString: Untagged
@@ -154,10 +158,57 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  camHeight: 20
-  camDistance: 10
+  camHeight: 14
+  camDistance: 7
   camAngle: 0
   xCamRotation: 60
-  smoothSpeed: 0.5
-  anticipationFactor: 5.5
+  smoothSpeed: 0.2
+  anticipationFactor: 0
   followTarget: 1
+--- !u!95 &184069419
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6913696441364486493}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3f77c9e2430fb4d43bc7c7c91bbb600c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &184069417
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6913696441364486493}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf8f84d676440b24198602b29a25c311, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &184069418
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6913696441364486493}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf62b0d47e21a594284a4919d793d347, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isBehindWall: 0
+  mat: {fileID: 2100000, guid: 830b453b1d4ad284f874cca43980f7b1, type: 2}
+  maxRange: 20
+  dissolveSpeed: 0.1
