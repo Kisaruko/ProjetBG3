@@ -19,6 +19,11 @@ public class CameraBehaviour : MonoBehaviour
     #endregion
 
     #region Main Methods
+    private void Awake()
+    {
+        target = GameObject.FindGameObjectWithTag("Player").transform;
+    }
+
     void Start()
     {
         HandleCamera();

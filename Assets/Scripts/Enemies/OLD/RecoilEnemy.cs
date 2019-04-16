@@ -1,46 +1,43 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class RecoilEnemy : MonoBehaviour
 {
-    private GameObject player;
+    StateController controller;
+    NavMeshAgent navMeshAgent;
+    Animator animator;
+
     public float recoilVelocity;
-    private Rigidbody rb;
     public float recoilTime;
-    private MeshRenderer mesh;
-    private Animator anim;
     
     void Start()
     {
-        rb = GetComponent<Rigidbody>(); 
-        player = GameObject.FindGameObjectWithTag("Player");
-        mesh = GetComponent<MeshRenderer>();
-        anim = GetComponentInChildren<Animator>();
+        controller = GetComponent<StateController>();
+        navMeshAgent = GetComponent<NavMeshAgent>();
+        animator = GetComponentInChildren<Animator>();
     }
     public void TakeHit()
     {
-        GetComponent<TrashMobBehaviour>().playerIsDetected = false; //arrêt du mouvement du monstre
-        GetComponent<TrashMobBehaviour>().isCharging = false; //arrêt du mouvement du monstre
-        GetComponentInChildren<AttackExecution>().StopCharge();
-        anim.SetBool("TakeHit",true); //set l'anim
-        
+        navMeshAgent.isStopped = true;
+        animator.SetBool("TakeHit",true); //set l'anim
+        StartCoroutine("RecoilTime");
         StartCoroutine("CoolDownAnimRecoil");
 
     }
     public IEnumerator RecoilTime()
     {
-        Vector3 recoilDirection = transform.position - player.transform.position; //calcul de la direction du recul
-        rb.velocity = (recoilDirection * recoilVelocity); // calcule et execute le recul 
+        Vector3 recoilDirection = (controller.eyes.position - controller.chaseTarget.position).normalized; //calcul de la direction du recul
+        navMeshAgent.velocity = (recoilDirection * recoilVelocity); // calcule et execute le recul 
         yield return new WaitForSeconds(recoilTime);// attendre la durée du recul
 
-        GetComponent<TrashMobBehaviour>().playerIsDetected = true; // relance le mouvement normal du monstre
         StopCoroutine("RecoilTime");// arrêt de la coroutine
     }
     private IEnumerator CoolDownAnimRecoil()
     {
         yield return new WaitForSeconds(0.2f);
-        anim.SetBool("TakeHit", false); //set l'anim
+        animator.SetBool("TakeHit", false); //set l'anim
         StopCoroutine("CoolDownAnimRecoil");
     }
 }
