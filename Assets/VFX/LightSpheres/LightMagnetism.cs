@@ -19,7 +19,7 @@ public class LightMagnetism : MonoBehaviour
     private bool newMovement = false;
     public PlayerBehaviour playerBehaviour;
     public CapsuleCollider playerCollider;
-#endregion
+    #endregion
     #region Main Methods
     private void Start()
     {
@@ -55,8 +55,6 @@ public class LightMagnetism : MonoBehaviour
             enter[i] = p; // ajoute au tableau
         }
         ps.SetTriggerParticles(ParticleSystemTriggerEventType.Enter, enter); // Applique les changements
-
-
     }
     #endregion mainMethods
     #region Custom Methods

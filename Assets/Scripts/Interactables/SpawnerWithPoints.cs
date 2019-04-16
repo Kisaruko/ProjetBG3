@@ -8,6 +8,8 @@ public class SpawnerWithPoints : MonoBehaviour
     public GameObject gameObjectToSpawn;
     public float detectionRange;
     public LayerMask spawners;
+    public int pointDivision =1;
+    public float timeBeforeInvoking;
     #endregion
 
     #region Main Methods
@@ -15,7 +17,7 @@ public class SpawnerWithPoints : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))// si le player declenche le spawn
         {
-            InvokeEnemies();// invoque ennemies
+            Invoke("InvokeEnemies", timeBeforeInvoking);// invoque ennemies
         }
     }
     private void OnDrawGizmosSelected()
@@ -40,11 +42,11 @@ public class SpawnerWithPoints : MonoBehaviour
     {
         List<Transform> touchedSpawners = GetSpawnersInRange(); // recupere la liste générée par l'autre fonction
         Transform[] spawnerArray = touchedSpawners.ToArray(); // Transforme la liste en Tableau
-        /*for (int i = 0; i < spawnerArray.Length; i++) // instantier un fx d'annonciation
+        /*for (int i = 0; i < spawnerArray.Length/pointDivision; i++) // instantier un fx d'annonciation
         {
             Instantiate(//Fx annonciateur de chaos, spawnerArray[i].transform.position, Quaternion.identity);          
         }*/
-        for (int i = 0; i < spawnerArray.Length; i++) // Pour chaque spawnpoint dans le tableau
+        for (int i = 0; i < spawnerArray.Length/pointDivision; i++) // Pour chaque spawnpoint dans le tableau, point division est une valeur qui sert à instantier les objets sur un certain pourcentage de points détectés et non tous
         {
             Instantiate(gameObjectToSpawn, spawnerArray[i].transform.position, Quaternion.identity); // instantie l'objet sur un spawnpoint
             Destroy(spawnerArray[i].gameObject); // detruit le spawn point sur lequel l'objet vient d'etre instantié

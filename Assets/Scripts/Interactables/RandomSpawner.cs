@@ -6,7 +6,6 @@ public class RandomSpawner : MonoBehaviour
 {
     #region Variables
     public GameObject gameObjectToSpawn;
-    public List<Transform> spawnGameObjects = new List<Transform>();
     public int nbObjectToSpawn;
     public float range = 1f;
     public bool spawnInTheAir = false;
@@ -29,7 +28,7 @@ public class RandomSpawner : MonoBehaviour
                     spawnPos = new Vector3(Random.Range(transform.position.x + range, transform.position.x - range), Random.Range(transform.position.y + range, transform.position.y), Random.Range(transform.position.z + range, transform.position.z - range));// randomise la position du spawner aléatoirement dans la range avec +Y uniquement
                 }
                 Instantiate(gameObjectToSpawn, spawnPos, Quaternion.identity); // instantier un enemy sur le spawnpos  
-                //spawnGameObjects.Add(gameObjectToSpawn.transform);
+                
             }
             Destroy(this.gameObject); // detruit l'objet, on en a plus besoin
         }

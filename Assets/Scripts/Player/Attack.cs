@@ -5,6 +5,8 @@ using UnityEngine;
 public class Attack : MonoBehaviour
 {
     #region Variables
+    public bool AuthorizedToAttack;
+
     [Header("Values", order = 0)]
     [Space(10, order = 1)]
     public int strengthAttack1;
@@ -46,20 +48,23 @@ public class Attack : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetButtonDown("Attack"))
+        if (AuthorizedToAttack)
         {
-            OnButtonClick();
-        }
-        if (Time.time - lastClickedTime > maxComboDelay) // si le joueur n'a pas appuyé de maniere répétée assez vite
-        {
-            noOfClicks = 0; // reinitialise le combo
-            anim.SetBool("Attack1", false); //Reset toutes les variables d'anim a false
-            anim.SetBool("Attack2", false);
-            anim.SetBool("Attack3", false);
-        }
-        if (noOfClicks != 0)
-        {
-            playermovement.moveSpeed = speedWhileAttacking; // le player ralenti
+            if (Input.GetButtonDown("Attack"))
+            {
+                OnButtonClick();
+            }
+            if (Time.time - lastClickedTime > maxComboDelay) // si le joueur n'a pas appuyé de maniere répétée assez vite
+            {
+                noOfClicks = 0; // reinitialise le combo
+                anim.SetBool("Attack1", false); //Reset toutes les variables d'anim a false
+                anim.SetBool("Attack2", false);
+                anim.SetBool("Attack3", false);
+            }
+            if (noOfClicks != 0)
+            {
+                playermovement.moveSpeed = speedWhileAttacking; // le player ralenti
+            }
         }
     }
     #endregion

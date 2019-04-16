@@ -21,12 +21,12 @@ public class DissolveManager : MonoBehaviour
         if (Physics.Raycast(playerPos, transform.position - playerPos, out hit, maxRange)) // le ray ne touche pas le joueur
         {
             isBehindWall = true; // le joueur est derriere un mur
-            mat.SetFloat("_Level", Mathf.Lerp(mat.GetFloat("_Level"), 1f, dissolveSpeed)); // je dissolve l'objet    
+            mat.SetFloat("_Amount", Mathf.Lerp(mat.GetFloat("_Amount"), 1f, dissolveSpeed)); // je dissolve l'objet    
         }
         else
         {
             isBehindWall = false;// le joueur n'est pas derrière un mur
-            mat.SetFloat("_Level", Mathf.Lerp(mat.GetFloat("_Level"), 0f, dissolveSpeed)); // je reconstruit l'objet
+            mat.SetFloat("_Amount", Mathf.Lerp(mat.GetFloat("_Amount"), 0f, dissolveSpeed)); // je reconstruit l'objet
         }
 
     }
