@@ -7,13 +7,14 @@ public class Cinematic : MonoBehaviour
     public Transform player;
     public float rotateSpeed;
     public bool isRotating;
+    public float timeRotate;
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
         StartCoroutine("Rotating");
         StartRotate();
-        Invoke("StopRotate", 5f);
+        Invoke("StopRotate", timeRotate);
     }
 
     // Update is called once per frame
