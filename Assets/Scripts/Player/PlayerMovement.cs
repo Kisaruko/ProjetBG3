@@ -111,8 +111,10 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Input.GetButtonDown("Dash") && isReadyToDash == true && isRecoiling == false) // si le joueur peut dasher, qu'il ne subit pas de recul et qu'il appuie sur l'input
         {
+
             if (playerbehaviour.canDash == true) // si le joueur a assez de lumière pour dasher
             {
+                anim.SetBool("isDashing", true);
                 Instantiate(trailDashParticles, transform.position, Quaternion.identity);
                 playerbehaviour.UseLifeOnDash(lifeUsageOnDash); //consomme de la lumière
 
@@ -157,6 +159,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (isDashing == true) //si le joueur est en train de dasher
         {
+
             //Build the dash direction and velocity
             Vector3 dashDirection = transform.forward;
             Vector3 dashVelocity = dashDirection * dashSpeed;
@@ -188,6 +191,7 @@ public class PlayerMovement : MonoBehaviour
     IEnumerator DashTime()
     {
         yield return new WaitForSeconds(dashingTime); // le temps que le dash dure
+        anim.SetBool("isDashing", false);
         isDashing = false; // le joueur ne dash plus
         yield return new WaitForSeconds(coolDown); //lance le cooldown
         isReadyToDash = true; // le joueur peut redasher
