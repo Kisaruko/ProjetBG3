@@ -98,16 +98,16 @@ public class PlayerMovement : MonoBehaviour
                 transform.rotation = lastRotation; // le joueur regarde dans la dernière direction enregistrée
             }
 
-          /*  if (xInput2 >= 0.5f || xInput2 <= -0.5f || yInput2 >= 0.5f || yInput2 < -0.5f) // si le joueur touche le joystick droit
+            if (xInput2 >= 0.5f || xInput2 <= -0.5f || yInput2 >= 0.5f || yInput2 < -0.5f) // si le joueur touche le joystick droit
             {
-                transform.rotation = Quaternion.LookRotation(lookDirection2, Vector3.up); // il regarde dans la direction du joystick droit: ça override l'autre joystick
-                lastRotation = transform.rotation; //le joueur regarde dans la derniere direction de l'input
-                moveSpeed = moveSpeedWhileAiming;
+                //transform.rotation = Quaternion.LookRotation(lookDirection2, Vector3.up); // il regarde dans la direction du joystick droit: ça override l'autre joystick
+                //lastRotation = transform.rotation; //le joueur regarde dans la derniere direction de l'input
+                //moveSpeed = moveSpeedWhileAiming;
             }
             else
             {
                 moveSpeed = BaseSpeed; // reviens à la vitesse originelle
-            }*/
+            }
         }
     }
     public void DashDetection()

@@ -13,7 +13,7 @@ public class BinaryLight : MonoBehaviour
     public GameObject LightObject;
     public Transform lightAnchor;
     public bool isAimingLight;
-
+    public bool isRegrabable;
     [Header("Physics Attributes", order = 0)]
     [Space(10, order = 1)]
     public float ejectionForce;
@@ -57,7 +57,7 @@ public class BinaryLight : MonoBehaviour
     {
         if (gotLight)
         {
-            if (Input.GetButtonDown("Attack"))
+            if (Input.GetButtonDown("Throw"))
             {
                 emi.rateOverTime = 30;
                 Aiming();
@@ -71,7 +71,7 @@ public class BinaryLight : MonoBehaviour
         {
             DropLight();
         }
-        if (Input.GetKeyDown(KeyCode.G) || (Input.GetButtonDown("Fire3")))
+        if (Input.GetKeyDown(KeyCode.G) || (Input.GetButtonDown("Throw")))
         {
             GetLight();
         }
@@ -87,6 +87,8 @@ public class BinaryLight : MonoBehaviour
     /// </summary>
     public void DropLight()
     {
+        isRegrabable = false;
+        Invoke("LightCanBeRegrabed", 2f);
         gotLight = false;
         LightObject.transform.parent = null;
         lightRb.isKinematic = false;
@@ -96,11 +98,18 @@ public class BinaryLight : MonoBehaviour
     }
     public void GetLight()
     {
-        gotLight = true;
-        lightRb.isKinematic = true;
-        lightRb.useGravity = false;
-        LightObject.transform.position = lightAnchor.position;
-        LightObject.transform.parent = transform;
+        if (isRegrabable)
+        {
+            gotLight = true;
+            lightRb.isKinematic = true;
+            lightRb.useGravity = false;
+            LightObject.transform.position = lightAnchor.position;
+            LightObject.transform.parent = transform;
+        }
+    }
+    public void LightCanBeRegrabed()
+    {
+        isRegrabable = true;
     }
     void Aiming()
     {
@@ -126,7 +135,7 @@ public class BinaryLight : MonoBehaviour
         {
             reachedMaxRange = true;
         }
-        if (Input.GetButtonUp("Attack"))
+        if (Input.GetButtonUp("Throw"))
         {
             playerMovement.rotationSpeed = baseRotationSpeed;
             ThrowLight();
@@ -158,5 +167,4 @@ public class BinaryLight : MonoBehaviour
         LightObject.transform.position = new Vector3(lastPosReticule.x, lastPosReticule.y + 1, lastPosReticule.z);
 
     }
-
 }
