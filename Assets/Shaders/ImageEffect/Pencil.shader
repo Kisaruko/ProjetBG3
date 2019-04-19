@@ -13,9 +13,10 @@
     SubShader
     {
         Tags { "RenderType"="Opaque" }
-
+		//Cull Off Zwrite Off ZTest Always
         Pass
         {
+
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
@@ -30,7 +31,7 @@
             float _OutLineTresh;
             float4 _DrawingColor;
             float4 _BackGroundColor;
-            
+
  
             struct v2f {
                 float4 pos : SV_POSITION;
@@ -103,8 +104,10 @@
                         weight -= pow(abs(dot(normalize(grad), normalize(g))), SENSITIVITY) / floor((_OutLineTresh * RANGE + 1.0) / STEP) / ANGLENUM;
                     }
                 }
-   
+
+				
                 float4 col = getCol(screenPos);
+
                 float4 background = lerp(col, _BackGroundColor, _ColorThreshold);
  
                 return lerp(_DrawingColor, background, weight);

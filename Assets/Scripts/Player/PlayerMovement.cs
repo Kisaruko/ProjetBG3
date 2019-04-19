@@ -7,7 +7,7 @@ public class PlayerMovement : MonoBehaviour
     #region Variables
 
     public bool controlsAreEnabled;
-
+    public float sensitivity;
     [Header("Movement Variables", order = 0)]
     public bool isMoving = false;
     public float moveSpeed;
@@ -16,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
     public float moveSpeedWhileAiming;
     private CustomGravity customgravity;
     private Animator anim;
+    public float rotationSpeed;
 
     [Header("Dash Variables")]
     public float lifeUsageOnDash;
@@ -65,8 +66,8 @@ public class PlayerMovement : MonoBehaviour
     #region Custom Methods
     void Movement()
     {
-        float xInput = Input.GetAxis("Horizontal"); //Joystick gauche horizontal
-        float yInput = Input.GetAxis("Vertical"); //Joystick gauche vertical
+        float xInput = Input.GetAxis("Horizontal")* sensitivity; //Joystick gauche horizontal
+        float yInput = Input.GetAxis("Vertical")* sensitivity; //Joystick gauche vertical
         float xInput2 = Input.GetAxis("Horizontal2"); //Joystick droit horizontal
         float yInput2 = Input.GetAxis("Vertical2"); //Joystick droit vertical
 
@@ -75,13 +76,15 @@ public class PlayerMovement : MonoBehaviour
 
         if (isRecoiling == false) // si le joueur ne prend pas un recul
         {
-            if (xInput >= 0.5f || xInput <= -0.5f || yInput >= 0.5f || yInput < -0.5f && isDashing == false) // si le joueur bouge mais ne dash pas
+            if (xInput >= 0.1f || xInput <= -0.1f || yInput >= 0.1f || yInput < -0.1f && isDashing == false) // si le joueur bouge mais ne dash pas
             {
                 isMoving = true;//il bouge
                 anim.SetBool("isMoving", true);
                 if (lookDirection2 == Vector3.zero) // si le joueur ne touche pas au joystick droit
                 {
-                    transform.rotation = Quaternion.LookRotation(lookDirection, Vector3.up); // le joueur regarde en face de lui
+                    Quaternion smoothRotation = Quaternion.LookRotation(lookDirection);
+                    //transform.rotation = Quaternion.LookRotation(looksDirection, Vector3.up); // le joueur regarde en face de lui
+                    transform.rotation = Quaternion.Slerp(lastRotation, smoothRotation, rotationSpeed);
                 }
                 rb.velocity = new Vector3(xInput, 0f, yInput) * moveSpeed; // le joueur avance dans la direction du joystick gauche
                 lastRotation = transform.rotation; //Enregistre le dernier input du joueur pour qu'il regarde dans la dernière direction dans laquelle il allait
@@ -95,7 +98,7 @@ public class PlayerMovement : MonoBehaviour
                 transform.rotation = lastRotation; // le joueur regarde dans la dernière direction enregistrée
             }
 
-            if (xInput2 >= 0.5f || xInput2 <= -0.5f || yInput2 >= 0.5f || yInput2 < -0.5f) // si le joueur touche le joystick droit
+          /*  if (xInput2 >= 0.5f || xInput2 <= -0.5f || yInput2 >= 0.5f || yInput2 < -0.5f) // si le joueur touche le joystick droit
             {
                 transform.rotation = Quaternion.LookRotation(lookDirection2, Vector3.up); // il regarde dans la direction du joystick droit: ça override l'autre joystick
                 lastRotation = transform.rotation; //le joueur regarde dans la derniere direction de l'input
@@ -104,7 +107,7 @@ public class PlayerMovement : MonoBehaviour
             else
             {
                 moveSpeed = BaseSpeed; // reviens à la vitesse originelle
-            }
+            }*/
         }
     }
     public void DashDetection()
