@@ -20,7 +20,7 @@ public class BinaryLight : MonoBehaviour
     private Rigidbody lightRb;
     public float ejectionDistance;
     public float ejectionHeight;
-    private bool isThrown;
+    public bool isThrown;
     bool reachedMaxRange = false;
 
     [Header("Physics Attributes", order = 0)]
@@ -79,6 +79,7 @@ public class BinaryLight : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         GetLight();
+        isThrown = false;
     }
 
     /// <summary>
