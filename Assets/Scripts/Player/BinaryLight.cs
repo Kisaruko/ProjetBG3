@@ -15,6 +15,7 @@ public class BinaryLight : MonoBehaviour
     public Transform lightAnchor;
     public bool isAimingLight;
     public bool isRegrabable;
+    private MeshRenderer mesh;
     [Header("Physics Attributes", order = 0)]
     [Space(10, order = 1)]
     public float ejectionForce;
@@ -54,6 +55,8 @@ public class BinaryLight : MonoBehaviour
         emi = VfxDisappear.emission;
         baseSpeed = aimingSpeed;
         baseRotationSpeed = playerMovement.rotationSpeed;
+        mesh = LightObject.GetComponentInChildren<MeshRenderer>();
+        mesh.enabled = false;
     }
     private void Update()
     {
@@ -68,7 +71,9 @@ public class BinaryLight : MonoBehaviour
             {
                 ManageReticule();
             }
-        }
+        } 
+
+        //Debug
         if (Input.GetKeyDown(KeyCode.D))
         {
             DropLight();
@@ -84,6 +89,7 @@ public class BinaryLight : MonoBehaviour
         {
             GetLight();
             isThrown = false;
+            mesh.enabled = false;
         }
     }
 
@@ -92,6 +98,7 @@ public class BinaryLight : MonoBehaviour
     /// </summary>
     public void DropLight()
     {
+        mesh.enabled = true;
         lightRb.drag = 0;
         isRegrabable = false;
         Invoke("LightCanBeRegrabed", 2f);
@@ -144,6 +151,7 @@ public class BinaryLight : MonoBehaviour
         }
         if (Input.GetButtonUp("Throw"))
         {
+            mesh.enabled = true;
             playerMovement.rotationSpeed = baseRotationSpeed;
             ThrowLight();
             //playerMovement.moveSpeed = 11;
