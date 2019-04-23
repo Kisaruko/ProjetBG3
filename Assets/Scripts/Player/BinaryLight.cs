@@ -7,6 +7,7 @@ public class BinaryLight : MonoBehaviour
     private PlayerMovement playerMovement;
     private LineRenderer viseur;
     private float baseRotationSpeed;
+    public bool teleport = false;
     [Header("Light Attributes", order = 0)]
     [Space(10, order = 1)]
     public bool gotLight;
@@ -30,6 +31,7 @@ public class BinaryLight : MonoBehaviour
     public float aimingSpeed;
     private Vector3 lastPosReticule;
     public float maxRange;
+    public float lightSpeed;
 
     [Header("Vfx Attributes", order = 0)]
     [Space(10, order = 1)]
@@ -78,8 +80,11 @@ public class BinaryLight : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        GetLight();
-        isThrown = false;
+        if (collision.gameObject == LightObject)
+        {
+            GetLight();
+            isThrown = false;
+        }
     }
 
     /// <summary>
@@ -87,6 +92,7 @@ public class BinaryLight : MonoBehaviour
     /// </summary>
     public void DropLight()
     {
+        lightRb.drag = 0;
         isRegrabable = false;
         Invoke("LightCanBeRegrabed", 2f);
         gotLight = false;
@@ -110,6 +116,7 @@ public class BinaryLight : MonoBehaviour
     public void LightCanBeRegrabed()
     {
         isRegrabable = true;
+        lightRb.drag = 10;
     }
     void Aiming()
     {
@@ -146,10 +153,14 @@ public class BinaryLight : MonoBehaviour
     }
     void ThrowLight()
     {
+        isRegrabable = true;
         viseur.positionCount = 0; // la ligne a 0 vertex, elle n'apparait donc pas
 
+        //particles
         emi.rateOverTime = 0;
+        //resetspeed
         aimingSpeed = baseSpeed;
+        //saveTheLastPosReticule
         lastPosReticule = reticule.transform.position;
         //Components modifications
         LightObject.transform.parent = null;
@@ -164,7 +175,15 @@ public class BinaryLight : MonoBehaviour
         reticule.transform.position = transform.position;
         reticule.SetActive(false);
         Instantiate(VfxAppear, lastPosReticule, Quaternion.identity);
-        LightObject.transform.position = new Vector3(lastPosReticule.x, lastPosReticule.y + 1, lastPosReticule.z);
+        if (teleport)
+        {
+            LightObject.transform.position = new Vector3(lastPosReticule.x, lastPosReticule.y + 1, lastPosReticule.z);
+        }
+        else
+        {
+            LightObject.transform.position = transform.position + transform.forward;
+            lightRb.AddForce(transform.forward * lightSpeed);
+        }
 
     }
 }

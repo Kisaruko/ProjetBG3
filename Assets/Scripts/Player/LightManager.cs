@@ -14,7 +14,6 @@ public class LightManager : MonoBehaviour
     public float increaseFactor;
     public float decreaseFactor;
     public float dashDecreaseMultiplier;
-
     void Start()
     {
         playermovement = GetComponentInParent<PlayerMovement>();
@@ -38,10 +37,11 @@ public class LightManager : MonoBehaviour
         {
             DashDecrease();
         }
-        /*if(!binarylight.isThrown && !binarylight.gotLight)
+        if (binarylight.isRegrabable && frames % 30 == 0 && !binarylight.gotLight)
         {
             LightIncreasing();
-        }*/
+        }
+
     }
     public void LightIncreasing()
     {

@@ -32,6 +32,10 @@ public class AttackExecution : MonoBehaviour
                     Instantiate(fxHit, hitcol.transform.position, Quaternion.identity);
                     GameManager.ShowAnImpact(0.3f);
                     CameraShake.Shake(0.1f, 0.2f);
+                    if (player.GetComponent<BinaryLight>().gotLight == false)
+                    {
+                        Destroy(player.gameObject);
+                    }
                     player.GetComponent<BinaryLight>().DropLight();
                     player.GetComponent<PlayerMovement>().Recoil(transform, recoilInflincted); //Appelle la fonction recoil du joueur et inflige un recul de valeur recoilInflected
                     player.GetComponent<PlayerBehaviour>().TakeHit(strength); // Appelle la fonction qui fait perdre des pdv au joueur , le joueur perd 'strength' pdv
@@ -42,7 +46,7 @@ public class AttackExecution : MonoBehaviour
     }
     private void OnDrawGizmos()
     {
-        Gizmos.DrawWireSphere(transform.position+transform.right, attackRange);
+        Gizmos.DrawWireSphere(transform.position + transform.right, attackRange);
     }
     public void StartCharge()
     {
