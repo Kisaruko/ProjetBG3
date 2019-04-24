@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6913696441118821652}
   - component: {fileID: 1975590013}
   - component: {fileID: 1975590014}
+  - component: {fileID: 517137833}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -72,7 +73,7 @@ Camera:
   m_HDR: 1
   m_AllowMSAA: 1
   m_AllowDynamicResolution: 0
-  m_ForceIntoRT: 0
+  m_ForceIntoRT: 1
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
@@ -96,7 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a5e3d5ec3155264f909b471cfdeb09e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isFiltered: 0
+  isFiltered: 1
   m_Material: {fileID: 2100000, guid: 0d1b27043ec0bb34eacf2e464acb2bfe, type: 2}
 --- !u!114 &1975590014
 MonoBehaviour:
@@ -110,6 +111,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 763729c683dcbbb4bb744bf7756af1e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &517137833
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6913696441118821659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 101ac74223261194c952044eea3af2fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  opacity: 0
+  invert: 1
+  blur: 20
+  captureMode: 0
+  fullScreenTexture: {fileID: 2800000, guid: 637685186afeb114b8772a66aa3702da, type: 3}
+  renderersEnabled: 1
+  depthTest: 1
+  cullMode: 2
+  serializedRenderers: []
 --- !u!1 &6913696441364486493
 GameObject:
   m_ObjectHideFlags: 0
@@ -123,6 +145,7 @@ GameObject:
   - component: {fileID: 184069419}
   - component: {fileID: 184069417}
   - component: {fileID: 184069418}
+  - component: {fileID: 1769964851}
   m_Layer: 0
   m_Name: CamParent
   m_TagString: Untagged
@@ -158,12 +181,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  camHeight: 14
-  camDistance: 7
+  camHeight: 10
+  camDistance: 9
   camAngle: 0
-  xCamRotation: 60
-  smoothSpeed: 0.2
-  anticipationFactor: 0
+  xCamRotation: 50
+  smoothSpeed: 0.1
+  anticipationFactor: 2
   followTarget: 1
 --- !u!95 &184069419
 Animator:
@@ -212,3 +235,19 @@ MonoBehaviour:
   mat: {fileID: 2100000, guid: 830b453b1d4ad284f874cca43980f7b1, type: 2}
   maxRange: 20
   dissolveSpeed: 0.1
+--- !u!114 &1769964851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6913696441364486493}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ae201140f610724e87b5807f558ffe9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  rotateSpeed: 0.1
+  isRotating: 0
+  timeRotate: 0
