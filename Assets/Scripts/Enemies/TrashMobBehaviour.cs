@@ -23,7 +23,7 @@ public class TrashMobBehaviour : MonoBehaviour
     private bool fxHasBeenUsed2 = false;
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
+        player = GameObject.Find("PlayerLight_v4-1");
         rb = GetComponent<Rigidbody>();
         anim = GetComponentInChildren<Animator>();
 

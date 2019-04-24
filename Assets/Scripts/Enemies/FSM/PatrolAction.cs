@@ -13,6 +13,7 @@ public class PatrolAction : Action
     //Set the destination to the Nav Mesh Agent
     private void Patrol(StateController controller)
     {
+        int waypointStart = Random.Range(0, controller.wayPointList.Count);
         controller.navMeshAgent.destination = controller.wayPointList[controller.nextWayPoint].position;
         controller.navMeshAgent.isStopped = false;
         controller.animator.SetBool("Chasing", true);

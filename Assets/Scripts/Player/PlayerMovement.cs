@@ -7,7 +7,7 @@ public class PlayerMovement : MonoBehaviour
     #region Variables
 
     public bool controlsAreEnabled;
-
+    public float sensitivity;
     [Header("Movement Variables", order = 0)]
     public bool isMoving = false;
     public float moveSpeed;
@@ -15,6 +15,8 @@ public class PlayerMovement : MonoBehaviour
     private float BaseSpeed;
     public float moveSpeedWhileAiming;
     private CustomGravity customgravity;
+    private Animator anim;
+    public float rotationSpeed;
 
     [Header("Dash Variables")]
     public float lifeUsageOnDash;
@@ -49,6 +51,7 @@ public class PlayerMovement : MonoBehaviour
         customgravity = GetComponent<CustomGravity>();
         rb = GetComponent<Rigidbody>();
         BaseSpeed = moveSpeed;
+        anim = GetComponentInChildren<Animator>();
     }
     private void Update()
     {
@@ -63,8 +66,8 @@ public class PlayerMovement : MonoBehaviour
     #region Custom Methods
     void Movement()
     {
-        float xInput = Input.GetAxis("Horizontal"); //Joystick gauche horizontal
-        float yInput = Input.GetAxis("Vertical"); //Joystick gauche vertical
+        float xInput = Input.GetAxis("Horizontal")* sensitivity; //Joystick gauche horizontal
+        float yInput = Input.GetAxis("Vertical")* sensitivity; //Joystick gauche vertical
         float xInput2 = Input.GetAxis("Horizontal2"); //Joystick droit horizontal
         float yInput2 = Input.GetAxis("Vertical2"); //Joystick droit vertical
 
@@ -73,12 +76,15 @@ public class PlayerMovement : MonoBehaviour
 
         if (isRecoiling == false) // si le joueur ne prend pas un recul
         {
-            if (xInput >= 0.5f || xInput <= -0.5f || yInput >= 0.5f || yInput < -0.5f && isDashing == false) // si le joueur bouge mais ne dash pas
+            if (xInput >= 0.1f || xInput <= -0.1f || yInput >= 0.1f || yInput < -0.1f && isDashing == false) // si le joueur bouge mais ne dash pas
             {
                 isMoving = true;//il bouge
+                anim.SetBool("isMoving", true);
                 if (lookDirection2 == Vector3.zero) // si le joueur ne touche pas au joystick droit
                 {
-                    transform.rotation = Quaternion.LookRotation(lookDirection, Vector3.up); // le joueur regarde en face de lui
+                    Quaternion smoothRotation = Quaternion.LookRotation(lookDirection);
+                    //transform.rotation = Quaternion.LookRotation(looksDirection, Vector3.up); // le joueur regarde en face de lui
+                    transform.rotation = Quaternion.Slerp(lastRotation, smoothRotation, rotationSpeed);
                 }
                 rb.velocity = new Vector3(xInput, 0f, yInput) * moveSpeed; // le joueur avance dans la direction du joystick gauche
                 lastRotation = transform.rotation; //Enregistre le dernier input du joueur pour qu'il regarde dans la dernière direction dans laquelle il allait
@@ -86,6 +92,7 @@ public class PlayerMovement : MonoBehaviour
 
             else  // si le joueur ne bouge pas
             {
+                anim.SetBool("isMoving", false);
                 isMoving = false;
                 rb.velocity = Vector3.zero;  // la vitesse du joueur est de 0
                 transform.rotation = lastRotation; // le joueur regarde dans la dernière direction enregistrée
@@ -93,9 +100,9 @@ public class PlayerMovement : MonoBehaviour
 
             if (xInput2 >= 0.5f || xInput2 <= -0.5f || yInput2 >= 0.5f || yInput2 < -0.5f) // si le joueur touche le joystick droit
             {
-                transform.rotation = Quaternion.LookRotation(lookDirection2, Vector3.up); // il regarde dans la direction du joystick droit: ça override l'autre joystick
-                lastRotation = transform.rotation; //le joueur regarde dans la derniere direction de l'input
-                moveSpeed = moveSpeedWhileAiming;
+                //transform.rotation = Quaternion.LookRotation(lookDirection2, Vector3.up); // il regarde dans la direction du joystick droit: ça override l'autre joystick
+                //lastRotation = transform.rotation; //le joueur regarde dans la derniere direction de l'input
+                //moveSpeed = moveSpeedWhileAiming;
             }
             else
             {
@@ -107,8 +114,10 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Input.GetButtonDown("Dash") && isReadyToDash == true && isRecoiling == false) // si le joueur peut dasher, qu'il ne subit pas de recul et qu'il appuie sur l'input
         {
+
             if (playerbehaviour.canDash == true) // si le joueur a assez de lumière pour dasher
             {
+                anim.SetBool("isDashing", true);
                 Instantiate(trailDashParticles, transform.position, Quaternion.identity);
                 playerbehaviour.UseLifeOnDash(lifeUsageOnDash); //consomme de la lumière
 
@@ -153,6 +162,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (isDashing == true) //si le joueur est en train de dasher
         {
+
             //Build the dash direction and velocity
             Vector3 dashDirection = transform.forward;
             Vector3 dashVelocity = dashDirection * dashSpeed;
@@ -184,6 +194,7 @@ public class PlayerMovement : MonoBehaviour
     IEnumerator DashTime()
     {
         yield return new WaitForSeconds(dashingTime); // le temps que le dash dure
+        anim.SetBool("isDashing", false);
         isDashing = false; // le joueur ne dash plus
         yield return new WaitForSeconds(coolDown); //lance le cooldown
         isReadyToDash = true; // le joueur peut redasher
