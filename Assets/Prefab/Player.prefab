@@ -63,7 +63,7 @@ MonoBehaviour:
   moveSpeed: 11
   moveSpeedWhileAiming: 9
   rotationSpeed: 0.2
-  lifeUsageOnDash: 10
+  lifeUsageOnDash: 0
   isDashing: 0
   isReadyToDash: 1
   dashingTime: 0.05
@@ -309,17 +309,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 099652065fcaeb840887860272aed3d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  teleport: 0
   gotLight: 1
   LightObject: {fileID: 3323257189007146774}
   lightAnchor: {fileID: 4635856991221396509}
   isAimingLight: 0
+  isRegrabable: 0
   ejectionForce: 500
   ejectionDistance: 500
   ejectionHeight: 500
+  isThrown: 0
   speedWhileAiming: 9
   reticule: {fileID: 2829508507979651038}
   aimingSpeed: 4.5
   maxRange: 5
+  lightSpeed: 3500
   VfxAppear: {fileID: 3633469477547001245, guid: 8e6b618a3c124cb4f92c901f54c83788,
     type: 3}
   VfxDisappear: {fileID: 5640000126828869803}
@@ -386,7 +390,7 @@ Rigidbody:
   m_GameObject: {fileID: 3323257189007146774}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 0
+  m_Drag: 10
   m_AngularDrag: 0.05
   m_UseGravity: 0
   m_IsKinematic: 1
@@ -406,6 +410,24 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1516517199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3323257189007146774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 607b53b993f37444896cd87a9d5b2488, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shortLight: {fileID: 0}
+  maxIntensity: 5
+  minIntensity: 0
+  increaseFactor: 0.3
+  decreaseFactor: 0.02
+  dashDecreaseMultiplier: 100
 --- !u!1 &5019179679999214528
 GameObject:
   m_ObjectHideFlags: 0
@@ -5235,7 +5257,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6120577985674562494}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a22c8a4fa3d566647b993df2f7c959fa, type: 3}
   m_Name: 
@@ -5281,7 +5303,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 5ce43ededdd22bd4b8cacdde1bd95719, type: 2}
+  - {fileID: 2100000, guid: 4713781462c12234e91e9f10e2723442, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5481,23 +5503,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7391199950299125417, guid: 45bfbb0aa7173b9478942e249191c776,
         type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -1.53
-      objectReference: {fileID: 0}
-    - target: {fileID: 7391199950299125417, guid: 45bfbb0aa7173b9478942e249191c776,
-        type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.88
-      objectReference: {fileID: 0}
-    - target: {fileID: 7391199950299125417, guid: 45bfbb0aa7173b9478942e249191c776,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 1.38
-      objectReference: {fileID: 0}
-    - target: {fileID: 7762272395146662277, guid: 45bfbb0aa7173b9478942e249191c776,
-        type: 3}
-      propertyPath: m_Intensity
-      value: 5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7762272394847078930, guid: 45bfbb0aa7173b9478942e249191c776,
         type: 3}
@@ -5508,6 +5515,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7762272395146662277, guid: 45bfbb0aa7173b9478942e249191c776,
+        type: 3}
+      propertyPath: m_Intensity
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 856523305003997746, guid: 45bfbb0aa7173b9478942e249191c776,
         type: 3}
@@ -5765,12 +5777,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 6120577985674530146}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &6120577985674401744 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 400050, guid: e75e22fd7b8a9f140937c8cbb60847d9,
-    type: 3}
-  m_PrefabInstance: {fileID: 6120577985674530146}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6120577985674401750 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400052, guid: e75e22fd7b8a9f140937c8cbb60847d9,
@@ -5867,6 +5873,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 6120577985674530146}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &6120577985674401748 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400054, guid: e75e22fd7b8a9f140937c8cbb60847d9,
+    type: 3}
+  m_PrefabInstance: {fileID: 6120577985674530146}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6120577985674401784 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400026, guid: e75e22fd7b8a9f140937c8cbb60847d9,
@@ -5885,12 +5897,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 6120577985674530146}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &6120577985674401734 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 400036, guid: e75e22fd7b8a9f140937c8cbb60847d9,
-    type: 3}
-  m_PrefabInstance: {fileID: 6120577985674530146}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6120577985674401762 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: e75e22fd7b8a9f140937c8cbb60847d9,
@@ -5900,6 +5906,12 @@ Transform:
 --- !u!4 &6120577985674401742 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400044, guid: e75e22fd7b8a9f140937c8cbb60847d9,
+    type: 3}
+  m_PrefabInstance: {fileID: 6120577985674530146}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &6120577985674401734 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400036, guid: e75e22fd7b8a9f140937c8cbb60847d9,
     type: 3}
   m_PrefabInstance: {fileID: 6120577985674530146}
   m_PrefabAsset: {fileID: 0}
@@ -5927,9 +5939,9 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 6120577985674530146}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &6120577985674401748 stripped
+--- !u!4 &6120577985674401744 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 400054, guid: e75e22fd7b8a9f140937c8cbb60847d9,
+  m_CorrespondingSourceObject: {fileID: 400050, guid: e75e22fd7b8a9f140937c8cbb60847d9,
     type: 3}
   m_PrefabInstance: {fileID: 6120577985674530146}
   m_PrefabAsset: {fileID: 0}
