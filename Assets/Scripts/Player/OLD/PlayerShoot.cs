@@ -134,7 +134,6 @@ public class PlayerShoot : MonoBehaviour
             {
                 if (GetComponent<PlayerBehaviour>().canShoot == true)// check si le joueur a assez de lumière pour tirer
                 {
-                    GetComponent<PlayerBehaviour>().UseLifeOnShoot(lifeUsageOnShoot); // utilise de la lumière
                     rb.AddForce((transform.forward * -1) * recoilStrength, ForceMode.Impulse); // le joueur recule a cause du tir
                     GameObject clone = Instantiate(bullet, transform.position, Quaternion.identity); // j'instantie un clone de ma balle pour pouvoir la modifier elle et seulement elle
                     clone.GetComponent<Rigidbody>().velocity = lastInput.normalized * bulletSpeed; // je calcule la velocité de ma balle
@@ -178,7 +177,6 @@ public class PlayerShoot : MonoBehaviour
                         //Execute the life usage only 1 time
                         if (isBeamLoaded == false)
                         {
-                            GetComponent<PlayerBehaviour>().UseLifeToLoadBeam(lifeUsageToLoadBeam);
                             isBeamLoaded = true;
                         }
 
@@ -189,7 +187,6 @@ public class PlayerShoot : MonoBehaviour
                         if (currentDamageInterval >= damageInterval)
                         {
                             //Call life usage methods
-                            GetComponent<PlayerBehaviour>().UseLifeEachInterval(lifeUsageEachInterval);
                             currentDamageInterval = 0f;
 
                         }

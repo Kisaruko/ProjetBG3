@@ -27,7 +27,7 @@ public class AttackExecution : MonoBehaviour
         {
             if (hitcol.gameObject.CompareTag("Player")) //Pour chaque joueur dans la zone
             {
-                if (player.GetComponent<PlayerBehaviour>().isInvicible == false)
+                if (player.GetComponent<BinaryLight>().isInvicible == false)
                 {
                     Instantiate(fxHit, hitcol.transform.position, Quaternion.identity);
                     GameManager.ShowAnImpact(0.3f);
@@ -36,9 +36,9 @@ public class AttackExecution : MonoBehaviour
                     {
                         Destroy(player.gameObject);
                     }
+                    player.GetComponent<BinaryLight>().TakeHit();
                     player.GetComponent<BinaryLight>().DropLight();
                     player.GetComponent<PlayerMovement>().Recoil(transform, recoilInflincted); //Appelle la fonction recoil du joueur et inflige un recul de valeur recoilInflected
-                    player.GetComponent<PlayerBehaviour>().TakeHit(strength); // Appelle la fonction qui fait perdre des pdv au joueur , le joueur perd 'strength' pdv
                 }
                 anim.SetBool("Attack", false);
             }

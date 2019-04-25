@@ -16,8 +16,8 @@ public class PlayerBehaviour : MonoBehaviour
 
     [Header("Life Minimum To Use Skills", order = 0)]
     public float minLifeToShoot;
-    public float minLifeToBeam;         //---A DELETE---\\
-    public float minLifeToDash; 
+    public float minLifeToBeam;
+    public float minLifeToDash;
 
 
     [Header("Can Player Use Skills ?", order = 0)]
@@ -41,17 +41,40 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void Start()
     {
-        currentLife = maxLife;
-        CheckIfPlayerCanUseSkills();
-
-        CalculateLightRatioForOneHP();
         shortLightMaxIntensity = shortLight.intensity;
         midLightMaxIntensity = midLight.intensity;
     }
 
     #region Custom Methods
 
-    //---A DELETE---\\
+
+    #region Player Taking Damage
+    public void TakeHit(int damage)
+    {
+        if (isInvicible == false)
+        {
+            isInvicible = true;
+            StartCoroutine("InvicibleTime");
+        }
+    }
+
+    void Death()
+    {
+          Destroy(this.gameObject);
+    }
+
+    IEnumerator InvicibleTime()
+    {
+        yield return new WaitForSeconds(invincibleDuration);
+        isInvicible = false;
+        StopCoroutine("InvincibleTime");
+    }
+    #endregion
+
+    #endregion
+}
+/*
+ 
     #region Attack Life Methods
     public void RegenLifeOnCac()
     {
@@ -88,7 +111,6 @@ public class PlayerBehaviour : MonoBehaviour
     }
     #endregion
 
-    //---A DELETE---\\
     #region Shoot Life Methods
     public void UseLifeOnShoot(float lifeUsageOnShoot)
     {
@@ -104,7 +126,6 @@ public class PlayerBehaviour : MonoBehaviour
     }
     #endregion
 
-    //---A DELETE---\\
     #region Beam Life Methods
     public void UseLifeToLoadBeam(float lifeUsageToLoadBeam)
     {
@@ -134,7 +155,6 @@ public class PlayerBehaviour : MonoBehaviour
     }
     #endregion
 
-    //---A REWORK---\\
     #region Dash Life Methods
     public void UseLifeOnDash(float lifeUsageOnDash)
     {
@@ -150,7 +170,6 @@ public class PlayerBehaviour : MonoBehaviour
     }
     #endregion
 
-    //---A REWORK---\\
     #region Check The Player Life
     private void CheckIfPlayerCanUseSkills()
     {
@@ -203,37 +222,4 @@ public class PlayerBehaviour : MonoBehaviour
         shortLight.intensity -= shortLightRatio * lifeUsage;
         midLight.intensity -= midLightRatio * lifeUsage;
     }
-
-    #region Player Taking Damage
-    public void TakeHit(int damage)
-    {
-        if (isInvicible == false)
-        {
-            currentLife -= damage;
-            LightUsage(damage);
-            if(currentLife < minLife)
-            {
-                Debug.Log("You died");
-                Death();
-                currentLife = 0;
-            }
-            isInvicible = true;
-            StartCoroutine("InvicibleTime");
-        }
-    }
-
-    void Death()
-    {
-          Destroy(this.gameObject);
-    }
-
-    IEnumerator InvicibleTime()
-    {
-        yield return new WaitForSeconds(invincibleDuration);
-        isInvicible = false;
-        StopCoroutine("InvincibleTime");
-    }
-    #endregion
-
-    #endregion
-}
+ */

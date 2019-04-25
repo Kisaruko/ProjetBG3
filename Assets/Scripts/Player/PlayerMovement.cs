@@ -14,7 +14,6 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody rb;
     private float BaseSpeed;
     public float moveSpeedWhileAiming;
-    private CustomGravity customgravity;
     private Animator anim;
     public float rotationSpeed;
 
@@ -26,13 +25,12 @@ public class PlayerMovement : MonoBehaviour
     public float coolDown;
     public float dashSpeed;
     Quaternion lastRotation;
-    private PlayerBehaviour playerbehaviour;
-
+    private BinaryLight binaryLight;
+    private LightManager lightManager;
     [Header("Upgrade Dash Variables")]
     public bool upgradeDashUnlocked;
     public float loadedDash;
     public float loadingDash;
-    private int numbersOfDash = 0;
     public int maxNumbersOfDash;
 
 
@@ -42,13 +40,14 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Particles Variables")]
     public GameObject trailDashParticles;
+    public ParticleSystem shinyBody;
     #endregion
 
     #region Main Methods
     private void Start()
     {
-        playerbehaviour = GetComponent<PlayerBehaviour>();
-        customgravity = GetComponent<CustomGravity>();
+        binaryLight = GetComponent<BinaryLight>();
+        lightManager = GetComponentInChildren<LightManager>();
         rb = GetComponent<Rigidbody>();
         BaseSpeed = moveSpeed;
         anim = GetComponentInChildren<Animator>();
@@ -114,12 +113,13 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Input.GetButtonDown("Dash") && isReadyToDash == true && isRecoiling == false) // si le joueur peut dasher, qu'il ne subit pas de recul et qu'il appuie sur l'input
         {
-
-            if (playerbehaviour.canDash == true) // si le joueur a assez de lumière pour dasher
+            if (lightManager.canDash == true) // si le joueur a assez de lumière pour dasher // Remplacer par le candash de binarylight
             {
+                lightManager.LightDecreasing();
+                lightManager.canDash = false;
+                shinyBody.Play();
                 anim.SetBool("isDashing", true);
                 Instantiate(trailDashParticles, transform.position, Quaternion.identity);
-                playerbehaviour.UseLifeOnDash(lifeUsageOnDash); //consomme de la lumière
 
                 isReadyToDash = false; // le joueur ne peut pas redasher
                 isDashing = true; // le joueur est en train de dasher
@@ -127,35 +127,6 @@ public class PlayerMovement : MonoBehaviour
             }
         }
         Dash();
-
-        /*                                        /!\ DASH CRANTE NE PAS SUPPRIMER
-        if (upgradeDashUnlocked)
-        {
-            if (Input.GetButton("Dash"))
-            {
-                loadingDash += Time.deltaTime;
-                if (loadingDash > loadedDash)
-                {
-                    loadingDash = 0.0f;
-                    numbersOfDash++;
-                    Debug.Log(numbersOfDash);
-                    if (numbersOfDash >= maxNumbersOfDash)
-                    {
-                        for (int i = 0; i < maxNumbersOfDash; i++)
-                        {
-                            isReadyToDash = false;
-                            isDashing = true;
-                            StartCoroutine("DashTime");
-                            Dash();
-                        }
-                        numbersOfDash = 0;
-                        loadingDash = 0.0f;
-                    }
-                }
-
-            }
-        }*/
-
     }
 
     private void Dash()
@@ -183,12 +154,8 @@ public class PlayerMovement : MonoBehaviour
                     rb.velocity = dashVelocity;
                 }
             }
-            customgravity.gravityScale = 0f; // desactive la gravité pendant le dash
         }
-        else
-        {
-            customgravity.gravityScale = 50f; // réactive la gravité
-        }
+
     }
 
     IEnumerator DashTime()
@@ -203,14 +170,13 @@ public class PlayerMovement : MonoBehaviour
 
     public void Recoil(Transform enemy, float recoilSpeed)
     {
-        if (playerbehaviour.isInvicible == false) // si le joueur n'est pas invincible
+        if (binaryLight.isInvicible == false) // si le joueur n'est pas invincible // remplacer par inviciblité sur 
         {
             transform.rotation = lastRotation; // la rotation = le dernier input sur joystick enregistré
             isRecoiling = true; //le joueur recul
             Vector3 recoilDirection = (enemy.position - transform.position).normalized; // calcule la direction entre le player et l'ennemi
             rb.velocity = (recoilDirection * recoilSpeed) * -1; // fait reculer le player par rapport à l'ennemi
             StartCoroutine("RecoilTime");
-
         }
     }
     IEnumerator RecoilTime()
