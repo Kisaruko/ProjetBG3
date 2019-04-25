@@ -41,16 +41,40 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void Start()
     {
-        currentLife = maxLife;
-        CheckIfPlayerCanUseSkills();
-
-        CalculateLightRatioForOneHP();
         shortLightMaxIntensity = shortLight.intensity;
         midLightMaxIntensity = midLight.intensity;
     }
 
     #region Custom Methods
 
+
+    #region Player Taking Damage
+    public void TakeHit(int damage)
+    {
+        if (isInvicible == false)
+        {
+            isInvicible = true;
+            StartCoroutine("InvicibleTime");
+        }
+    }
+
+    void Death()
+    {
+          Destroy(this.gameObject);
+    }
+
+    IEnumerator InvicibleTime()
+    {
+        yield return new WaitForSeconds(invincibleDuration);
+        isInvicible = false;
+        StopCoroutine("InvincibleTime");
+    }
+    #endregion
+
+    #endregion
+}
+/*
+ 
     #region Attack Life Methods
     public void RegenLifeOnCac()
     {
@@ -198,37 +222,4 @@ public class PlayerBehaviour : MonoBehaviour
         shortLight.intensity -= shortLightRatio * lifeUsage;
         midLight.intensity -= midLightRatio * lifeUsage;
     }
-
-    #region Player Taking Damage
-    public void TakeHit(int damage)
-    {
-        if (isInvicible == false)
-        {
-            currentLife -= damage;
-            LightUsage(damage);
-            if(currentLife < minLife)
-            {
-                Debug.Log("You died");
-                Death();
-                currentLife = 0;
-            }
-            isInvicible = true;
-            StartCoroutine("InvicibleTime");
-        }
-    }
-
-    void Death()
-    {
-          Destroy(this.gameObject);
-    }
-
-    IEnumerator InvicibleTime()
-    {
-        yield return new WaitForSeconds(invincibleDuration);
-        isInvicible = false;
-        StopCoroutine("InvincibleTime");
-    }
-    #endregion
-
-    #endregion
-}
+ */

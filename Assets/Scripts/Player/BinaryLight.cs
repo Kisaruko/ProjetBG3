@@ -8,6 +8,8 @@ public class BinaryLight : MonoBehaviour
     private LineRenderer viseur;
     private float baseRotationSpeed;
     public bool teleport = false;
+    public bool isInvicible =false;
+    public float invincibleDuration;
     [Header("Light Attributes", order = 0)]
     [Space(10, order = 1)]
     public bool gotLight;
@@ -198,4 +200,26 @@ public class BinaryLight : MonoBehaviour
         }
 
     }
+    #region Player Taking Damage
+    public void TakeHit()
+    {
+        if (isInvicible == false)
+        {
+            isInvicible = true;
+            StartCoroutine("InvicibleTime");
+        }
+    }
+
+    void Death()
+    {
+        Destroy(this.gameObject);
+    }
+
+    IEnumerator InvicibleTime()
+    {
+        yield return new WaitForSeconds(invincibleDuration);
+        isInvicible = false;
+        StopCoroutine("InvincibleTime");
+    }
+    #endregion
 }

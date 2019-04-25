@@ -73,7 +73,6 @@ public class GodrayParticles : MonoBehaviour
         for (int i = 0; i < numEnter; i++) // pour chaque particle qui ont trigger
         {
             ParticleSystem.Particle p = enter[i]; // crée le tableau
-            playerBehaviour.RegenLifeOnCac();
             p.remainingLifetime = 0f; // destruction de la particle en mettant son lifetime a 0
             enter[i] = p; // ajoute au tableau
         }

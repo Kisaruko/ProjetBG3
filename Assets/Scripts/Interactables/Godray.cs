@@ -14,7 +14,7 @@ public class Godray : MonoBehaviour
     {
         if(other.gameObject.CompareTag("Player"))
         {
-            playerbehaviour.RegenLifeOnCac();
+           // playerbehaviour.RegenLifeOnCac();
         }
     }
     private void Update()
