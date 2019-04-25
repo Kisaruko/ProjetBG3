@@ -16,8 +16,8 @@ public class PlayerBehaviour : MonoBehaviour
 
     [Header("Life Minimum To Use Skills", order = 0)]
     public float minLifeToShoot;
-    public float minLifeToBeam;
-    public float minLifeToDash;
+    public float minLifeToBeam;         //---A DELETE---\\
+    public float minLifeToDash; 
 
 
     [Header("Can Player Use Skills ?", order = 0)]
@@ -51,6 +51,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     #region Custom Methods
 
+    //---A DELETE---\\
     #region Attack Life Methods
     public void RegenLifeOnCac()
     {
@@ -87,6 +88,7 @@ public class PlayerBehaviour : MonoBehaviour
     }
     #endregion
 
+    //---A DELETE---\\
     #region Shoot Life Methods
     public void UseLifeOnShoot(float lifeUsageOnShoot)
     {
@@ -102,6 +104,7 @@ public class PlayerBehaviour : MonoBehaviour
     }
     #endregion
 
+    //---A DELETE---\\
     #region Beam Life Methods
     public void UseLifeToLoadBeam(float lifeUsageToLoadBeam)
     {
@@ -131,6 +134,7 @@ public class PlayerBehaviour : MonoBehaviour
     }
     #endregion
 
+    //---A REWORK---\\
     #region Dash Life Methods
     public void UseLifeOnDash(float lifeUsageOnDash)
     {
@@ -146,6 +150,7 @@ public class PlayerBehaviour : MonoBehaviour
     }
     #endregion
 
+    //---A REWORK---\\
     #region Check The Player Life
     private void CheckIfPlayerCanUseSkills()
     {
