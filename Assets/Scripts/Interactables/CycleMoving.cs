@@ -5,10 +5,11 @@ public class CycleMoving : MonoBehaviour
 {
     public float speed = 2;
     public GameObject touchedFx;
-
+    public GameObject player;
     private void Start()
     {
         InvokeRepeating("RevertSpeed", 1.5f, 3f);
+       
     }
     private void Update()
     {
@@ -22,6 +23,7 @@ public class CycleMoving : MonoBehaviour
     {
         Debug.Log("Success");
         Instantiate(touchedFx, transform.position, Quaternion.identity);
+        player.transform.position = transform.position;
     }
 
 }
