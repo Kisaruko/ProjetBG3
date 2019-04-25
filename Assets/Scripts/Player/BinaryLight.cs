@@ -32,7 +32,10 @@ public class BinaryLight : MonoBehaviour
     public float aimingSpeed;
     private Vector3 lastPosReticule;
     public float maxRange;
-    public float lightSpeed;
+    [Range(0, 500)]
+    public float throwHorizontalSpeed;
+    [Range(0, 500)]
+    public float throwVerticalSpeed;
 
     [Header("Vfx Attributes", order = 0)]
     [Space(10, order = 1)]
@@ -162,8 +165,9 @@ public class BinaryLight : MonoBehaviour
     void ThrowLight()
     {
         isRegrabable = true;
+        lightRb.drag = 0;
         viseur.positionCount = 0; // la ligne a 0 vertex, elle n'apparait donc pas
-
+        Invoke("LightCanBeRegrabed", 2f);
         //particles
         emi.rateOverTime = 0;
         //resetspeed
@@ -190,7 +194,7 @@ public class BinaryLight : MonoBehaviour
         else
         {
             LightObject.transform.position = transform.position + transform.forward;
-            lightRb.AddForce(transform.forward * lightSpeed);
+            lightRb.AddForce(transform.forward*throwHorizontalSpeed+ Vector3.up*throwVerticalSpeed);
         }
 
     }
