@@ -36,9 +36,10 @@ public class AttackExecution : MonoBehaviour
                     {
                         Destroy(player.gameObject);
                     }
+                    player.GetComponent<PlayerMovement>().Recoil(transform, recoilInflincted); //Appelle la fonction recoil du joueur et inflige un recul de valeur recoilInflected
+
                     player.GetComponent<BinaryLight>().TakeHit();
                     player.GetComponent<BinaryLight>().DropLight();
-                    player.GetComponent<PlayerMovement>().Recoil(transform, recoilInflincted); //Appelle la fonction recoil du joueur et inflige un recul de valeur recoilInflected
                 }
                 anim.SetBool("Attack", false);
             }

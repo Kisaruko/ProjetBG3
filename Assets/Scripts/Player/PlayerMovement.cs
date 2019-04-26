@@ -72,7 +72,8 @@ public class PlayerMovement : MonoBehaviour
 
         Vector3 lookDirection = new Vector3(xInput, 0f, yInput); // direction du joystick gauche
         Vector3 lookDirection2 = new Vector3(xInput2, 0f, yInput2); // direction du joystick droit
-
+        float animSpeed = Mathf.Abs(Input.GetAxis("Horizontal")) + Mathf.Abs(Input.GetAxis("Vertical")) ;
+        anim.SetFloat("Speed", animSpeed);
         if (isRecoiling == false) // si le joueur ne prend pas un recul
         {
             if (xInput >= 0.1f || xInput <= -0.1f || yInput >= 0.1f || yInput < -0.1f && isDashing == false) // si le joueur bouge mais ne dash pas
@@ -172,17 +173,22 @@ public class PlayerMovement : MonoBehaviour
     {
         if (binaryLight.isInvicible == false) // si le joueur n'est pas invincible // remplacer par inviciblité sur 
         {
+            anim.SetBool("TakeHit", true);
             transform.rotation = lastRotation; // la rotation = le dernier input sur joystick enregistré
             isRecoiling = true; //le joueur recul
             Vector3 recoilDirection = (enemy.position - transform.position).normalized; // calcule la direction entre le player et l'ennemi
             rb.velocity = (recoilDirection * recoilSpeed) * -1; // fait reculer le player par rapport à l'ennemi
             StartCoroutine("RecoilTime");
+
         }
     }
     IEnumerator RecoilTime()
     {
+
         yield return new WaitForSeconds(recoilDuration); // attends 'recoilduration"
         isRecoiling = false; // le joueur ne recule plus
+        anim.SetBool("TakeHit", false);
+
         StopCoroutine("RecoilTime"); // stop recule
 
     }
