@@ -5,6 +5,7 @@ using UnityEngine;
 public class BinaryLight : MonoBehaviour
 {
     private PlayerMovement playerMovement;
+    private Animator anim;
     private LineRenderer viseur;
     private float baseRotationSpeed;
     public bool teleport = false;
@@ -53,6 +54,7 @@ public class BinaryLight : MonoBehaviour
     /// 
     private void Start()
     {
+        
         viseur = GetComponent<LineRenderer>(); // get le line renderer
         viseur.positionCount = 0; // la ligne a 0 vertex, elle n'apparait donc pas
         lightRb = LightObject.GetComponent<Rigidbody>();
@@ -60,6 +62,7 @@ public class BinaryLight : MonoBehaviour
         emi = VfxDisappear.emission;
         baseSpeed = aimingSpeed;
         baseRotationSpeed = playerMovement.rotationSpeed;
+        anim = GetComponentInChildren<Animator>();
         mesh = LightObject.GetComponentInChildren<MeshRenderer>();
         mesh.enabled = false;
     }
@@ -70,6 +73,9 @@ public class BinaryLight : MonoBehaviour
             if (Input.GetButtonDown("Throw"))
             {
                 emi.rateOverTime = 30;
+                anim.SetBool("isAiming", true);
+                anim.SetBool("launch", false);
+
                 Aiming();
             }
             if (isAimingLight)
@@ -157,8 +163,11 @@ public class BinaryLight : MonoBehaviour
         if (Input.GetButtonUp("Throw"))
         {
             mesh.enabled = true;
+            anim.SetBool("isAiming", false);
+            anim.SetBool("launch", true);
             playerMovement.rotationSpeed = baseRotationSpeed;
             ThrowLight();
+
             //playerMovement.moveSpeed = 11;
 
             reachedMaxRange = false;
@@ -166,6 +175,7 @@ public class BinaryLight : MonoBehaviour
     }
     void ThrowLight()
     {
+
         isRegrabable = true;
         lightRb.drag = 0;
         viseur.positionCount = 0; // la ligne a 0 vertex, elle n'apparait donc pas
@@ -201,6 +211,7 @@ public class BinaryLight : MonoBehaviour
 
     }
     #region Player Taking Damage
+
     public void TakeHit()
     {
         if (isInvicible == false)
