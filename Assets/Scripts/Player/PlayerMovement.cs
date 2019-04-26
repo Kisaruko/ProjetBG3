@@ -126,13 +126,17 @@ public class PlayerMovement : MonoBehaviour
                 isDashing = true; // le joueur est en train de dasher
                 StartCoroutine("DashTime"); // on lance la coroutine du cooldown du dash
             }
+            else
+            {
+                //dash Echec
+            }
         }
         Dash();
     }
 
     private void Dash()
     {
-        if (isDashing == true) //si le joueur est en train de dasher
+        if (isDashing) //si le joueur est en train de dasher
         {
 
             //Build the dash direction and velocity
