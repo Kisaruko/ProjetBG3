@@ -128,7 +128,7 @@ public class BinaryLight : MonoBehaviour
             lightRb.isKinematic = true;
             lightRb.useGravity = false;
             LightObject.transform.position = lightAnchor.position;
-            LightObject.transform.parent = transform;
+            LightObject.transform.parent = lightAnchor;
         }
     }
     public void LightCanBeRegrabed()
@@ -181,7 +181,7 @@ public class BinaryLight : MonoBehaviour
         viseur.positionCount = 0; // la ligne a 0 vertex, elle n'apparait donc pas
         Invoke("LightCanBeRegrabed", 2f);
         //particles
-        emi.rateOverTime = 0;
+        //emi.rateOverTime = 0;
         //resetspeed
         aimingSpeed = baseSpeed;
         //saveTheLastPosReticule
@@ -198,7 +198,7 @@ public class BinaryLight : MonoBehaviour
         isAimingLight = false;
         reticule.transform.position = transform.position;
         reticule.SetActive(false);
-        Instantiate(VfxAppear, lastPosReticule, Quaternion.identity);
+        //Instantiate(VfxAppear, lastPosReticule, Quaternion.identity);
         if (teleport)
         {
             LightObject.transform.position = new Vector3(lastPosReticule.x, lastPosReticule.y + 1, lastPosReticule.z);
