@@ -70,7 +70,7 @@ public class BinaryLight : MonoBehaviour
     {
         if (gotLight)
         {
-            if (Input.GetButtonDown("Throw"))
+            if (Input.GetButtonDown("Throw") || Input.GetMouseButtonDown(0))
             {
                 emi.rateOverTime = 30;
                 anim.SetBool("isAiming", true);
@@ -110,6 +110,7 @@ public class BinaryLight : MonoBehaviour
     public void DropLight()
     {
         mesh.enabled = true;
+        LightObject.GetComponent<SphereCollider>().isTrigger = false;
         lightRb.drag = 0;
         isRegrabable = false;
         Invoke("LightCanBeRegrabed", 2f);
@@ -124,6 +125,8 @@ public class BinaryLight : MonoBehaviour
     {
         if (isRegrabable)
         {
+            LightObject.GetComponent<SphereCollider>().isTrigger = true;
+
             gotLight = true;
             lightRb.isKinematic = true;
             lightRb.useGravity = false;
@@ -160,7 +163,7 @@ public class BinaryLight : MonoBehaviour
         {
             reachedMaxRange = true;
         }
-        if (Input.GetButtonUp("Throw"))
+        if (Input.GetButtonUp("Throw") || Input.GetMouseButtonUp(0))
         {
             mesh.enabled = true;
             anim.SetBool("isAiming", false);
@@ -175,6 +178,7 @@ public class BinaryLight : MonoBehaviour
     }
     void ThrowLight()
     {
+        LightObject.GetComponent<SphereCollider>().isTrigger = false;
 
         isRegrabable = true;
         lightRb.drag = 0;
