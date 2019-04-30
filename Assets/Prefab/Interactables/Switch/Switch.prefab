@@ -31,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 1716177390645704497}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 7.99, y: 1.94, z: 0}
-  m_LocalScale: {x: 0.51284, y: 0.51284, z: 0.51284}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -114,6 +114,7 @@ MonoBehaviour:
   transformMoveFactor: 0.01
   rangeGrowFactor: 0.01
   maxYPos: 3
+  playerLight: {fileID: 0}
   maxLightVfx: {fileID: 4438231380766454472, guid: c4b2c73274a67c847bddf4c1ace3581a,
     type: 3}
 --- !u!108 &1716177390645704459
@@ -170,11 +171,11 @@ MonoBehaviour:
   _emitterPosition: {x: 7.99, y: 1.94, z: 0}
   _receiverTransform: {fileID: 1716177390645704501}
   _receiverPosition: {x: 5, y: 3.2492886, z: 0}
-  _throttle: 0.1
-  _pulseInterval: 0.2
-  _boltLength: 0.85
+  _throttle: 0.89
+  _pulseInterval: 5.76
+  _boltLength: 0.13
   _lengthRandomness: 0.8
-  _noiseAmplitude: 1.2
+  _noiseAmplitude: 0.1
   _noiseFrequency: 0.1
   _noiseMotion: 0.1
   _color: {r: 1, g: 1, b: 1, a: 1}

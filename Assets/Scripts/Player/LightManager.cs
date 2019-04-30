@@ -18,6 +18,8 @@ public class LightManager : MonoBehaviour
     public bool canDash;
     public GameObject fxMaxLight;
     private bool fxMaxLightHasBeenInstantiate;
+
+
     void Start()
     {
         playermovement = GetComponentInParent<PlayerMovement>();

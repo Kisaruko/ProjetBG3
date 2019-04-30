@@ -9,7 +9,7 @@ public class BinaryLight : MonoBehaviour
     private LineRenderer viseur;
     private float baseRotationSpeed;
     public bool teleport = false;
-    public bool isInvicible =false;
+    public bool isInvicible = false;
     public float invincibleDuration;
     [Header("Light Attributes", order = 0)]
     [Space(10, order = 1)]
@@ -28,7 +28,7 @@ public class BinaryLight : MonoBehaviour
     public bool isThrown;
     bool reachedMaxRange = false;
 
-    [Header("Physics Attributes", order = 0)]
+    [Header("Reticule Attributes", order = 0)]
     [Space(10, order = 1)]
     public float speedWhileAiming;
     public GameObject reticule;
@@ -46,6 +46,7 @@ public class BinaryLight : MonoBehaviour
     public ParticleSystem VfxDisappear;
     public ParticleSystem.EmissionModule emi;
     private float baseSpeed;
+    public GameObject vfxGrabLight;
 
 
     /// <summary>
@@ -54,7 +55,7 @@ public class BinaryLight : MonoBehaviour
     /// 
     private void Start()
     {
-        
+
         viseur = GetComponent<LineRenderer>(); // get le line renderer
         viseur.positionCount = 0; // la ligne a 0 vertex, elle n'apparait donc pas
         lightRb = LightObject.GetComponent<Rigidbody>();
@@ -82,7 +83,7 @@ public class BinaryLight : MonoBehaviour
             {
                 ManageReticule();
             }
-        } 
+        }
 
         //Debug
         if (Input.GetKeyDown(KeyCode.D))
@@ -98,6 +99,7 @@ public class BinaryLight : MonoBehaviour
     {
         if (collision.gameObject == LightObject)
         {
+            Instantiate(vfxGrabLight, transform.position, Quaternion.identity);
             GetLight();
             isThrown = false;
             mesh.enabled = false;
@@ -210,7 +212,7 @@ public class BinaryLight : MonoBehaviour
         else
         {
             LightObject.transform.position = transform.position + transform.forward;
-            lightRb.AddForce(transform.forward*throwHorizontalSpeed+ Vector3.up*throwVerticalSpeed);
+            lightRb.AddForce(transform.forward * throwHorizontalSpeed + Vector3.up * throwVerticalSpeed);
         }
 
     }
