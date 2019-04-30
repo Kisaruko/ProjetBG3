@@ -100,6 +100,7 @@ public class SwitchBehaviour : MonoBehaviour
             }
         }
     }
+
     /*public void Desactivation()
     {
         if (!isActivated)
