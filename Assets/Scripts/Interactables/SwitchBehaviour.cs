@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class SwitchBehaviour : MonoBehaviour
 {
@@ -8,6 +9,8 @@ public class SwitchBehaviour : MonoBehaviour
     public bool isActivated;
     public GameObject assiociatedObject;
     private Spektr.LightningRenderer fil;
+    public UnityEvent activationEvent = new UnityEvent();
+    public UnityEvent deactivateEvent = new UnityEvent();
 
     [Header("Light Values", order = 0)]
     [Space(10, order = 1)]
@@ -124,6 +127,6 @@ public class SwitchBehaviour : MonoBehaviour
         isActivated = true;
         fil.emitterTransform = transform;
 
-        //Call Function Do something on the related object
+        activationEvent.Invoke();
     }
 }

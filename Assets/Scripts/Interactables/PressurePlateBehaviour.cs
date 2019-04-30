@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PressurePlateBehaviour : MonoBehaviour
 {
@@ -8,6 +9,8 @@ public class PressurePlateBehaviour : MonoBehaviour
     public List<string> activationTag;
     public bool isActivated;
     public GameObject[] associatedGameobject;
+    public UnityEvent activateEvent = new UnityEvent();
+    public UnityEvent deactivateEvent = new UnityEvent();
 
     [Header("Pressure Plate Variables")]
     public float pressureFactorY;
@@ -23,6 +26,8 @@ public class PressurePlateBehaviour : MonoBehaviour
     {
         material = GetComponent<Renderer>().material; //Get the material in order to change its Emissive color
         startingPosY = transform.position.y; //Get the position Y in order to change it for when it has pressure on it
+
+
     }
 
     private void OnTriggerEnter(Collider other)
@@ -35,10 +40,12 @@ public class PressurePlateBehaviour : MonoBehaviour
                 //The pressure plate is activated and its Y pos is changed with the pressureFactorY
                 transform.position = new Vector3(this.transform.position.x, transform.position.y - pressureFactorY, this.transform.position.z);
                 isActivated = true;
-                for (int i = 0; i < associatedGameobject.Length; i++)
+                /*for (int i = 0; i < associatedGameobject.Length; i++)
                 {
                     associatedGameobject[i].GetComponent<ActivableDoorBehaviour>().Activate();
-                }
+                }*/
+
+                activateEvent.Invoke();
             }
         }
     }
@@ -54,10 +61,12 @@ public class PressurePlateBehaviour : MonoBehaviour
                 transform.position = new Vector3(this.transform.position.x, transform.position.y + pressureFactorY, this.transform.position.z);
                 isActivated = false;
                 material.SetColor("_EmissionColor", new Color(0, 0, 0));
-                for (int i = 0; i < associatedGameobject.Length; i++)
+                /*for (int i = 0; i < associatedGameobject.Length; i++)
                 {
                     associatedGameobject[i].GetComponent<ActivableDoorBehaviour>().Deactivate();
-                }
+                }*/
+
+                deactivateEvent.Invoke();
             }
         }
     }
