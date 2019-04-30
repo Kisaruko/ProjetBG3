@@ -122,7 +122,7 @@ public class SwitchBehaviour : MonoBehaviour
         isLoading = false;
         Instantiate(maxLightVfx, transform.position, Quaternion.identity);
         isActivated = true;
-        fil.receiverTransform = transform;
+        fil.emitterTransform = transform;
 
         //Call Function Do something on the related object
     }
