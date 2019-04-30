@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ActivableDoorBehaviour : ActivableObjects
+public class DoorBehaviour : ActivableObjects
 {
     private Animator animator;
     private void Start()
@@ -14,9 +14,8 @@ public class ActivableDoorBehaviour : ActivableObjects
     {
         animator.SetBool("isActivated", true);
     }
-
     public override void Deactivate()
     {
-        animator.SetBool("isActivated", false);
+        animator.SetBool("isActivated", true);
     }
 }
