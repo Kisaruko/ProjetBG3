@@ -65,18 +65,19 @@ public class PlayerMovement : MonoBehaviour
     #region Custom Methods
     void Movement()
     {
-        float xInput = Input.GetAxis("Horizontal")* sensitivity; //Joystick gauche horizontal
-        float yInput = Input.GetAxis("Vertical")* sensitivity; //Joystick gauche vertical
+        float xInput = Input.GetAxis("Horizontal") * sensitivity; //Joystick gauche horizontal
+        float yInput = Input.GetAxis("Vertical") * sensitivity; //Joystick gauche vertical
         float xInput2 = Input.GetAxis("Horizontal2"); //Joystick droit horizontal
         float yInput2 = Input.GetAxis("Vertical2"); //Joystick droit vertical
 
         Vector3 lookDirection = new Vector3(xInput, 0f, yInput); // direction du joystick gauche
         Vector3 lookDirection2 = new Vector3(xInput2, 0f, yInput2); // direction du joystick droit
-        float animSpeed = Mathf.Abs(Input.GetAxis("Horizontal")) + Mathf.Abs(Input.GetAxis("Vertical")) ;
+        float animSpeed = Mathf.Abs(Input.GetAxis("Horizontal")) + Mathf.Abs(Input.GetAxis("Vertical"));
         anim.SetFloat("Speed", animSpeed);
-        if (isRecoiling == false) // si le joueur ne prend pas un recul
+
+        if (isRecoiling == false && isDashing == false) // si le joueur ne prend pas un recul
         {
-            if (xInput >= 0.1f || xInput <= -0.1f || yInput >= 0.1f || yInput < -0.1f && isDashing == false) // si le joueur bouge mais ne dash pas
+            if (xInput >= 0.1f || xInput <= -0.1f || yInput >= 0.1f || yInput < -0.1f) // si le joueur bouge mais ne dash pas
             {
                 isMoving = true;//il bouge
                 anim.SetBool("isMoving", true);
@@ -110,9 +111,10 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
+
     public void DashDetection()
     {
-        if (Input.GetButtonDown("Dash") && isReadyToDash == true && isRecoiling == false) // si le joueur peut dasher, qu'il ne subit pas de recul et qu'il appuie sur l'input
+        if (Input.GetButtonDown("Dash")|| Input.GetMouseButtonDown(1) && isReadyToDash == true && isRecoiling == false) // si le joueur peut dasher, qu'il ne subit pas de recul et qu'il appuie sur l'input
         {
             if (lightManager.canDash == true) // si le joueur a assez de lumière pour dasher // Remplacer par le candash de binarylight
             {
@@ -124,45 +126,24 @@ public class PlayerMovement : MonoBehaviour
 
                 isReadyToDash = false; // le joueur ne peut pas redasher
                 isDashing = true; // le joueur est en train de dasher
+                Dash();
                 StartCoroutine("DashTime"); // on lance la coroutine du cooldown du dash
             }
             else
             {
                 //dash Echec
             }
-        }
-        Dash();
-    }
 
+        }
+    }
     private void Dash()
     {
         if (isDashing) //si le joueur est en train de dasher
         {
-
-            //Build the dash direction and velocity
-            Vector3 dashDirection = transform.forward;
-            Vector3 dashVelocity = dashDirection * dashSpeed;
-
-            //Build the raycast
-            RaycastHit hit;
-
-            //Use the translate method (movement without collider) if an enemy hit in the ray cast
-            if (Physics.Raycast(transform.position, dashVelocity, out hit))
-            {
-                if (hit.collider.CompareTag("Enemy"))
-                {
-                    transform.Translate(dashVelocity * Time.deltaTime, Space.World);
-                }
-                //Use rigidbody for other dash movement in order to not pass through walls
-                else
-                {
-                    rb.velocity = dashVelocity;
-                }
-            }
+            //Use rigidbody for other dash movement in order to not pass through walls
+            rb.velocity = transform.forward * dashSpeed;
         }
-
     }
-
     IEnumerator DashTime()
     {
         yield return new WaitForSeconds(dashingTime); // le temps que le dash dure
@@ -183,12 +164,10 @@ public class PlayerMovement : MonoBehaviour
             Vector3 recoilDirection = (enemy.position - transform.position).normalized; // calcule la direction entre le player et l'ennemi
             rb.velocity = (recoilDirection * recoilSpeed) * -1; // fait reculer le player par rapport à l'ennemi
             StartCoroutine("RecoilTime");
-
         }
     }
     IEnumerator RecoilTime()
     {
-
         yield return new WaitForSeconds(recoilDuration); // attends 'recoilduration"
         isRecoiling = false; // le joueur ne recule plus
         anim.SetBool("TakeHit", false);
@@ -198,3 +177,4 @@ public class PlayerMovement : MonoBehaviour
     }
     #endregion
 }
+
