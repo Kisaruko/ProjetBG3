@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1716177390645704500}
   - component: {fileID: 1716177390645704459}
   - component: {fileID: 833501350}
-  m_Layer: 14
+  m_Layer: 15
   m_Name: Switch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -31,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 1716177390645704497}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 7.99, y: 1.94, z: 0}
-  m_LocalScale: {x: 0.51284, y: 0.51284, z: 0.51284}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -108,12 +108,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isActivated: 0
   assiociatedObject: {fileID: 0}
+  activationEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  deactivateEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   maxIntensity: 2
   maxRange: 5
   lightGrowFactor: 0.01
   transformMoveFactor: 0.01
   rangeGrowFactor: 0.01
   maxYPos: 3
+  playerLight: {fileID: 0}
   maxLightVfx: {fileID: 4438231380766454472, guid: c4b2c73274a67c847bddf4c1ace3581a,
     type: 3}
 --- !u!108 &1716177390645704459
@@ -170,11 +192,11 @@ MonoBehaviour:
   _emitterPosition: {x: 7.99, y: 1.94, z: 0}
   _receiverTransform: {fileID: 1716177390645704501}
   _receiverPosition: {x: 5, y: 3.2492886, z: 0}
-  _throttle: 0.1
-  _pulseInterval: 0.2
-  _boltLength: 0.85
+  _throttle: 0.646
+  _pulseInterval: 1
+  _boltLength: 0.014
   _lengthRandomness: 0.8
-  _noiseAmplitude: 1.2
+  _noiseAmplitude: 0.1
   _noiseFrequency: 0.1
   _noiseMotion: 0.1
   _color: {r: 1, g: 1, b: 1, a: 1}

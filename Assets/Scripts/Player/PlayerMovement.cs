@@ -16,7 +16,7 @@ public class PlayerMovement : MonoBehaviour
     public float moveSpeedWhileAiming;
     private Animator anim;
     public float rotationSpeed;
-
+    private CapsuleCollider collider;
     [Header("Dash Variables")]
     public float lifeUsageOnDash;
     public bool isDashing;
@@ -51,6 +51,7 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         BaseSpeed = moveSpeed;
         anim = GetComponentInChildren<Animator>();
+        collider = GetComponentInChildren<CapsuleCollider>();
     }
     private void Update()
     {
@@ -87,7 +88,10 @@ public class PlayerMovement : MonoBehaviour
                     //transform.rotation = Quaternion.LookRotation(looksDirection, Vector3.up); // le joueur regarde en face de lui
                     transform.rotation = Quaternion.Slerp(lastRotation, smoothRotation, rotationSpeed);
                 }
-                rb.velocity = new Vector3(xInput, 0f, yInput) * moveSpeed; // le joueur avance dans la direction du joystick gauche
+
+                Vector3 Velocity = new Vector3(xInput, -0.35f, yInput);
+                Velocity.Normalize();
+                rb.velocity = Velocity * moveSpeed; // le joueur avance dans la direction du joystick gauche
                 lastRotation = transform.rotation; //Enregistre le dernier input du joueur pour qu'il regarde dans la dernière direction dans laquelle il allait
             }
 
@@ -95,7 +99,9 @@ public class PlayerMovement : MonoBehaviour
             {
                 anim.SetBool("isMoving", false);
                 isMoving = false;
-                rb.velocity = Vector3.zero;  // la vitesse du joueur est de 0
+
+                rb.velocity = Vector3.down * moveSpeed;  // la vitesse du joueur est de 0
+
                 transform.rotation = lastRotation; // le joueur regarde dans la dernière direction enregistrée
             }
 
@@ -114,7 +120,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void DashDetection()
     {
-        if (Input.GetButtonDown("Dash")|| Input.GetMouseButtonDown(1) && isReadyToDash == true && isRecoiling == false) // si le joueur peut dasher, qu'il ne subit pas de recul et qu'il appuie sur l'input
+        if (Input.GetButtonDown("Dash") || Input.GetMouseButtonDown(1) && isReadyToDash == true && isRecoiling == false) // si le joueur peut dasher, qu'il ne subit pas de recul et qu'il appuie sur l'input
         {
             if (lightManager.canDash == true) // si le joueur a assez de lumière pour dasher // Remplacer par le candash de binarylight
             {
