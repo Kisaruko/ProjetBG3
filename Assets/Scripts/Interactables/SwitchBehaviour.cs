@@ -50,7 +50,7 @@ public class SwitchBehaviour : MonoBehaviour
         {
             if (Vector3.Distance(transform.position, playerLight.transform.position) > playerLight.GetComponent<LightDetection>().range / 2)
             {
-                fil.receiverTransform = transform;
+                fil.emitterTransform = transform;
                 receiverIsSet = false;
             }
         }
@@ -92,7 +92,7 @@ public class SwitchBehaviour : MonoBehaviour
 
             if (!receiverIsSet)
             {
-                fil.receiverTransform = playerLight.transform;
+                fil.emitterTransform = playerLight.transform;
                 receiverIsSet = true;
             }
         }
