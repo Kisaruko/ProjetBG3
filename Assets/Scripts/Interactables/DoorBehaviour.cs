@@ -16,6 +16,6 @@ public class DoorBehaviour : ActivableObjects
     }
     public override void Deactivate()
     {
-        animator.SetBool("isActivated", true);
+        animator.SetBool("isActivated", false);
     }
 }

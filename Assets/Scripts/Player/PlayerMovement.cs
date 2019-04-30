@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
 
     public bool controlsAreEnabled;
     public float sensitivity;
+
     [Header("Movement Variables", order = 0)]
     public bool isMoving = false;
     public float moveSpeed;
@@ -17,6 +18,7 @@ public class PlayerMovement : MonoBehaviour
     private Animator anim;
     public float rotationSpeed;
     private CapsuleCollider collider;
+
     [Header("Dash Variables")]
     public float lifeUsageOnDash;
     public bool isDashing;
@@ -27,6 +29,7 @@ public class PlayerMovement : MonoBehaviour
     Quaternion lastRotation;
     private BinaryLight binaryLight;
     private LightManager lightManager;
+
     [Header("Upgrade Dash Variables")]
     public bool upgradeDashUnlocked;
     public float loadedDash;
