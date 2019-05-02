@@ -8,7 +8,7 @@ public class PlayerMovement : MonoBehaviour
 
     public bool controlsAreEnabled;
     public float sensitivity;
-
+    public float distToGround;
     [Header("Movement Variables", order = 0)]
     public bool isMoving = false;
     public float moveSpeed;
@@ -78,16 +78,15 @@ public class PlayerMovement : MonoBehaviour
 
         if (Physics.Raycast(myRay, out hit, distance))
         {
-            if (hit.collider.gameObject.tag == "Ground") // Our Ray has hit the ground
+            if (hit.collider.CompareTag("Untagged")) // Our Ray has hit the ground
             {
                 float slopeAngle = Mathf.Deg2Rad * Vector3.Angle(Vector3.up, hit.normal); // Here we get the angle between the Up Vector and the normal of the wall we are checking against: 90 for straight up walls, 0 for flat ground.
-
                 float radius = Mathf.Abs(slopeRayHeight / Mathf.Sin(slopeAngle)); // slopeRayHeight is the Y offset from the ground you wish to cast your ray from.
 
                 if (slopeAngle >= steepSlopeAngle * Mathf.Deg2Rad) //You can set "steepSlopeAngle" to any angle you wish.
                 {
-                    if (hit.distance - GetComponent<CapsuleCollider>().radius > Mathf.Abs(Mathf.Cos(slopeAngle) * radius) + slopeThreshold) // Magical Cosine. This is how we find out how near we are to the slope / if we are standing on the slope. as we are casting from the center of the collider we have to remove the collider radius.
-                                                                                                                                            // The slopeThreshold helps kills some bugs. ( e.g. cosine being 0 at 90° walls) 0.01 was a good number for me here
+                    if (hit.distance - GetComponentInChildren<CapsuleCollider>().radius > Mathf.Abs(Mathf.Cos(slopeAngle) * radius) + slopeThreshold) // Magical Cosine. This is how we find out how near we are to the slope / if we are standing on the slope. as we are casting from the center of the collider we have to remove the collider radius.
+                                                                                                                                                      // The slopeThreshold helps kills some bugs. ( e.g. cosine being 0 at 90° walls) 0.01 was a good number for me here
                     {
                         return true; // return true if we are still far away from the slope
                     }
@@ -103,18 +102,43 @@ public class PlayerMovement : MonoBehaviour
         return true;
     }
 
+    private bool IsGrounded()
+    {
+        if (Physics.Raycast(transform.position, -Vector3.up, distToGround + 0.1f))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
     void Movement()
     {
+        //Input Logic
         float xInput = Input.GetAxis("Horizontal") * sensitivity; //Joystick gauche horizontal
         float yInput = Input.GetAxis("Vertical") * sensitivity; //Joystick gauche vertical
         float xInput2 = Input.GetAxis("Horizontal2"); //Joystick droit horizontal
         float yInput2 = Input.GetAxis("Vertical2"); //Joystick droit vertical
 
+        //Calculating Direction
         Vector3 lookDirection = new Vector3(xInput, 0f, yInput); // direction du joystick gauche
         Vector3 lookDirection2 = new Vector3(xInput2, 0f, yInput2); // direction du joystick droit
+
+        //Calculating Animation 
         float animSpeed = Mathf.Abs(Input.GetAxis("Horizontal")) + Mathf.Abs(Input.GetAxis("Vertical"));
         anim.SetFloat("Speed", animSpeed);
 
+        //calculating Gravity
+        float gravity;
+        if (IsGrounded())
+        {
+            gravity = -0f;
+        }
+        else
+        {
+            gravity = -1f;
+        }
         if (isRecoiling == false && isDashing == false) // si le joueur ne prend pas un recul
         {
             if (xInput >= 0.1f || xInput <= -0.1f || yInput >= 0.1f || yInput < -0.1f) // si le joueur bouge mais ne dash pas
@@ -128,10 +152,9 @@ public class PlayerMovement : MonoBehaviour
                     transform.rotation = Quaternion.Slerp(lastRotation, smoothRotation, rotationSpeed);
                 }
 
-
-                Vector3 Velocity = new Vector3(xInput, -0.35f, yInput);
+                Vector3 Velocity = new Vector3(xInput, gravity, yInput);
                 Velocity.Normalize();
-                if (CheckMoveableTerrain(transform.position, new Vector3(Velocity.x, 0, Velocity.z), 10f)) // filter the y out, so it only checks forward... could get messy with the cosine otherwise.
+                if (CheckMoveableTerrain(transform.position, new Vector3(Velocity.x, 0, Velocity.z), 0.1f)) // filter the y out, so it only checks forward... could get messy with the cosine otherwise.
                 {
                     rb.velocity = Velocity * moveSpeed; // le joueur avance dans la direction du joystick gauche
                 }
@@ -143,7 +166,7 @@ public class PlayerMovement : MonoBehaviour
                 anim.SetBool("isMoving", false);
                 isMoving = false;
 
-                rb.velocity = Vector3.down * moveSpeed;  // la vitesse du joueur est de 0
+                rb.velocity =new Vector3(0f,gravity,0f)*moveSpeed;  // la vitesse du joueur est de 0
 
                 transform.rotation = lastRotation; // le joueur regarde dans la dernière direction enregistrée
             }
