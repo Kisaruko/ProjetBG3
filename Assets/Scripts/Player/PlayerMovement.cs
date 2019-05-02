@@ -17,7 +17,11 @@ public class PlayerMovement : MonoBehaviour
     public float moveSpeedWhileAiming;
     private Animator anim;
     public float rotationSpeed;
-    private CapsuleCollider collider;
+
+    [Header("GroundCheck Variables")]
+    public float slopeRayHeight;
+    public float steepSlopeAngle;
+    public float slopeThreshold;
 
     [Header("Dash Variables")]
     public float lifeUsageOnDash;
@@ -54,7 +58,6 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         BaseSpeed = moveSpeed;
         anim = GetComponentInChildren<Animator>();
-        collider = GetComponentInChildren<CapsuleCollider>();
     }
     private void Update()
     {
@@ -67,6 +70,39 @@ public class PlayerMovement : MonoBehaviour
     #endregion
 
     #region Custom Methods
+    public bool CheckMoveableTerrain(Vector3 position, Vector3 desiredDirection, float distance)
+    {
+        Ray myRay = new Ray(position, desiredDirection); // cast a Ray from the position of our gameObject into our desired direction. Add the slopeRayHeight to the Y parameter.
+
+        RaycastHit hit;
+
+        if (Physics.Raycast(myRay, out hit, distance))
+        {
+            if (hit.collider.gameObject.tag == "Ground") // Our Ray has hit the ground
+            {
+                float slopeAngle = Mathf.Deg2Rad * Vector3.Angle(Vector3.up, hit.normal); // Here we get the angle between the Up Vector and the normal of the wall we are checking against: 90 for straight up walls, 0 for flat ground.
+
+                float radius = Mathf.Abs(slopeRayHeight / Mathf.Sin(slopeAngle)); // slopeRayHeight is the Y offset from the ground you wish to cast your ray from.
+
+                if (slopeAngle >= steepSlopeAngle * Mathf.Deg2Rad) //You can set "steepSlopeAngle" to any angle you wish.
+                {
+                    if (hit.distance - GetComponent<CapsuleCollider>().radius > Mathf.Abs(Mathf.Cos(slopeAngle) * radius) + slopeThreshold) // Magical Cosine. This is how we find out how near we are to the slope / if we are standing on the slope. as we are casting from the center of the collider we have to remove the collider radius.
+                                                                                                                                            // The slopeThreshold helps kills some bugs. ( e.g. cosine being 0 at 90° walls) 0.01 was a good number for me here
+                    {
+                        return true; // return true if we are still far away from the slope
+                    }
+
+                    return false; // return false if we are very near / on the slope && the slope is steep
+                }
+
+                return true; // return true if the slope is not steep
+
+            }
+
+        }
+        return true;
+    }
+
     void Movement()
     {
         float xInput = Input.GetAxis("Horizontal") * sensitivity; //Joystick gauche horizontal
@@ -92,9 +128,13 @@ public class PlayerMovement : MonoBehaviour
                     transform.rotation = Quaternion.Slerp(lastRotation, smoothRotation, rotationSpeed);
                 }
 
+
                 Vector3 Velocity = new Vector3(xInput, -0.35f, yInput);
                 Velocity.Normalize();
-                rb.velocity = Velocity * moveSpeed; // le joueur avance dans la direction du joystick gauche
+                if (CheckMoveableTerrain(transform.position, new Vector3(Velocity.x, 0, Velocity.z), 10f)) // filter the y out, so it only checks forward... could get messy with the cosine otherwise.
+                {
+                    rb.velocity = Velocity * moveSpeed; // le joueur avance dans la direction du joystick gauche
+                }
                 lastRotation = transform.rotation; //Enregistre le dernier input du joueur pour qu'il regarde dans la dernière direction dans laquelle il allait
             }
 
@@ -120,6 +160,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
+
 
     public void DashDetection()
     {
