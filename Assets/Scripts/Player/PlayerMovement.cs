@@ -50,7 +50,7 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         binaryLight = GetComponent<BinaryLight>();
-        lightManager = GetComponentInChildren<LightManager>();
+        lightManager = FindObjectOfType<LightManager>();
         rb = GetComponent<Rigidbody>();
         BaseSpeed = moveSpeed;
         anim = GetComponentInChildren<Animator>();
