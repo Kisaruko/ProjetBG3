@@ -22,8 +22,8 @@ public class LightManager : MonoBehaviour
 
     void Start()
     {
-        playermovement = GetComponentInParent<PlayerMovement>();
-        binarylight = GetComponentInParent<BinaryLight>();
+        playermovement = FindObjectOfType<PlayerMovement>();
+        binarylight = FindObjectOfType<BinaryLight>();
         rb = GetComponent<Rigidbody>();
         shortLight = GetComponentInChildren<Light>();
     }
