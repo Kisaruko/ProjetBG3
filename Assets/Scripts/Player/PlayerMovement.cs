@@ -104,7 +104,8 @@ public class PlayerMovement : MonoBehaviour
 
     private bool IsGrounded()
     {
-        if (Physics.Raycast(transform.position, -Vector3.up, distToGround + 0.1f))
+        Debug.DrawRay(transform.position, -Vector3.up, Color.yellow);
+        if (Physics.Raycast(transform.position, -Vector3.up/3, distToGround))
         {
             return true;
         }
@@ -131,6 +132,7 @@ public class PlayerMovement : MonoBehaviour
 
         //calculating Gravity
         float gravity;
+
         if (IsGrounded())
         {
             gravity = -0f;
