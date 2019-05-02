@@ -11,6 +11,7 @@ public class BinaryLight : MonoBehaviour
     public bool teleport = false;
     public bool isInvicible = false;
     public float invincibleDuration;
+
     [Header("Light Attributes", order = 0)]
     [Space(10, order = 1)]
     public bool gotLight;
@@ -19,6 +20,7 @@ public class BinaryLight : MonoBehaviour
     public bool isAimingLight;
     public bool isRegrabable;
     private MeshRenderer mesh;
+
     [Header("Physics Attributes", order = 0)]
     [Space(10, order = 1)]
     public float ejectionForce;
@@ -47,6 +49,8 @@ public class BinaryLight : MonoBehaviour
     public ParticleSystem.EmissionModule emi;
     private float baseSpeed;
     public GameObject vfxGrabLight;
+    private Vector3 vfxPos;
+
 
 
     /// <summary>
@@ -55,7 +59,6 @@ public class BinaryLight : MonoBehaviour
     /// 
     private void Start()
     {
-
         viseur = GetComponent<LineRenderer>(); // get le line renderer
         viseur.positionCount = 0; // la ligne a 0 vertex, elle n'apparait donc pas
         lightRb = LightObject.GetComponent<Rigidbody>();
@@ -99,7 +102,8 @@ public class BinaryLight : MonoBehaviour
     {
         if (collision.gameObject == LightObject)
         {
-            Instantiate(vfxGrabLight, transform.position, Quaternion.identity);
+            vfxPos = new Vector3(transform.position.x, transform.position.y + 1, transform.position.z);
+            Instantiate(vfxGrabLight, vfxPos, Quaternion.identity);
             GetLight();
             isThrown = false;
             mesh.enabled = false;
