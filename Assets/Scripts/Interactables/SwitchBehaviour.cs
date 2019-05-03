@@ -72,7 +72,7 @@ public class SwitchBehaviour : MonoBehaviour
             {
                 intensityIsMaxed = true;
             }
-            if (transform.position.y < maxYPos)
+            if (transform.localPosition.y < maxYPos)
             {
                 transform.Translate(Vector3.up * transformMoveFactor);
             }
