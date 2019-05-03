@@ -105,7 +105,9 @@ public class PlayerMovement : MonoBehaviour
     private bool IsGrounded()
     {
         Debug.DrawRay(transform.position, -transform.up, Color.yellow);
+
         return (Physics.Raycast(transform.position, -transform.up, distToGround + 0.1f));
+
     }
     void Movement()
     {
@@ -128,12 +130,13 @@ public class PlayerMovement : MonoBehaviour
 
         if (IsGrounded())
         {
-            gravity = -0f;
+            gravity = 0f;
         }
         else
         {
             gravity = -1f;
         }
+
         if (isRecoiling == false && isDashing == false) // si le joueur ne prend pas un recul
         {
             if (xInput >= 0.1f || xInput <= -0.1f || yInput >= 0.1f || yInput < -0.1f) // si le joueur bouge mais ne dash pas
