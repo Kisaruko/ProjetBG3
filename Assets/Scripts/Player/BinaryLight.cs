@@ -5,11 +5,13 @@ using UnityEngine;
 public class BinaryLight : MonoBehaviour
 {
     private PlayerMovement playerMovement;
+    private Animator anim;
     private LineRenderer viseur;
     private float baseRotationSpeed;
     public bool teleport = false;
-    public bool isInvicible =false;
+    public bool isInvicible = false;
     public float invincibleDuration;
+
     [Header("Light Attributes", order = 0)]
     [Space(10, order = 1)]
     public bool gotLight;
@@ -18,6 +20,7 @@ public class BinaryLight : MonoBehaviour
     public bool isAimingLight;
     public bool isRegrabable;
     private MeshRenderer mesh;
+
     [Header("Physics Attributes", order = 0)]
     [Space(10, order = 1)]
     public float ejectionForce;
@@ -27,7 +30,7 @@ public class BinaryLight : MonoBehaviour
     public bool isThrown;
     bool reachedMaxRange = false;
 
-    [Header("Physics Attributes", order = 0)]
+    [Header("Reticule Attributes", order = 0)]
     [Space(10, order = 1)]
     public float speedWhileAiming;
     public GameObject reticule;
@@ -45,6 +48,9 @@ public class BinaryLight : MonoBehaviour
     public ParticleSystem VfxDisappear;
     public ParticleSystem.EmissionModule emi;
     private float baseSpeed;
+    public GameObject vfxGrabLight;
+    private Vector3 vfxPos;
+
 
 
     /// <summary>
@@ -60,6 +66,7 @@ public class BinaryLight : MonoBehaviour
         emi = VfxDisappear.emission;
         baseSpeed = aimingSpeed;
         baseRotationSpeed = playerMovement.rotationSpeed;
+        anim = GetComponentInChildren<Animator>();
         mesh = LightObject.GetComponentInChildren<MeshRenderer>();
         mesh.enabled = false;
     }
@@ -67,16 +74,19 @@ public class BinaryLight : MonoBehaviour
     {
         if (gotLight)
         {
-            if (Input.GetButtonDown("Throw"))
+            if (Input.GetButtonDown("Throw") || Input.GetMouseButtonDown(0))
             {
                 emi.rateOverTime = 30;
+                anim.SetBool("isAiming", true);
+                anim.SetBool("launch", false);
+
                 Aiming();
             }
             if (isAimingLight)
             {
                 ManageReticule();
             }
-        } 
+        }
 
         //Debug
         if (Input.GetKeyDown(KeyCode.D))
@@ -92,6 +102,8 @@ public class BinaryLight : MonoBehaviour
     {
         if (collision.gameObject == LightObject)
         {
+            vfxPos = new Vector3(transform.position.x, transform.position.y + 1, transform.position.z);
+            Instantiate(vfxGrabLight, vfxPos, Quaternion.identity);
             GetLight();
             isThrown = false;
             mesh.enabled = false;
@@ -104,6 +116,7 @@ public class BinaryLight : MonoBehaviour
     public void DropLight()
     {
         mesh.enabled = true;
+        LightObject.GetComponent<SphereCollider>().isTrigger = false;
         lightRb.drag = 0;
         isRegrabable = false;
         Invoke("LightCanBeRegrabed", 2f);
@@ -118,11 +131,13 @@ public class BinaryLight : MonoBehaviour
     {
         if (isRegrabable)
         {
+            LightObject.GetComponent<SphereCollider>().isTrigger = true;
+
             gotLight = true;
             lightRb.isKinematic = true;
             lightRb.useGravity = false;
             LightObject.transform.position = lightAnchor.position;
-            LightObject.transform.parent = transform;
+            LightObject.transform.parent = lightAnchor;
         }
     }
     public void LightCanBeRegrabed()
@@ -154,11 +169,14 @@ public class BinaryLight : MonoBehaviour
         {
             reachedMaxRange = true;
         }
-        if (Input.GetButtonUp("Throw"))
+        if (Input.GetButtonUp("Throw") || Input.GetMouseButtonUp(0))
         {
             mesh.enabled = true;
+            anim.SetBool("isAiming", false);
+            anim.SetBool("launch", true);
             playerMovement.rotationSpeed = baseRotationSpeed;
             ThrowLight();
+
             //playerMovement.moveSpeed = 11;
 
             reachedMaxRange = false;
@@ -166,12 +184,14 @@ public class BinaryLight : MonoBehaviour
     }
     void ThrowLight()
     {
+        LightObject.GetComponent<SphereCollider>().isTrigger = false;
+
         isRegrabable = true;
         lightRb.drag = 0;
         viseur.positionCount = 0; // la ligne a 0 vertex, elle n'apparait donc pas
         Invoke("LightCanBeRegrabed", 2f);
         //particles
-        emi.rateOverTime = 0;
+        //emi.rateOverTime = 0;
         //resetspeed
         aimingSpeed = baseSpeed;
         //saveTheLastPosReticule
@@ -188,7 +208,7 @@ public class BinaryLight : MonoBehaviour
         isAimingLight = false;
         reticule.transform.position = transform.position;
         reticule.SetActive(false);
-        Instantiate(VfxAppear, lastPosReticule, Quaternion.identity);
+        //Instantiate(VfxAppear, lastPosReticule, Quaternion.identity);
         if (teleport)
         {
             LightObject.transform.position = new Vector3(lastPosReticule.x, lastPosReticule.y + 1, lastPosReticule.z);
@@ -196,11 +216,12 @@ public class BinaryLight : MonoBehaviour
         else
         {
             LightObject.transform.position = transform.position + transform.forward;
-            lightRb.AddForce(transform.forward*throwHorizontalSpeed+ Vector3.up*throwVerticalSpeed);
+            lightRb.AddForce(transform.forward * throwHorizontalSpeed + Vector3.up * throwVerticalSpeed);
         }
 
     }
     #region Player Taking Damage
+
     public void TakeHit()
     {
         if (isInvicible == false)

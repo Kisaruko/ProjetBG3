@@ -16,10 +16,14 @@ public class LightManager : MonoBehaviour
     public float decreaseFactor;
     public float dashDecreaseMultiplier;
     public bool canDash;
+    public GameObject fxMaxLight;
+    private bool fxMaxLightHasBeenInstantiate;
+
+
     void Start()
     {
-        playermovement = GetComponentInParent<PlayerMovement>();
-        binarylight = GetComponentInParent<BinaryLight>();
+        playermovement = FindObjectOfType<PlayerMovement>();
+        binarylight = FindObjectOfType<BinaryLight>();
         rb = GetComponent<Rigidbody>();
         shortLight = GetComponentInChildren<Light>();
     }
@@ -60,6 +64,14 @@ public class LightManager : MonoBehaviour
         {
             shortLight.intensity += increaseFactor;
         }
+        else
+        {
+             if(!fxMaxLightHasBeenInstantiate)
+            {
+                Instantiate(fxMaxLight, transform.position, transform.rotation);
+                fxMaxLightHasBeenInstantiate = true;
+            }
+        }
     }
 
     public void LightDecreasing()
@@ -67,6 +79,7 @@ public class LightManager : MonoBehaviour
         if (shortLight.intensity > minIntensity)
         {
             shortLight.intensity -= decreaseFactor;
+            fxMaxLightHasBeenInstantiate = false;
         }
     }
 }
