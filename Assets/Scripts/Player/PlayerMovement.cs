@@ -105,14 +105,7 @@ public class PlayerMovement : MonoBehaviour
     private bool IsGrounded()
     {
         Debug.DrawRay(transform.position, -transform.up, Color.yellow);
-        if (Physics.Raycast(transform.position, -transform.up/3, distToGround))
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return (Physics.Raycast(transform.position, -transform.up, distToGround + 0.1f));
     }
     void Movement()
     {
