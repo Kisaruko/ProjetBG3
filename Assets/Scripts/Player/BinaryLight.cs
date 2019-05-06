@@ -20,6 +20,8 @@ public class BinaryLight : MonoBehaviour
     public bool isAimingLight;
     public bool isRegrabable;
     private MeshRenderer mesh;
+    private SkinnedMeshRenderer charRenderer;
+    private Material charMaterial;
 
     [Header("Physics Attributes", order = 0)]
     [Space(10, order = 1)]
@@ -69,11 +71,16 @@ public class BinaryLight : MonoBehaviour
         anim = GetComponentInChildren<Animator>();
         mesh = LightObject.GetComponentInChildren<MeshRenderer>();
         mesh.enabled = false;
+
+        charRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
+        charMaterial = charRenderer.material;
     }
     private void Update()
     {
         if (gotLight)
         {
+            charMaterial.SetColor("_EmissionColor", Color.white); //Active l'emissive du bras du joueur
+
             if (Input.GetButtonDown("Throw") || Input.GetMouseButtonDown(0))
             {
                 emi.rateOverTime = 30;
@@ -86,6 +93,11 @@ public class BinaryLight : MonoBehaviour
             {
                 ManageReticule();
             }
+        }
+
+        if(!gotLight)
+        {
+            charMaterial.SetColor("_EmissionColor", Color.black); //Désactive l'émissive du bras du joueur
         }
 
         //Debug
