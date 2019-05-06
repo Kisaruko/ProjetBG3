@@ -51,7 +51,7 @@ public class SwitchBehaviour : MonoBehaviour
     {
         if (!isActivated && isLoading)
         {
-            if (Vector3.Distance(transform.position, playerLight.transform.position) > playerLight.GetComponent<LightDetection>().range / 2)
+            if (Vector3.Distance(transform.position, playerLight.transform.position) > playerLight.GetComponent<LightDetection>().range*2)
             {
                 fil.emitterTransform = transform;
                 receiverIsSet = false;
