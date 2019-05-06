@@ -1943,7 +1943,7 @@ Light:
   serializedVersion: 8
   m_Type: 1
   m_Color: {r: 0.6698113, g: 0.6698113, b: 0.6698113, a: 1}
-  m_Intensity: 0.2
+  m_Intensity: 0.4
   m_Range: 10
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -4982,7 +4982,27 @@ PrefabInstance:
     - target: {fileID: 2738604976594047270, guid: cc52c9a7e74be54448cbfcb1c8c03638,
         type: 3}
       propertyPath: distToGround
-      value: 0.1
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2738604976594047270, guid: cc52c9a7e74be54448cbfcb1c8c03638,
+        type: 3}
+      propertyPath: moveSpeed
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2738604976594047270, guid: cc52c9a7e74be54448cbfcb1c8c03638,
+        type: 3}
+      propertyPath: moveSpeedWhileAiming
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 2738604976594047270, guid: cc52c9a7e74be54448cbfcb1c8c03638,
+        type: 3}
+      propertyPath: steepSlopeAngle
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 2738604976594047270, guid: cc52c9a7e74be54448cbfcb1c8c03638,
+        type: 3}
+      propertyPath: isMoving
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 404004442, guid: cc52c9a7e74be54448cbfcb1c8c03638, type: 3}
       propertyPath: m_Constraints
@@ -5007,6 +5027,14 @@ PrefabInstance:
       propertyPath: lightBeginPos
       value: 
       objectReference: {fileID: 530748045}
+    - target: {fileID: 939924803, guid: cc52c9a7e74be54448cbfcb1c8c03638, type: 3}
+      propertyPath: speedWhileAiming
+      value: 1.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 939924803, guid: cc52c9a7e74be54448cbfcb1c8c03638, type: 3}
+      propertyPath: aimingSpeed
+      value: 9
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cc52c9a7e74be54448cbfcb1c8c03638, type: 3}
 --- !u!1 &2049263250

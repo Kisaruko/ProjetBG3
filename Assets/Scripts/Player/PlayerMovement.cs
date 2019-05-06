@@ -106,7 +106,7 @@ public class PlayerMovement : MonoBehaviour
     {
         Debug.DrawRay(transform.position, -transform.up, Color.yellow);
 
-        return (Physics.Raycast(transform.position, -transform.up, distToGround + 0.1f));
+        return (Physics.Raycast(transform.position, -transform.up, distToGround + 0.01f));
 
     }
     void Movement()
