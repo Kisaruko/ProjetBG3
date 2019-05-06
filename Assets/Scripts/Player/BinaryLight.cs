@@ -64,7 +64,7 @@ public class BinaryLight : MonoBehaviour
         lightRb = LightObject.GetComponent<Rigidbody>();
         playerMovement = FindObjectOfType<PlayerMovement>();
         emi = VfxDisappear.emission;
-        baseSpeed = aimingSpeed;
+        baseSpeed = playerMovement.moveSpeed;
         baseRotationSpeed = playerMovement.rotationSpeed;
         anim = GetComponentInChildren<Animator>();
         mesh = LightObject.GetComponentInChildren<MeshRenderer>();
@@ -150,11 +150,12 @@ public class BinaryLight : MonoBehaviour
         reticule.SetActive(true); // activer le fx de load
         isAimingLight = true;
         playerMovement.rotationSpeed = playerMovement.rotationSpeed / 10;
-        //playerMovement.moveSpeed =  speedWhileAiming;
 
     }
     void ManageReticule()
     {
+        playerMovement.moveSpeed = speedWhileAiming;
+
         if (reachedMaxRange == false)
         {
             reticule.transform.Translate((Vector3.up * -1 * aimingSpeed) * Time.deltaTime, Space.Self);
