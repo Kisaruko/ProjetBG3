@@ -5,6 +5,7 @@ using UnityEngine;
 public class BinaryLight : MonoBehaviour
 {
     private PlayerMovement playerMovement;
+    private BondCylinder bondCylinder;
     private Animator anim;
     private LineRenderer viseur;
     private float baseRotationSpeed;
@@ -69,6 +70,7 @@ public class BinaryLight : MonoBehaviour
         anim = GetComponentInChildren<Animator>();
         mesh = LightObject.GetComponentInChildren<MeshRenderer>();
         mesh.enabled = false;
+        bondCylinder = GetComponent<BondCylinder>();
     }
     private void Update()
     {
@@ -126,6 +128,8 @@ public class BinaryLight : MonoBehaviour
         lightRb.useGravity = true;
         Vector3 ejectionDirection = new Vector3(Random.Range(ejectionDistance, -ejectionDistance), ejectionHeight, Random.Range(ejectionDistance, -ejectionDistance));
         lightRb.AddForce(ejectionDirection);
+        bondCylinder.EnableEffects();
+
     }
     public void GetLight()
     {
@@ -138,6 +142,8 @@ public class BinaryLight : MonoBehaviour
             lightRb.useGravity = false;
             LightObject.transform.position = lightAnchor.position;
             LightObject.transform.parent = lightAnchor;
+            bondCylinder.DisableEffects();
+
         }
     }
     public void LightCanBeRegrabed()
@@ -210,6 +216,8 @@ public class BinaryLight : MonoBehaviour
         reticule.transform.position = transform.position;
         reticule.SetActive(false);
         //Instantiate(VfxAppear, lastPosReticule, Quaternion.identity);
+        bondCylinder.EnableEffects();
+
         if (teleport)
         {
             LightObject.transform.position = new Vector3(lastPosReticule.x, lastPosReticule.y + 1, lastPosReticule.z);

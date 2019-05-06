@@ -5035,8 +5035,47 @@ PrefabInstance:
       propertyPath: aimingSpeed
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 109676873, guid: cc52c9a7e74be54448cbfcb1c8c03638, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cc52c9a7e74be54448cbfcb1c8c03638, type: 3}
+--- !u!1 &2023539652 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2738604976594047264, guid: cc52c9a7e74be54448cbfcb1c8c03638,
+    type: 3}
+  m_PrefabInstance: {fileID: 2023539651}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &2023539653 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3323257189007146775, guid: cc52c9a7e74be54448cbfcb1c8c03638,
+    type: 3}
+  m_PrefabInstance: {fileID: 2023539651}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &2023539654 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2738604976594047271, guid: cc52c9a7e74be54448cbfcb1c8c03638,
+    type: 3}
+  m_PrefabInstance: {fileID: 2023539651}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2023539655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2023539652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecf03d8dfc6308a4a911b245fa8f41cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cylinderPrefab: {fileID: 8189091022494511640, guid: ca40a1773dfe59f478e23a71fac645cb,
+    type: 3}
+  isEmitting: 1
+  player: {fileID: 2023539654}
+  lantern: {fileID: 2023539653}
 --- !u!1 &2049263250
 GameObject:
   m_ObjectHideFlags: 0
