@@ -104,15 +104,10 @@ public class PlayerMovement : MonoBehaviour
 
     private bool IsGrounded()
     {
-        Debug.DrawRay(transform.position, -Vector3.up, Color.yellow);
-        if (Physics.Raycast(transform.position, -Vector3.up/3, distToGround))
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        Debug.DrawRay(transform.position, -transform.up, Color.yellow);
+
+        return (Physics.Raycast(transform.position, -transform.up, distToGround + 0.1f));
+
     }
     void Movement()
     {
@@ -135,12 +130,13 @@ public class PlayerMovement : MonoBehaviour
 
         if (IsGrounded())
         {
-            gravity = -0f;
+            gravity = 0f;
         }
         else
         {
             gravity = -1f;
         }
+
         if (isRecoiling == false && isDashing == false) // si le joueur ne prend pas un recul
         {
             if (xInput >= 0.1f || xInput <= -0.1f || yInput >= 0.1f || yInput < -0.1f) // si le joueur bouge mais ne dash pas
@@ -191,7 +187,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Input.GetButtonDown("Dash") || Input.GetMouseButtonDown(1) && isReadyToDash == true && isRecoiling == false) // si le joueur peut dasher, qu'il ne subit pas de recul et qu'il appuie sur l'input
         {
-            if (lightManager.canDash == true) // si le joueur a assez de lumière pour dasher // Remplacer par le candash de binarylight
+            if (lightManager.canDash == true && binaryLight.gotLight == true) // si le joueur a assez de lumière pour dasher // Remplacer par le candash de binarylight
             {
                 lightManager.LightDecreasing();
                 lightManager.canDash = false;
