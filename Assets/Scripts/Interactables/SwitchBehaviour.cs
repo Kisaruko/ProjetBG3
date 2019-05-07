@@ -52,6 +52,7 @@ public class SwitchBehaviour : MonoBehaviour
         mesh = GetComponent<MeshRenderer>();
         materials = mesh.materials;
         myMat = materials[1];
+        maxYPos += transform.position.y;
     }
     private void Update()
     {
@@ -81,7 +82,7 @@ public class SwitchBehaviour : MonoBehaviour
             {
                 intensityIsMaxed = true;
             }
-            if (transform.localPosition.y < maxYPos)
+            if (transform.position.y < maxYPos)
             {
                 transform.Translate(Vector3.up * transformMoveFactor);
             }

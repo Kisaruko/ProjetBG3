@@ -97,7 +97,7 @@ public class PlayerMovement : MonoBehaviour
                     return false; // return false if we are very near / on the slope && the slope is steep
                 }
 
-                return true; // return true if the slope is not steep
+               // return true; // return true if the slope is not steep
 
             }
 
