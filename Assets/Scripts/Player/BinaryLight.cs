@@ -5,6 +5,7 @@ using UnityEngine;
 public class BinaryLight : MonoBehaviour
 {
     private PlayerMovement playerMovement;
+    private BondCylinder bondCylinder;
     private Animator anim;
     private LineRenderer viseur;
     private float baseRotationSpeed;
@@ -20,6 +21,8 @@ public class BinaryLight : MonoBehaviour
     public bool isAimingLight;
     public bool isRegrabable;
     private MeshRenderer mesh;
+    private SkinnedMeshRenderer charRenderer;
+    private Material charMaterial;
 
     [Header("Physics Attributes", order = 0)]
     [Space(10, order = 1)]
@@ -64,16 +67,24 @@ public class BinaryLight : MonoBehaviour
         lightRb = LightObject.GetComponent<Rigidbody>();
         playerMovement = FindObjectOfType<PlayerMovement>();
         emi = VfxDisappear.emission;
-        baseSpeed = aimingSpeed;
+        baseSpeed = playerMovement.moveSpeed;
         baseRotationSpeed = playerMovement.rotationSpeed;
         anim = GetComponentInChildren<Animator>();
         mesh = LightObject.GetComponentInChildren<MeshRenderer>();
         mesh.enabled = false;
+
+        bondCylinder = GetComponent<BondCylinder>();
+
+
+        charRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
+        charMaterial = charRenderer.material;
     }
     private void Update()
     {
         if (gotLight)
         {
+            charMaterial.SetColor("_EmissionColor", Color.white); //Active l'emissive du bras du joueur
+
             if (Input.GetButtonDown("Throw") || Input.GetMouseButtonDown(0))
             {
                 emi.rateOverTime = 30;
@@ -86,6 +97,11 @@ public class BinaryLight : MonoBehaviour
             {
                 ManageReticule();
             }
+        }
+
+        if(!gotLight)
+        {
+            charMaterial.SetColor("_EmissionColor", Color.black); //Désactive l'émissive du bras du joueur
         }
 
         //Debug
@@ -102,6 +118,8 @@ public class BinaryLight : MonoBehaviour
     {
         if (collision.gameObject == LightObject)
         {
+            anim.SetBool("getLight", true);
+
             vfxPos = new Vector3(transform.position.x, transform.position.y + 1, transform.position.z);
             Instantiate(vfxGrabLight, vfxPos, Quaternion.identity);
             GetLight();
@@ -109,7 +127,12 @@ public class BinaryLight : MonoBehaviour
             mesh.enabled = false;
         }
     }
+    private void AnimatorSetter()
+    {
+        anim.SetBool("getLight", false);
+        playerMovement.moveSpeed = baseSpeed;
 
+    }
     /// <summary>
     /// /////////
     /// </summary>
@@ -126,18 +149,22 @@ public class BinaryLight : MonoBehaviour
         lightRb.useGravity = true;
         Vector3 ejectionDirection = new Vector3(Random.Range(ejectionDistance, -ejectionDistance), ejectionHeight, Random.Range(ejectionDistance, -ejectionDistance));
         lightRb.AddForce(ejectionDirection);
+        bondCylinder.EnableEffects();
+
     }
     public void GetLight()
     {
         if (isRegrabable)
         {
+            playerMovement.moveSpeed = 0f;
             LightObject.GetComponent<SphereCollider>().isTrigger = true;
-
             gotLight = true;
             lightRb.isKinematic = true;
             lightRb.useGravity = false;
             LightObject.transform.position = lightAnchor.position;
             LightObject.transform.parent = lightAnchor;
+            bondCylinder.DisableEffects();
+            Invoke("AnimatorSetter", 0.2f);
         }
     }
     public void LightCanBeRegrabed()
@@ -150,11 +177,18 @@ public class BinaryLight : MonoBehaviour
         reticule.SetActive(true); // activer le fx de load
         isAimingLight = true;
         playerMovement.rotationSpeed = playerMovement.rotationSpeed / 10;
-        //playerMovement.moveSpeed =  speedWhileAiming;
+        
 
     }
     void ManageReticule()
     {
+        playerMovement.moveSpeed = speedWhileAiming;
+
+        if(playerMovement.isInRotation)
+        {
+            playerMovement.moveSpeed = 0;
+        }
+
         if (reachedMaxRange == false)
         {
             reticule.transform.Translate((Vector3.up * -1 * aimingSpeed) * Time.deltaTime, Space.Self);
@@ -177,7 +211,7 @@ public class BinaryLight : MonoBehaviour
             playerMovement.rotationSpeed = baseRotationSpeed;
             ThrowLight();
 
-            //playerMovement.moveSpeed = 11;
+            playerMovement.moveSpeed = baseSpeed;
 
             reachedMaxRange = false;
         }
@@ -209,6 +243,8 @@ public class BinaryLight : MonoBehaviour
         reticule.transform.position = transform.position;
         reticule.SetActive(false);
         //Instantiate(VfxAppear, lastPosReticule, Quaternion.identity);
+        bondCylinder.EnableEffects();
+
         if (teleport)
         {
             LightObject.transform.position = new Vector3(lastPosReticule.x, lastPosReticule.y + 1, lastPosReticule.z);

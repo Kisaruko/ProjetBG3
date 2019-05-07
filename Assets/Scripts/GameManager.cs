@@ -23,9 +23,15 @@ public class GameManager : MonoBehaviour
     public Color flashDrawColor;
     public Color flashBackGroundColor;
 
+    [Space(15)]
+    public int FPSLimit;
+
+
     void Awake()
     {
         _instance = this;
+        QualitySettings.vSyncCount = 0;
+        Application.targetFrameRate = FPSLimit;
     }
     #region MainMethods
     private void Start()

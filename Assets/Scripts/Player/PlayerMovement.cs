@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     public bool controlsAreEnabled;
     public float sensitivity;
     public float distToGround;
+
     [Header("Movement Variables", order = 0)]
     public bool isMoving = false;
     public float moveSpeed;
@@ -16,6 +17,8 @@ public class PlayerMovement : MonoBehaviour
     private float BaseSpeed;
     public float moveSpeedWhileAiming;
     private Animator anim;
+    public bool isInRotation;
+    public int isInRotationThreshold; //C'est l'angle minimum pour être considéré en rotation ou non
     public float rotationSpeed;
 
     [Header("GroundCheck Variables")]
@@ -105,8 +108,10 @@ public class PlayerMovement : MonoBehaviour
     private bool IsGrounded()
     {
         Debug.DrawRay(transform.position, -transform.up, Color.yellow);
-        return (Physics.Raycast(transform.position, -transform.up, distToGround + 0.1f));
+
+        return (Physics.Raycast(transform.position, -transform.up, distToGround + 0.01f));
     }
+
     void Movement()
     {
         //Input Logic
@@ -128,24 +133,35 @@ public class PlayerMovement : MonoBehaviour
 
         if (IsGrounded())
         {
-            gravity = -0f;
+            gravity = 0f;
         }
         else
         {
             gravity = -1f;
         }
+
         if (isRecoiling == false && isDashing == false) // si le joueur ne prend pas un recul
         {
             if (xInput >= 0.1f || xInput <= -0.1f || yInput >= 0.1f || yInput < -0.1f) // si le joueur bouge mais ne dash pas
             {
                 isMoving = true;//il bouge
                 anim.SetBool("isMoving", true);
-                if (lookDirection2 == Vector3.zero) // si le joueur ne touche pas au joystick droit
+
+                Quaternion smoothRotation = Quaternion.LookRotation(lookDirection);
+                //transform.rotation = Quaternion.LookRotation(looksDirection, Vector3.up); // le joueur regarde en face de lui
+                transform.rotation = Quaternion.Slerp(lastRotation, smoothRotation, rotationSpeed);
+
+                if(Quaternion.Angle(transform.rotation, smoothRotation) >= isInRotationThreshold)
                 {
-                    Quaternion smoothRotation = Quaternion.LookRotation(lookDirection);
-                    //transform.rotation = Quaternion.LookRotation(looksDirection, Vector3.up); // le joueur regarde en face de lui
-                    transform.rotation = Quaternion.Slerp(lastRotation, smoothRotation, rotationSpeed);
+                    //Debug.Log("I'm in rotation");
+                    isInRotation = true;
                 }
+                else
+                {
+                    //Debug.Log("Im not in rotation");
+                    isInRotation = false;
+                }
+
 
                 Vector3 Velocity = new Vector3(xInput, gravity, yInput);
                 Velocity.Normalize();
@@ -161,7 +177,7 @@ public class PlayerMovement : MonoBehaviour
                 anim.SetBool("isMoving", false);
                 isMoving = false;
 
-                rb.velocity =new Vector3(0f,gravity,0f)*moveSpeed;  // la vitesse du joueur est de 0
+                rb.velocity = new Vector3(0f, gravity, 0f) * moveSpeed;  // la vitesse du joueur est de 0
 
                 transform.rotation = lastRotation; // le joueur regarde dans la dernière direction enregistrée
             }
@@ -174,17 +190,16 @@ public class PlayerMovement : MonoBehaviour
             }
             else
             {
-                moveSpeed = BaseSpeed; // reviens à la vitesse originelle
+                //  moveSpeed = BaseSpeed; // reviens à la vitesse originelle
             }
         }
     }
-
 
     public void DashDetection()
     {
         if (Input.GetButtonDown("Dash") || Input.GetMouseButtonDown(1) && isReadyToDash == true && isRecoiling == false) // si le joueur peut dasher, qu'il ne subit pas de recul et qu'il appuie sur l'input
         {
-            if (lightManager.canDash == true) // si le joueur a assez de lumière pour dasher // Remplacer par le candash de binarylight
+            if (lightManager.canDash == true && binaryLight.gotLight == true) // si le joueur a assez de lumière pour dasher // Remplacer par le candash de binarylight
             {
                 lightManager.LightDecreasing();
                 lightManager.canDash = false;
@@ -197,11 +212,13 @@ public class PlayerMovement : MonoBehaviour
                 Dash();
                 StartCoroutine("DashTime"); // on lance la coroutine du cooldown du dash
             }
-            else
-            {
-                //dash Echec
-            }
+        }
 
+        if ((Input.GetButtonDown("Dash") && (lightManager.canDash == false || binaryLight.gotLight == false) && isDashing == false))
+        {
+            //dash Echec
+            anim.SetBool("failDash", true);
+            StartCoroutine("FailDashTime");
         }
     }
     private void Dash()
@@ -221,7 +238,14 @@ public class PlayerMovement : MonoBehaviour
         isReadyToDash = true; // le joueur peut redasher
         StopCoroutine("DashTime");// stop la coroutine
     }
-
+    IEnumerator FailDashTime()
+    {
+        moveSpeed = 0f;
+        yield return new WaitForSeconds(1f); // le temps que le dash dure
+        anim.SetBool("failDash", false);
+        moveSpeed = BaseSpeed;
+        StopCoroutine("failDashTime");// stop la coroutine
+    }
     public void Recoil(Transform enemy, float recoilSpeed)
     {
         if (binaryLight.isInvicible == false) // si le joueur n'est pas invincible // remplacer par inviciblité sur 
