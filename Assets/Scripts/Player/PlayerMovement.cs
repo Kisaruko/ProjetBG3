@@ -107,8 +107,8 @@ public class PlayerMovement : MonoBehaviour
         Debug.DrawRay(transform.position, -transform.up, Color.yellow);
 
         return (Physics.Raycast(transform.position, -transform.up, distToGround + 0.01f));
-
     }
+
     void Movement()
     {
         //Input Logic
@@ -177,7 +177,7 @@ public class PlayerMovement : MonoBehaviour
             }
             else
             {
-                moveSpeed = BaseSpeed; // reviens à la vitesse originelle
+              //  moveSpeed = BaseSpeed; // reviens à la vitesse originelle
             }
         }
     }
@@ -200,11 +200,13 @@ public class PlayerMovement : MonoBehaviour
                 Dash();
                 StartCoroutine("DashTime"); // on lance la coroutine du cooldown du dash
             }
-            else
-            {
-                //dash Echec
-            }
 
+        }
+        if (Input.GetButtonDown("Dash") || Input.GetMouseButtonDown(1) &&( !lightManager.canDash || !binaryLight.gotLight))
+        {
+            //dash Echec
+            anim.SetBool("failDash", true);
+            StartCoroutine("FailDashTime");
         }
     }
     private void Dash()
@@ -224,7 +226,14 @@ public class PlayerMovement : MonoBehaviour
         isReadyToDash = true; // le joueur peut redasher
         StopCoroutine("DashTime");// stop la coroutine
     }
-
+    IEnumerator FailDashTime()
+    {
+        moveSpeed = 0f;
+        yield return new WaitForSeconds(1f); // le temps que le dash dure
+        anim.SetBool("failDash", false);
+        moveSpeed = BaseSpeed;
+        StopCoroutine("failDashTime");// stop la coroutine
+    }
     public void Recoil(Transform enemy, float recoilSpeed)
     {
         if (binaryLight.isInvicible == false) // si le joueur n'est pas invincible // remplacer par inviciblité sur 
