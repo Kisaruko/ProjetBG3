@@ -72,13 +72,12 @@ public class BinaryLight : MonoBehaviour
         anim = GetComponentInChildren<Animator>();
         mesh = LightObject.GetComponentInChildren<MeshRenderer>();
         mesh.enabled = false;
-<<<<<<< HEAD
+
         bondCylinder = GetComponent<BondCylinder>();
-=======
+
 
         charRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
         charMaterial = charRenderer.material;
->>>>>>> develop
     }
     private void Update()
     {
@@ -119,6 +118,8 @@ public class BinaryLight : MonoBehaviour
     {
         if (collision.gameObject == LightObject)
         {
+            anim.SetBool("getLight", true);
+
             vfxPos = new Vector3(transform.position.x, transform.position.y + 1, transform.position.z);
             Instantiate(vfxGrabLight, vfxPos, Quaternion.identity);
             GetLight();
@@ -126,7 +127,10 @@ public class BinaryLight : MonoBehaviour
             mesh.enabled = false;
         }
     }
-
+    private void AnimatorSetter()
+    {
+        anim.SetBool("getLight", false);
+    }
     /// <summary>
     /// /////////
     /// </summary>
@@ -151,14 +155,13 @@ public class BinaryLight : MonoBehaviour
         if (isRegrabable)
         {
             LightObject.GetComponent<SphereCollider>().isTrigger = true;
-
             gotLight = true;
             lightRb.isKinematic = true;
             lightRb.useGravity = false;
             LightObject.transform.position = lightAnchor.position;
             LightObject.transform.parent = lightAnchor;
             bondCylinder.DisableEffects();
-
+            Invoke("AnimatorSetter", 0.1f);
         }
     }
     public void LightCanBeRegrabed()
@@ -199,7 +202,7 @@ public class BinaryLight : MonoBehaviour
             playerMovement.rotationSpeed = baseRotationSpeed;
             ThrowLight();
 
-            //playerMovement.moveSpeed = 11;
+            playerMovement.moveSpeed = baseSpeed;
 
             reachedMaxRange = false;
         }

@@ -200,9 +200,9 @@ public class PlayerMovement : MonoBehaviour
                 Dash();
                 StartCoroutine("DashTime"); // on lance la coroutine du cooldown du dash
             }
-
         }
-        if (Input.GetButtonDown("Dash") || Input.GetMouseButtonDown(1) &&( !lightManager.canDash || !binaryLight.gotLight))
+
+        if ((Input.GetButtonDown("Dash") || Input.GetMouseButtonDown(1)) && (lightManager.canDash == false||binaryLight.gotLight == false))
         {
             //dash Echec
             anim.SetBool("failDash", true);
