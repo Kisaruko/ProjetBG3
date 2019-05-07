@@ -130,6 +130,8 @@ public class BinaryLight : MonoBehaviour
     private void AnimatorSetter()
     {
         anim.SetBool("getLight", false);
+        playerMovement.moveSpeed = baseSpeed;
+
     }
     /// <summary>
     /// /////////
@@ -154,6 +156,7 @@ public class BinaryLight : MonoBehaviour
     {
         if (isRegrabable)
         {
+            playerMovement.moveSpeed = 0f;
             LightObject.GetComponent<SphereCollider>().isTrigger = true;
             gotLight = true;
             lightRb.isKinematic = true;
@@ -161,7 +164,7 @@ public class BinaryLight : MonoBehaviour
             LightObject.transform.position = lightAnchor.position;
             LightObject.transform.parent = lightAnchor;
             bondCylinder.DisableEffects();
-            Invoke("AnimatorSetter", 0.1f);
+            Invoke("AnimatorSetter", 0.2f);
         }
     }
     public void LightCanBeRegrabed()

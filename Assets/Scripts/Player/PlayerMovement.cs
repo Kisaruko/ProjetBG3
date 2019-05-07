@@ -202,7 +202,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        if ((Input.GetButtonDown("Dash") || Input.GetMouseButtonDown(1)) && (lightManager.canDash == false||binaryLight.gotLight == false))
+        if ((Input.GetButtonDown("Dash") && (lightManager.canDash == false||binaryLight.gotLight == false) && isDashing == false))
         {
             //dash Echec
             anim.SetBool("failDash", true);
