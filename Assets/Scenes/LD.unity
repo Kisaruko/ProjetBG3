@@ -1730,12 +1730,36 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1448553481}
     - target: {fileID: 1448553485, guid: 32adf908cd9575844888cc37ecc2a8c5, type: 3}
+      propertyPath: activationEvent.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1448553485, guid: 32adf908cd9575844888cc37ecc2a8c5, type: 3}
       propertyPath: activationEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 125326442}
     - target: {fileID: 1448553485, guid: 32adf908cd9575844888cc37ecc2a8c5, type: 3}
       propertyPath: activationEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: Activate
+      objectReference: {fileID: 0}
+    - target: {fileID: 1448553485, guid: 32adf908cd9575844888cc37ecc2a8c5, type: 3}
+      propertyPath: activationEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1448553485, guid: 32adf908cd9575844888cc37ecc2a8c5, type: 3}
+      propertyPath: activationEvent.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1448553485, guid: 32adf908cd9575844888cc37ecc2a8c5, type: 3}
+      propertyPath: activationEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 5658272591630396968}
+    - target: {fileID: 1448553485, guid: 32adf908cd9575844888cc37ecc2a8c5, type: 3}
+      propertyPath: activationEvent.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: Activate
+      objectReference: {fileID: 0}
+    - target: {fileID: 1448553485, guid: 32adf908cd9575844888cc37ecc2a8c5, type: 3}
+      propertyPath: activationEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 32adf908cd9575844888cc37ecc2a8c5, type: 3}
@@ -1947,7 +1971,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!108 &862095626
 Light:
   m_ObjectHideFlags: 0
@@ -5272,6 +5296,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[1]
       value: 
       objectReference: {fileID: 2100000, guid: c81ece27a444ed44a9a60028745f25bb, type: 2}
+    - target: {fileID: 5658272590407076459, guid: 4415406e47a777341981ce2b7e0145ee,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 69b4d85e9e762c44ca29634dc886bef2, type: 2}
     - target: {fileID: 5658272590407076451, guid: 4415406e47a777341981ce2b7e0145ee,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -5289,3 +5318,31 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: c81ece27a444ed44a9a60028745f25bb, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4415406e47a777341981ce2b7e0145ee, type: 3}
+--- !u!1 &5658272591630396966 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5658272590409077931, guid: 4415406e47a777341981ce2b7e0145ee,
+    type: 3}
+  m_PrefabInstance: {fileID: 5658272591630396965}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &5658272591630396967 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 5658272590407076459, guid: 4415406e47a777341981ce2b7e0145ee,
+    type: 3}
+  m_PrefabInstance: {fileID: 5658272591630396965}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5658272591630396968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5658272591630396966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4b3ef3f4639e7d4fa7ea1a232c0f867, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxUvOffset: 0.75
+  minUvOffset: -0.25
+  scrollFactor: 0.034
+  emissiveRootRenderer: {fileID: 5658272591630396967}
