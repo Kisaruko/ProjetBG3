@@ -177,11 +177,17 @@ public class BinaryLight : MonoBehaviour
         reticule.SetActive(true); // activer le fx de load
         isAimingLight = true;
         playerMovement.rotationSpeed = playerMovement.rotationSpeed / 10;
+        
 
     }
     void ManageReticule()
     {
         playerMovement.moveSpeed = speedWhileAiming;
+
+        if(playerMovement.isInRotation)
+        {
+            playerMovement.moveSpeed = 0;
+        }
 
         if (reachedMaxRange == false)
         {

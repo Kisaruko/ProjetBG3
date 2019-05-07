@@ -8,7 +8,6 @@ public class GodrayParticles : MonoBehaviour
     private Transform lanternSpot;
     private ParticleSystem ps;
     ParticleSystem m_System;
-
     ParticleSystem.Particle[] m_Particles;
     List<ParticleSystem.Particle> enter = new List<ParticleSystem.Particle>();
     ParticleSystem.NoiseModule noise;
@@ -34,22 +33,20 @@ public class GodrayParticles : MonoBehaviour
         noise.enabled = true;
         trail.ratio = 0;
         velocityOverLifetime.enabled = false;
-
     }
+
     private void Update()
     {
         if(followPlayer)
         {
             ParticlesGoToPlayer();
         }
-        
     }
     private void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.CompareTag("Player"))
         {
             trail.ratio = 1;
-
             noise.enabled = false;
             velocityOverLifetime.enabled = true;
             followPlayer = true;
@@ -116,7 +113,6 @@ public class GodrayParticles : MonoBehaviour
 
         // Applique les changements au particule system
         m_System.SetParticles(m_Particles, numParticlesAlive);
-
     }
     void InitializeIfNeeded()
     {

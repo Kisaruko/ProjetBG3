@@ -11,6 +11,7 @@ public class SwitchBehaviour : MonoBehaviour
     private Spektr.LightningRenderer fil;
     public UnityEvent activationEvent = new UnityEvent();
     public UnityEvent deactivateEvent = new UnityEvent();
+    public UnityEvent loadingEvent = new UnityEvent();
 
     [Header("Light Values", order = 0)]
     [Space(10, order = 1)]
@@ -31,7 +32,9 @@ public class SwitchBehaviour : MonoBehaviour
     [Header("Vfx Components", order = 0)]
     [Space(10, order = 1)]
     public GameObject maxLightVfx;
-
+    private MeshRenderer mesh;
+    private Material[] materials;
+    private Material myMat;
     //Booléens d'activation
     private bool intensityIsMaxed;
     private bool rangeIsMaxed;
@@ -46,6 +49,10 @@ public class SwitchBehaviour : MonoBehaviour
         minIntensity = thisObjectLight.intensity;
         minRange = thisObjectLight.range;
         fil = GetComponent<Spektr.LightningRenderer>();
+        mesh = GetComponent<MeshRenderer>();
+        materials = mesh.materials;
+        myMat = materials[1];
+        maxYPos += transform.position.y;
     }
     private void Update()
     {
@@ -55,6 +62,8 @@ public class SwitchBehaviour : MonoBehaviour
             {
                 fil.emitterTransform = transform;
                 receiverIsSet = false;
+                deactivateEvent.Invoke();
+                playerLight.GetComponent<LightDetection>().StopFollow();
             }
         }
     }
@@ -62,8 +71,9 @@ public class SwitchBehaviour : MonoBehaviour
     {
         if (!isActivated)
         {
-
             isLoading = true;
+            loadingEvent.Invoke();
+
             if (thisObjectLight.intensity < maxIntensity)
             {
                 thisObjectLight.intensity += lightGrowFactor;
@@ -72,7 +82,7 @@ public class SwitchBehaviour : MonoBehaviour
             {
                 intensityIsMaxed = true;
             }
-            if (transform.localPosition.y < maxYPos)
+            if (transform.position.y < maxYPos)
             {
                 transform.Translate(Vector3.up * transformMoveFactor);
             }
@@ -96,6 +106,7 @@ public class SwitchBehaviour : MonoBehaviour
             if (!receiverIsSet)
             {
                 fil.emitterTransform = playerLight.transform;
+                
                 receiverIsSet = true;
             }
         }
@@ -122,12 +133,14 @@ public class SwitchBehaviour : MonoBehaviour
 
     private void Activation()
     {
+        myMat.EnableKeyword("_EMISSION");
         receiverIsSet = true;
         isLoading = false;
         Instantiate(maxLightVfx, transform.position, Quaternion.identity);
         isActivated = true;
         fil.emitterTransform = transform;
-
         activationEvent.Invoke();
+        playerLight.GetComponent<LightDetection>().StopFollow();
+
     }
 }

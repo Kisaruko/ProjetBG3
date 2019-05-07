@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     public bool controlsAreEnabled;
     public float sensitivity;
     public float distToGround;
+
     [Header("Movement Variables", order = 0)]
     public bool isMoving = false;
     public float moveSpeed;
@@ -16,6 +17,8 @@ public class PlayerMovement : MonoBehaviour
     private float BaseSpeed;
     public float moveSpeedWhileAiming;
     private Animator anim;
+    public bool isInRotation;
+    public int isInRotationThreshold; //C'est l'angle minimum pour être considéré en rotation ou non
     public float rotationSpeed;
 
     [Header("GroundCheck Variables")]
@@ -94,7 +97,7 @@ public class PlayerMovement : MonoBehaviour
                     return false; // return false if we are very near / on the slope && the slope is steep
                 }
 
-                return true; // return true if the slope is not steep
+               // return true; // return true if the slope is not steep
 
             }
 
@@ -143,12 +146,22 @@ public class PlayerMovement : MonoBehaviour
             {
                 isMoving = true;//il bouge
                 anim.SetBool("isMoving", true);
-                if (lookDirection2 == Vector3.zero) // si le joueur ne touche pas au joystick droit
+
+                Quaternion smoothRotation = Quaternion.LookRotation(lookDirection);
+                //transform.rotation = Quaternion.LookRotation(looksDirection, Vector3.up); // le joueur regarde en face de lui
+                transform.rotation = Quaternion.Slerp(lastRotation, smoothRotation, rotationSpeed);
+
+                if(Quaternion.Angle(transform.rotation, smoothRotation) >= isInRotationThreshold)
                 {
-                    Quaternion smoothRotation = Quaternion.LookRotation(lookDirection);
-                    //transform.rotation = Quaternion.LookRotation(looksDirection, Vector3.up); // le joueur regarde en face de lui
-                    transform.rotation = Quaternion.Slerp(lastRotation, smoothRotation, rotationSpeed);
+                    //Debug.Log("I'm in rotation");
+                    isInRotation = true;
                 }
+                else
+                {
+                    //Debug.Log("Im not in rotation");
+                    isInRotation = false;
+                }
+
 
                 Vector3 Velocity = new Vector3(xInput, gravity, yInput);
                 Velocity.Normalize();
@@ -164,7 +177,7 @@ public class PlayerMovement : MonoBehaviour
                 anim.SetBool("isMoving", false);
                 isMoving = false;
 
-                rb.velocity =new Vector3(0f,gravity,0f)*moveSpeed;  // la vitesse du joueur est de 0
+                rb.velocity = new Vector3(0f, gravity, 0f) * moveSpeed;  // la vitesse du joueur est de 0
 
                 transform.rotation = lastRotation; // le joueur regarde dans la dernière direction enregistrée
             }
@@ -177,11 +190,10 @@ public class PlayerMovement : MonoBehaviour
             }
             else
             {
-              //  moveSpeed = BaseSpeed; // reviens à la vitesse originelle
+                //  moveSpeed = BaseSpeed; // reviens à la vitesse originelle
             }
         }
     }
-
 
     public void DashDetection()
     {
@@ -202,7 +214,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        if ((Input.GetButtonDown("Dash") && (lightManager.canDash == false||binaryLight.gotLight == false) && isDashing == false))
+        if ((Input.GetButtonDown("Dash") && (lightManager.canDash == false || binaryLight.gotLight == false) && isDashing == false))
         {
             //dash Echec
             anim.SetBool("failDash", true);
