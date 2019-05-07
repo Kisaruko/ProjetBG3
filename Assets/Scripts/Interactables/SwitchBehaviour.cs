@@ -62,6 +62,7 @@ public class SwitchBehaviour : MonoBehaviour
                 fil.emitterTransform = transform;
                 receiverIsSet = false;
                 deactivateEvent.Invoke();
+                playerLight.GetComponent<LightDetection>().StopFollow();
             }
         }
     }
@@ -104,6 +105,7 @@ public class SwitchBehaviour : MonoBehaviour
             if (!receiverIsSet)
             {
                 fil.emitterTransform = playerLight.transform;
+                
                 receiverIsSet = true;
             }
         }
@@ -137,5 +139,7 @@ public class SwitchBehaviour : MonoBehaviour
         isActivated = true;
         fil.emitterTransform = transform;
         activationEvent.Invoke();
+        playerLight.GetComponent<LightDetection>().StopFollow();
+
     }
 }

@@ -113,7 +113,6 @@ public class GodrayParticles : MonoBehaviour
 
         // Applique les changements au particule system
         m_System.SetParticles(m_Particles, numParticlesAlive);
-
     }
     void InitializeIfNeeded()
     {

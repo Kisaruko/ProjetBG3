@@ -145,7 +145,6 @@ GameObject:
   - component: {fileID: 5658272590408075425}
   - component: {fileID: 5658272590407076449}
   - component: {fileID: 5658272589774587921}
-  - component: {fileID: 5658272589774587920}
   m_Layer: 0
   m_Name: cadre
   m_TagString: Untagged
@@ -213,20 +212,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
 --- !u!64 &5658272589774587921
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5658272590409077921}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_Mesh: {fileID: 4300004, guid: 3b808bdd91d5f594d9c581318b55479d, type: 3}
---- !u!64 &5658272589774587920
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -563,6 +548,7 @@ GameObject:
   - component: {fileID: 5658272590409369739}
   - component: {fileID: 5658272590408075435}
   - component: {fileID: 5658272590407076459}
+  - component: {fileID: 5658272591630396968}
   m_Layer: 0
   m_Name: plante_qui_grimpe_emissive
   m_TagString: Untagged
@@ -609,7 +595,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 3b808bdd91d5f594d9c581318b55479d, type: 3}
+  - {fileID: 2100000, guid: 69b4d85e9e762c44ca29634dc886bef2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -629,6 +615,22 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &5658272591630396968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5658272590409077931}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4b3ef3f4639e7d4fa7ea1a232c0f867, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxUvOffset: 0.75
+  minUvOffset: -0.25
+  scrollFactor: 0.0035
+  emissiveRootRenderer: {fileID: 5658272590407076459}
 --- !u!1 &5658272590409077935
 GameObject:
   m_ObjectHideFlags: 0
