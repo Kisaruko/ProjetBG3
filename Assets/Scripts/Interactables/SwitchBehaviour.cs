@@ -32,7 +32,9 @@ public class SwitchBehaviour : MonoBehaviour
     [Header("Vfx Components", order = 0)]
     [Space(10, order = 1)]
     public GameObject maxLightVfx;
-
+    private MeshRenderer mesh;
+    private Material[] materials;
+    private Material myMat;
     //Booléens d'activation
     private bool intensityIsMaxed;
     private bool rangeIsMaxed;
@@ -47,6 +49,9 @@ public class SwitchBehaviour : MonoBehaviour
         minIntensity = thisObjectLight.intensity;
         minRange = thisObjectLight.range;
         fil = GetComponent<Spektr.LightningRenderer>();
+        mesh = GetComponent<MeshRenderer>();
+        materials = mesh.materials;
+        myMat = materials[1];
     }
     private void Update()
     {
@@ -125,12 +130,12 @@ public class SwitchBehaviour : MonoBehaviour
 
     private void Activation()
     {
+        myMat.EnableKeyword("_EMISSION");
         receiverIsSet = true;
         isLoading = false;
         Instantiate(maxLightVfx, transform.position, Quaternion.identity);
         isActivated = true;
         fil.emitterTransform = transform;
-
         activationEvent.Invoke();
     }
 }
