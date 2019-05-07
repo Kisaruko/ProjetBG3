@@ -143,12 +143,16 @@ public class PlayerMovement : MonoBehaviour
             {
                 isMoving = true;//il bouge
                 anim.SetBool("isMoving", true);
-                if (lookDirection2 == Vector3.zero) // si le joueur ne touche pas au joystick droit
+
+                Quaternion smoothRotation = Quaternion.LookRotation(lookDirection);
+                //transform.rotation = Quaternion.LookRotation(looksDirection, Vector3.up); // le joueur regarde en face de lui
+                transform.rotation = Quaternion.Slerp(lastRotation, smoothRotation, rotationSpeed);
+
+                if(Quaternion.Angle(transform.rotation, smoothRotation) >= 5f)
                 {
-                    Quaternion smoothRotation = Quaternion.LookRotation(lookDirection);
-                    //transform.rotation = Quaternion.LookRotation(looksDirection, Vector3.up); // le joueur regarde en face de lui
-                    transform.rotation = Quaternion.Slerp(lastRotation, smoothRotation, rotationSpeed);
+                    Debug.Log("I'm in rotation");
                 }
+
 
                 Vector3 Velocity = new Vector3(xInput, gravity, yInput);
                 Velocity.Normalize();
@@ -164,7 +168,7 @@ public class PlayerMovement : MonoBehaviour
                 anim.SetBool("isMoving", false);
                 isMoving = false;
 
-                rb.velocity =new Vector3(0f,gravity,0f)*moveSpeed;  // la vitesse du joueur est de 0
+                rb.velocity = new Vector3(0f, gravity, 0f) * moveSpeed;  // la vitesse du joueur est de 0
 
                 transform.rotation = lastRotation; // le joueur regarde dans la dernière direction enregistrée
             }
@@ -177,11 +181,10 @@ public class PlayerMovement : MonoBehaviour
             }
             else
             {
-              //  moveSpeed = BaseSpeed; // reviens à la vitesse originelle
+                //  moveSpeed = BaseSpeed; // reviens à la vitesse originelle
             }
         }
     }
-
 
     public void DashDetection()
     {
@@ -202,7 +205,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        if ((Input.GetButtonDown("Dash") && (lightManager.canDash == false||binaryLight.gotLight == false) && isDashing == false))
+        if ((Input.GetButtonDown("Dash") && (lightManager.canDash == false || binaryLight.gotLight == false) && isDashing == false))
         {
             //dash Echec
             anim.SetBool("failDash", true);

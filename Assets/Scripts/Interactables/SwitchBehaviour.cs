@@ -11,6 +11,7 @@ public class SwitchBehaviour : MonoBehaviour
     private Spektr.LightningRenderer fil;
     public UnityEvent activationEvent = new UnityEvent();
     public UnityEvent deactivateEvent = new UnityEvent();
+    public UnityEvent loadingEvent = new UnityEvent();
 
     [Header("Light Values", order = 0)]
     [Space(10, order = 1)]
@@ -55,6 +56,7 @@ public class SwitchBehaviour : MonoBehaviour
             {
                 fil.emitterTransform = transform;
                 receiverIsSet = false;
+                deactivateEvent.Invoke();
             }
         }
     }
@@ -62,8 +64,9 @@ public class SwitchBehaviour : MonoBehaviour
     {
         if (!isActivated)
         {
-
             isLoading = true;
+            loadingEvent.Invoke();
+
             if (thisObjectLight.intensity < maxIntensity)
             {
                 thisObjectLight.intensity += lightGrowFactor;
