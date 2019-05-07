@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     public bool controlsAreEnabled;
     public float sensitivity;
     public float distToGround;
+
     [Header("Movement Variables", order = 0)]
     public bool isMoving = false;
     public float moveSpeed;
@@ -16,6 +17,8 @@ public class PlayerMovement : MonoBehaviour
     private float BaseSpeed;
     public float moveSpeedWhileAiming;
     private Animator anim;
+    public bool isInRotation;
+    public int isInRotationThreshold; //C'est l'angle minimum pour être considéré en rotation ou non
     public float rotationSpeed;
 
     [Header("GroundCheck Variables")]
@@ -148,9 +151,15 @@ public class PlayerMovement : MonoBehaviour
                 //transform.rotation = Quaternion.LookRotation(looksDirection, Vector3.up); // le joueur regarde en face de lui
                 transform.rotation = Quaternion.Slerp(lastRotation, smoothRotation, rotationSpeed);
 
-                if(Quaternion.Angle(transform.rotation, smoothRotation) >= 5f)
+                if(Quaternion.Angle(transform.rotation, smoothRotation) >= isInRotationThreshold)
                 {
-                    Debug.Log("I'm in rotation");
+                    //Debug.Log("I'm in rotation");
+                    isInRotation = true;
+                }
+                else
+                {
+                    //Debug.Log("Im not in rotation");
+                    isInRotation = false;
                 }
 
 
