@@ -183,7 +183,11 @@ public class BinaryLight : MonoBehaviour
     void ManageReticule()
     {
         playerMovement.moveSpeed = speedWhileAiming;
-        playerMovement.moveSpeed = 0;
+
+        if(playerMovement.isInRotation)
+        {
+            playerMovement.moveSpeed = 0;
+        }
 
         if (reachedMaxRange == false)
         {
