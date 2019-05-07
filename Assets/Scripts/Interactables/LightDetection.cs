@@ -44,6 +44,8 @@ public class LightDetection : MonoBehaviour
                 hitcol.GetComponent<SwitchBehaviour>().Loading();
                 if (hitcol.GetComponent<SwitchBehaviour>().isActivated == false)
                 {
+                    ps.trigger.SetCollider(0, hitcol.GetComponent<SphereCollider>());// get le collider du player qui doit détruire les particules
+
                     particlesTarget = hitcol.gameObject;
                     emission.enabled = true;
                 }
@@ -86,6 +88,10 @@ public class LightDetection : MonoBehaviour
         ps.SetParticles(m_Particles, numParticlesAlive);
 
     }
+
+    /// <summary>
+    /// METTRE CE SCRIPT SUR LE PARTICLE SYSTEM DIRECTEMENT SINON IL DETECTE PAS LES COLLISIONS
+    /// </summary>
     private void OnParticleTrigger()
     {
         int numEnter = ps.GetTriggerParticles(ParticleSystemTriggerEventType.Enter, enter); // nb de particules qui ont trigger
@@ -97,6 +103,8 @@ public class LightDetection : MonoBehaviour
             enter[i] = p; // ajoute au tableau
         }
         ps.SetTriggerParticles(ParticleSystemTriggerEventType.Enter, enter); // Applique les changements
+        Debug.Log("working");
+
     }
     void InitializeIfNeeded()
     {
