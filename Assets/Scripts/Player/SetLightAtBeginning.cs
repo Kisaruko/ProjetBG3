@@ -5,7 +5,7 @@ using UnityEngine;
 public class SetLightAtBeginning : MonoBehaviour
 {
     public Transform lightBeginPos;
-
+    public bool isPlayerMustHaveLight;
     void Start()
     {
         Invoke("SetLightPos", 0.05f);
@@ -20,6 +20,10 @@ public class SetLightAtBeginning : MonoBehaviour
         GetComponent<BinaryLight>().LightCanBeRegrabed();
         GetComponent<BinaryLight>().LightObject.transform.position = lightBeginPos.position;
         Destroy(lightBeginPos.gameObject);
+        if(isPlayerMustHaveLight)
+        {
+            GetComponent<BinaryLight>().GetLight();
+        }
         Destroy(this);
     }
 
