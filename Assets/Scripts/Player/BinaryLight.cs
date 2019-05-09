@@ -122,7 +122,7 @@ public class BinaryLight : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject == LightObject)
+        if (collision.gameObject == LightObject && isRegrabable == true)
         {
             anim.SetBool("getLight", true);
 
@@ -137,7 +137,6 @@ public class BinaryLight : MonoBehaviour
     {
         anim.SetBool("getLight", false);
         playerMovement.moveSpeed = baseSpeed;
-
     }
     /// <summary>
     /// /////////
