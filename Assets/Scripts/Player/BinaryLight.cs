@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class BinaryLight : MonoBehaviour
 {
@@ -44,6 +45,11 @@ public class BinaryLight : MonoBehaviour
     public float throwHorizontalSpeed;
     [Range(0, 500)]
     public float throwVerticalSpeed;
+    public GameObject rangeStart;
+    public GameObject rangeEnd;
+    private GameObject start;
+    private GameObject end;
+    public float lightSpeed;
 
     [Header("Vfx Attributes", order = 0)]
     [Space(10, order = 1)]
@@ -99,7 +105,7 @@ public class BinaryLight : MonoBehaviour
             }
         }
 
-        if(!gotLight)
+        if (!gotLight)
         {
             charMaterial.SetColor("_EmissionColor", Color.black); //Désactive l'émissive du bras du joueur
         }
@@ -177,19 +183,63 @@ public class BinaryLight : MonoBehaviour
         reticule.SetActive(true); // activer le fx de load
         isAimingLight = true;
         playerMovement.rotationSpeed = playerMovement.rotationSpeed / 10;
-        
+
 
     }
     void ManageReticule()
     {
         playerMovement.moveSpeed = speedWhileAiming;
 
-        if(playerMovement.isInRotation)
+        if (playerMovement.isInRotation)
         {
-            playerMovement.moveSpeed = 0;
+            DOTween.To(() => playerMovement.moveSpeed, x => playerMovement.moveSpeed = x, 0, .5f);
+            //playerMovement.moveSpeed = 0;
         }
 
-        if (reachedMaxRange == false)
+        //Build start and end range indicator in order to use them
+        if (start == null)
+        {
+            start = Instantiate(rangeStart) as GameObject;
+            start.transform.parent = this.transform;
+            start.transform.localPosition = Vector3.up;
+        }
+        if (end == null)
+        {
+            end = Instantiate(rangeEnd) as GameObject;
+            end.transform.parent = this.transform;
+            end.transform.localPosition = Vector3.zero;
+        }
+        float endWidth = 0f;
+        if (end != null)
+            endWidth = end.GetComponent<SpriteRenderer>().bounds.size.x;
+        //End building start and end range indicator
+
+        float currentYSize;
+
+        currentYSize = start.transform.localScale.y;
+
+        if (currentYSize <= maxRange)
+        {
+            //Set the scale of the range indicator
+            start.transform.localScale += new Vector3(0f, aimingSpeed * Time.deltaTime, 0f);
+        }
+        else
+        {
+            reachedMaxRange = true;
+        }
+
+
+        //Set the position and rotation of the range indicator
+        start.transform.localRotation = Quaternion.Euler(90f, 0f, 0f);
+
+        if (end != null)
+        {
+            end.transform.localPosition = new Vector3(0f, 1f, start.transform.localScale.y);
+            end.transform.localRotation = Quaternion.Euler(90f, 0f, 0f);
+        }
+
+        #region OLD
+        /*if (reachedMaxRange == false)
         {
             reticule.transform.Translate((Vector3.up * -1 * aimingSpeed) * Time.deltaTime, Space.Self);
         }
@@ -202,7 +252,9 @@ public class BinaryLight : MonoBehaviour
         if (Vector3.Distance(transform.position, reticule.transform.position) > maxRange)
         {
             reachedMaxRange = true;
-        }
+        }*/
+        #endregion
+
         if (Input.GetButtonUp("Throw") || Input.GetMouseButtonUp(0))
         {
             mesh.enabled = true;
@@ -211,9 +263,13 @@ public class BinaryLight : MonoBehaviour
             playerMovement.rotationSpeed = baseRotationSpeed;
             ThrowLight();
 
+            Destroy(start);
+            Destroy(end);
+
             playerMovement.moveSpeed = baseSpeed;
 
             reachedMaxRange = false;
+
         }
     }
     void ThrowLight()
@@ -245,7 +301,12 @@ public class BinaryLight : MonoBehaviour
         //Instantiate(VfxAppear, lastPosReticule, Quaternion.identity);
         bondCylinder.EnableEffects();
 
-        if (teleport)
+        //LightObject.transform.DOJump(end.transform.position, 2, 1, 1.5f); //-- CA PERMET DE FAIRE JUMP LA LUMIERE SI BESOIN --
+
+        LightObject.transform.DOMove(end.transform.position, lightSpeed * Time.deltaTime);
+
+        #region OLD
+        /*if (teleport)
         {
             LightObject.transform.position = new Vector3(lastPosReticule.x, lastPosReticule.y + 1, lastPosReticule.z);
         }
@@ -253,9 +314,10 @@ public class BinaryLight : MonoBehaviour
         {
             LightObject.transform.position = transform.position + transform.forward;
             lightRb.AddForce(transform.forward * throwHorizontalSpeed + Vector3.up * throwVerticalSpeed);
-        }
-
+        }*/
+        #endregion
     }
+
     #region Player Taking Damage
 
     public void TakeHit()
