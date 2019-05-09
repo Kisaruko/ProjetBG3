@@ -80,7 +80,7 @@ public class LightDetection : MonoBehaviour
         for (int i = 0; i < numParticlesAlive; i++)
         {
             // particleSpeed += 0.05f; // augmente la vitesse des particules toutes les frames
-            Vector3 newVelocity = m_Particles[i].position - particlesTarget.transform.position; // Calcule la direction vers le joueur
+            Vector3 newVelocity = m_Particles[i].position - particlesTarget.transform.position +Vector3.down; // Calcule la direction vers le joueur
             m_Particles[i].velocity = (newVelocity * particlesSpeed) * -1; // Set la velocité du particule concerné
         }
 
@@ -89,30 +89,13 @@ public class LightDetection : MonoBehaviour
 
     }
 
-    /// <summary>
-    /// METTRE CE SCRIPT SUR LE PARTICLE SYSTEM DIRECTEMENT SINON IL DETECTE PAS LES COLLISIONS
-    /// </summary>
-    private void OnParticleTrigger()
-    {
-        int numEnter = ps.GetTriggerParticles(ParticleSystemTriggerEventType.Enter, enter); // nb de particules qui ont trigger
 
-        for (int i = 0; i < numEnter; i++) // pour chaque particle qui ont trigger
-        {
-            ParticleSystem.Particle p = enter[i]; // crée le tableau
-            p.remainingLifetime = 0f; // destruction de la particle en mettant son lifetime a 0
-            enter[i] = p; // ajoute au tableau
-        }
-        ps.SetTriggerParticles(ParticleSystemTriggerEventType.Enter, enter); // Applique les changements
-        Debug.Log("working");
-
-    }
     void InitializeIfNeeded()
     {
        /* if (m_System == null) // si le particle system n'est pas set
         {
             m_System = GetComponent<ParticleSystem>(); // get le particle system
             m_System.trigger.SetCollider(1, playerCollider);// get le collider du player qui doit détruire les particules
-
         }*/
 
 
