@@ -190,10 +190,9 @@ public class BinaryLight : MonoBehaviour
     {
         playerMovement.moveSpeed = speedWhileAiming;
 
-        if (playerMovement.isInRotation)
+        if (playerMovement.isInRotation && gotLight)
         {
-            DOTween.To(() => playerMovement.moveSpeed, x => playerMovement.moveSpeed = x, 0, .5f);
-            //playerMovement.moveSpeed = 0;
+            playerMovement.moveSpeed = 0f;
         }
 
         //Build start and end range indicator in order to use them
@@ -276,14 +275,14 @@ public class BinaryLight : MonoBehaviour
     {
         LightObject.GetComponent<SphereCollider>().isTrigger = false;
 
-        isRegrabable = true;
+        isRegrabable = false;
         lightRb.drag = 0;
         viseur.positionCount = 0; // la ligne a 0 vertex, elle n'apparait donc pas
-        Invoke("LightCanBeRegrabed", 2f);
+        Invoke("LightCanBeRegrabed", .5f);
         //particles
         //emi.rateOverTime = 0;
         //resetspeed
-        aimingSpeed = baseSpeed;
+        //playerMovement.moveSpeed = baseSpeed;
         //saveTheLastPosReticule
         lastPosReticule = reticule.transform.position;
         //Components modifications
@@ -303,7 +302,11 @@ public class BinaryLight : MonoBehaviour
 
         //LightObject.transform.DOJump(end.transform.position, 2, 1, 1.5f); //-- CA PERMET DE FAIRE JUMP LA LUMIERE SI BESOIN --
 
-        LightObject.transform.DOMove(end.transform.position, lightSpeed * Time.deltaTime);
+        if(LightObject.transform.parent == null)
+        {
+            LightObject.transform.DOMove(end.transform.position, lightSpeed * Time.deltaTime);
+        }
+        
 
         #region OLD
         /*if (teleport)

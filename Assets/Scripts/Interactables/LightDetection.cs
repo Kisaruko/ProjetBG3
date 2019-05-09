@@ -44,6 +44,8 @@ public class LightDetection : MonoBehaviour
                 hitcol.GetComponent<SwitchBehaviour>().Loading();
                 if (hitcol.GetComponent<SwitchBehaviour>().isActivated == false)
                 {
+                    ps.trigger.SetCollider(0, hitcol.GetComponent<SphereCollider>());// get le collider du player qui doit détruire les particules
+
                     particlesTarget = hitcol.gameObject;
                     emission.enabled = true;
                 }
@@ -78,7 +80,7 @@ public class LightDetection : MonoBehaviour
         for (int i = 0; i < numParticlesAlive; i++)
         {
             // particleSpeed += 0.05f; // augmente la vitesse des particules toutes les frames
-            Vector3 newVelocity = m_Particles[i].position - particlesTarget.transform.position; // Calcule la direction vers le joueur
+            Vector3 newVelocity = m_Particles[i].position - particlesTarget.transform.position +Vector3.down; // Calcule la direction vers le joueur
             m_Particles[i].velocity = (newVelocity * particlesSpeed) * -1; // Set la velocité du particule concerné
         }
 
@@ -86,25 +88,14 @@ public class LightDetection : MonoBehaviour
         ps.SetParticles(m_Particles, numParticlesAlive);
 
     }
-    private void OnParticleTrigger()
-    {
-        int numEnter = ps.GetTriggerParticles(ParticleSystemTriggerEventType.Enter, enter); // nb de particules qui ont trigger
 
-        for (int i = 0; i < numEnter; i++) // pour chaque particle qui ont trigger
-        {
-            ParticleSystem.Particle p = enter[i]; // crée le tableau
-            p.remainingLifetime = 0f; // destruction de la particle en mettant son lifetime a 0
-            enter[i] = p; // ajoute au tableau
-        }
-        ps.SetTriggerParticles(ParticleSystemTriggerEventType.Enter, enter); // Applique les changements
-    }
+
     void InitializeIfNeeded()
     {
        /* if (m_System == null) // si le particle system n'est pas set
         {
             m_System = GetComponent<ParticleSystem>(); // get le particle system
             m_System.trigger.SetCollider(1, playerCollider);// get le collider du player qui doit détruire les particules
-
         }*/
 
 
