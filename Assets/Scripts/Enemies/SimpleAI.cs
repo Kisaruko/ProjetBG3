@@ -34,12 +34,12 @@ public class SimpleAI : MonoBehaviour
     {
         if(Vector3.Distance(this.transform.position, playerTransform.position) <= detectionRange)
         {
-            Debug.Log("Player detected");
+            //Debug.Log("Player detected");
             return true;
         }
         else
         {
-            Debug.Log("Player is not in range");
+            //Debug.Log("Player is not in range");
             return false;
         }
     }
