@@ -6534,12 +6534,6 @@ Mesh:
     offset: 0
     size: 0
     path: 
---- !u!4 &441590177 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3323257189007146775, guid: cc52c9a7e74be54448cbfcb1c8c03638,
-    type: 3}
-  m_PrefabInstance: {fileID: 1076596871}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &765936804
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7000,25 +6994,6 @@ PrefabInstance:
       propertyPath: lightBeginPos
       value: 
       objectReference: {fileID: 2022913923}
-    - target: {fileID: 939924803, guid: cc52c9a7e74be54448cbfcb1c8c03638, type: 3}
-      propertyPath: rangeStart
-      value: 
-      objectReference: {fileID: 2328539687286565778, guid: 9cec4d79d6b97154ea04f414e296307e,
-        type: 3}
-    - target: {fileID: 939924803, guid: cc52c9a7e74be54448cbfcb1c8c03638, type: 3}
-      propertyPath: rangeEnd
-      value: 
-      objectReference: {fileID: 1915369332328450096, guid: 65e5f377a24b433429e6fc07f1725b55,
-        type: 3}
-    - target: {fileID: 939924803, guid: cc52c9a7e74be54448cbfcb1c8c03638, type: 3}
-      propertyPath: lightSpeed
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 2738604976594047270, guid: cc52c9a7e74be54448cbfcb1c8c03638,
-        type: 3}
-      propertyPath: isInRotationThreshold
-      value: 25
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cc52c9a7e74be54448cbfcb1c8c03638, type: 3}
 --- !u!43 &1106225810
@@ -13141,11 +13116,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameManager
       objectReference: {fileID: 0}
-    - target: {fileID: 4450830706930807243, guid: a00fef5e2719fa846be2377f8a0ac355,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5332984793361836076, guid: a00fef5e2719fa846be2377f8a0ac355,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -13201,37 +13171,19 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4450830706930807243, guid: a00fef5e2719fa846be2377f8a0ac355,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a00fef5e2719fa846be2377f8a0ac355, type: 3}
---- !u!1 &1440708276 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2738604976594047264, guid: cc52c9a7e74be54448cbfcb1c8c03638,
-    type: 3}
-  m_PrefabInstance: {fileID: 1076596871}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1440708284 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2738604976594047271, guid: cc52c9a7e74be54448cbfcb1c8c03638,
     type: 3}
   m_PrefabInstance: {fileID: 1076596871}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1440708285
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1440708276}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ecf03d8dfc6308a4a911b245fa8f41cc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cylinderPrefab: {fileID: 8189091022494511640, guid: ca40a1773dfe59f478e23a71fac645cb,
-    type: 3}
-  isEmitting: 0
-  player: {fileID: 1440708284}
-  lantern: {fileID: 441590177}
 --- !u!1 &1498578002
 GameObject:
   m_ObjectHideFlags: 0
