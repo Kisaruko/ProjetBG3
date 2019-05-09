@@ -34,12 +34,12 @@ public class SimpleAI : MonoBehaviour
     {
         if(Vector3.Distance(this.transform.position, playerTransform.position) <= detectionRange)
         {
-            Debug.Log("Player detected");
+            //Debug.Log("Player detected");
             return true;
         }
         else
         {
-            Debug.Log("Player is not in range");
+            //Debug.Log("Player is not in range");
             return false;
         }
     }
@@ -47,5 +47,10 @@ public class SimpleAI : MonoBehaviour
     private void FollowLight()
     {
         meshAgent.destination = playerLightTransform.position;
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.DrawWireSphere(this.transform.position, detectionRange);
     }
 }
