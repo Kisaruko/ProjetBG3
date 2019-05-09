@@ -4,8 +4,14 @@ using UnityEngine;
 
 public class RootBehaviour : ActivableObjects
 {
-    public float maxUvOffset;
-    public float minUvOffset;
+    [Header("Tiling Values")]
+    public float tilingX;
+    public float tilingY;
+
+    [Header("Offset values")]
+    public float offsetY;
+    public float maxUvOffsetX;
+    public float minUvOffsetX;
 
     public float scrollFactor;
     private bool isActivated = false;
@@ -16,6 +22,8 @@ public class RootBehaviour : ActivableObjects
     private void Start()
     {
         emissiveMaterial = emissiveRootRenderer.material;
+        emissiveMaterial.mainTextureOffset = new Vector2(minUvOffsetX, offsetY);
+        emissiveMaterial.mainTextureScale = new Vector2(tilingX, tilingY);
     }
 
     public override void Activate()
@@ -30,7 +38,7 @@ public class RootBehaviour : ActivableObjects
 
     private void Update()
     {
-        emissiveMaterial.mainTextureOffset = new Vector2(Mathf.Clamp(emissiveMaterial.mainTextureOffset.x, minUvOffset, maxUvOffset), emissiveMaterial.mainTextureOffset.y);
+        emissiveMaterial.mainTextureOffset = new Vector2(Mathf.Clamp(emissiveMaterial.mainTextureOffset.x, minUvOffsetX, maxUvOffsetX), emissiveMaterial.mainTextureOffset.y);
 
         if(isActivated)
         {
