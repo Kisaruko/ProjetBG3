@@ -48,9 +48,4 @@ public class SimpleAI : MonoBehaviour
     {
         meshAgent.destination = playerLightTransform.position;
     }
-
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.DrawWireSphere(this.transform.position, detectionRange);
-    }
 }
