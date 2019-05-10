@@ -6,6 +6,7 @@ using UnityEngine.Events;
 public class PressurePlateBehaviour : MonoBehaviour
 {
     [Header("Activation Variables")]
+    public bool isStartingActive;
     public List<string> activationTag;
     public bool isActivated;
     public GameObject[] associatedGameobject;
@@ -26,8 +27,7 @@ public class PressurePlateBehaviour : MonoBehaviour
     {
         material = GetComponent<Renderer>().material; //Get the material in order to change its Emissive color
         startingPosY = transform.position.y; //Get the position Y in order to change it for when it has pressure on it
-
-
+        Invoke("SetDoorAtBeginning", 0.1f);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -83,6 +83,17 @@ public class PressurePlateBehaviour : MonoBehaviour
 
                 material.SetColor("_EmissionColor", finalColor); //Applique le pingpong de l'emissive sur le material
             }
+        }
+    }
+    private void SetDoorAtBeginning()
+    {
+        if (isStartingActive)
+        {
+            activateEvent.Invoke();
+        }
+        else
+        {
+            deactivateEvent.Invoke();
         }
     }
 }
