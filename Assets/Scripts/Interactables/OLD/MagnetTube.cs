@@ -17,7 +17,7 @@ public class MagnetTube : MonoBehaviour
     {
         if (other.gameObject == light)
         {
-            player.GetComponent<BinaryLight>().DropLight();
+            player.GetComponent<BinaryLight>().DropLight(0f,0f);
             light.GetComponent<Rigidbody>().drag = 10;
 
             light.transform.position = transform.position;

@@ -113,7 +113,7 @@ public class BinaryLight : MonoBehaviour
         //Debug
         if (Input.GetKeyDown(KeyCode.D))
         {
-            DropLight();
+            DropLight(ejectionDistance,ejectionHeight);
         }
         if (Input.GetKeyDown(KeyCode.G) || (Input.GetButtonDown("Throw")))
         {
@@ -141,7 +141,7 @@ public class BinaryLight : MonoBehaviour
     /// <summary>
     /// /////////
     /// </summary>
-    public void DropLight()
+    public void DropLight(float ejectionDistance, float ejectionHeight)
     {
         mesh.enabled = true;
         LightObject.GetComponent<SphereCollider>().isTrigger = false;
@@ -175,7 +175,7 @@ public class BinaryLight : MonoBehaviour
     public void LightCanBeRegrabed()
     {
         isRegrabable = true;
-        lightRb.drag = 10;
+       // lightRb.drag = 0;
     }
     void Aiming()
     {

@@ -10,19 +10,22 @@ public class SetLightAtBeginning : MonoBehaviour
     {
         Invoke("SetLightPos", 0.05f);
     }
-    private void FixedUpdate()
-    {
-        GetComponent<BinaryLight>().LightObject.GetComponent<Rigidbody>().velocity = Vector3.zero ;
-    }
+
     private void SetLightPos()
     {
-        GetComponent<BinaryLight>().DropLight();
-        GetComponent<BinaryLight>().LightCanBeRegrabed();
-        GetComponent<BinaryLight>().LightObject.transform.position = lightBeginPos.position;
-        Destroy(lightBeginPos.gameObject);
-        if(isPlayerMustHaveLight)
+        GetComponent<BinaryLight>().DropLight(0,0);
+        if (isPlayerMustHaveLight || lightBeginPos == null)
         {
             GetComponent<BinaryLight>().GetLight();
+        }
+        if (!isPlayerMustHaveLight && lightBeginPos != null)
+        {
+            GetComponent<BinaryLight>().LightObject.transform.position = lightBeginPos.position;
+        }
+        GetComponent<BinaryLight>().LightCanBeRegrabed();
+        if (lightBeginPos != null)
+        {
+            Destroy(lightBeginPos.gameObject);
         }
         Destroy(this);
     }
