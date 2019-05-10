@@ -8,7 +8,7 @@ public class SpawnerRock : MonoBehaviour
     public float timeBeforeSpawn;
     public float spawnRate;
     public bool isSpawning = true;
-
+    public float timeBeforeDestroyObject;
     void Start()
     {
         InvokeRepeating("SpawnObject", timeBeforeSpawn, spawnRate);
@@ -18,7 +18,7 @@ public class SpawnerRock : MonoBehaviour
         if(isSpawning)
         {
           GameObject clone = Instantiate(objectToSpawn, transform.position, Quaternion.identity);
-          Destroy(clone, 10f);
+          Destroy(clone, timeBeforeDestroyObject);
         }
     }
 }
