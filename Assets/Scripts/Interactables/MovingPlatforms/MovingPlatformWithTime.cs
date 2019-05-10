@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class CycleMoving : MonoBehaviour
+public class MovingPlatformWithTime : MonoBehaviour
 {
     public float speed = 2;
     public GameObject touchedFx;
