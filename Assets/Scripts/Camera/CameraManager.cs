@@ -1,12 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class CameraManager : MonoBehaviour
 {
     public float newCamHeight;
     public float newCamDistance;
-    public float newSmoothSpeed;
+
+    public float timeToMoveCam;
 
     private CameraBehaviour cameraBehaviour;
 
@@ -20,9 +22,10 @@ public class CameraManager : MonoBehaviour
         //Si le joueur touche, ça set les valeurs de camera données au behaviour de la camera
         if(other.CompareTag("Player"))
         {
-            cameraBehaviour.camHeight = newCamHeight;
-            cameraBehaviour.camDistance = newCamDistance;
-            cameraBehaviour.smoothSpeed = newSmoothSpeed;
+            DOTween.To(() => cameraBehaviour.camHeight, x => cameraBehaviour.camHeight = x, newCamHeight, timeToMoveCam);
+            //cameraBehaviour.camHeight = newCamHeight;
+            DOTween.To(() => cameraBehaviour.camDistance, x => cameraBehaviour.camDistance = x, newCamDistance, timeToMoveCam);
+            //cameraBehaviour.camDistance = newCamDistance;
         }
     }
 }

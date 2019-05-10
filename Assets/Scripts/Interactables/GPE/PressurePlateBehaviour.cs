@@ -25,7 +25,7 @@ public class PressurePlateBehaviour : MonoBehaviour
     
     void Start()
     {
-        material = GetComponent<Renderer>().material; //Get the material in order to change its Emissive color
+        material = GetComponentInChildren<Renderer>().material; //Get the material in order to change its Emissive color
         startingPosY = transform.position.y; //Get the position Y in order to change it for when it has pressure on it
         Invoke("SetDoorAtBeginning", 0.1f);
     }
