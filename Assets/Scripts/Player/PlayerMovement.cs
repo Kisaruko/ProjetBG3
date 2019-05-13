@@ -201,10 +201,10 @@ public class PlayerMovement : MonoBehaviour
         {
             if (lightManager.canDash == true && binaryLight.gotLight == true) // si le joueur a assez de lumière pour dasher // Remplacer par le candash de binarylight
             {
+                anim.SetBool("isDashing", true);
                 lightManager.LightDecreasing();
                 lightManager.canDash = false;
                 shinyBody.Play();
-                anim.SetBool("isDashing", true);
                 Instantiate(trailDashParticles, transform.position, Quaternion.identity);
 
                 isReadyToDash = false; // le joueur ne peut pas redasher
@@ -213,7 +213,6 @@ public class PlayerMovement : MonoBehaviour
                 StartCoroutine("DashTime"); // on lance la coroutine du cooldown du dash
             }
         }
-
         if ((Input.GetButtonDown("Dash") && (lightManager.canDash == false || binaryLight.gotLight == false) && isDashing == false))
         {
             //dash Echec
