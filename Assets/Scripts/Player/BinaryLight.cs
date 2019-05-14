@@ -115,7 +115,7 @@ public class BinaryLight : MonoBehaviour
         {
             DropLight(ejectionDistance, ejectionHeight);
         }
-        if (Input.GetKeyDown(KeyCode.G) || (Input.GetButtonDown("Throw")))
+        if (Input.GetKeyDown(KeyCode.G))
         {
             GetLight();
         }
