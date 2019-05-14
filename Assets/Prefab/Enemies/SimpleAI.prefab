@@ -52,7 +52,7 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 1.6
-  m_BaseOffset: -0.5
+  m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!114 &8838100785408514944
@@ -67,7 +67,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17cf3412382645d4c88cea089d155afa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  detectionRange: 15
+  viewRadius: 15
+  viewAngle: 360
+  targetMask:
+    serializedVersion: 2
+    m_Bits: 98304
+  obstacleMask:
+    serializedVersion: 2
+    m_Bits: 16384
+  visibleTargets: []
+  wanderRadius: 3.5
+  maxWanderTimer: 10
+  absorbRange: 1.5
+  absorbCooldown: 5
+  absorbFactor: 0.5
 --- !u!1001 &2884883200941192321
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -79,14 +92,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Trash_mob
       objectReference: {fileID: 0}
-    - target: {fileID: 13700000, guid: cc22b374228242a47a24cae269d728e1, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 676d8f3a2ae040d43b3c646d573a125c, type: 2}
-    - target: {fileID: 13700000, guid: cc22b374228242a47a24cae269d728e1, type: 3}
-      propertyPath: m_Materials.Array.data[1]
-      value: 
-      objectReference: {fileID: 2100000, guid: eac4ed77cda7a5a458ed24cc3e03eb03, type: 2}
     - target: {fileID: 400042, guid: cc22b374228242a47a24cae269d728e1, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -131,6 +136,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 13700000, guid: cc22b374228242a47a24cae269d728e1, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 676d8f3a2ae040d43b3c646d573a125c, type: 2}
+    - target: {fileID: 13700000, guid: cc22b374228242a47a24cae269d728e1, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: eac4ed77cda7a5a458ed24cc3e03eb03, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cc22b374228242a47a24cae269d728e1, type: 3}
 --- !u!4 &2884883200940797483 stripped
