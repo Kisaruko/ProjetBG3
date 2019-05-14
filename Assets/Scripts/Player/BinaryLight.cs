@@ -93,7 +93,7 @@ public class BinaryLight : MonoBehaviour
 
             if (Input.GetButtonDown("Throw") || Input.GetMouseButtonDown(0))
             {
-                emi.rateOverTime = 30;
+              //  emi.rateOverTime = 30;
                 anim.SetBool("isAiming", true);
                 anim.SetBool("launch", false);
 
@@ -155,6 +155,7 @@ public class BinaryLight : MonoBehaviour
         Vector3 ejectionDirection = new Vector3(Random.Range(ejectionDistance, -ejectionDistance), ejectionHeight, Random.Range(ejectionDistance, -ejectionDistance));
         lightRb.AddForce(ejectionDirection);
         bondCylinder.EnableEffects();
+        TakeHit();
 
     }
     public void GetLight()
@@ -184,8 +185,6 @@ public class BinaryLight : MonoBehaviour
         reticule.SetActive(true); // activer le fx de load
         isAimingLight = true;
         playerMovement.rotationSpeed = playerMovement.rotationSpeed / 10;
-
-
     }
     void ManageReticule()
     {

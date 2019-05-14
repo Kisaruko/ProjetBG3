@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -67,8 +68,19 @@ public class GameManager : MonoBehaviour
             pencilMat.SetFloat("_OutLineTresh", Mathf.MoveTowards(pencilMat.GetFloat("_OutLineTresh"), baseOutlineTresh, myDeltaTime * 30));
         }
         #endregion
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            Restart();
+        }
     }
     #endregion
+
+    public void Restart()
+    {
+        Scene scene = SceneManager.GetActiveScene(); SceneManager.LoadScene(scene.name);
+    }
+
     #region ImpactEffect
     public static void ShowAnImpact(float timeAlteredDuration)
     {

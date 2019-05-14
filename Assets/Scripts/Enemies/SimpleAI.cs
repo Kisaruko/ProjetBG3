@@ -33,6 +33,10 @@ public class SimpleAI : MonoBehaviour
     private float absorbTimer;
     public float absorbFactor;
 
+    [Header("Attack Variables", order = 0)]
+    public float lightEjectionDistance;
+    public float lightEjectionHeight;
+
 
     private void Start()
     {
@@ -124,15 +128,15 @@ public class SimpleAI : MonoBehaviour
         Transform tMin = null;
         float minDist = Mathf.Infinity;
         Vector3 currentPos = transform.position;
-        foreach(Transform target in visibleTargets)
+        foreach (Transform target in visibleTargets)
         {
             float dist = Vector3.Distance(target.position, currentPos);
-            if(dist < minDist)
+            if (dist < minDist)
             {
                 tMin = target;
                 minDist = dist;
             }
-            
+
         }
         return tMin;
     }
@@ -141,7 +145,7 @@ public class SimpleAI : MonoBehaviour
     {
         meshAgent.SetDestination(GetClosestTarget().position);
 
-        if(Vector3.Distance(transform.position, GetClosestTarget().position) < absorbRange)
+        if (Vector3.Distance(transform.position, GetClosestTarget().position) < absorbRange)
         {
             meshAgent.isStopped = true;
             AbsorbLight();
@@ -156,21 +160,36 @@ public class SimpleAI : MonoBehaviour
     {
         absorbTimer += Time.deltaTime;
         Transform target = GetClosestTarget();
-        if(absorbTimer >= absorbCooldown)
+        if (absorbTimer >= absorbCooldown)
         {
             if (((1 << target.gameObject.layer) & targetMask) != 0)
             {
-                if(target.GetComponent<Light>() != null)
+                if (target.GetComponent<Light>() != null) //Si une light est présente
                 {
-                    target.GetComponent<SwitchBehaviour>().Unload();
+                    target.GetComponent<SwitchBehaviour>().Unload(); //Unload le receptacle
                 }
                 else
                 {
-                    target.GetComponent<LightManager>().LightDecreasing();
+                    if (target.parent != null) //Si il a un parent
+                    {
+                        if (target.GetComponentInParent<BinaryLight>().gotLight && target.GetComponentInParent<BinaryLight>().isInvicible == false) //Si il a la light et qu'il n'est pas invicible tu attaques
+                        {
+                            AttackPlayer(target);
+                        }
+                    }
+                    else //Sinon tu absorbe
+                    {
+                        Debug.Log("J'absorbe");
+                        target.GetComponent<LightManager>().LightDecreasing(absorbFactor);
+                    }
                 }
             }
-
             absorbTimer = 0;
         }
+    }
+
+    private void AttackPlayer(Transform target)
+    {
+        target.GetComponentInParent<BinaryLight>().DropLight(lightEjectionDistance, lightEjectionHeight);
     }
 }
