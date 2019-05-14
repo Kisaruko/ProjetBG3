@@ -21,8 +21,8 @@ public class LightDetection : MonoBehaviour
     ParticleSystem.TrailModule trail;
     ParticleSystem.EmissionModule emission;
     ParticleSystem.VelocityOverLifetimeModule velocityOverLifetime;
-    private GameObject particlesTarget =0.3f;
-    public float stoppingRange;
+    private GameObject particlesTarget;
+    public float stoppingRange=0.3f;
 
     #region unityMehods
     private void Start()
