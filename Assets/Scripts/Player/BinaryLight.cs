@@ -175,7 +175,9 @@ public class BinaryLight : MonoBehaviour
     public void LightCanBeRegrabed()
     {
         isRegrabable = true;
-       // lightRb.drag = 0;
+        LightObject.transform.DOPause();
+
+        // lightRb.drag = 0;
     }
     void Aiming()
     {
