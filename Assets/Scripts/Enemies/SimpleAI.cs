@@ -37,6 +37,9 @@ public class SimpleAI : MonoBehaviour
     public float lightEjectionDistance;
     public float lightEjectionHeight;
 
+    [Header("Attack Variables", order = 0)]
+    public GameObject succionVfx;
+    private GameObject clone;
 
     private void Start()
     {
@@ -54,6 +57,7 @@ public class SimpleAI : MonoBehaviour
         if (Detection())
         {
             FollowLight();
+
         }
 
         if (!Detection())
@@ -145,6 +149,7 @@ public class SimpleAI : MonoBehaviour
     {
         meshAgent.SetDestination(GetClosestTarget().position);
 
+
         if (Vector3.Distance(transform.position, GetClosestTarget().position) < absorbRange)
         {
             meshAgent.isStopped = true;
@@ -160,6 +165,7 @@ public class SimpleAI : MonoBehaviour
     {
         absorbTimer += Time.deltaTime;
         Transform target = GetClosestTarget();
+   
         if (absorbTimer >= absorbCooldown)
         {
             if (((1 << target.gameObject.layer) & targetMask) != 0)
@@ -167,6 +173,10 @@ public class SimpleAI : MonoBehaviour
                 if (target.GetComponent<Light>() != null) //Si une light est présente
                 {
                     target.GetComponent<SwitchBehaviour>().Unload(); //Unload le receptacle
+                    clone = Instantiate(succionVfx, target.position, Quaternion.identity);
+                    clone.GetComponent<SuckedLightBehaviour>().light = target;
+                    clone.GetComponent<SuckedLightBehaviour>().mobSuckingSpot = transform;
+                    clone.GetComponent<SuckedLightBehaviour>().isSucked = true;
                 }
                 else
                 {
@@ -179,15 +189,24 @@ public class SimpleAI : MonoBehaviour
                     }
                     else //Sinon tu absorbes
                     {
-                        Debug.Log("J'absorbe");
                         target.GetComponent<LightManager>().LightDecreasing(absorbFactor);
+                        clone = Instantiate(succionVfx, target.position, Quaternion.identity);
+                        clone.GetComponent<SuckedLightBehaviour>().light = target;
+                        clone.GetComponent<SuckedLightBehaviour>().mobSuckingSpot = transform;
+                        clone.GetComponent<SuckedLightBehaviour>().isSucked = true;
                     }
                 }
             }
             absorbTimer = 0;
         }
     }
-
+    public void DestroyClone()
+    {
+        if(clone != null)
+        {
+            Destroy(clone.gameObject);
+        }
+    }
     private void AttackPlayer(Transform target)
     {
         target.GetComponentInParent<BinaryLight>().DropLight(lightEjectionDistance, lightEjectionHeight);

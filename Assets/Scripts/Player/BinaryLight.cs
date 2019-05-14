@@ -59,7 +59,7 @@ public class BinaryLight : MonoBehaviour
     private float baseSpeed;
     public GameObject vfxGrabLight;
     private Vector3 vfxPos;
-
+    public LayerMask cloneDetection;
 
 
     /// <summary>
@@ -113,7 +113,7 @@ public class BinaryLight : MonoBehaviour
         //Debug
         if (Input.GetKeyDown(KeyCode.D))
         {
-            DropLight(ejectionDistance,ejectionHeight);
+            DropLight(ejectionDistance, ejectionHeight);
         }
         if (Input.GetKeyDown(KeyCode.G) || (Input.GetButtonDown("Throw")))
         {
@@ -171,6 +171,10 @@ public class BinaryLight : MonoBehaviour
             LightObject.transform.parent = lightAnchor;
             bondCylinder.DisableEffects();
             Invoke("AnimatorSetter", 0.2f);
+            foreach (Collider hitcol in Physics.OverlapSphere(transform.position, 5f,cloneDetection)) // crée une sphere de detection
+            {
+                hitcol.GetComponent<SimpleAI>().DestroyClone();
+            }
         }
     }
     public void LightCanBeRegrabed()
@@ -302,11 +306,11 @@ public class BinaryLight : MonoBehaviour
 
         //LightObject.transform.DOJump(end.transform.position, 2, 1, 1.5f); //-- CA PERMET DE FAIRE JUMP LA LUMIERE SI BESOIN --
 
-        if(LightObject.transform.parent == null)
+        if (LightObject.transform.parent == null)
         {
             LightObject.transform.DOMove(end.transform.position, lightSpeed * Time.deltaTime);
         }
-        
+
 
         #region OLD
         /*if (teleport)
