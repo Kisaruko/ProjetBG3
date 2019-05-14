@@ -21,7 +21,8 @@ public class LightDetection : MonoBehaviour
     ParticleSystem.TrailModule trail;
     ParticleSystem.EmissionModule emission;
     ParticleSystem.VelocityOverLifetimeModule velocityOverLifetime;
-    private GameObject particlesTarget;
+    private GameObject particlesTarget =0.3f;
+    public float stoppingRange;
 
     #region unityMehods
     private void Start()
@@ -91,7 +92,11 @@ public class LightDetection : MonoBehaviour
             Vector3 newVelocity = m_Particles[i].position - particlesTarget.transform.position +Vector3.down; // Calcule la direction vers le joueur
             m_Particles[i].velocity = (newVelocity * particlesSpeed) * -1; // Set la velocité du particule concerné
         }
-
+      /*  for (int i = 0; i < numParticlesAlive/3; i++)
+        {
+            Vector3 newVelocity = m_Particles[i].position - particlesTarget.transform.position + Vector3.up*5; // Calcule la direction vers le joueur
+            m_Particles[i].velocity = (newVelocity * particlesSpeed) * -1; // Set la velocité du particule concerné
+        }*/
         // Applique les changements au particule system
         ps.SetParticles(m_Particles, numParticlesAlive);
 
@@ -99,7 +104,7 @@ public class LightDetection : MonoBehaviour
 
     private void StopObject()
     {
-        if (Physics.CheckSphere(transform.position, 0.6f,~exceptionLayer))
+        if (Physics.CheckSphere(transform.position, stoppingRange,~exceptionLayer))
         {
             binaryLight.LightCanBeRegrabed();
         }
