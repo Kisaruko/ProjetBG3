@@ -9,8 +9,8 @@ public class LightDetection : MonoBehaviour
     private Light light;
     public float rangeMultiplier;
     public ParticleSystem ps;
-
-
+    public LayerMask exceptionLayer;
+    private BinaryLight binaryLight;
     [Header("Vfx Attributes", order = 0)]
     [Space(10, order = 1)]
     public bool followTarget;
@@ -26,6 +26,7 @@ public class LightDetection : MonoBehaviour
     #region unityMehods
     private void Start()
     {
+        binaryLight = GameObject.Find("Player").GetComponent<BinaryLight>();
         light = GetComponentInChildren<Light>();
         emission = ps.emission;
         emission.enabled = false;
@@ -55,6 +56,13 @@ public class LightDetection : MonoBehaviour
         if(followTarget)
         {
             ParticlesGoToTarget();
+        }
+    }
+    private void FixedUpdate()
+    {
+        if (binaryLight.isThrown)
+        {
+            StopObject();
         }
     }
     private void OnDrawGizmosSelected()
@@ -89,7 +97,13 @@ public class LightDetection : MonoBehaviour
 
     }
 
-
+    private void StopObject()
+    {
+        if (Physics.CheckSphere(transform.position, 0.6f,~exceptionLayer))
+        {
+            binaryLight.LightCanBeRegrabed();
+        }
+    }
     void InitializeIfNeeded()
     {
        /* if (m_System == null) // si le particle system n'est pas set

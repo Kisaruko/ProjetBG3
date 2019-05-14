@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 1975590014}
   - component: {fileID: 185255197}
   - component: {fileID: 185255198}
+  - component: {fileID: 1733614272}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -98,7 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a5e3d5ec3155264f909b471cfdeb09e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isFiltered: 1
+  isFiltered: 0
   m_Material: {fileID: 2100000, guid: 0d1b27043ec0bb34eacf2e464acb2bfe, type: 2}
 --- !u!114 &1975590014
 MonoBehaviour:
@@ -189,6 +190,27 @@ MonoBehaviour:
   m_BeforeTransparentBundles: []
   m_BeforeStackBundles: []
   m_AfterStackBundles: []
+--- !u!114 &1733614272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6913696441118821659}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 101ac74223261194c952044eea3af2fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  opacity: 0
+  invert: 1
+  blur: 20
+  captureMode: 1
+  fullScreenTexture: {fileID: 2800000, guid: 637685186afeb114b8772a66aa3702da, type: 3}
+  renderersEnabled: 1
+  depthTest: 1
+  cullMode: 2
+  serializedRenderers: []
 --- !u!1 &6913696441364486493
 GameObject:
   m_ObjectHideFlags: 0

@@ -4,8 +4,10 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 
-public class Restart : MonoBehaviour {
-	void Update ()
+public class Restart : MonoBehaviour
+{
+
+    void Update ()
     {
 		if(Input.GetKeyDown(KeyCode.R))
         {
