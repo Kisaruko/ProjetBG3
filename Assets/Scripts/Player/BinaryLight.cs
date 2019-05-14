@@ -93,7 +93,7 @@ public class BinaryLight : MonoBehaviour
 
             if (Input.GetButtonDown("Throw") || Input.GetMouseButtonDown(0))
             {
-              //  emi.rateOverTime = 30;
+                //emi.rateOverTime = 30;
                 anim.SetBool("isAiming", true);
                 anim.SetBool("launch", false);
 

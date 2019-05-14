@@ -177,7 +177,7 @@ public class SimpleAI : MonoBehaviour
                             AttackPlayer(target);
                         }
                     }
-                    else //Sinon tu absorbe
+                    else //Sinon tu absorbes
                     {
                         Debug.Log("J'absorbe");
                         target.GetComponent<LightManager>().LightDecreasing(absorbFactor);
