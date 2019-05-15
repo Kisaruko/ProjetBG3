@@ -1611,6 +1611,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 32, y: 0, z: 0}
+--- !u!1 &1070593448 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5332984793361836066, guid: a00fef5e2719fa846be2377f8a0ac355,
+    type: 3}
+  m_PrefabInstance: {fileID: 5332984794011805429}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1070593452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1070593448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eeced0fbff96775468c2f52c1b8f6cc4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneToLoad: 
 --- !u!1 &1101771802
 GameObject:
   m_ObjectHideFlags: 0
@@ -6322,6 +6341,21 @@ PrefabInstance:
       propertyPath: lightBeginPos
       value: 
       objectReference: {fileID: 416085206}
+    - target: {fileID: 2738604976594047270, guid: cc52c9a7e74be54448cbfcb1c8c03638,
+        type: 3}
+      propertyPath: distToGround
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2738604976594047270, guid: cc52c9a7e74be54448cbfcb1c8c03638,
+        type: 3}
+      propertyPath: slopeRayHeight
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2738604976594047270, guid: cc52c9a7e74be54448cbfcb1c8c03638,
+        type: 3}
+      propertyPath: mask.m_Bits
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2023587059, guid: cc52c9a7e74be54448cbfcb1c8c03638, type: 3}
       propertyPath: ShapeModule.m_MeshRenderer
       value: 
