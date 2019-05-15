@@ -9,21 +9,23 @@ public class MovingPlatformWithTime : MonoBehaviour
     private void Start()
     {
         InvokeRepeating("RevertSpeed", 1.5f, 3f);
-       
     }
     private void Update()
     {
-        transform.Translate((Vector3.forward * speed)*Time.deltaTime);
+        transform.Translate((Vector3.forward * speed) * Time.deltaTime);
     }
     void RevertSpeed()
     {
         speed = speed * -1;
     }
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Success");
-        Instantiate(touchedFx, transform.position, Quaternion.identity);
-        player.transform.position = transform.position;
+       // Instantiate(touchedFx, transform.position, Quaternion.identity);
+        //player.transform.position = transform.position;
+        if (other.gameObject.layer == 15)
+        {
+            other.gameObject.transform.parent = this.transform;
+        }
     }
 
 }

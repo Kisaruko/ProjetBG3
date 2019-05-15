@@ -158,7 +158,7 @@ public class BinaryLight : MonoBehaviour
             LightObject.transform.position = lightAnchor.position;
             LightObject.transform.parent = lightAnchor;
             Invoke("AnimatorSetter", 0.2f);
-            foreach (Collider hitcol in Physics.OverlapSphere(transform.position, 5f,cloneDetection)) // crée une sphere de detection
+            foreach (Collider hitcol in Physics.OverlapSphere(transform.position, 1000f,cloneDetection)) // crée une sphere de detection
             {
                 hitcol.GetComponent<SimpleAI>().DestroyClone();
             }
