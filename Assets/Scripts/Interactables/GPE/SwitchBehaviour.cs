@@ -41,6 +41,10 @@ public class SwitchBehaviour : MonoBehaviour
     private bool transformIsMaxed;
     private bool receiverIsSet;
     private bool isLoading;
+    bool checkMinRange = false;
+    bool checkMinIntensity = false;
+    bool checkMinYpos = false;
+    public bool isAtMinimum = true;
 
     private void Start()
     {
@@ -58,7 +62,7 @@ public class SwitchBehaviour : MonoBehaviour
     {
         if (!isActivated && isLoading)
         {
-            if (Vector3.Distance(transform.position, playerLight.transform.position) > playerLight.GetComponent<LightDetection>().range*2)
+            if (Vector3.Distance(transform.position, playerLight.transform.position) > playerLight.GetComponent<LightDetection>().range * 2)
             {
                 fil.emitterTransform = transform;
                 receiverIsSet = false;
@@ -71,6 +75,7 @@ public class SwitchBehaviour : MonoBehaviour
     {
         if (!isActivated)
         {
+            isAtMinimum = false;
             isLoading = true;
             loadingEvent.Invoke();
 
@@ -106,7 +111,7 @@ public class SwitchBehaviour : MonoBehaviour
             if (!receiverIsSet)
             {
                 fil.emitterTransform = playerLight.transform;
-                
+
                 receiverIsSet = true;
             }
         }
@@ -114,18 +119,36 @@ public class SwitchBehaviour : MonoBehaviour
 
     public void Unload()
     {
-            if (thisObjectLight.intensity > minIntensity)
-            {
-                thisObjectLight.intensity -= lightGrowFactor;
-            }
-            if (transform.position.y > minYPos)
-            {
-                transform.Translate(Vector3.down * transformMoveFactor);
-            }
-            if (thisObjectLight.range > minRange)
-            {
-                thisObjectLight.range -= rangeGrowFactor;
-            }
+
+        if (thisObjectLight.intensity > minIntensity)
+        {
+            thisObjectLight.intensity -= lightGrowFactor;
+        }
+        else
+        {
+            checkMinIntensity = true;
+        }
+        if (transform.position.y > minYPos)
+        {
+            transform.Translate(Vector3.down * transformMoveFactor);
+        }
+        else
+        {
+            checkMinYpos = true;
+        }
+        if (thisObjectLight.range > minRange)
+        {
+            thisObjectLight.range -= rangeGrowFactor;
+        }
+        else
+        {
+            checkMinRange = true;
+        }
+        if (checkMinIntensity && checkMinRange && checkMinYpos)
+        {
+            isAtMinimum = true;
+        }
+
         Deactivate();
     }
 

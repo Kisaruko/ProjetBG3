@@ -80,8 +80,18 @@ public class SimpleAI : MonoBehaviour
                 float dstToTarget = Vector3.Distance(transform.position, target.position); //Create a distance between player and enemies
                 if (!Physics.Raycast(transform.position, dirToTarget, dstToTarget, obstacleMask)) //if the raycast do not hit a wall between player and enemies
                 {
-                    visibleTargets.Add(target);
-                    return true; //return true to boolean in order to make something
+                    if (target.gameObject.GetComponent<SwitchBehaviour>() != null && target.GetComponent<SwitchBehaviour>().isAtMinimum == false)
+                    {
+                        visibleTargets.Add(target);
+                        return true; //return true to boolean in order to make something
+
+                    }
+                    if (target.gameObject.GetComponent<LightManager>() != null)
+                    {
+                        visibleTargets.Add(target);
+                        return true; //return true to boolean in order to make something
+
+                    }
                 }
             }
         }
@@ -156,7 +166,6 @@ public class SimpleAI : MonoBehaviour
             meshAgent.isStopped = true;
             AbsorbLight();
             animator.SetBool("Chasing", false);
-            animator.SetBool("Absorb", true);
         }
         else
         {
@@ -173,16 +182,16 @@ public class SimpleAI : MonoBehaviour
         {
             if (((1 << target.gameObject.layer) & targetMask) != 0)
             {
-                if (target.GetComponent<Light>() != null) //Si c'est un réceptacle
+                if (target.GetComponent<Light>() != null && !target.GetComponent<SwitchBehaviour>().isAtMinimum) //Si c'est un réceptacle
                 {
-                    animator.SetBool("Absorb", true);
-                    animator.SetBool("Chasing", false);
-                    animator.SetBool("Attack", false);
-                    target.GetComponent<SwitchBehaviour>().Unload(); //Unload le receptacle
-                    clone = Instantiate(succionVfx, target.position, Quaternion.identity);
-                    clone.GetComponent<SuckedLightBehaviour>().light = target;
-                    clone.GetComponent<SuckedLightBehaviour>().mobSuckingSpot = transform;
-                    clone.GetComponent<SuckedLightBehaviour>().isSucked = true;
+                        animator.SetBool("Absorb", true);
+                        animator.SetBool("Chasing", false);
+                        animator.SetBool("Attack", false);
+                        target.GetComponent<SwitchBehaviour>().Unload(); //Unload le receptacle
+                        clone = Instantiate(succionVfx, target.position, Quaternion.identity);
+                        clone.GetComponent<SuckedLightBehaviour>().light = target;
+                        clone.GetComponent<SuckedLightBehaviour>().mobSuckingSpot = transform;
+                        clone.GetComponent<SuckedLightBehaviour>().isSucked = true;
                 }
                 else
                 {
