@@ -5,6 +5,8 @@ using UnityEngine.Events;
 
 public class SwitchBehaviour : MonoBehaviour
 {
+    public bool activateAtStart;
+
     private Light thisObjectLight;
     public bool isActivated;
     public GameObject assiociatedObject;
@@ -40,7 +42,7 @@ public class SwitchBehaviour : MonoBehaviour
     private bool rangeIsMaxed;
     private bool transformIsMaxed;
     private bool receiverIsSet;
-    private bool isLoading;
+    public bool isLoading;
     bool checkMinRange = false;
     bool checkMinIntensity = false;
     bool checkMinYpos = false;
@@ -57,6 +59,7 @@ public class SwitchBehaviour : MonoBehaviour
         materials = mesh.materials;
         myMat = materials[1];
         maxYPos += transform.position.y;
+        ActivateAtStart();
     }
     private void Update()
     {
@@ -171,5 +174,17 @@ public class SwitchBehaviour : MonoBehaviour
         activationEvent.Invoke();
         playerLight.GetComponent<LightDetection>().StopFollow();
 
+    }
+    private void ActivateAtStart()
+    {
+        if(activateAtStart == true)
+        {
+            playerLight = FindObjectOfType<LightManager>().gameObject;
+
+            transform.position = new Vector3(transform.position.x, transform.position.y - maxYPos/5, transform.position.z);
+            thisObjectLight.intensity = maxIntensity;
+            thisObjectLight.range = maxRange;
+            Activation();
+        }
     }
 }
