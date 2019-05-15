@@ -112,24 +112,30 @@ public class SwitchBehaviour : MonoBehaviour
         }
     }
 
-    /*public void Desactivation()
+    public void Unload()
     {
-        if (!isActivated)
-        {
-            if (light.intensity > minIntensity)
+            if (thisObjectLight.intensity > minIntensity)
             {
-                light.intensity -= lightGrowFactor;
+                thisObjectLight.intensity -= lightGrowFactor;
             }
             if (transform.position.y > minYPos)
             {
                 transform.Translate(Vector3.down * transformMoveFactor);
             }
-            if (light.range > minRange)
+            if (thisObjectLight.range > minRange)
             {
-                light.range -= rangeGrowFactor;
+                thisObjectLight.range -= rangeGrowFactor;
             }
-        }
-    }*/
+        Deactivate();
+    }
+
+    private void Deactivate()
+    {
+        Debug.Log("yé souis plu activo");
+        myMat.DisableKeyword("_EMISSION");
+        isActivated = false;
+        deactivateEvent.Invoke();
+    }
 
     private void Activation()
     {

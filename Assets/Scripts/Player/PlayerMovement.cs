@@ -36,6 +36,7 @@ public class PlayerMovement : MonoBehaviour
     Quaternion lastRotation;
     private BinaryLight binaryLight;
     private LightManager lightManager;
+    public float dashDecreaseFactor;
 
     [Header("Upgrade Dash Variables")]
     public bool upgradeDashUnlocked;
@@ -202,7 +203,7 @@ public class PlayerMovement : MonoBehaviour
             if (lightManager.canDash == true && binaryLight.gotLight == true) // si le joueur a assez de lumière pour dasher // Remplacer par le candash de binarylight
             {
                 anim.SetBool("isDashing", true);
-                lightManager.LightDecreasing();
+                lightManager.LightDecreasing(dashDecreaseFactor);
                 lightManager.canDash = false;
                 shinyBody.Play();
                 Instantiate(trailDashParticles, transform.position, Quaternion.identity);
