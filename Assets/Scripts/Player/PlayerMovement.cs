@@ -67,10 +67,11 @@ public class PlayerMovement : MonoBehaviour
     {
         if (controlsAreEnabled)
         {
-            Movement();
             DashDetection();
+            Movement();
         }
     }
+
     #endregion
 
     #region Custom Methods
@@ -98,7 +99,7 @@ public class PlayerMovement : MonoBehaviour
                     return false; // return false if we are very near / on the slope && the slope is steep
                 }
 
-               // return true; // return true if the slope is not steep
+                // return true; // return true if the slope is not steep
 
             }
 
@@ -108,9 +109,9 @@ public class PlayerMovement : MonoBehaviour
 
     private bool IsGrounded()
     {
-        Debug.DrawRay(transform.position, -transform.up, Color.yellow);
+        Debug.DrawRay(transform.position+Vector3.up, -transform.up, Color.red);
 
-        return (Physics.Raycast(transform.position, -transform.up, distToGround + 0.01f));
+        return (Physics.Raycast(transform.position+Vector3.up, -transform.up, distToGround + 1.01f));
     }
 
     void Movement()
@@ -152,7 +153,7 @@ public class PlayerMovement : MonoBehaviour
                 //transform.rotation = Quaternion.LookRotation(looksDirection, Vector3.up); // le joueur regarde en face de lui
                 transform.rotation = Quaternion.Slerp(lastRotation, smoothRotation, rotationSpeed);
 
-                if(Quaternion.Angle(transform.rotation, smoothRotation) >= isInRotationThreshold)
+                if (Quaternion.Angle(transform.rotation, smoothRotation) >= isInRotationThreshold)
                 {
                     //Debug.Log("I'm in rotation");
                     isInRotation = true;
@@ -165,7 +166,7 @@ public class PlayerMovement : MonoBehaviour
 
 
                 Vector3 Velocity = new Vector3(xInput, gravity, yInput);
-                Velocity.Normalize();
+
                 if (CheckMoveableTerrain(transform.position, new Vector3(Velocity.x, 0, Velocity.z), 0.1f)) // filter the y out, so it only checks forward... could get messy with the cosine otherwise.
                 {
                     rb.velocity = Velocity * moveSpeed; // le joueur avance dans la direction du joystick gauche
