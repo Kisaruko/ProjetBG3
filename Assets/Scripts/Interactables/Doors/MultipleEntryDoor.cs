@@ -20,7 +20,7 @@ public class MultipleEntryDoor : ActivableObjects
 
     private void CheckIfAllEntriesAreSet()
     {
-        if(ActualEntriesSet == NumberOfEntries)
+        if(ActualEntriesSet >= NumberOfEntries)
         {
             Activate();
         }
