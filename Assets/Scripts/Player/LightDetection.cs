@@ -111,11 +111,10 @@ public class LightDetection : MonoBehaviour
     }
     void InitializeIfNeeded()
     {
-       /* if (m_System == null) // si le particle system n'est pas set
+        if (ps == null) // si le particle system n'est pas set
         {
-            m_System = GetComponent<ParticleSystem>(); // get le particle system
-            m_System.trigger.SetCollider(1, playerCollider);// get le collider du player qui doit détruire les particules
-        }*/
+            ps = GetComponentInChildren<ParticleSystem>(); // get le particle system
+        }
 
 
         if (m_Particles == null || m_Particles.Length < ps.main.maxParticles) // Si pas de particules sont instantiées ou si le tableau de particule est inférieur au max de particules
