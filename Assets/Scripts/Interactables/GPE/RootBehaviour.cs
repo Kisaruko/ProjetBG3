@@ -22,7 +22,7 @@ public class RootBehaviour : ActivableObjects
     private void Start()
     {
         emissiveMaterial = emissiveRootRenderer.material;
-        emissiveMaterial.mainTextureOffset = new Vector2(minUvOffsetX, offsetY);
+        emissiveMaterial.mainTextureOffset = new Vector2(maxUvOffsetX, offsetY);
         emissiveMaterial.mainTextureScale = new Vector2(tilingX, tilingY);
     }
 
