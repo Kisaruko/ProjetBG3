@@ -47,6 +47,7 @@ public class SwitchBehaviour : MonoBehaviour
     bool checkMinIntensity = false;
     bool checkMinYpos = false;
     public bool isAtMinimum = true;
+    private bool haveSetAnEntry = false;
 
     private void Start()
     {
@@ -157,10 +158,17 @@ public class SwitchBehaviour : MonoBehaviour
 
     private void Deactivate()
     {
-        Debug.Log("yé souis plu activo");
         myMat.DisableKeyword("_EMISSION");
         isActivated = false;
         deactivateEvent.Invoke();
+        if(assiociatedObject != null)
+        {
+            if(assiociatedObject.GetComponent<MultipleEntryDoor>().ActualEntriesSet> 0 && haveSetAnEntry)
+            {
+                assiociatedObject.GetComponent<MultipleEntryDoor>().SetNewEntry(-1);
+                haveSetAnEntry = false;
+            }
+        }
     }
 
     private void Activation()
@@ -173,7 +181,14 @@ public class SwitchBehaviour : MonoBehaviour
         fil.emitterTransform = transform;
         activationEvent.Invoke();
         playerLight.GetComponent<LightDetection>().StopFollow();
-
+        if(assiociatedObject != null)
+        {
+            if (!haveSetAnEntry)
+            {
+                assiociatedObject.GetComponent<MultipleEntryDoor>().SetNewEntry(1);
+                haveSetAnEntry = true;
+            }
+        }
     }
     private void ActivateAtStart()
     {
