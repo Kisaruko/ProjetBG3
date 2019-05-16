@@ -48,6 +48,7 @@ public class SwitchBehaviour : MonoBehaviour
     bool checkMinYpos = false;
     public bool isAtMinimum = true;
     private bool haveSetAnEntry = false;
+    public int nbEntryThisSwitchSet = 1;
 
     private void Start()
     {
@@ -165,7 +166,7 @@ public class SwitchBehaviour : MonoBehaviour
         {
             if(assiociatedObject.GetComponent<MultipleEntryDoor>().ActualEntriesSet> 0 && haveSetAnEntry)
             {
-                assiociatedObject.GetComponent<MultipleEntryDoor>().SetNewEntry(-1);
+                assiociatedObject.GetComponent<MultipleEntryDoor>().SetNewEntry(-nbEntryThisSwitchSet);
                 haveSetAnEntry = false;
             }
         }
@@ -185,7 +186,7 @@ public class SwitchBehaviour : MonoBehaviour
         {
             if (!haveSetAnEntry)
             {
-                assiociatedObject.GetComponent<MultipleEntryDoor>().SetNewEntry(1);
+                assiociatedObject.GetComponent<MultipleEntryDoor>().SetNewEntry(nbEntryThisSwitchSet);
                 haveSetAnEntry = true;
             }
         }
