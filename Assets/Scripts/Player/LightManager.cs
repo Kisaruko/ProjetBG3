@@ -13,7 +13,7 @@ public class LightManager : MonoBehaviour
     public float increaseTime;
     public float decreaseTime;
     public float increaseFactor;
-    public float decreaseFactor;
+    public float dashDecreaseFactor;
     public float dashDecreaseMultiplier;
     public bool canDash;
     public GameObject fxMaxLight;
@@ -34,7 +34,7 @@ public class LightManager : MonoBehaviour
         {
             canDash = true;
         }
-        if (!playermovement.isMoving && binarylight.gotLight)
+        if (binarylight.gotLight)
         {
             StartCoroutine("StartIncrease");
         }
@@ -46,6 +46,10 @@ public class LightManager : MonoBehaviour
         {
             StartCoroutine("StartIncrease");
         }
+        if(shortLight.intensity <= -0.5f)
+        {
+            GameManager._instance.Restart();
+        }
     }
 
     IEnumerator StartIncrease()
@@ -56,7 +60,7 @@ public class LightManager : MonoBehaviour
     IEnumerator StartDecrease()
     {
         yield return new WaitForSecondsRealtime(decreaseTime);
-        LightDecreasing();
+        LightDecreasing(dashDecreaseFactor);
     }
     public void LightIncreasing()
     {
@@ -74,7 +78,7 @@ public class LightManager : MonoBehaviour
         }
     }
 
-    public void LightDecreasing()
+    public void LightDecreasing(float decreaseFactor)
     {
         if (shortLight.intensity > minIntensity)
         {

@@ -5,10 +5,11 @@ using UnityEngine.Events;
 
 public class SwitchBehaviour : MonoBehaviour
 {
+    public bool activateAtStart;
+
     private Light thisObjectLight;
     public bool isActivated;
     public GameObject assiociatedObject;
-    private Spektr.LightningRenderer fil;
     public UnityEvent activationEvent = new UnityEvent();
     public UnityEvent deactivateEvent = new UnityEvent();
     public UnityEvent loadingEvent = new UnityEvent();
@@ -35,12 +36,21 @@ public class SwitchBehaviour : MonoBehaviour
     private MeshRenderer mesh;
     private Material[] materials;
     private Material myMat;
+
     //Booléens d'activation
     private bool intensityIsMaxed;
     private bool rangeIsMaxed;
     private bool transformIsMaxed;
-    private bool receiverIsSet;
-    private bool isLoading;
+    [Header("Load Components", order = 0)]
+    [Space(10, order = 1)]
+    public bool isLoading;
+    bool checkMinRange = false;
+    bool checkMinIntensity = false;
+    bool checkMinYpos = false;
+    public bool isAtMinimum = true;
+    private bool haveSetAnEntry = false;
+    public int nbEntryThisSwitchSet = 1;
+
 
     private void Start()
     {
@@ -48,22 +58,23 @@ public class SwitchBehaviour : MonoBehaviour
         minYPos = transform.position.y;
         minIntensity = thisObjectLight.intensity;
         minRange = thisObjectLight.range;
-        fil = GetComponent<Spektr.LightningRenderer>();
         mesh = GetComponent<MeshRenderer>();
         materials = mesh.materials;
         myMat = materials[1];
         maxYPos += transform.position.y;
+        ActivateAtStart();
     }
     private void Update()
     {
         if (!isActivated && isLoading)
         {
-            if (Vector3.Distance(transform.position, playerLight.transform.position) > playerLight.GetComponent<LightDetection>().range*2)
+            if (playerLight.GetComponent<LightDetection>() != null)
             {
-                fil.emitterTransform = transform;
-                receiverIsSet = false;
-                deactivateEvent.Invoke();
-                playerLight.GetComponent<LightDetection>().StopFollow();
+                if (Vector3.Distance(transform.position, playerLight.transform.position) > playerLight.GetComponent<LightDetection>().range * 2)
+                {
+                    deactivateEvent.Invoke();
+                    playerLight.GetComponent<LightDetection>().StopFollow();
+                }
             }
         }
     }
@@ -71,6 +82,7 @@ public class SwitchBehaviour : MonoBehaviour
     {
         if (!isActivated)
         {
+            isAtMinimum = false;
             isLoading = true;
             loadingEvent.Invoke();
 
@@ -102,45 +114,88 @@ public class SwitchBehaviour : MonoBehaviour
             {
                 Activation();
             }
+        }
+    }
 
-            if (!receiverIsSet)
+    public void Unload()
+    {
+        if (thisObjectLight.intensity > minIntensity)
+        {
+            thisObjectLight.intensity -= lightGrowFactor*4;
+        }
+        else
+        {
+            checkMinIntensity = true;
+        }
+        if (transform.position.y > minYPos)
+        {
+            transform.Translate(Vector3.down * transformMoveFactor*2);
+        }
+        else
+        {
+            checkMinYpos = true;
+        }
+        if (thisObjectLight.range > minRange)
+        {
+            thisObjectLight.range -= rangeGrowFactor*4;
+        }
+        else
+        {
+            checkMinRange = true;
+        }
+        if (checkMinIntensity && checkMinRange && checkMinYpos)
+        {
+            isAtMinimum = true;
+        }
+        Deactivate();
+    }
+
+    private void Deactivate()
+    {
+        myMat.DisableKeyword("_EMISSION");
+        isActivated = false;
+        deactivateEvent.Invoke();
+        if(assiociatedObject != null)
+        {
+            if(assiociatedObject.GetComponent<MultipleEntryDoor>().ActualEntriesSet> 0 && haveSetAnEntry)
             {
-                fil.emitterTransform = playerLight.transform;
-                
-                receiverIsSet = true;
+                assiociatedObject.GetComponent<MultipleEntryDoor>().SetNewEntry(-nbEntryThisSwitchSet);
+                haveSetAnEntry = false;
             }
         }
     }
 
-    /*public void Desactivation()
-    {
-        if (!isActivated)
-        {
-            if (light.intensity > minIntensity)
-            {
-                light.intensity -= lightGrowFactor;
-            }
-            if (transform.position.y > minYPos)
-            {
-                transform.Translate(Vector3.down * transformMoveFactor);
-            }
-            if (light.range > minRange)
-            {
-                light.range -= rangeGrowFactor;
-            }
-        }
-    }*/
-
     private void Activation()
     {
         myMat.EnableKeyword("_EMISSION");
-        receiverIsSet = true;
         isLoading = false;
         Instantiate(maxLightVfx, transform.position, Quaternion.identity);
         isActivated = true;
-        fil.emitterTransform = transform;
         activationEvent.Invoke();
-        playerLight.GetComponent<LightDetection>().StopFollow();
+        if (playerLight.GetComponent<LightDetection>() != null)
+        {
+            playerLight.GetComponent<LightDetection>().StopFollow();
+        }
+        if(assiociatedObject != null)
+        {
+            if (!haveSetAnEntry)
+            {
+                assiociatedObject.GetComponent<MultipleEntryDoor>().SetNewEntry(nbEntryThisSwitchSet);
+                haveSetAnEntry = true;
+            }
+        }
+        GetComponent<ChainReaction>().GetSwitchInRange();
+    }
+    private void ActivateAtStart()
+    {
+        if(activateAtStart == true)
+        {
+            playerLight = FindObjectOfType<LightManager>().gameObject;
 
+            transform.position = new Vector3(transform.position.x, transform.position.y - maxYPos/5, transform.position.z);
+            thisObjectLight.intensity = maxIntensity;
+            thisObjectLight.range = maxRange;
+            Activation();
+        }
     }
 }

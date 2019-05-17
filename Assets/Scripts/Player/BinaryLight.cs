@@ -6,9 +6,7 @@ using DG.Tweening;
 public class BinaryLight : MonoBehaviour
 {
     private PlayerMovement playerMovement;
-    private BondCylinder bondCylinder;
     private Animator anim;
-    private LineRenderer viseur;
     private float baseRotationSpeed;
     public bool teleport = false;
     public bool isInvicible = false;
@@ -37,7 +35,6 @@ public class BinaryLight : MonoBehaviour
     [Header("Reticule Attributes", order = 0)]
     [Space(10, order = 1)]
     public float speedWhileAiming;
-    public GameObject reticule;
     public float aimingSpeed;
     private Vector3 lastPosReticule;
     public float maxRange;
@@ -53,13 +50,10 @@ public class BinaryLight : MonoBehaviour
 
     [Header("Vfx Attributes", order = 0)]
     [Space(10, order = 1)]
-    public GameObject VfxAppear;
-    public ParticleSystem VfxDisappear;
-    public ParticleSystem.EmissionModule emi;
     private float baseSpeed;
     public GameObject vfxGrabLight;
     private Vector3 vfxPos;
-
+    public LayerMask cloneDetection;
 
 
     /// <summary>
@@ -68,18 +62,14 @@ public class BinaryLight : MonoBehaviour
     /// 
     private void Start()
     {
-        viseur = GetComponent<LineRenderer>(); // get le line renderer
-        viseur.positionCount = 0; // la ligne a 0 vertex, elle n'apparait donc pas
         lightRb = LightObject.GetComponent<Rigidbody>();
         playerMovement = FindObjectOfType<PlayerMovement>();
-        emi = VfxDisappear.emission;
         baseSpeed = playerMovement.moveSpeed;
         baseRotationSpeed = playerMovement.rotationSpeed;
         anim = GetComponentInChildren<Animator>();
         mesh = LightObject.GetComponentInChildren<MeshRenderer>();
         mesh.enabled = false;
 
-        bondCylinder = GetComponent<BondCylinder>();
 
 
         charRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
@@ -93,7 +83,6 @@ public class BinaryLight : MonoBehaviour
 
             if (Input.GetButtonDown("Throw") || Input.GetMouseButtonDown(0))
             {
-                emi.rateOverTime = 30;
                 anim.SetBool("isAiming", true);
                 anim.SetBool("launch", false);
 
@@ -113,9 +102,9 @@ public class BinaryLight : MonoBehaviour
         //Debug
         if (Input.GetKeyDown(KeyCode.D))
         {
-            DropLight(ejectionDistance,ejectionHeight);
+            DropLight(ejectionDistance, ejectionHeight);
         }
-        if (Input.GetKeyDown(KeyCode.G) || (Input.GetButtonDown("Throw")))
+        if (Input.GetKeyDown(KeyCode.G))
         {
             GetLight();
         }
@@ -154,7 +143,7 @@ public class BinaryLight : MonoBehaviour
         lightRb.useGravity = true;
         Vector3 ejectionDirection = new Vector3(Random.Range(ejectionDistance, -ejectionDistance), ejectionHeight, Random.Range(ejectionDistance, -ejectionDistance));
         lightRb.AddForce(ejectionDirection);
-        bondCylinder.EnableEffects();
+        TakeHit();
 
     }
     public void GetLight()
@@ -168,22 +157,24 @@ public class BinaryLight : MonoBehaviour
             lightRb.useGravity = false;
             LightObject.transform.position = lightAnchor.position;
             LightObject.transform.parent = lightAnchor;
-            bondCylinder.DisableEffects();
             Invoke("AnimatorSetter", 0.2f);
+            foreach (Collider hitcol in Physics.OverlapSphere(transform.position, 1000f,cloneDetection)) // crée une sphere de detection
+            {
+                hitcol.GetComponent<SimpleAI>().DestroyClone();
+            }
         }
     }
     public void LightCanBeRegrabed()
     {
         isRegrabable = true;
-       // lightRb.drag = 0;
+        LightObject.transform.DOPause();
+
+        // lightRb.drag = 0;
     }
     void Aiming()
     {
-        reticule.SetActive(true); // activer le fx de load
         isAimingLight = true;
         playerMovement.rotationSpeed = playerMovement.rotationSpeed / 10;
-
-
     }
     void ManageReticule()
     {
@@ -276,14 +267,10 @@ public class BinaryLight : MonoBehaviour
 
         isRegrabable = false;
         lightRb.drag = 0;
-        viseur.positionCount = 0; // la ligne a 0 vertex, elle n'apparait donc pas
         Invoke("LightCanBeRegrabed", .5f);
-        //particles
-        //emi.rateOverTime = 0;
         //resetspeed
         //playerMovement.moveSpeed = baseSpeed;
-        //saveTheLastPosReticule
-        lastPosReticule = reticule.transform.position;
+
         //Components modifications
         LightObject.transform.parent = null;
         lightRb.isKinematic = false;
@@ -294,18 +281,14 @@ public class BinaryLight : MonoBehaviour
         isThrown = true;
         //reset modifications
         isAimingLight = false;
-        reticule.transform.position = transform.position;
-        reticule.SetActive(false);
-        //Instantiate(VfxAppear, lastPosReticule, Quaternion.identity);
-        bondCylinder.EnableEffects();
 
         //LightObject.transform.DOJump(end.transform.position, 2, 1, 1.5f); //-- CA PERMET DE FAIRE JUMP LA LUMIERE SI BESOIN --
 
-        if(LightObject.transform.parent == null)
+        if (LightObject.transform.parent == null)
         {
             LightObject.transform.DOMove(end.transform.position, lightSpeed * Time.deltaTime);
         }
-        
+
 
         #region OLD
         /*if (teleport)

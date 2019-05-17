@@ -9,8 +9,8 @@ public class LightDetection : MonoBehaviour
     private Light light;
     public float rangeMultiplier;
     public ParticleSystem ps;
-
-
+    public LayerMask exceptionLayer;
+    private BinaryLight binaryLight;
     [Header("Vfx Attributes", order = 0)]
     [Space(10, order = 1)]
     public bool followTarget;
@@ -22,10 +22,12 @@ public class LightDetection : MonoBehaviour
     ParticleSystem.EmissionModule emission;
     ParticleSystem.VelocityOverLifetimeModule velocityOverLifetime;
     private GameObject particlesTarget;
+    public float stoppingRange=0.3f;
 
     #region unityMehods
     private void Start()
     {
+        binaryLight = GameObject.Find("Player").GetComponent<BinaryLight>();
         light = GetComponentInChildren<Light>();
         emission = ps.emission;
         emission.enabled = false;
@@ -57,6 +59,13 @@ public class LightDetection : MonoBehaviour
             ParticlesGoToTarget();
         }
     }
+    private void FixedUpdate()
+    {
+        if (binaryLight.isThrown)
+        {
+            StopObject();
+        }
+    }
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
@@ -83,20 +92,29 @@ public class LightDetection : MonoBehaviour
             Vector3 newVelocity = m_Particles[i].position - particlesTarget.transform.position +Vector3.down; // Calcule la direction vers le joueur
             m_Particles[i].velocity = (newVelocity * particlesSpeed) * -1; // Set la velocité du particule concerné
         }
-
+      /*  for (int i = 0; i < numParticlesAlive/3; i++)
+        {
+            Vector3 newVelocity = m_Particles[i].position - particlesTarget.transform.position + Vector3.up*5; // Calcule la direction vers le joueur
+            m_Particles[i].velocity = (newVelocity * particlesSpeed) * -1; // Set la velocité du particule concerné
+        }*/
         // Applique les changements au particule system
         ps.SetParticles(m_Particles, numParticlesAlive);
 
     }
 
-
+    private void StopObject()
+    {
+        if (Physics.CheckSphere(transform.position, stoppingRange,~exceptionLayer))
+        {
+            binaryLight.LightCanBeRegrabed();
+        }
+    }
     void InitializeIfNeeded()
     {
-       /* if (m_System == null) // si le particle system n'est pas set
+        if (ps == null) // si le particle system n'est pas set
         {
-            m_System = GetComponent<ParticleSystem>(); // get le particle system
-            m_System.trigger.SetCollider(1, playerCollider);// get le collider du player qui doit détruire les particules
-        }*/
+            ps = GetComponentInChildren<ParticleSystem>(); // get le particle system
+        }
 
 
         if (m_Particles == null || m_Particles.Length < ps.main.maxParticles) // Si pas de particules sont instantiées ou si le tableau de particule est inférieur au max de particules
