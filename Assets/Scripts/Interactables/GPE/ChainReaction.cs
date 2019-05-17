@@ -43,7 +43,7 @@ public class ChainReaction : MonoBehaviour
     private void FixedUpdate()
     {
         frames++;
-        if (GetComponent<SwitchBehaviour>().isActivated && frames % 2 == 0)
+        if (GetComponent<SwitchBehaviour>().isActivated && frames % 1 == 0)
         {
             List<SwitchBehaviour> touchedSwitchs = GetSwitchInRange();
             foreach (SwitchBehaviour switchBehaviour in touchedSwitchs)
