@@ -184,7 +184,7 @@ public class SwitchBehaviour : MonoBehaviour
                 haveSetAnEntry = true;
             }
         }
-        GetComponent<ChainReaction>().DoChainReaction();
+        GetComponent<ChainReaction>().GetSwitchInRange();
     }
     private void ActivateAtStart()
     {

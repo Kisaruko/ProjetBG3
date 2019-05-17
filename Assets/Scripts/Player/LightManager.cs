@@ -34,7 +34,7 @@ public class LightManager : MonoBehaviour
         {
             canDash = true;
         }
-        if (!playermovement.isMoving && binarylight.gotLight)
+        if (binarylight.gotLight)
         {
             StartCoroutine("StartIncrease");
         }
@@ -46,7 +46,7 @@ public class LightManager : MonoBehaviour
         {
             StartCoroutine("StartIncrease");
         }
-        if(shortLight.intensity <= 0)
+        if(shortLight.intensity <= -0.5f)
         {
             GameManager._instance.Restart();
         }

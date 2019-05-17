@@ -9,53 +9,50 @@ public class ChainReaction : MonoBehaviour
     public float range;
     public LayerMask switchs;
     private GameObject clone;
-    private bool touchedSomething;
-    private bool canRestartVfx = true;
+    private Transform actualVfxTarget;
+    private int frames;
 
-    private void Start()
+    public List<SwitchBehaviour> GetSwitchInRange()
     {
-        switchbehaviour = GetComponent<SwitchBehaviour>();
-        if (switchbehaviour.isActivated)
-        {
-            DoChainReaction();
-        }
-    }
-    public void DoChainReaction()
-    {
+        List<SwitchBehaviour> switchsList = new List<SwitchBehaviour>(); //crée une liste
+
         foreach (Collider hitcol in Physics.OverlapSphere(transform.position, range, switchs)) // crée une sphere de detection
         {
             Vector3 toCollider = hitcol.transform.position - transform.position; // get le vecteur entre ennemi et player
             Ray ray = new Ray(transform.position, toCollider); // trace un rayon entre les deux
             if (!Physics.Raycast(ray, toCollider.magnitude, ~switchs)) // si le ray ne touche pas de mur
             {
-                if (hitcol.GetComponent<SwitchBehaviour>().isActivated == false)
+                if (hitcol.GetComponent<SwitchBehaviour>().isActivated == false && GetComponent<SwitchBehaviour>().isActivated == true)
                 {
-                    hitcol.GetComponent<SwitchBehaviour>().playerLight = this.gameObject;
-                    hitcol.GetComponent<SwitchBehaviour>().Loading();
+                    SwitchBehaviour switchbehaviour = hitcol.GetComponent<SwitchBehaviour>();
+                    if (switchbehaviour != null) // si l'ennemi a le composant enemy life
+                    {
+                        switchsList.Add(switchbehaviour);// add un composant a la liste
+                        hitcol.GetComponent<SwitchBehaviour>().playerLight = this.gameObject;
+                        hitcol.GetComponent<SwitchBehaviour>().Loading();
+                        int index = Random.Range(0, switchsList.Count);
 
-                    clone = Instantiate(suckedLightVFX, transform.position, Quaternion.identity);
-                    clone.GetComponent<SuckedLightBehaviour>().light = transform;
-                    clone.GetComponent<SuckedLightBehaviour>().mobSuckingSpot = hitcol.transform;
-                    clone.GetComponent<SuckedLightBehaviour>().isSucked = true;
-                    canRestartVfx = false;
-                    touchedSomething = true;
+                        actualVfxTarget = switchsList[index].transform;
+
+                    }
                 }
-                else
-                {
-                    //ouchedSomething = false;
-                }
-            }
-            else
-            {
-                touchedSomething = false;
             }
         }
+        return switchsList;
     }
     private void FixedUpdate()
     {
-        if (switchbehaviour.isActivated && touchedSomething == true)
+        frames++;
+        if (GetComponent<SwitchBehaviour>().isActivated && frames % 2 == 0)
         {
-            DoChainReaction();
+            List<SwitchBehaviour> touchedSwitchs = GetSwitchInRange();
+            foreach (SwitchBehaviour switchBehaviour in touchedSwitchs)
+            {
+                clone = Instantiate(suckedLightVFX, transform.position, Quaternion.identity);
+                clone.GetComponent<SuckedLightBehaviour>().light = transform;
+                clone.GetComponent<SuckedLightBehaviour>().isSucked = true;
+                clone.GetComponent<SuckedLightBehaviour>().mobSuckingSpot = actualVfxTarget;
+            }
         }
     }
     private void OnDrawGizmosSelected()
