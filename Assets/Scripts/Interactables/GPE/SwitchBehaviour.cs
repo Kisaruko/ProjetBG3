@@ -121,7 +121,7 @@ public class SwitchBehaviour : MonoBehaviour
     {
         if (thisObjectLight.intensity > minIntensity)
         {
-            thisObjectLight.intensity -= lightGrowFactor;
+            thisObjectLight.intensity -= lightGrowFactor*4;
         }
         else
         {
@@ -129,7 +129,7 @@ public class SwitchBehaviour : MonoBehaviour
         }
         if (transform.position.y > minYPos)
         {
-            transform.Translate(Vector3.down * transformMoveFactor);
+            transform.Translate(Vector3.down * transformMoveFactor*2);
         }
         else
         {
@@ -137,7 +137,7 @@ public class SwitchBehaviour : MonoBehaviour
         }
         if (thisObjectLight.range > minRange)
         {
-            thisObjectLight.range -= rangeGrowFactor;
+            thisObjectLight.range -= rangeGrowFactor*4;
         }
         else
         {

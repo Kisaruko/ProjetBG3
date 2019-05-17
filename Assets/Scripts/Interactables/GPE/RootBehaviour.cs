@@ -16,11 +16,12 @@ public class RootBehaviour : ActivableObjects
     public float scrollFactor;
     private bool isActivated = false;
 
-    public Renderer emissiveRootRenderer;
+    private Renderer emissiveRootRenderer;
     private Material emissiveMaterial;
 
     private void Start()
     {
+        emissiveRootRenderer = GetComponent<Renderer>();
         emissiveMaterial = emissiveRootRenderer.material;
         emissiveMaterial.mainTextureOffset = new Vector2(maxUvOffsetX, offsetY);
         emissiveMaterial.mainTextureScale = new Vector2(tilingX, tilingY);
