@@ -17,6 +17,7 @@ public class SuckedLightBehaviour : MonoBehaviour
     {
         ps = GetComponent<ParticleSystem>();
         InitializeIfNeeded();
+        Destroy(this.gameObject, 10f);
 
     }
     private void Update()
