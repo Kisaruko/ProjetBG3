@@ -132,7 +132,7 @@ public class SimpleAI : MonoBehaviour
         if (meshAgent.velocity == Vector3.zero)
         {
             animator.SetBool("Chasing", false);
-            animator.SetBool("Absorb", false);
+            // animator.SetBool("Absorb", false);
         }
     }
 
@@ -158,7 +158,6 @@ public class SimpleAI : MonoBehaviour
     {
         meshAgent.SetDestination(GetClosestTarget().position);
         animator.SetBool("Chasing", true);
-        animator.SetBool("Absorb", false);
 
 
         if (Vector3.Distance(transform.position, GetClosestTarget().position) < absorbRange)
@@ -170,6 +169,7 @@ public class SimpleAI : MonoBehaviour
         else
         {
             meshAgent.isStopped = false;
+            animator.SetBool("Absorb", false);
         }
     }
 
@@ -184,14 +184,14 @@ public class SimpleAI : MonoBehaviour
             {
                 if (target.GetComponent<Light>() != null && !target.GetComponent<SwitchBehaviour>().isAtMinimum) //Si c'est un réceptacle
                 {
-                        animator.SetBool("Absorb", true);
-                        animator.SetBool("Chasing", false);
-                        animator.SetBool("Attack", false);
-                        target.GetComponent<SwitchBehaviour>().Unload(); //Unload le receptacle
-                        clone = Instantiate(succionVfx, target.position, Quaternion.identity);
-                        clone.GetComponent<SuckedLightBehaviour>().light = target;
-                        clone.GetComponent<SuckedLightBehaviour>().mobSuckingSpot = transform;
-                        clone.GetComponent<SuckedLightBehaviour>().isSucked = true;
+                    animator.SetBool("Absorb", true);
+                    animator.SetBool("Chasing", false);
+                    animator.SetBool("Attack", false);
+                    target.GetComponent<SwitchBehaviour>().Unload(); //Unload le receptacle
+                    clone = Instantiate(succionVfx, target.position, Quaternion.identity);
+                    clone.GetComponent<SuckedLightBehaviour>().light = target;
+                    clone.GetComponent<SuckedLightBehaviour>().mobSuckingSpot = transform;
+                    clone.GetComponent<SuckedLightBehaviour>().isSucked = true;
                 }
                 else
                 {
@@ -199,6 +199,7 @@ public class SimpleAI : MonoBehaviour
                     {
                         if (target.GetComponentInParent<BinaryLight>().gotLight && target.GetComponentInParent<BinaryLight>().isInvicible == false) //Si il a la light et qu'il n'est pas invicible tu attaques
                         {
+                            animator.SetBool("Absorb", false);
                             AttackPlayer(target);
                         }
                     }
@@ -215,6 +216,10 @@ public class SimpleAI : MonoBehaviour
                     }
                 }
             }
+            else
+            {
+                animator.SetBool("Absorb", false);
+            }
             absorbTimer = 0;
         }
     }
@@ -229,6 +234,5 @@ public class SimpleAI : MonoBehaviour
     {
         animator.SetBool("Absorb", false);
         animator.SetBool("Attack", true);
-        target.GetComponentInParent<BinaryLight>().DropLight(lightEjectionDistance, lightEjectionHeight);
     }
 }

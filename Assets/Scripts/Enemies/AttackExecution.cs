@@ -10,19 +10,21 @@ public class AttackExecution : MonoBehaviour
     public int strength;
     public float attackRange;
     private Rigidbody rb;
-    public TrashMobBehaviour trashmobbehaviour;
+    private SimpleAI simpleIA;
     public GameObject fxHit;
-
+    private bool isCharging = false;
+    public float chargeSpeed;
     private void Start()
     {
         anim = GetComponent<Animator>();
         player = GameObject.Find("Player");
         rb = GetComponentInParent<Rigidbody>();
-        trashmobbehaviour = GetComponentInParent<TrashMobBehaviour>();
+        simpleIA = GetComponentInParent<SimpleAI>();
     }
 
     public void AttackExecute()
     {
+        this.transform.parent.rotation = Quaternion.LookRotation(player.transform.position - this.transform.position);
         foreach (Collider hitcol in Physics.OverlapSphere(transform.position + transform.right, attackRange)) // Draw une sphere devant l'ennemi de radius attackrange
         {
             if (hitcol.gameObject.CompareTag("Player")) //Pour chaque joueur dans la zone
@@ -39,7 +41,7 @@ public class AttackExecution : MonoBehaviour
                     player.GetComponent<PlayerMovement>().Recoil(transform, recoilInflincted); //Appelle la fonction recoil du joueur et inflige un recul de valeur recoilInflected
 
                     player.GetComponent<BinaryLight>().TakeHit();
-                    player.GetComponent<BinaryLight>().DropLight(100f,100f);
+                    player.GetComponent<BinaryLight>().DropLight(400f,400f);
                 }
                 anim.SetBool("Attack", false);
             }
@@ -51,10 +53,19 @@ public class AttackExecution : MonoBehaviour
     }
     public void StartCharge()
     {
-        trashmobbehaviour.isCharging = true;
+        isCharging = true;
     }
     public void StopCharge()
     {
-        trashmobbehaviour.isCharging = false;
+        isCharging = false;
+        rb.velocity= Vector3.zero;
+        anim.SetBool("Attack", false);
+    }
+    private void FixedUpdate()
+    {
+        if(isCharging)
+        {
+            rb.velocity = (this.transform.parent.forward) * chargeSpeed; //Il avance toujours vers l'avant
+        }
     }
 }
