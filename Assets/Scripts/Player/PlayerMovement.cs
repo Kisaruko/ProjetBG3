@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     public bool controlsAreEnabled;
     public float sensitivity;
     public float distToGround;
+    public bool isAuthorizedToDash;
 
     [Header("Movement Variables", order = 0)]
     public bool isMoving = false;
@@ -199,27 +200,30 @@ public class PlayerMovement : MonoBehaviour
 
     public void DashDetection()
     {
-        if (Input.GetButtonDown("Dash") || Input.GetMouseButtonDown(1) && isReadyToDash == true && isRecoiling == false) // si le joueur peut dasher, qu'il ne subit pas de recul et qu'il appuie sur l'input
+        if (isAuthorizedToDash)
         {
-            if (lightManager.canDash == true && binaryLight.gotLight == true) // si le joueur a assez de lumière pour dasher // Remplacer par le candash de binarylight
+            if (Input.GetButtonDown("Dash") || Input.GetMouseButtonDown(1) && isReadyToDash == true && isRecoiling == false) // si le joueur peut dasher, qu'il ne subit pas de recul et qu'il appuie sur l'input
             {
-                anim.SetBool("isDashing", true);
-                lightManager.LightDecreasing(dashDecreaseFactor);
-                lightManager.canDash = false;
-                shinyBody.Play();
-                Instantiate(trailDashParticles, transform.position, Quaternion.identity);
+                if (lightManager.canDash == true && binaryLight.gotLight == true) // si le joueur a assez de lumière pour dasher // Remplacer par le candash de binarylight
+                {
+                    anim.SetBool("isDashing", true);
+                    lightManager.LightDecreasing(dashDecreaseFactor);
+                    lightManager.canDash = false;
+                    shinyBody.Play();
+                    Instantiate(trailDashParticles, transform.position, Quaternion.identity);
 
-                isReadyToDash = false; // le joueur ne peut pas redasher
-                isDashing = true; // le joueur est en train de dasher
-                Dash();
-                StartCoroutine("DashTime"); // on lance la coroutine du cooldown du dash
+                    isReadyToDash = false; // le joueur ne peut pas redasher
+                    isDashing = true; // le joueur est en train de dasher
+                    Dash();
+                    StartCoroutine("DashTime"); // on lance la coroutine du cooldown du dash
+                }
             }
-        }
-        if ((Input.GetButtonDown("Dash") && (lightManager.canDash == false || binaryLight.gotLight == false) && isDashing == false))
-        {
-            //dash Echec
-            anim.SetBool("failDash", true);
-            StartCoroutine("FailDashTime");
+            if ((Input.GetButtonDown("Dash") && (lightManager.canDash == false || binaryLight.gotLight == false) && isDashing == false))
+            {
+                //dash Echec
+                anim.SetBool("failDash", true);
+                StartCoroutine("FailDashTime");
+            }
         }
     }
     private void Dash()
