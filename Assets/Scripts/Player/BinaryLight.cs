@@ -47,21 +47,23 @@ public class BinaryLight : MonoBehaviour
     private GameObject start;
     private GameObject end;
     public float lightSpeed;
-
     [Header("Vfx Attributes", order = 0)]
     [Space(10, order = 1)]
     private float baseSpeed;
     public GameObject vfxGrabLight;
     private Vector3 vfxPos;
     public LayerMask cloneDetection;
+    public GameObject vfxBond;
+    private GameObject vfxBondClone;
+    private Transform vfxDestination;
+    public float vfxSpeed;
+    ParticleSystem ps;
+    ParticleSystem.MainModule ma;
+    Color basecol;
 
-
-    /// <summary>
-    /// //////////////
-    /// </summary>
-    /// 
     private void Start()
     {
+
         lightRb = LightObject.GetComponent<Rigidbody>();
         playerMovement = FindObjectOfType<PlayerMovement>();
         baseSpeed = playerMovement.moveSpeed;
@@ -74,6 +76,9 @@ public class BinaryLight : MonoBehaviour
 
         charRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
         charMaterial = charRenderer.material;
+        ps = GetComponentInChildren<ParticleSystem>();
+        ma = ps.main;
+        basecol = ma.startColor.color;
     }
     private void Update()
     {
@@ -144,8 +149,8 @@ public class BinaryLight : MonoBehaviour
         Vector3 ejectionDirection = new Vector3(Random.Range(ejectionDistance, -ejectionDistance), ejectionHeight, Random.Range(ejectionDistance, -ejectionDistance));
         lightRb.AddForce(ejectionDirection);
         TakeHit();
-
     }
+
     public void GetLight()
     {
         if (isRegrabable)
@@ -158,10 +163,11 @@ public class BinaryLight : MonoBehaviour
             LightObject.transform.position = lightAnchor.position;
             LightObject.transform.parent = lightAnchor;
             Invoke("AnimatorSetter", 0.2f);
-            foreach (Collider hitcol in Physics.OverlapSphere(transform.position, 1000f,cloneDetection)) // crée une sphere de detection
+            foreach (Collider hitcol in Physics.OverlapSphere(transform.position, 1000f, cloneDetection)) // crée une sphere de detection
             {
                 hitcol.GetComponent<SimpleAI>().DestroyClone();
             }
+            CancelInvoke("ArianeBond");
         }
     }
     public void LightCanBeRegrabed()
@@ -288,8 +294,7 @@ public class BinaryLight : MonoBehaviour
         {
             LightObject.transform.DOMove(end.transform.position, lightSpeed * Time.deltaTime);
         }
-
-
+        InvokeRepeating("ArianeBond", 0f, 1f);
         #region OLD
         /*if (teleport)
         {
@@ -302,7 +307,6 @@ public class BinaryLight : MonoBehaviour
         }*/
         #endregion
     }
-
     #region Player Taking Damage
 
     public void TakeHit()
@@ -324,6 +328,27 @@ public class BinaryLight : MonoBehaviour
         yield return new WaitForSeconds(invincibleDuration);
         isInvicible = false;
         StopCoroutine("InvincibleTime");
+    }
+    #endregion
+
+    /*!!! IL FAUT VIRER TOUT CE QU'IL Y A EN RAPPORT AVEC LE VFX DANS CE SCRIPT HORMIS L'INSTANCE , LOBJECT DOIT SE GERER TOUT SEUL*/
+    #region VFX Management
+    private void ArianeBond()
+    {
+        vfxDestination = LightObject.transform;
+        vfxBondClone = Instantiate(vfxBond, lightAnchor.position, Quaternion.identity);
+        vfxBondClone.transform.DOMove(vfxDestination.position, vfxSpeed * Time.deltaTime);
+        StartCoroutine("VfxReturn");
+        Destroy(vfxBondClone, 1f);
+    }
+
+    private IEnumerator VfxReturn()
+    {
+        yield return new WaitForSeconds(0.5f);
+        vfxDestination = lightAnchor.transform;
+        vfxBondClone.transform.DOMove(vfxDestination.position, vfxSpeed * Time.deltaTime);
+        yield return new WaitForSeconds(0.2f);
+        StopCoroutine("VfxReturn");
     }
     #endregion
 }
