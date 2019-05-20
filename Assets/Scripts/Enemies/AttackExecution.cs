@@ -46,7 +46,7 @@ public class AttackExecution : MonoBehaviour
             }
         }
     }
-    private void OnDrawGizmos()
+    private void OnDrawGizmosSelected()
     {
         Gizmos.DrawWireSphere(transform.position + transform.right, attackRange);
     }
