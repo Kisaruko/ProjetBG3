@@ -9,9 +9,11 @@ public class PressurePlateBehaviour : MonoBehaviour
     public bool isStartingActive;
     public List<string> activationTag;
     public bool isActivated;
-    public GameObject[] associatedGameobject;
+    public GameObject[] associatedGameobjects;
     public UnityEvent activateEvent = new UnityEvent();
     public UnityEvent deactivateEvent = new UnityEvent();
+
+    public GameObject multipleEntryDoor;
 
     [Header("Pressure Plate Variables")]
     public float pressureFactorY;
@@ -22,10 +24,10 @@ public class PressurePlateBehaviour : MonoBehaviour
     private Material material;
     private Color finalColor;
     private float emission;
-    
+    private bool haveSetAnEntry;
     void Start()
     {
-        material = GetComponent<Renderer>().material; //Get the material in order to change its Emissive color
+        material = GetComponentInChildren<Renderer>().material; //Get the material in order to change its Emissive color
         startingPosY = transform.position.y; //Get the position Y in order to change it for when it has pressure on it
         Invoke("SetDoorAtBeginning", 0.1f);
     }
@@ -48,6 +50,14 @@ public class PressurePlateBehaviour : MonoBehaviour
                 activateEvent.Invoke();
             }
         }
+        if(multipleEntryDoor != null)
+        {
+            if (!haveSetAnEntry)
+            {
+                multipleEntryDoor.GetComponent<MultipleEntryDoor>().SetNewEntry(1);
+                haveSetAnEntry = true;
+            }
+        }
     }
 
     private void OnTriggerExit(Collider other)
@@ -67,6 +77,14 @@ public class PressurePlateBehaviour : MonoBehaviour
                 }*/
 
                 deactivateEvent.Invoke();
+            }
+        }
+        if (multipleEntryDoor != null)
+        {
+            if (multipleEntryDoor.GetComponent<MultipleEntryDoor>().ActualEntriesSet > 0 && haveSetAnEntry)
+            {
+                multipleEntryDoor.GetComponent<MultipleEntryDoor>().SetNewEntry(-1);
+                haveSetAnEntry = false;
             }
         }
     }

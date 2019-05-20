@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5526708330736832817}
-  - component: {fileID: 2501337897185830218}
   m_Layer: 0
   m_Name: RacineTest
   m_TagString: Untagged
@@ -33,22 +32,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2501337897185830218
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5526708330736995601}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b4b3ef3f4639e7d4fa7ea1a232c0f867, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxUvOffset: 1.7
-  minUvOffset: 0
-  scrollFactor: 0.01
-  emissiveRootRenderer: {fileID: 5526708330739258325}
 --- !u!1 &5526708330736995603
 GameObject:
   m_ObjectHideFlags: 0
@@ -60,6 +43,7 @@ GameObject:
   - component: {fileID: 5526708330736832819}
   - component: {fileID: 5526708330740224277}
   - component: {fileID: 5526708330739258325}
+  - component: {fileID: 5672035592632500317}
   m_Layer: 0
   m_Name: polySurface2
   m_TagString: Untagged
@@ -126,6 +110,24 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &5672035592632500317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5526708330736995603}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4b3ef3f4639e7d4fa7ea1a232c0f867, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tilingX: 1
+  tilingY: 2
+  offsetY: -0.3
+  maxUvOffsetX: 1.7
+  minUvOffsetX: 0
+  scrollFactor: 0.03
 --- !u!1 &5526708330736995605
 GameObject:
   m_ObjectHideFlags: 0

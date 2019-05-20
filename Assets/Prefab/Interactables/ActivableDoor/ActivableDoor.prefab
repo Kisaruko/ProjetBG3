@@ -627,10 +627,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4b3ef3f4639e7d4fa7ea1a232c0f867, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxUvOffset: 0.75
-  minUvOffset: -0.25
-  scrollFactor: 0.0035
-  emissiveRootRenderer: {fileID: 5658272590407076459}
+  tilingX: 1
+  tilingY: 0.91
+  offsetY: 0.09
+  maxUvOffsetX: 1.7
+  minUvOffsetX: -0.27
+  scrollFactor: 0.02
 --- !u!1 &5658272590409077935
 GameObject:
   m_ObjectHideFlags: 0
@@ -643,6 +645,7 @@ GameObject:
   - component: {fileID: 5658272590408075437}
   - component: {fileID: 5658272590407076461}
   - component: {fileID: 5658272590921482230}
+  - component: {fileID: 1573014061798494388}
   m_Layer: 0
   m_Name: Porte_droite2
   m_TagString: Untagged
@@ -723,6 +726,22 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 14
   m_Mesh: {fileID: 4300014, guid: 3b808bdd91d5f594d9c581318b55479d, type: 3}
+--- !u!208 &1573014061798494388
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5658272590409077935}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 1.0320001, y: 2.15, z: 0.13000001}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -1.0320001, y: 2.15, z: -0.080000006}
+  m_TimeToStationary: 0.5
 --- !u!1 &5658272590409077939
 GameObject:
   m_ObjectHideFlags: 0
@@ -735,6 +754,7 @@ GameObject:
   - component: {fileID: 5658272590408075439}
   - component: {fileID: 5658272590407076463}
   - component: {fileID: 5658272589777642982}
+  - component: {fileID: 5798415185345819794}
   m_Layer: 0
   m_Name: Porte_gauche2
   m_TagString: Untagged
@@ -815,3 +835,19 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 14
   m_Mesh: {fileID: 4300006, guid: 3b808bdd91d5f594d9c581318b55479d, type: 3}
+--- !u!208 &5798415185345819794
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5658272590409077939}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 1.0530001, y: 2.15, z: 0.13000001}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 1.0530001, y: 2.15, z: -0.080000006}
+  m_TimeToStationary: 0.5
