@@ -44,8 +44,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.2087221, y: 0.66091245, z: 1.2433577}
-  m_Center: {x: 0.003162384, y: 0.29513547, z: -0.061743736}
+  m_Size: {x: 1.2087221, y: 0.17832023, z: 1.2433577}
+  m_Center: {x: 0.003162384, y: 0.053839356, z: -0.061743736}
 --- !u!114 &6342844848735508995
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -63,9 +63,9 @@ MonoBehaviour:
   - Player
   - Rock
   - Enemy
+  - Light
   isActivated: 0
-  associatedGameobject:
-  - {fileID: 0}
+  associatedGameobjects: []
   activateEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -76,6 +76,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+  multipleEntryDoor: {fileID: 0}
   pressureFactorY: 0.1
   baseColor: {r: 0, g: 0.36750412, b: 1, a: 1}
 --- !u!1001 &2796879264512180819
