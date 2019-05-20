@@ -21,7 +21,10 @@ public class CameraBehaviour : MonoBehaviour
     #region Main Methods
     private void Awake()
     {
-        target = GameObject.FindGameObjectWithTag("Player").transform;
+        if(target == null)
+        {
+            target = GameObject.FindGameObjectWithTag("Player").transform;
+        }
     }
 
     void Start()
