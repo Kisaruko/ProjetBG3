@@ -192,7 +192,7 @@ public class SwitchBehaviour : MonoBehaviour
         {
             playerLight = FindObjectOfType<LightManager>().gameObject;
 
-            transform.position = new Vector3(transform.position.x, transform.position.y - maxYPos/5, transform.position.z);
+            transform.position = transform.position+transform.up;
             thisObjectLight.intensity = maxIntensity;
             thisObjectLight.range = maxRange;
             Activation();
