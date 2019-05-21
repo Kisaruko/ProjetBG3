@@ -149,6 +149,7 @@ public class BinaryLight : MonoBehaviour
         Vector3 ejectionDirection = new Vector3(Random.Range(ejectionDistance, -ejectionDistance), ejectionHeight, Random.Range(ejectionDistance, -ejectionDistance));
         lightRb.AddForce(ejectionDirection);
         TakeHit();
+        ArianeBond();
     }
 
     public void GetLight()
@@ -167,7 +168,7 @@ public class BinaryLight : MonoBehaviour
             {
                 hitcol.GetComponent<SimpleAI>().DestroyClone();
             }
-            CancelInvoke("ArianeBond");
+            Destroy(vfxBondClone.gameObject);
         }
     }
     public void LightCanBeRegrabed()
@@ -294,7 +295,7 @@ public class BinaryLight : MonoBehaviour
         {
             LightObject.transform.DOMove(end.transform.position, lightSpeed * Time.deltaTime);
         }
-        InvokeRepeating("ArianeBond", 0f, 1f);
+        ArianeBond();
         #region OLD
         /*if (teleport)
         {
@@ -331,24 +332,10 @@ public class BinaryLight : MonoBehaviour
     }
     #endregion
 
-    /*!!! IL FAUT VIRER TOUT CE QU'IL Y A EN RAPPORT AVEC LE VFX DANS CE SCRIPT HORMIS L'INSTANCE , LOBJECT DOIT SE GERER TOUT SEUL*/
     #region VFX Management
     private void ArianeBond()
     {
-        vfxDestination = LightObject.transform;
         vfxBondClone = Instantiate(vfxBond, lightAnchor.position, Quaternion.identity);
-        vfxBondClone.transform.DOMove(vfxDestination.position, vfxSpeed * Time.deltaTime);
-        StartCoroutine("VfxReturn");
-        Destroy(vfxBondClone, 1f);
-    }
-
-    private IEnumerator VfxReturn()
-    {
-        yield return new WaitForSeconds(0.5f);
-        vfxDestination = lightAnchor.transform;
-        vfxBondClone.transform.DOMove(vfxDestination.position, vfxSpeed * Time.deltaTime);
-        yield return new WaitForSeconds(0.2f);
-        StopCoroutine("VfxReturn");
     }
     #endregion
 }

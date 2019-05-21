@@ -8,6 +8,7 @@ public class MultipleEntryDoor : ActivableObjects
     public int ActualEntriesSet;
     private Animator anim;
     public bool canBeDesactivated;
+    public int nbChildThatGotEmissive = 2;
     private void Start()
     {
         anim = GetComponent<Animator>();
@@ -23,9 +24,9 @@ public class MultipleEntryDoor : ActivableObjects
         if(ActualEntriesSet >= NumberOfEntries)
         {
             Activate();
-            if (transform.GetChild(2).GetComponent<RootBehaviour>() != null)
+            if (transform.GetChild(nbChildThatGotEmissive).GetComponent<RootBehaviour>() != null)
             {
-                transform.GetChild(2).GetComponent<RootBehaviour>().Activate();
+                transform.GetChild(nbChildThatGotEmissive).GetComponent<RootBehaviour>().Activate();
             }
             else
             {
