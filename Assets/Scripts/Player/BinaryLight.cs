@@ -105,10 +105,10 @@ public class BinaryLight : MonoBehaviour
         }
 
         //Debug
-        if (Input.GetKeyDown(KeyCode.D))
+       /*if (Input.GetKeyDown(KeyCode.D))
         {
             DropLight(ejectionDistance, ejectionHeight);
-        }
+        }*/
         if (Input.GetKeyDown(KeyCode.G))
         {
             GetLight();
