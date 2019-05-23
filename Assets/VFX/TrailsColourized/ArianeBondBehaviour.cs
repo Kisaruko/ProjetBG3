@@ -2,50 +2,42 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+
 public class ArianeBondBehaviour : MonoBehaviour
 {
     public Transform destination;
     private GameObject lightAnchor;
     private GameObject lightObject;
     public float vfxSpeed;
-    public int collisions;
-    private Rigidbody rb;
-    
-
-    /* !!!! CET OBJECT  DOIT SE GERER TOUT SEUL IL FAUT VIRER LES TRUCS DANS BINARYLIGHT*/
+    public float rangeBeforeComeBack;
     private void Start()
     {
-        rb = GetComponent<Rigidbody>();
         lightObject = GameObject.Find("PlayerLight_v4-1");
         lightAnchor = GameObject.Find("PlayerLight");
-        Destroy(this.gameObject, 10f);
         destination = lightObject.transform;
     }
-    private void FixedUpdate()
+    private void Update()
     {
         if (destination != null)
         {
-            Vector3 direction = destination.position - transform.position;
-            rb.velocity = direction.normalized * vfxSpeed;
-        }
-    }
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("Player"))
-        {
-            collisions++;
-            if (collisions == 2)
+
+            if(destination == lightAnchor.transform)
             {
-                destination = lightAnchor.transform;
+                transform.DOMove(lightAnchor.transform.position, vfxSpeed);
+                if (Vector3.Distance(transform.position, lightAnchor.transform.position) < rangeBeforeComeBack)
+                {
+                    destination = lightObject.transform;
+                }
             }
-            CheckIfAllCollisionAreDone();
+            if (destination == lightObject.transform)
+            {
+                transform.DOMove(lightObject.transform.position, vfxSpeed);
+                if (Vector3.Distance(transform.position, lightObject.transform.position) < rangeBeforeComeBack)
+                {
+                    destination = lightAnchor.transform;
+                }
+            }
         }
     }
-    private void CheckIfAllCollisionAreDone()
-    {
-        if (collisions >= 3)
-        {
-            Destroy(this.gameObject, 1f);
-        }
-    }
+
 }

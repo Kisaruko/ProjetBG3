@@ -62,7 +62,7 @@ public class SwitchBehaviour : MonoBehaviour
         materials = mesh.materials;
         myMat = materials[1];
         maxYPos += transform.position.y;
-        ActivateAtStart();
+        Invoke("ActivateAtStart", 0.1f);
     }
     private void Update()
     {
