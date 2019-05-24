@@ -31,6 +31,8 @@ public class BinaryLight : MonoBehaviour
     public float ejectionHeight;
     public bool isThrown;
     bool reachedMaxRange = false;
+    private SphereCollider myCollider;
+    public float timeBeforeFallAndRegrabable;
 
     [Header("Reticule Attributes", order = 0)]
     [Space(10, order = 1)]
@@ -72,7 +74,7 @@ public class BinaryLight : MonoBehaviour
         mesh = LightObject.GetComponentInChildren<MeshRenderer>();
         mesh.enabled = false;
 
-
+        myCollider = LightObject.GetComponent<SphereCollider>();
 
         charRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
         charMaterial = charRenderer.material;
@@ -137,7 +139,7 @@ public class BinaryLight : MonoBehaviour
     public void DropLight(float ejectionDistance, float ejectionHeight)
     {
         mesh.enabled = true;
-        LightObject.GetComponent<SphereCollider>().isTrigger = false;
+        myCollider.isTrigger = false ;
         lightRb.drag = 0;
         isRegrabable = false;
         Invoke("LightCanBeRegrabed", 2f);
@@ -158,7 +160,7 @@ public class BinaryLight : MonoBehaviour
             anim.SetBool("getLight", true);
 
             playerMovement.moveSpeed = 0f;
-            LightObject.GetComponent<SphereCollider>().isTrigger = true;
+            myCollider.isTrigger = true;
             gotLight = true;
             lightRb.isKinematic = true;
             lightRb.useGravity = false;
@@ -254,7 +256,10 @@ public class BinaryLight : MonoBehaviour
 
         if (Input.GetButtonUp("Throw") || Input.GetMouseButtonUp(0))
         {
+            //Physics alterations
+            isThrown = true;
             mesh.enabled = true;
+
             anim.SetBool("isAiming", false);
             anim.SetBool("launch", true);
             playerMovement.rotationSpeed = baseRotationSpeed;
@@ -271,22 +276,22 @@ public class BinaryLight : MonoBehaviour
     }
     void ThrowLight()
     {
-        LightObject.GetComponent<SphereCollider>().isTrigger = false;
+        lightRb.isKinematic = false;
+        lightRb.useGravity = true;
+
+        myCollider.isTrigger = false;
 
         isRegrabable = false;
         lightRb.drag = 0;
-        Invoke("LightCanBeRegrabed", .5f);
+        Invoke("LightCanBeRegrabed", timeBeforeFallAndRegrabable);
         //resetspeed
         //playerMovement.moveSpeed = baseSpeed;
 
         //Components modifications
         LightObject.transform.parent = null;
-        lightRb.isKinematic = false;
         gotLight = false;
-        lightRb.useGravity = true;
 
-        //Physics alterations
-        isThrown = true;
+
         //reset modifications
         isAimingLight = false;
 
