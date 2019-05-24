@@ -81,10 +81,7 @@ public class LightDetection : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if (binaryLight.isThrown)
-        {
-            StopObject();
-        }
+        StopObject();
     }
     private void OnDrawGizmosSelected()
     {
