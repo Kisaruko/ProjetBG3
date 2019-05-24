@@ -41,15 +41,22 @@ public class LightDetection : MonoBehaviour
             Ray ray = new Ray(transform.position, toCollider); // trace un rayon entre les deux
             if (!Physics.Raycast(ray, toCollider.magnitude, ~mask)) // si le ray ne touche pas de mur
             {
-                followTarget = true;
-                hitcol.GetComponent<SwitchBehaviour>().playerLight = this.gameObject;
-                hitcol.GetComponent<SwitchBehaviour>().Loading();
-                if (hitcol.GetComponent<SwitchBehaviour>().isActivated == false)
+                if (hitcol.GetComponent<SwitchBehaviour>() != null)
                 {
-                    ps.trigger.SetCollider(0, hitcol.GetComponent<SphereCollider>());// get le collider du player qui doit détruire les particules
+                    followTarget = true;
+                    hitcol.GetComponent<SwitchBehaviour>().playerLight = this.gameObject;
+                    hitcol.GetComponent<SwitchBehaviour>().Loading();
+                    if (hitcol.GetComponent<SwitchBehaviour>().isActivated == false)
+                    {
+                        ps.trigger.SetCollider(0, hitcol.GetComponent<SphereCollider>());// get le collider du player qui doit détruire les particules
 
-                    particlesTarget = hitcol.gameObject;
-                    emission.enabled = true;
+                        particlesTarget = hitcol.gameObject;
+                        emission.enabled = true;
+                    }
+                }
+                if(hitcol.GetComponent<EmitWhenTrigger>() != null)
+                {
+                    hitcol.GetComponent<EmitWhenTrigger>().ActivateEmission();
                 }
             }
         }
