@@ -118,7 +118,6 @@ public class BinaryLight : MonoBehaviour
     {
         if (collision.gameObject == LightObject && isRegrabable == true)
         {
-            anim.SetBool("getLight", true);
 
             vfxPos = new Vector3(transform.position.x, transform.position.y + 1, transform.position.z);
             Instantiate(vfxGrabLight, vfxPos, Quaternion.identity);
@@ -156,6 +155,8 @@ public class BinaryLight : MonoBehaviour
     {
         if (isRegrabable)
         {
+            anim.SetBool("getLight", true);
+
             playerMovement.moveSpeed = 0f;
             LightObject.GetComponent<SphereCollider>().isTrigger = true;
             gotLight = true;
