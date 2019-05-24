@@ -7,7 +7,7 @@ public class LightDetection : MonoBehaviour
     public float range;
     public LayerMask mask;
     private Light light;
-    public float rangeMultiplier;
+   // public float rangeMultiplier;
     public ParticleSystem ps;
     public LayerMask exceptionLayer;
     private BinaryLight binaryLight;
@@ -23,6 +23,11 @@ public class LightDetection : MonoBehaviour
     ParticleSystem.VelocityOverLifetimeModule velocityOverLifetime;
     private GameObject particlesTarget;
     public float stoppingRange=0.3f;
+    private Rigidbody rb;
+
+    //magnetism Variables
+    public float magnetismSpeed;
+    public float magnetismRangeDivider= 1;
 
     #region unityMehods
     private void Start()
@@ -31,10 +36,11 @@ public class LightDetection : MonoBehaviour
         light = GetComponentInChildren<Light>();
         emission = ps.emission;
         emission.enabled = false;
+        rb = GetComponent<Rigidbody>();
     }
     private void Update()
     {
-        range = light.intensity * rangeMultiplier;
+       // range = light.intensity * rangeMultiplier;
         foreach (Collider hitcol in Physics.OverlapSphere(transform.position, range, mask)) // crée une sphere de detection
         {
             Vector3 toCollider = hitcol.transform.position - transform.position; // get le vecteur entre ennemi et player
@@ -58,6 +64,13 @@ public class LightDetection : MonoBehaviour
                 {
                     hitcol.GetComponent<EmitWhenTrigger>().ActivateEmission();
                 }
+                if (hitcol.gameObject.layer == 11 && transform.parent == null && binaryLight.isRegrabable == true) 
+                {
+                    if (Vector3.Distance(transform.position, hitcol.transform.position) < range / magnetismRangeDivider)
+                    {
+                        rb.velocity = (hitcol.transform.position - transform.position).normalized * magnetismSpeed;
+                    }
+                }
             }
         }
 
@@ -77,6 +90,10 @@ public class LightDetection : MonoBehaviour
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, range);
+        Gizmos.color = Color.red;
+
+        Gizmos.DrawWireSphere(transform.position, range/magnetismRangeDivider);
+
     }
     #endregion
     #region ParticlesMethods
