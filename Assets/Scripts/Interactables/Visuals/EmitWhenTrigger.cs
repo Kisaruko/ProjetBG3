@@ -15,6 +15,7 @@ public class EmitWhenTrigger : MonoBehaviour
         if(GetComponent<Light>() != null)
         {
             light = GetComponent<Light>();
+            light.enabled = false;
         }
     }
     public void ActivateEmission()
