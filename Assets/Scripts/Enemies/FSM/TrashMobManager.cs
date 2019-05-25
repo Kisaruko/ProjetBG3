@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class TrashMobManager : MonoBehaviour
 {
-    public List<Transform> waypoints;
     public bool aiActive;
     private StateController controller;
 
@@ -16,6 +15,6 @@ public class TrashMobManager : MonoBehaviour
 
     private void Start()
     {
-        controller.SetupAI(aiActive, waypoints);
+        controller.SetupAI(aiActive);
     }
 }

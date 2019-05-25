@@ -18,8 +18,9 @@ public class SimpleAI : MonoBehaviour
     public LayerMask targetMask;
     public LayerMask obstacleMask;
 
-    [HideInInspector]
+    //[HideInInspector]
     public List<Transform> visibleTargets = new List<Transform>();
+    public Transform currentTarget;
 
     [Header("Patrol Variables", order = 0)]
     public float wanderRadius;
@@ -83,12 +84,14 @@ public class SimpleAI : MonoBehaviour
                     if (target.gameObject.GetComponent<SwitchBehaviour>() != null && target.GetComponent<SwitchBehaviour>().isAtMinimum == false)
                     {
                         visibleTargets.Add(target);
+                        currentTarget = target;
                         return true; //return true to boolean in order to make something
 
                     }
                     if (target.gameObject.GetComponent<LightManager>() != null)
                     {
                         visibleTargets.Add(target);
+                        currentTarget = target;
                         return true; //return true to boolean in order to make something
 
                     }
@@ -143,9 +146,10 @@ public class SimpleAI : MonoBehaviour
         Vector3 currentPos = transform.position;
         foreach (Transform target in visibleTargets)
         {
-            float dist = Vector3.Distance(target.position, currentPos);
+            float dist = Vector3.Distance(currentPos, target.position);
             if (dist < minDist)
             {
+                Debug.Log(dist);
                 tMin = target;
                 minDist = dist;
             }
@@ -156,11 +160,10 @@ public class SimpleAI : MonoBehaviour
 
     private void FollowLight()
     {
-        meshAgent.SetDestination(GetClosestTarget().position);
+        meshAgent.SetDestination(currentTarget.position);
         animator.SetBool("Chasing", true);
 
-
-        if (Vector3.Distance(transform.position, GetClosestTarget().position) < absorbRange)
+        if (Vector3.Distance(transform.position, currentTarget.position) < absorbRange)
         {
             meshAgent.isStopped = true;
             AbsorbLight();
@@ -176,31 +179,30 @@ public class SimpleAI : MonoBehaviour
     private void AbsorbLight()
     {
         absorbTimer += Time.deltaTime;
-        Transform target = GetClosestTarget();
 
         if (absorbTimer >= absorbCooldown)
         {
-            if (((1 << target.gameObject.layer) & targetMask) != 0)
+            if (((1 << currentTarget.gameObject.layer) & targetMask) != 0)
             {
-                if (target.GetComponent<Light>() != null && !target.GetComponent<SwitchBehaviour>().isAtMinimum) //Si c'est un réceptacle
+                if (currentTarget.GetComponent<Light>() != null && !currentTarget.GetComponent<SwitchBehaviour>().isAtMinimum) //Si c'est un réceptacle
                 {
                     animator.SetBool("Absorb", true);
                     animator.SetBool("Chasing", false);
                     animator.SetBool("Attack", false);
-                    target.GetComponent<SwitchBehaviour>().Unload(); //Unload le receptacle
-                    clone = Instantiate(succionVfx, target.position, Quaternion.identity);
-                    clone.GetComponent<SuckedLightBehaviour>().light = target;
+                    currentTarget.GetComponent<SwitchBehaviour>().Unload(); //Unload le receptacle
+                    clone = Instantiate(succionVfx, currentTarget.position, Quaternion.identity);
+                    clone.GetComponent<SuckedLightBehaviour>().light = currentTarget;
                     clone.GetComponent<SuckedLightBehaviour>().mobSuckingSpot = transform;
                     clone.GetComponent<SuckedLightBehaviour>().isSucked = true;
                 }
                 else
                 {
-                    if (target.parent != null) //Si la cible a un parent
+                    if (currentTarget.parent != null) //Si la cible a un parent
                     {
-                        if (target.GetComponentInParent<BinaryLight>().gotLight && target.GetComponentInParent<BinaryLight>().isInvicible == false) //Si il a la light et qu'il n'est pas invicible tu attaques
+                        if (currentTarget.GetComponentInParent<BinaryLight>().gotLight && currentTarget.GetComponentInParent<BinaryLight>().isInvicible == false) //Si il a la light et qu'il n'est pas invicible tu attaques
                         {
                             animator.SetBool("Absorb", false);
-                            AttackPlayer(target);
+                            AttackPlayer(currentTarget);
                         }
                     }
                     else //Sinon tu absorbes la light du player
@@ -208,9 +210,9 @@ public class SimpleAI : MonoBehaviour
                         animator.SetBool("Absorb", true);
                         animator.SetBool("Chasing", false);
                         animator.SetBool("Attack", false);
-                        target.GetComponent<LightManager>().LightDecreasing(absorbFactor);
-                        clone = Instantiate(succionVfx, target.position, Quaternion.identity);
-                        clone.GetComponent<SuckedLightBehaviour>().light = target;
+                        currentTarget.GetComponent<LightManager>().LightDecreasing(absorbFactor);
+                        clone = Instantiate(succionVfx, currentTarget.position, Quaternion.identity);
+                        clone.GetComponent<SuckedLightBehaviour>().light = currentTarget;
                         clone.GetComponent<SuckedLightBehaviour>().mobSuckingSpot = transform;
                         clone.GetComponent<SuckedLightBehaviour>().isSucked = true;
                     }
