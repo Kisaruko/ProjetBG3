@@ -25,10 +25,9 @@ public class StateController : MonoBehaviour
         navMeshAgent = GetComponent<NavMeshAgent>(); //Get the Nav Mesh Agent Component
     }
 
-    public void SetupAI(bool aiActivationFromTrashMobManager, List<Transform> wayPointsFromTrashMobManager)
+    public void SetupAI(bool aiActivationFromTrashMobManager)
     {
         //Setup the AI, the way points list will be the one assigned when calling this method, same for the activation of the AI
-        wayPointList = wayPointsFromTrashMobManager;
         aiActive = aiActivationFromTrashMobManager;
         if(aiActive)
         {
@@ -48,14 +47,15 @@ public class StateController : MonoBehaviour
         stateTimeElapsed += Time.deltaTime;
     }
 
-    private void OnDrawGizmos()
+    /*private void OnDrawGizmos()
     {
         if(currentState != null && eyes != null)
         {
             Gizmos.color = currentState.sceneGizmoColor;
             Gizmos.DrawWireSphere(eyes.position, trashMobStats.lookSphereCastRadius);
+            Gizmos.DrawRay(eyes.position, eyes.transform.forward.normalized * trashMobStats.lookRange);
         }
-    }
+    }*/
 
     public void TransitionToState(State nextState)
     {

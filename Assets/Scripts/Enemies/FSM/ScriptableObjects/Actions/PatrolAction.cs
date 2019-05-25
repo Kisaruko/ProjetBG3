@@ -5,6 +5,8 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "PluggableAI/Actions/Patrol")]
 public class PatrolAction : Action
 {
+    private float timer;
+
     public override void Act(StateController controller)
     {
         Patrol(controller);
@@ -13,16 +15,25 @@ public class PatrolAction : Action
     //Set the destination to the Nav Mesh Agent
     private void Patrol(StateController controller)
     {
-        int waypointStart = Random.Range(0, controller.wayPointList.Count);
-        controller.navMeshAgent.destination = controller.wayPointList[controller.nextWayPoint].position;
-        controller.navMeshAgent.isStopped = false;
+        timer += Time.deltaTime;
         controller.animator.SetBool("Chasing", true);
+        if(timer >= controller.trashMobStats.patrolWanderTime)
+        {
+            Vector3 newPos = RandomNavCircle(controller.transform.position, controller.trashMobStats.patrolDist);
+            controller.navMeshAgent.SetDestination(newPos);
+            timer = 0;
+        }
 
-        //If the Nav Mesh Agent has reached his target it will choose an other way point from a random list of waypoints
         if(controller.navMeshAgent.remainingDistance <= controller.navMeshAgent.stoppingDistance && !controller.navMeshAgent.pathPending)
         {
-            controller.nextWayPoint = Random.Range(0, controller.wayPointList.Count);
-            //controller.nextWayPoint = (controller.nextWayPoint + 1) % controller.wayPointList.Count;
+            controller.animator.SetBool("Chasing", false);
         }
+    }
+
+    private Vector3 RandomNavCircle(Vector3 origin, float dist)
+    {
+        Vector3 randDirection = Random.insideUnitSphere * dist;
+        randDirection += origin;
+        return randDirection;
     }
 }

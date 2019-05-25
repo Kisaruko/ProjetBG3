@@ -14,6 +14,9 @@ public class ChaseAction : Action
     private void Chase(StateController controller)
     {
         controller.animator.SetBool("Chasing", true);
+        controller.animator.SetBool("Absorb", false);
+        controller.navMeshAgent.isStopped = false;
         controller.navMeshAgent.destination = controller.chaseTarget.position;
+        //Debug.Log(controller.chaseTarget);
     }
 }
