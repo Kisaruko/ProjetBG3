@@ -11,6 +11,7 @@ public class StateController : MonoBehaviour
     public State remainState;
     public GameObject fxHit;
     public Animator animator;
+    public GameObject fxAbsorb;
 
     [HideInInspector] public NavMeshAgent navMeshAgent;
     [HideInInspector] public List<Transform> wayPointList;

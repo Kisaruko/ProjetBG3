@@ -7,6 +7,7 @@ public class TrashMobStats : ScriptableObject
 {
     [Header("Movement Variables")]
     public float moveSpeed;
+    public float rotationSpeed;
 
     [Header("Patrol Variables")]
     public float patrolDist;
