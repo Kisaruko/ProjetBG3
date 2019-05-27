@@ -22,18 +22,19 @@ public class ChainReaction : MonoBehaviour
             Ray ray = new Ray(transform.position, toCollider); // trace un rayon entre les deux
             if (!Physics.Raycast(ray, toCollider.magnitude, ~switchs)) // si le ray ne touche pas de mur
             {
-                if (hitcol.GetComponent<SwitchBehaviour>().isActivated == false && GetComponent<SwitchBehaviour>().isActivated == true)
+                if (hitcol.GetComponent<SwitchBehaviour>() != null)
                 {
-                    SwitchBehaviour switchbehaviour = hitcol.GetComponent<SwitchBehaviour>();
-                    if (switchbehaviour != null) // si l'ennemi a le composant enemy life
+                    if (hitcol.GetComponent<SwitchBehaviour>().isActivated == false && GetComponent<SwitchBehaviour>().isActivated == true)
                     {
-                        switchsList.Add(switchbehaviour);// add un composant a la liste
-                        hitcol.GetComponent<SwitchBehaviour>().playerLight = this.gameObject;
-                        hitcol.GetComponent<SwitchBehaviour>().Loading();
-                        int index = Random.Range(0, switchsList.Count);
-
-                        actualVfxTarget = switchsList[index].transform;
-
+                        SwitchBehaviour switchbehaviour = hitcol.GetComponent<SwitchBehaviour>();
+                        if (switchbehaviour != null) // si l'ennemi a le composant enemy life
+                        {
+                            switchsList.Add(switchbehaviour);// add un composant a la liste
+                            hitcol.GetComponent<SwitchBehaviour>().playerLight = this.gameObject;
+                            hitcol.GetComponent<SwitchBehaviour>().Loading();
+                            int index = Random.Range(0, switchsList.Count);
+                            actualVfxTarget = switchsList[index].transform;
+                        }
                     }
                 }
             }
