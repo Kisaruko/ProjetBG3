@@ -6,6 +6,7 @@ using UnityEditor;
 [CustomEditor(typeof(StateController))]
 public class FSMEditor : Editor
 {
+
     private void OnSceneGUI()
     {
         StateController controller = (StateController)target;
@@ -36,4 +37,5 @@ public class FSMEditor : Editor
         }
         return new Vector3(Mathf.Sin(angleInDegrees * Mathf.Deg2Rad), 0, Mathf.Cos(angleInDegrees * Mathf.Deg2Rad));
     }
+
 }
