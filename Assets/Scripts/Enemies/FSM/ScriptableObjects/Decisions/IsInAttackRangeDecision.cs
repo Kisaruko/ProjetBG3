@@ -14,6 +14,7 @@ public class IsInAttackRangeDecision : Decision
     private bool IsInAttackRange(StateController controller)
     {
         if (controller.chaseTarget.parent != null &&
+            !controller.chaseTarget.GetComponent<SwitchBehaviour>() &&
             Vector3.Distance(controller.transform.position, controller.chaseTarget.position) < controller.trashMobStats.attackRange)
         {
             return true;
