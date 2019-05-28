@@ -125,6 +125,7 @@ public class PressurePlateBehaviour : MonoBehaviour
         if (nbObjectOnThis <= 0)
         {
             deactivateEvent.Invoke();
+            nbObjectOnThis = 0;
         }
     }
 }
