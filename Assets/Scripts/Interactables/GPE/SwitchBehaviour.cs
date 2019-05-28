@@ -74,7 +74,7 @@ public class SwitchBehaviour : MonoBehaviour
                 if (Vector3.Distance(transform.position, playerLight.transform.position) > playerLight.GetComponent<LightDetection>().range * 2)
                 {
                     deactivateEvent.Invoke();
-                    playerLight.GetComponent<LightDetection>().StopFollow();
+                  //  playerLight.GetComponent<LightDetection>().StopFollow();
                 }
             }
         }
@@ -185,7 +185,7 @@ public class SwitchBehaviour : MonoBehaviour
         activationEvent.Invoke();
         if (playerLight.GetComponent<LightDetection>() != null)
         {
-            playerLight.GetComponent<LightDetection>().StopFollow();
+           // playerLight.GetComponent<LightDetection>().StopFollow();
         }
         if (assiociatedObject != null)
         {
