@@ -37,6 +37,7 @@ public class AbsorbSwitchAction : Action
     private void NavMeshControl(StateController controller)
     {
         controller.navMeshAgent.isStopped = true;
+        controller.animator.SetBool("Attack", false);
         controller.animator.SetBool("Chasing", false);
         controller.animator.SetBool("Absorb", true);
     }
