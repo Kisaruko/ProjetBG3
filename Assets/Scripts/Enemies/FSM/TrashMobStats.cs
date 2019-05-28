@@ -24,10 +24,7 @@ public class TrashMobStats : ScriptableObject
 
     [Header("Attack Variables")]
     public float attackRange;
-    public float attackRate;
-    public float attackForce;
-    public int attackDamage;
-    public float attackSphereCastRadius;
+    public float attackCooldown;
 
     [Header("Absorb Variables")]
     public float absorbRange;
