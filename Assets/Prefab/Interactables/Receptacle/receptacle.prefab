@@ -256,32 +256,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activateAtStart: 0
   isActivated: 0
+  transformYCountAsSwitchActivation: 1
   assiociatedObject: {fileID: 0}
   activationEvent:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: Activate
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_MethodName: Activate
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   deactivateEvent:
@@ -294,14 +273,14 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  maxIntensity: 1.5
-  maxRange: 2
+  maxIntensity: 2
+  maxRange: 5
   lightGrowFactor: 0.015
   transformMoveFactor: 0.015
   rangeGrowFactor: 0.03
   maxYPos: 1
   playerLight: {fileID: 0}
-  maxLightVfx: {fileID: 4438231380766454472, guid: c4b2c73274a67c847bddf4c1ace3581a,
+  maxLightVfx: {fileID: 6274053519590209556, guid: b6ef9557aae3f214da5efea61385952e,
     type: 3}
   isLoading: 0
   isAtMinimum: 1

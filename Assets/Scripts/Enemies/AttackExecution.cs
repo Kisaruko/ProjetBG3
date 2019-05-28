@@ -24,7 +24,6 @@ public class AttackExecution : MonoBehaviour
 
     public void AttackExecute()
     {
-        this.transform.parent.rotation = Quaternion.LookRotation(player.transform.position - this.transform.position);
         foreach (Collider hitcol in Physics.OverlapSphere(transform.position + transform.right, attackRange)) // Draw une sphere devant l'ennemi de radius attackrange
         {
             if (hitcol.gameObject.CompareTag("Player")) //Pour chaque joueur dans la zone
@@ -47,12 +46,14 @@ public class AttackExecution : MonoBehaviour
             }
         }
     }
-    private void OnDrawGizmos()
+    private void OnDrawGizmosSelected()
     {
         Gizmos.DrawWireSphere(transform.position + transform.right, attackRange);
     }
     public void StartCharge()
     {
+        this.transform.parent.rotation = Quaternion.LookRotation(player.transform.position - this.transform.position);
+
         isCharging = true;
     }
     public void StopCharge()

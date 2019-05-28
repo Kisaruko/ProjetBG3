@@ -31,6 +31,8 @@ public class BinaryLight : MonoBehaviour
     public float ejectionHeight;
     public bool isThrown;
     bool reachedMaxRange = false;
+    private SphereCollider myCollider;
+    public float timeBeforeFallAndRegrabable;
 
     [Header("Reticule Attributes", order = 0)]
     [Space(10, order = 1)]
@@ -47,21 +49,23 @@ public class BinaryLight : MonoBehaviour
     private GameObject start;
     private GameObject end;
     public float lightSpeed;
-
     [Header("Vfx Attributes", order = 0)]
     [Space(10, order = 1)]
     private float baseSpeed;
     public GameObject vfxGrabLight;
     private Vector3 vfxPos;
     public LayerMask cloneDetection;
+    public GameObject vfxBond;
+    private GameObject vfxBondClone;
+    private Transform vfxDestination;
+    public float vfxSpeed;
+    ParticleSystem ps;
+    ParticleSystem.MainModule ma;
+    Color basecol;
 
-
-    /// <summary>
-    /// //////////////
-    /// </summary>
-    /// 
     private void Start()
     {
+
         lightRb = LightObject.GetComponent<Rigidbody>();
         playerMovement = FindObjectOfType<PlayerMovement>();
         baseSpeed = playerMovement.moveSpeed;
@@ -70,10 +74,13 @@ public class BinaryLight : MonoBehaviour
         mesh = LightObject.GetComponentInChildren<MeshRenderer>();
         mesh.enabled = false;
 
-
+        myCollider = LightObject.GetComponent<SphereCollider>();
 
         charRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
         charMaterial = charRenderer.material;
+        ps = GetComponentInChildren<ParticleSystem>();
+        ma = ps.main;
+        basecol = ma.startColor.color;
     }
     private void Update()
     {
@@ -100,21 +107,19 @@ public class BinaryLight : MonoBehaviour
         }
 
         //Debug
-        if (Input.GetKeyDown(KeyCode.D))
+       /*if (Input.GetKeyDown(KeyCode.D))
         {
             DropLight(ejectionDistance, ejectionHeight);
-        }
+        }*/
         if (Input.GetKeyDown(KeyCode.G))
         {
             GetLight();
         }
     }
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionStay(Collision collision)
     {
         if (collision.gameObject == LightObject && isRegrabable == true)
         {
-            anim.SetBool("getLight", true);
-
             vfxPos = new Vector3(transform.position.x, transform.position.y + 1, transform.position.z);
             Instantiate(vfxGrabLight, vfxPos, Quaternion.identity);
             GetLight();
@@ -133,7 +138,7 @@ public class BinaryLight : MonoBehaviour
     public void DropLight(float ejectionDistance, float ejectionHeight)
     {
         mesh.enabled = true;
-        LightObject.GetComponent<SphereCollider>().isTrigger = false;
+        myCollider.isTrigger = false ;
         lightRb.drag = 0;
         isRegrabable = false;
         Invoke("LightCanBeRegrabed", 2f);
@@ -144,31 +149,36 @@ public class BinaryLight : MonoBehaviour
         Vector3 ejectionDirection = new Vector3(Random.Range(ejectionDistance, -ejectionDistance), ejectionHeight, Random.Range(ejectionDistance, -ejectionDistance));
         lightRb.AddForce(ejectionDirection);
         TakeHit();
-
+        ArianeBond();
     }
+
     public void GetLight()
     {
         if (isRegrabable)
         {
+            anim.SetBool("getLight", true);
+
             playerMovement.moveSpeed = 0f;
-            LightObject.GetComponent<SphereCollider>().isTrigger = true;
+            myCollider.isTrigger = true;
             gotLight = true;
             lightRb.isKinematic = true;
             lightRb.useGravity = false;
             LightObject.transform.position = lightAnchor.position;
             LightObject.transform.parent = lightAnchor;
             Invoke("AnimatorSetter", 0.2f);
-            foreach (Collider hitcol in Physics.OverlapSphere(transform.position, 1000f,cloneDetection)) // crée une sphere de detection
+            foreach (Collider hitcol in Physics.OverlapSphere(transform.position, 1000f, cloneDetection)) // crée une sphere de detection
             {
                 hitcol.GetComponent<SimpleAI>().DestroyClone();
             }
+            LightObject.GetComponent<LightDetection>().activeMagnetism = false;
+            Destroy(vfxBondClone.gameObject);
         }
     }
     public void LightCanBeRegrabed()
     {
         isRegrabable = true;
         LightObject.transform.DOPause();
-
+        LightObject.GetComponent<LightDetection>().activeMagnetism = true;
         // lightRb.drag = 0;
     }
     void Aiming()
@@ -246,7 +256,10 @@ public class BinaryLight : MonoBehaviour
 
         if (Input.GetButtonUp("Throw") || Input.GetMouseButtonUp(0))
         {
+            //Physics alterations
+            isThrown = true;
             mesh.enabled = true;
+
             anim.SetBool("isAiming", false);
             anim.SetBool("launch", true);
             playerMovement.rotationSpeed = baseRotationSpeed;
@@ -263,22 +276,22 @@ public class BinaryLight : MonoBehaviour
     }
     void ThrowLight()
     {
-        LightObject.GetComponent<SphereCollider>().isTrigger = false;
+        lightRb.isKinematic = false;
+        lightRb.useGravity = true;
+
+        myCollider.isTrigger = false;
 
         isRegrabable = false;
         lightRb.drag = 0;
-        Invoke("LightCanBeRegrabed", .5f);
+        Invoke("LightCanBeRegrabed", timeBeforeFallAndRegrabable);
         //resetspeed
         //playerMovement.moveSpeed = baseSpeed;
 
         //Components modifications
         LightObject.transform.parent = null;
-        lightRb.isKinematic = false;
         gotLight = false;
-        lightRb.useGravity = true;
 
-        //Physics alterations
-        isThrown = true;
+
         //reset modifications
         isAimingLight = false;
 
@@ -288,8 +301,7 @@ public class BinaryLight : MonoBehaviour
         {
             LightObject.transform.DOMove(end.transform.position, lightSpeed * Time.deltaTime);
         }
-
-
+        ArianeBond();
         #region OLD
         /*if (teleport)
         {
@@ -302,7 +314,6 @@ public class BinaryLight : MonoBehaviour
         }*/
         #endregion
     }
-
     #region Player Taking Damage
 
     public void TakeHit()
@@ -324,6 +335,13 @@ public class BinaryLight : MonoBehaviour
         yield return new WaitForSeconds(invincibleDuration);
         isInvicible = false;
         StopCoroutine("InvincibleTime");
+    }
+    #endregion
+
+    #region VFX Management
+    private void ArianeBond()
+    {
+        vfxBondClone = Instantiate(vfxBond, lightAnchor.position, Quaternion.identity);
     }
     #endregion
 }

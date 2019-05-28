@@ -9,6 +9,7 @@ public class SwitchBehaviour : MonoBehaviour
 
     private Light thisObjectLight;
     public bool isActivated;
+    public bool transformYCountAsSwitchActivation = true;
     public GameObject assiociatedObject;
     public UnityEvent activationEvent = new UnityEvent();
     public UnityEvent deactivateEvent = new UnityEvent();
@@ -62,7 +63,7 @@ public class SwitchBehaviour : MonoBehaviour
         materials = mesh.materials;
         myMat = materials[1];
         maxYPos += transform.position.y;
-        ActivateAtStart();
+        Invoke("ActivateAtStart", 0.1f);
     }
     private void Update()
     {
@@ -73,7 +74,7 @@ public class SwitchBehaviour : MonoBehaviour
                 if (Vector3.Distance(transform.position, playerLight.transform.position) > playerLight.GetComponent<LightDetection>().range * 2)
                 {
                     deactivateEvent.Invoke();
-                    playerLight.GetComponent<LightDetection>().StopFollow();
+                  //  playerLight.GetComponent<LightDetection>().StopFollow();
                 }
             }
         }
@@ -94,7 +95,7 @@ public class SwitchBehaviour : MonoBehaviour
             {
                 intensityIsMaxed = true;
             }
-            if (transform.position.y < maxYPos)
+            if (transform.position.y < maxYPos && transformYCountAsSwitchActivation)
             {
                 transform.Translate(Vector3.up * transformMoveFactor);
             }
@@ -110,9 +111,19 @@ public class SwitchBehaviour : MonoBehaviour
             {
                 rangeIsMaxed = true;
             }
-            if (rangeIsMaxed && transformIsMaxed && intensityIsMaxed)
+            if (transformYCountAsSwitchActivation)
             {
-                Activation();
+                if (rangeIsMaxed && transformIsMaxed && intensityIsMaxed)
+                {
+                    Activation();
+                }
+            }
+            else
+            {
+                if (rangeIsMaxed && intensityIsMaxed)
+                {
+                    Activation();
+                }
             }
         }
     }
@@ -121,7 +132,7 @@ public class SwitchBehaviour : MonoBehaviour
     {
         if (thisObjectLight.intensity > minIntensity)
         {
-            thisObjectLight.intensity -= lightGrowFactor*4;
+            thisObjectLight.intensity -= lightGrowFactor * 4;
         }
         else
         {
@@ -129,7 +140,7 @@ public class SwitchBehaviour : MonoBehaviour
         }
         if (transform.position.y > minYPos)
         {
-            transform.Translate(Vector3.down * transformMoveFactor*2);
+            transform.Translate(Vector3.down * transformMoveFactor * 2);
         }
         else
         {
@@ -137,7 +148,7 @@ public class SwitchBehaviour : MonoBehaviour
         }
         if (thisObjectLight.range > minRange)
         {
-            thisObjectLight.range -= rangeGrowFactor*4;
+            thisObjectLight.range -= rangeGrowFactor * 4;
         }
         else
         {
@@ -155,9 +166,9 @@ public class SwitchBehaviour : MonoBehaviour
         myMat.DisableKeyword("_EMISSION");
         isActivated = false;
         deactivateEvent.Invoke();
-        if(assiociatedObject != null)
+        if (assiociatedObject != null)
         {
-            if(assiociatedObject.GetComponent<MultipleEntryDoor>().ActualEntriesSet> 0 && haveSetAnEntry)
+            if (assiociatedObject.GetComponent<MultipleEntryDoor>().ActualEntriesSet > 0 && haveSetAnEntry)
             {
                 assiociatedObject.GetComponent<MultipleEntryDoor>().SetNewEntry(-nbEntryThisSwitchSet);
                 haveSetAnEntry = false;
@@ -174,9 +185,9 @@ public class SwitchBehaviour : MonoBehaviour
         activationEvent.Invoke();
         if (playerLight.GetComponent<LightDetection>() != null)
         {
-            playerLight.GetComponent<LightDetection>().StopFollow();
+           // playerLight.GetComponent<LightDetection>().StopFollow();
         }
-        if(assiociatedObject != null)
+        if (assiociatedObject != null)
         {
             if (!haveSetAnEntry)
             {
@@ -188,11 +199,11 @@ public class SwitchBehaviour : MonoBehaviour
     }
     private void ActivateAtStart()
     {
-        if(activateAtStart == true)
+        if (activateAtStart == true)
         {
             playerLight = FindObjectOfType<LightManager>().gameObject;
 
-            transform.position = new Vector3(transform.position.x, transform.position.y - maxYPos/5, transform.position.z);
+            transform.position = transform.position + transform.up;
             thisObjectLight.intensity = maxIntensity;
             thisObjectLight.range = maxRange;
             Activation();
