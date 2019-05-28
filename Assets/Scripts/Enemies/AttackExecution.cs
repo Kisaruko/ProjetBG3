@@ -14,6 +14,7 @@ public class AttackExecution : MonoBehaviour
     public GameObject fxHit;
     private bool isCharging = false;
     public float chargeSpeed;
+
     private void Start()
     {
         anim = GetComponent<Animator>();
