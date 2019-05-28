@@ -116,11 +116,10 @@ public class BinaryLight : MonoBehaviour
             GetLight();
         }
     }
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionStay(Collision collision)
     {
         if (collision.gameObject == LightObject && isRegrabable == true)
         {
-
             vfxPos = new Vector3(transform.position.x, transform.position.y + 1, transform.position.z);
             Instantiate(vfxGrabLight, vfxPos, Quaternion.identity);
             GetLight();
@@ -171,6 +170,7 @@ public class BinaryLight : MonoBehaviour
             {
                 hitcol.GetComponent<SimpleAI>().DestroyClone();
             }
+            LightObject.GetComponent<LightDetection>().activeMagnetism = false;
             Destroy(vfxBondClone.gameObject);
         }
     }
@@ -178,7 +178,7 @@ public class BinaryLight : MonoBehaviour
     {
         isRegrabable = true;
         LightObject.transform.DOPause();
-
+        LightObject.GetComponent<LightDetection>().activeMagnetism = true;
         // lightRb.drag = 0;
     }
     void Aiming()

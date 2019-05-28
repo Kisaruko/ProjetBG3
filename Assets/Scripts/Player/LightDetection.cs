@@ -31,6 +31,7 @@ public class LightDetection : MonoBehaviour
     //magnetism Variables
     public float magnetismSpeed;
     public float magnetismRangeDivider= 1;
+    public bool activeMagnetism = false;
 
     #region unityMehods
     private void Start()
@@ -79,7 +80,7 @@ public class LightDetection : MonoBehaviour
                 {
                     hitcol.GetComponent<EmitWhenTrigger>().ActivateEmission();
                 }
-                if (hitcol.gameObject.layer == 11 && transform.parent == null && binaryLight.isRegrabable == true) 
+                if (hitcol.gameObject.layer == 11 && transform.parent == null && binaryLight.isRegrabable == true && activeMagnetism == true) 
                 {
                     if (Vector3.Distance(transform.position, hitcol.transform.position) < range / magnetismRangeDivider)
                     {
