@@ -9,13 +9,15 @@ public class RandomSpawner : MonoBehaviour
     public int nbObjectToSpawn;
     public float range = 1f;
     public bool spawnInTheAir = false;
+    private bool hasBeenActivated = false;
     #endregion
 
     #region Methods
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player")) // si le joueur touche cet objet
+        if (other.gameObject.CompareTag("Player") && hasBeenActivated == false) // si le joueur touche cet objet
         {
+            hasBeenActivated = true;
             Vector3 spawnPos = this.transform.position;  //endroit de base du spawner
             for (int i = 0; i < nbObjectToSpawn; i++) // Répéter nbEnemyValue l'action
             {

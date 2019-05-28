@@ -22,11 +22,10 @@ public class ChainReaction : MonoBehaviour
             Ray ray = new Ray(transform.position, toCollider); // trace un rayon entre les deux
             if (!Physics.Raycast(ray, toCollider.magnitude, ~switchs)) // si le ray ne touche pas de mur
             {
-                if (hitcol.GetComponent<SwitchBehaviour>() != null)
+                if (hitcol.GetComponent<SwitchBehaviour>() != null && hitcol.GetComponent<SwitchBehaviour>().isActivated == false)
                 {
-                    if (hitcol.GetComponent<SwitchBehaviour>().isActivated == false && GetComponent<SwitchBehaviour>().isActivated == true)
-                    {
-                        SwitchBehaviour switchbehaviour = hitcol.GetComponent<SwitchBehaviour>();
+                    SwitchBehaviour switchbehaviour = hitcol.GetComponent<SwitchBehaviour>();
+
                         if (switchbehaviour != null) // si l'ennemi a le composant enemy life
                         {
                             switchsList.Add(switchbehaviour);// add un composant a la liste
@@ -35,7 +34,6 @@ public class ChainReaction : MonoBehaviour
                             int index = Random.Range(0, switchsList.Count);
                             actualVfxTarget = switchsList[index].transform;
                         }
-                    }
                 }
             }
         }
