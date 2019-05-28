@@ -9,11 +9,10 @@ public class PressurePlateBehaviour : MonoBehaviour
     public bool isStartingActive;
     public List<string> activationTag;
     public bool isActivated;
-    public GameObject[] associatedGameobjects;
     public UnityEvent activateEvent = new UnityEvent();
     public UnityEvent deactivateEvent = new UnityEvent();
 
-    public GameObject multipleEntryDoor;
+    public GameObject[] multipleEntryDoor;
 
     public int nbObjectOnThis = 0;
 
@@ -27,6 +26,7 @@ public class PressurePlateBehaviour : MonoBehaviour
     private Color finalColor;
     private float emission;
     private bool haveSetAnEntry;
+
     void Start()
     {
         material = GetComponentInChildren<Renderer>().material; //Get the material in order to change its Emissive color
@@ -56,7 +56,10 @@ public class PressurePlateBehaviour : MonoBehaviour
         {
             if (!haveSetAnEntry)
             {
-                multipleEntryDoor.GetComponent<MultipleEntryDoor>().SetNewEntry(1);
+                for (int i = 0; i < multipleEntryDoor.Length; i++)
+                {
+                    multipleEntryDoor[i].GetComponent<MultipleEntryDoor>().SetNewEntry(1);
+                }
                 haveSetAnEntry = true;
             }
         }
@@ -73,20 +76,20 @@ public class PressurePlateBehaviour : MonoBehaviour
                 transform.position = new Vector3(this.transform.position.x, transform.position.y + pressureFactorY, this.transform.position.z);
                 isActivated = false;
                 material.SetColor("_EmissionColor", new Color(0, 0, 0));
-                /*for (int i = 0; i < associatedGameobject.Length; i++)
-                {
-                    associatedGameobject[i].GetComponent<ActivableDoorBehaviour>().Deactivate();
-                }*/
+
                 nbObjectOnThis -= 1;
                 ExecuteAnimation();
             }
         }
         if (multipleEntryDoor != null)
         {
-            if (multipleEntryDoor.GetComponent<MultipleEntryDoor>().ActualEntriesSet > 0 && haveSetAnEntry)
+            for (int i = 0; i < multipleEntryDoor.Length; i++)
             {
-                multipleEntryDoor.GetComponent<MultipleEntryDoor>().SetNewEntry(-1);
-                haveSetAnEntry = false;
+                if (multipleEntryDoor[i].GetComponent<MultipleEntryDoor>().ActualEntriesSet > 0 && haveSetAnEntry)
+                {
+                    multipleEntryDoor[i].GetComponent<MultipleEntryDoor>().SetNewEntry(-1);
+                    haveSetAnEntry = false;
+                }
             }
         }
     }
