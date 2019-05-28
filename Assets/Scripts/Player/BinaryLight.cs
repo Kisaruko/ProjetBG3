@@ -124,7 +124,6 @@ public class BinaryLight : MonoBehaviour
             Instantiate(vfxGrabLight, vfxPos, Quaternion.identity);
             GetLight();
             isThrown = false;
-            mesh.enabled = false;
         }
     }
     private void AnimatorSetter()
@@ -157,7 +156,7 @@ public class BinaryLight : MonoBehaviour
         if (isRegrabable)
         {
             anim.SetBool("getLight", true);
-
+            mesh.enabled = false;
             playerMovement.moveSpeed = 0f;
             myCollider.isTrigger = true;
             gotLight = true;
