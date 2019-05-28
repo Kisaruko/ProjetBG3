@@ -1324,6 +1324,7 @@ GameObject:
   - component: {fileID: 8644840274622256607}
   - component: {fileID: 8644840274621159327}
   - component: {fileID: 774118573316393163}
+  - component: {fileID: 6321460461834535521}
   m_Layer: 0
   m_Name: Porte_gauche2
   m_TagString: Untagged
@@ -1403,6 +1404,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2.1058478, y: 4.299148, z: 0.26}
   m_Center: {x: 1.0529239, y: 2.149574, z: -0.08}
+--- !u!208 &6321460461834535521
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8644840274623351259}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 1.0530001, y: 2.15, z: 0.13000001}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 1.0530001, y: 2.15, z: -0.080000006}
+  m_TimeToStationary: 0.5
 --- !u!1 &8644840274623351261
 GameObject:
   m_ObjectHideFlags: 0
@@ -1449,6 +1466,7 @@ GameObject:
   - component: {fileID: 8644840274622256545}
   - component: {fileID: 8644840274621159265}
   - component: {fileID: 4640355943005494110}
+  - component: {fileID: 3189109359680559463}
   m_Layer: 0
   m_Name: Porte_droite2
   m_TagString: Untagged
@@ -1528,3 +1546,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2.0641491, y: 4.2979455, z: 0.26}
   m_Center: {x: -1.0320746, y: 2.1489727, z: -0.08}
+--- !u!208 &3189109359680559463
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8644840274623351263}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 1.0320001, y: 2.1490002, z: 0.13000001}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -1.0320001, y: 2.1490002, z: -0.080000006}
+  m_TimeToStationary: 0.5

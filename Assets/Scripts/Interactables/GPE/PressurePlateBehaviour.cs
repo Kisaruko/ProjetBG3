@@ -15,6 +15,8 @@ public class PressurePlateBehaviour : MonoBehaviour
 
     public GameObject multipleEntryDoor;
 
+    public int nbObjectOnThis = 0;
+
     [Header("Pressure Plate Variables")]
     public float pressureFactorY;
     private float startingPosY;
@@ -46,8 +48,8 @@ public class PressurePlateBehaviour : MonoBehaviour
                 {
                     associatedGameobject[i].GetComponent<ActivableDoorBehaviour>().Activate();
                 }*/
-
-                activateEvent.Invoke();
+                nbObjectOnThis += 1;
+                ExecuteAnimation();
             }
         }
         if(multipleEntryDoor != null)
@@ -75,8 +77,8 @@ public class PressurePlateBehaviour : MonoBehaviour
                 {
                     associatedGameobject[i].GetComponent<ActivableDoorBehaviour>().Deactivate();
                 }*/
-
-                deactivateEvent.Invoke();
+                nbObjectOnThis -= 1;
+                ExecuteAnimation();
             }
         }
         if (multipleEntryDoor != null)
@@ -112,6 +114,18 @@ public class PressurePlateBehaviour : MonoBehaviour
         else
         {
             deactivateEvent.Invoke();
+        }
+    }
+    private void ExecuteAnimation()
+    {
+        if (nbObjectOnThis > 0)
+        {
+            activateEvent.Invoke();
+        }
+        if (nbObjectOnThis <= 0)
+        {
+            deactivateEvent.Invoke();
+            nbObjectOnThis = 0;
         }
     }
 }

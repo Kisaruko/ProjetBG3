@@ -14,6 +14,7 @@ public class AttackExecution : MonoBehaviour
     public GameObject fxHit;
     private bool isCharging = false;
     public float chargeSpeed;
+
     private void Start()
     {
         anim = GetComponent<Animator>();
@@ -40,12 +41,20 @@ public class AttackExecution : MonoBehaviour
                     player.GetComponent<PlayerMovement>().Recoil(transform, recoilInflincted); //Appelle la fonction recoil du joueur et inflige un recul de valeur recoilInflected
 
                     player.GetComponent<BinaryLight>().TakeHit();
+
+                    Invoke("RestartOnCollision", 0.2f);
                     player.GetComponent<BinaryLight>().DropLight(400f,400f);
                 }
                 anim.SetBool("Attack", false);
             }
         }
     }
+
+    private void RestartOnCollision()
+    {
+        GameManager._instance.Restart();
+    }
+
     private void OnDrawGizmosSelected()
     {
         Gizmos.DrawWireSphere(transform.position + transform.right, attackRange);

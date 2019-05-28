@@ -33,7 +33,7 @@ public class SimpleAI : MonoBehaviour
     public float absorbCooldown;
     private float absorbTimer;
     public float absorbFactor;
-
+    public Transform suckingSpot;
     [Header("Attack Variables", order = 0)]
     public float lightEjectionDistance;
     public float lightEjectionHeight;
@@ -190,7 +190,7 @@ public class SimpleAI : MonoBehaviour
                     target.GetComponent<SwitchBehaviour>().Unload(); //Unload le receptacle
                     clone = Instantiate(succionVfx, target.position, Quaternion.identity);
                     clone.GetComponent<SuckedLightBehaviour>().light = target;
-                    clone.GetComponent<SuckedLightBehaviour>().mobSuckingSpot = transform;
+                    clone.GetComponent<SuckedLightBehaviour>().mobSuckingSpot = suckingSpot;
                     clone.GetComponent<SuckedLightBehaviour>().isSucked = true;
                 }
                 else
