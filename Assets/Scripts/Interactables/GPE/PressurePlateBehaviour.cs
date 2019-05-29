@@ -42,12 +42,8 @@ public class PressurePlateBehaviour : MonoBehaviour
             if (other.CompareTag(taggedTrigger))
             {
                 //The pressure plate is activated and its Y pos is changed with the pressureFactorY
-                transform.position = new Vector3(this.transform.position.x, transform.position.y - pressureFactorY, this.transform.position.z);
+                //transform.position = new Vector3(this.transform.position.x, transform.position.y - pressureFactorY, this.transform.position.z);
                 isActivated = true;
-                /*for (int i = 0; i < associatedGameobject.Length; i++)
-                {
-                    associatedGameobject[i].GetComponent<ActivableDoorBehaviour>().Activate();
-                }*/
                 nbObjectOnThis += 1;
                 ExecuteAnimation();
             }
@@ -73,7 +69,7 @@ public class PressurePlateBehaviour : MonoBehaviour
             if (other.CompareTag(taggedTrigger))
             {
                 //The pressure plate is not activated || its Y pos comes back to normal || Reset the emission color
-                transform.position = new Vector3(this.transform.position.x, transform.position.y + pressureFactorY, this.transform.position.z);
+                //transform.position = new Vector3(this.transform.position.x, transform.position.y + pressureFactorY, this.transform.position.z);
                 isActivated = false;
                 material.SetColor("_EmissionColor", new Color(0, 0, 0));
 
@@ -85,7 +81,7 @@ public class PressurePlateBehaviour : MonoBehaviour
         {
             for (int i = 0; i < multipleEntryDoor.Length; i++)
             {
-                if (multipleEntryDoor[i].GetComponent<MultipleEntryDoor>().ActualEntriesSet > 0 && haveSetAnEntry)
+                if (multipleEntryDoor[i].GetComponent<MultipleEntryDoor>().ActualEntriesSet > 0)
                 {
                     multipleEntryDoor[i].GetComponent<MultipleEntryDoor>().SetNewEntry(-1);
                     haveSetAnEntry = false;
