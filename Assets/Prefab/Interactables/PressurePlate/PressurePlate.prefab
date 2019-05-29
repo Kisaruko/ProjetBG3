@@ -44,8 +44,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.3962245, y: 0.32173854, z: 1.8712971}
-  m_Center: {x: -0.011179447, y: 0.1312851, z: -0.048279166}
+  m_Size: {x: 1.5, y: 1.2166185, z: 1.5}
+  m_Center: {x: 0, y: 0.37634325, z: 0}
 --- !u!114 &6342844848735508995
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -65,7 +65,6 @@ MonoBehaviour:
   - Enemy
   - Light
   isActivated: 0
-  associatedGameobjects: []
   activateEvent:
     m_PersistentCalls:
       m_Calls:
@@ -164,10 +163,13 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  multipleEntryDoor: {fileID: 0}
+  multipleEntryDoor:
+  - {fileID: 0}
+  - {fileID: 0}
   nbObjectOnThis: 0
-  pressureFactorY: 0.1
-  baseColor: {r: 0, g: 0.36750412, b: 1, a: 1}
+  emissiveMesh: {fileID: 2796879264509893175}
+  activationVFX: {fileID: 6274053519590209556, guid: b6ef9557aae3f214da5efea61385952e,
+    type: 3}
 --- !u!1001 &2796879264512180819
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -243,11 +245,21 @@ PrefabInstance:
       propertyPath: m_CastShadows
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2300004, guid: 77bc27583efea5c469a50425afbbc026, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 6f75f2fdc9af9464eb82c956405e1c07, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 77bc27583efea5c469a50425afbbc026, type: 3}
 --- !u!4 &2796879264511793363 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 77bc27583efea5c469a50425afbbc026,
+    type: 3}
+  m_PrefabInstance: {fileID: 2796879264512180819}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &2796879264509893175 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 2300004, guid: 77bc27583efea5c469a50425afbbc026,
     type: 3}
   m_PrefabInstance: {fileID: 2796879264512180819}
   m_PrefabAsset: {fileID: 0}

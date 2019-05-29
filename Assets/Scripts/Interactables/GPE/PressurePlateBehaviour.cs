@@ -16,21 +16,17 @@ public class PressurePlateBehaviour : MonoBehaviour
 
     public int nbObjectOnThis = 0;
 
-    [Header("Pressure Plate Variables")]
-    public float pressureFactorY;
-    private float startingPosY;
-
     [Header("Emission Variables")]
-    public Color baseColor;
-    private Material material;
-    private Color finalColor;
-    private float emission;
+    public MeshRenderer emissiveMesh;
+    private Material emissiveMat;
     private bool haveSetAnEntry;
+
+    [Header("Vfx Variables")]
+    public GameObject activationVFX;
 
     void Start()
     {
-        material = GetComponentInChildren<Renderer>().material; //Get the material in order to change its Emissive color
-        startingPosY = transform.position.y; //Get the position Y in order to change it for when it has pressure on it
+        emissiveMat = emissiveMesh.material;
         Invoke("SetDoorAtBeginning", 0.1f);
     }
 
@@ -71,7 +67,6 @@ public class PressurePlateBehaviour : MonoBehaviour
                 //The pressure plate is not activated || its Y pos comes back to normal || Reset the emission color
                 //transform.position = new Vector3(this.transform.position.x, transform.position.y + pressureFactorY, this.transform.position.z);
                 isActivated = false;
-                material.SetColor("_EmissionColor", new Color(0, 0, 0));
 
                 nbObjectOnThis -= 1;
                 ExecuteAnimation();
@@ -90,20 +85,6 @@ public class PressurePlateBehaviour : MonoBehaviour
         }
     }
 
-    private void OnTriggerStay(Collider other)
-    {
-        //Compare if there is a tag in the List of tag
-        foreach (string taggedTrigger in activationTag)
-        {
-            if (other.CompareTag(taggedTrigger))
-            {
-                emission = Mathf.PingPong(Time.time, 1.0f); //float qui fait un pingpong entre le temps actuel et 1.0f
-                finalColor = baseColor * Mathf.LinearToGammaSpace(emission); //Applique la couleur de l'emissive fois l'intensité du pingpong
-
-                material.SetColor("_EmissionColor", finalColor); //Applique le pingpong de l'emissive sur le material
-            }
-        }
-    }
     private void SetDoorAtBeginning()
     {
         if (isStartingActive)
@@ -120,9 +101,17 @@ public class PressurePlateBehaviour : MonoBehaviour
         if (nbObjectOnThis > 0)
         {
             activateEvent.Invoke();
+            emissiveMat.EnableKeyword("_EMISSION");
+        }
+        if (nbObjectOnThis == 1)
+        {
+            Instantiate(activationVFX, transform.position, Quaternion.identity);
+            CameraShake.Shake(0.05f, 0.2f);
         }
         if (nbObjectOnThis <= 0)
         {
+            emissiveMat.DisableKeyword("_EMISSION");
+
             deactivateEvent.Invoke();
             nbObjectOnThis = 0;
         }
