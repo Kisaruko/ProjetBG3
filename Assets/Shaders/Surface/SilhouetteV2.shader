@@ -8,7 +8,7 @@
         _Metallic ("Metallic", 2D) = "white" {}
         _Emissive("Emissive", 2D) = "black" {}
     	_EmissiveColor("_EmissiveColor", Color) = (1,1,1,1)
-    	_EmissiveIntensity("_EmissiveIntensity", Range(0,10) ) = 0.5
+    	_EmissiveIntensity("_EmissiveIntensity", Range(0,1000) ) = 0.5
     }
     SubShader {
         Tags { "RenderType"="Opaque" }
