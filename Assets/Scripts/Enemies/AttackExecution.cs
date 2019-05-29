@@ -68,6 +68,7 @@ public class AttackExecution : MonoBehaviour
     public void StopCharge()
     {
         isCharging = false;
+        rb.isKinematic = true;
         rb.velocity= Vector3.zero;
         anim.SetBool("Attack", false);
     }
@@ -75,6 +76,7 @@ public class AttackExecution : MonoBehaviour
     {
         if(isCharging)
         {
+            rb.isKinematic = false;
             rb.velocity = (this.transform.parent.forward) * chargeSpeed; //Il avance toujours vers l'avant
         }
     }
