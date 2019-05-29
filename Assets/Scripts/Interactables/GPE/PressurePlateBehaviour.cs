@@ -21,6 +21,9 @@ public class PressurePlateBehaviour : MonoBehaviour
     private Material emissiveMat;
     private bool haveSetAnEntry;
 
+    [Header("Vfx Variables")]
+    public GameObject activationVFX;
+
     void Start()
     {
         emissiveMat = emissiveMesh.material;
@@ -38,7 +41,6 @@ public class PressurePlateBehaviour : MonoBehaviour
                 //transform.position = new Vector3(this.transform.position.x, transform.position.y - pressureFactorY, this.transform.position.z);
                 isActivated = true;
                 nbObjectOnThis += 1;
-                emissiveMat.EnableKeyword("_EMISSION");
                 ExecuteAnimation();
             }
         }
@@ -65,7 +67,6 @@ public class PressurePlateBehaviour : MonoBehaviour
                 //The pressure plate is not activated || its Y pos comes back to normal || Reset the emission color
                 //transform.position = new Vector3(this.transform.position.x, transform.position.y + pressureFactorY, this.transform.position.z);
                 isActivated = false;
-                emissiveMat.DisableKeyword("_EMISSION");
 
                 nbObjectOnThis -= 1;
                 ExecuteAnimation();
@@ -100,9 +101,17 @@ public class PressurePlateBehaviour : MonoBehaviour
         if (nbObjectOnThis > 0)
         {
             activateEvent.Invoke();
+            emissiveMat.EnableKeyword("_EMISSION");
+        }
+        if (nbObjectOnThis == 1)
+        {
+            Instantiate(activationVFX, transform.position, Quaternion.identity);
+            CameraShake.Shake(0.05f, 0.2f);
         }
         if (nbObjectOnThis <= 0)
         {
+            emissiveMat.DisableKeyword("_EMISSION");
+
             deactivateEvent.Invoke();
             nbObjectOnThis = 0;
         }
