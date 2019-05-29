@@ -178,6 +178,7 @@ public class SwitchBehaviour : MonoBehaviour
 
     private void Activation()
     {
+        CameraShake.Shake(0.05f, 0.2f);
         myMat.EnableKeyword("_EMISSION");
         isLoading = false;
         Instantiate(maxLightVfx, transform.position, Quaternion.identity);

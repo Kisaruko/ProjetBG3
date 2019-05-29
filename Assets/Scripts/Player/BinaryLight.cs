@@ -11,7 +11,7 @@ public class BinaryLight : MonoBehaviour
     public bool teleport = false;
     public bool isInvicible = false;
     public float invincibleDuration;
-
+    private MeshRenderer meshrenderer;
     [Header("Light Attributes", order = 0)]
     [Space(10, order = 1)]
     public bool gotLight;
@@ -65,7 +65,6 @@ public class BinaryLight : MonoBehaviour
 
     private void Start()
     {
-
         lightRb = LightObject.GetComponent<Rigidbody>();
         playerMovement = FindObjectOfType<PlayerMovement>();
         baseSpeed = playerMovement.moveSpeed;
@@ -86,7 +85,7 @@ public class BinaryLight : MonoBehaviour
     {
         if (gotLight)
         {
-            charMaterial.SetColor("_EmissionColor", Color.white); //Active l'emissive du bras du joueur
+            //charMaterial.SetColor("_EmissionColor", Color.white); //Active l'emissive du bras du joueur OBSOLETE AVEC LE SHADER SILHOUETTE
 
             if (Input.GetButtonDown("Throw") || Input.GetMouseButtonDown(0))
             {
@@ -101,10 +100,10 @@ public class BinaryLight : MonoBehaviour
             }
         }
 
-        if (!gotLight)
+        /*if (!gotLight)
         {
-            charMaterial.SetColor("_EmissionColor", Color.black); //Désactive l'émissive du bras du joueur
-        }
+            //charMaterial.SetColor("_EmissionColor", Color.black); //Désactive l'émissive du bras du joueur OBSOLETE AVEC LE SHADER SILHOUETTE
+        }*/
 
         //Debug
        /*if (Input.GetKeyDown(KeyCode.D))
@@ -136,6 +135,7 @@ public class BinaryLight : MonoBehaviour
     /// </summary>
     public void DropLight(float ejectionDistance, float ejectionHeight)
     {
+        charMaterial.SetFloat("_EmissiveIntensity", 0f);
         mesh.enabled = true;
         myCollider.isTrigger = false ;
         lightRb.drag = 0;
@@ -155,6 +155,7 @@ public class BinaryLight : MonoBehaviour
     {
         if (isRegrabable)
         {
+            charMaterial.SetFloat("_EmissiveIntensity", 10f);
             anim.SetBool("getLight", true);
             mesh.enabled = false;
             playerMovement.moveSpeed = 0f;
@@ -275,6 +276,8 @@ public class BinaryLight : MonoBehaviour
     }
     void ThrowLight()
     {
+        charMaterial.SetFloat("_EmissiveIntensity", 0f);
+
         lightRb.isKinematic = false;
         lightRb.useGravity = true;
 
