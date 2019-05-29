@@ -65,7 +65,6 @@ MonoBehaviour:
   - Enemy
   - Light
   isActivated: 0
-  associatedGameobjects: []
   activateEvent:
     m_PersistentCalls:
       m_Calls:
@@ -164,10 +163,9 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  multipleEntryDoor: {fileID: 0}
+  multipleEntryDoor: []
   nbObjectOnThis: 0
-  pressureFactorY: 0.1
-  baseColor: {r: 0, g: 0.36750412, b: 1, a: 1}
+  emissiveMesh: {fileID: 2796879264509893175}
 --- !u!1001 &2796879264512180819
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -252,6 +250,12 @@ PrefabInstance:
 --- !u!4 &2796879264511793363 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 77bc27583efea5c469a50425afbbc026,
+    type: 3}
+  m_PrefabInstance: {fileID: 2796879264512180819}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &2796879264509893175 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 2300004, guid: 77bc27583efea5c469a50425afbbc026,
     type: 3}
   m_PrefabInstance: {fileID: 2796879264512180819}
   m_PrefabAsset: {fileID: 0}
