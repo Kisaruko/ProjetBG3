@@ -11,14 +11,15 @@
         _Foam("Foamline Thickness", Range(0,10)) = 0.5
 		_ScrollX ("Scroll X", Range(-5,5)) = 1
 		_ScrollY ("Scroll Y", Range(-5,5)) = 1
-       
     }
+
     SubShader
     {
         Tags { "RenderType"="Opaque"  "Queue" = "Transparent" }
         LOD 100
         Blend SrcAlpha OneMinusSrcAlpha
- 
+        ZWrite Off
+       // ZTest Greater
         Pass
         {
             CGPROGRAM
@@ -70,9 +71,9 @@
 				_ScrollY *= _Time;
                 half4 col = tex2D(_MainTex, i.uv + float2(_ScrollX, _ScrollY)) * _Tint;
                 half depth = LinearEyeDepth(SAMPLE_DEPTH_TEXTURE_PROJ(_CameraDepthTexture, UNITY_PROJ_COORD(i.scrPos)));
-                half4 foamLine =1 - saturate(_Foam * (depth - i.scrPos.w));
+                half4 foamLine = 0 - saturate(_Foam * (depth - i.scrPos.w));
                 col += foamLine * _Tint;
-                return col ;
+                return col;
             }
             ENDCG
         }

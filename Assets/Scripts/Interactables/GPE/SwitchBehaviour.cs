@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using cakeslice;
 
 public class SwitchBehaviour : MonoBehaviour
 {
@@ -51,10 +52,14 @@ public class SwitchBehaviour : MonoBehaviour
     public bool isAtMinimum = true;
     private bool haveSetAnEntry = false;
     public int nbEntryThisSwitchSet = 1;
+    private Transform lightTransform;
 
+    private Outline outline;
 
     private void Start()
     {
+        outline = GetComponent<Outline>();
+        lightTransform = GameObject.Find("PlayerLight_v4-1").transform;
         thisObjectLight = GetComponent<Light>();
         minYPos = transform.position.y;
         minIntensity = thisObjectLight.intensity;
@@ -74,11 +79,19 @@ public class SwitchBehaviour : MonoBehaviour
                 if (Vector3.Distance(transform.position, playerLight.transform.position) > playerLight.GetComponent<LightDetection>().range * 2)
                 {
                     deactivateEvent.Invoke();
-                  //  playerLight.GetComponent<LightDetection>().StopFollow();
                 }
             }
         }
+        if (Vector3.Distance(transform.position, lightTransform.position) < 5f && isActivated == false)
+        {
+            outline.SetOutline();
+        }
+        else
+        {
+            outline.RemoveOutline();
+        }
     }
+
     public void Loading()
     {
         if (!isActivated)
