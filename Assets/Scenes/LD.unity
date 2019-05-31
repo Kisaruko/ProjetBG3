@@ -280,11 +280,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: ActivableDoor (3)
       objectReference: {fileID: 0}
-    - target: {fileID: 8590650383303831844, guid: 4415406e47a777341981ce2b7e0145ee,
-        type: 3}
-      propertyPath: activateAtStart
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1754623758154611168, guid: 4415406e47a777341981ce2b7e0145ee,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -348,6 +343,11 @@ PrefabInstance:
     - target: {fileID: 1754623758154611168, guid: 4415406e47a777341981ce2b7e0145ee,
         type: 3}
       propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8590650383303831844, guid: 4415406e47a777341981ce2b7e0145ee,
+        type: 3}
+      propertyPath: activateAtStart
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8644840274623583679, guid: 4415406e47a777341981ce2b7e0145ee,
@@ -25903,6 +25903,7 @@ GameObject:
   - component: {fileID: 850021218}
   - component: {fileID: 850021217}
   - component: {fileID: 850021216}
+  - component: {fileID: 850021220}
   m_Layer: 0
   m_Name: Cube (2)
   m_TagString: Untagged
@@ -25982,6 +25983,19 @@ Transform:
   m_Father: {fileID: 800499201}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -180}
+--- !u!114 &850021220
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 850021215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eeced0fbff96775468c2f52c1b8f6cc4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneToLoad: PT3_Monstres
 --- !u!1001 &852972009
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -33793,12 +33807,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 185255197, guid: 5e611105819a1824699d00728b5eecee, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1975590013, guid: 5e611105819a1824699d00728b5eecee, type: 3}
       propertyPath: isFiltered
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 185255197, guid: 5e611105819a1824699d00728b5eecee, type: 3}
+      propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -43720,6 +43734,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 874107648, guid: cc52c9a7e74be54448cbfcb1c8c03638, type: 3}
+      propertyPath: ObjectsThatCanBeTouched.m_Bits
+      value: 329728
+      objectReference: {fileID: 0}
     - target: {fileID: 2051384901, guid: cc52c9a7e74be54448cbfcb1c8c03638, type: 3}
       propertyPath: isPlayerMustHaveLight
       value: 0
@@ -43732,10 +43750,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 874107648, guid: cc52c9a7e74be54448cbfcb1c8c03638, type: 3}
-      propertyPath: ObjectsThatCanBeTouched.m_Bits
-      value: 329728
       objectReference: {fileID: 0}
     - target: {fileID: 3323257189013035137, guid: cc52c9a7e74be54448cbfcb1c8c03638,
         type: 3}
