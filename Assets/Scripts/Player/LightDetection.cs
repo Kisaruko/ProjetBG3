@@ -10,8 +10,8 @@ public class LightDetection : MonoBehaviour
 
     public float range;
     public LayerMask ObjectsThatCanBeTouched;
-    private Light light;
-    // public float rangeMultiplier;
+    private Light thisLight;
+
     private Transform actualVfxTarget;
 
     public ParticleSystem ps;
@@ -19,6 +19,7 @@ public class LightDetection : MonoBehaviour
     private BinaryLight binaryLight;
     [Header("Vfx Attributes", order = 0)]
     [Space(10, order = 1)]
+    #region old
     /*  public bool followTarget;
       public float particlesSpeed;
       ParticleSystem.Particle[] m_Particles;
@@ -28,39 +29,38 @@ public class LightDetection : MonoBehaviour
       ParticleSystem.EmissionModule emission;
       ParticleSystem.VelocityOverLifetimeModule velocityOverLifetime;
       private GameObject particlesTarget;*/
+    #endregion
     public GameObject vfxTransmission;
-    public float stoppingRange=0.3f;
+    public float stoppingRange = 0.3f;
     private Rigidbody rb;
 
     //magnetism Variables
     public float magnetismSpeed;
-    public float magnetismRangeDivider= 1;
+    public float magnetismRangeDivider = 1;
     public bool activeMagnetism = false;
 
     #region unityMehods
     private void Start()
     {
         binaryLight = GameObject.Find("Player").GetComponent<BinaryLight>();
-        light = GetComponentInChildren<Light>();
-        //emission = ps.emission;
-        //emission.enabled = false;
+        thisLight = GetComponentInChildren<Light>();
         rb = GetComponent<Rigidbody>();
     }
     private void Update()
     {
         InputCheck();
 
-        if(isTransmitting)
+        List<SwitchBehaviour> switchsList = new List<SwitchBehaviour>(); //crée une liste
+
+        foreach (Collider hitcol in Physics.OverlapSphere(transform.position, range, ObjectsThatCanBeTouched)) // crée une sphere de detection
         {
-            List<SwitchBehaviour> switchsList = new List<SwitchBehaviour>(); //crée une liste
-            // range = light.intensity * rangeMultiplier;
-            foreach (Collider hitcol in Physics.OverlapSphere(transform.position, range, ObjectsThatCanBeTouched)) // crée une sphere de detection
+            Vector3 toCollider = hitcol.transform.position - transform.position; // get le vecteur entre ennemi et player
+            Ray ray = new Ray(transform.position, toCollider); // trace un rayon entre les deux
+            if (!Physics.Raycast(ray, toCollider.magnitude, ~ObjectsThatCanBeTouched)) // si le ray ne touche pas de mur
             {
-                Vector3 toCollider = hitcol.transform.position - transform.position; // get le vecteur entre ennemi et player
-                Ray ray = new Ray(transform.position, toCollider); // trace un rayon entre les deux
-                if (!Physics.Raycast(ray, toCollider.magnitude, ~ObjectsThatCanBeTouched)) // si le ray ne touche pas de mur
+                if (hitcol.GetComponent<SwitchBehaviour>() != null)
                 {
-                    if (hitcol.GetComponent<SwitchBehaviour>() != null)
+                    if (isTransmitting)
                     {
                         hitcol.GetComponent<SwitchBehaviour>().playerLight = this.gameObject;
 
@@ -78,21 +78,21 @@ public class LightDetection : MonoBehaviour
                             clone.GetComponent<SuckedLightBehaviour>().mobSuckingSpot = actualVfxTarget;
                         }
                     }
-                    if (hitcol.GetComponent<EmitWhenTrigger>() != null)
+                }
+                if (hitcol.GetComponent<EmitWhenTrigger>() != null)
+                {
+                    hitcol.GetComponent<EmitWhenTrigger>().ActivateEmission();
+                }
+                if (hitcol.gameObject.layer == 11 && transform.parent == null && binaryLight.isRegrabable == true && activeMagnetism == true)
+                {
+                    if (Vector3.Distance(transform.position, hitcol.transform.position) < range / magnetismRangeDivider)
                     {
-                        hitcol.GetComponent<EmitWhenTrigger>().ActivateEmission();
-                    }
-                    if (hitcol.gameObject.layer == 11 && transform.parent == null && binaryLight.isRegrabable == true && activeMagnetism == true)
-                    {
-                        if (Vector3.Distance(transform.position, hitcol.transform.position) < range / magnetismRangeDivider)
-                        {
-                            rb.velocity = (hitcol.transform.position - transform.position).normalized * magnetismSpeed;
-                        }
+                        rb.velocity = (hitcol.transform.position - transform.position).normalized * magnetismSpeed;
                     }
                 }
-
-                switchsList.Clear();
             }
+
+            switchsList.Clear();
         }
     }
     private void InputCheck()
@@ -101,7 +101,7 @@ public class LightDetection : MonoBehaviour
         {
             isTransmitting = true;
         }
-        if(Input.GetButtonUp("Attack") || Input.GetKeyUp(KeyCode.Space))
+        if (Input.GetButtonUp("Attack") || Input.GetKeyUp(KeyCode.Space))
         {
             isTransmitting = false;
         }
@@ -122,7 +122,7 @@ public class LightDetection : MonoBehaviour
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, range);
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, range/magnetismRangeDivider);
+        Gizmos.DrawWireSphere(transform.position, range / magnetismRangeDivider);
     }
     #endregion
 }
