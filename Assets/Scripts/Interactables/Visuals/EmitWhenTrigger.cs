@@ -20,6 +20,7 @@ public class EmitWhenTrigger : MonoBehaviour
     }
     public void ActivateEmission()
     {
+        CameraShake.Shake(0.05f, 0.05f);
         if (vfxShine != null)
         {
             Instantiate(vfxShine, transform.position, Quaternion.identity);
@@ -29,6 +30,7 @@ public class EmitWhenTrigger : MonoBehaviour
             light.enabled = true;
         }
         myMat.EnableKeyword("_EMISSION");
+        
         Destroy(this);
     }
 }

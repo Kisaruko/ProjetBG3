@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using cakeslice;
 
 public class SwitchBehaviour : MonoBehaviour
 {
@@ -74,11 +75,11 @@ public class SwitchBehaviour : MonoBehaviour
                 if (Vector3.Distance(transform.position, playerLight.transform.position) > playerLight.GetComponent<LightDetection>().range * 2)
                 {
                     deactivateEvent.Invoke();
-                  //  playerLight.GetComponent<LightDetection>().StopFollow();
                 }
             }
         }
     }
+
     public void Loading()
     {
         if (!isActivated)
@@ -178,6 +179,7 @@ public class SwitchBehaviour : MonoBehaviour
 
     private void Activation()
     {
+        CameraShake.Shake(0.05f, 0.2f);
         myMat.EnableKeyword("_EMISSION");
         isLoading = false;
         Instantiate(maxLightVfx, transform.position, Quaternion.identity);

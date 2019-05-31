@@ -13,22 +13,22 @@ MonoBehaviour:
   m_Name: Trash Mob Stats
   m_EditorClassIdentifier: 
   moveSpeed: 3.5
+  rotationSpeed: 1.2
   patrolDist: 8
   patrolWanderTime: 2
-  lookRange: 15
+  lookRange: 20
   lookAngle: 360
   targetMask:
     serializedVersion: 2
     m_Bits: 98304
   obstacleMask:
     serializedVersion: 2
-    m_Bits: 16384
-  visibleTargets: []
-  attackRange: 3
-  attackRate: 1
-  attackForce: 40
-  attackDamage: 3
-  attackSphereCastRadius: 1
+    m_Bits: 1
+  visibleTargets:
+  - {fileID: 0}
+  - {fileID: 0}
+  attackRange: 4
+  attackCooldown: 1
   absorbRange: 5
   absorbCooldown: 0.2
   absorbFactor: 0.025

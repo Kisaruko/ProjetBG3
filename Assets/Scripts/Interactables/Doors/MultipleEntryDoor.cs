@@ -23,7 +23,6 @@ public class MultipleEntryDoor : ActivableObjects
     {
         if(ActualEntriesSet >= NumberOfEntries)
         {
-            Activate();
             if (transform.GetChild(nbChildThatGotEmissive).GetComponent<RootBehaviour>() != null)
             {
                 transform.GetChild(nbChildThatGotEmissive).GetComponent<RootBehaviour>().Activate();
@@ -32,6 +31,7 @@ public class MultipleEntryDoor : ActivableObjects
             {
                 Debug.LogWarning("This child (number in script) doesn't got a rootBehaviour");
             }
+            Activate();
         }
         else
         {

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1927982748}
   - component: {fileID: 1903081084458326038}
   - component: {fileID: 526914553}
+  - component: {fileID: 1651812477125486996}
   m_Layer: 10
   m_Name: FSM_Mob_Parent
   m_TagString: Enemy
@@ -109,6 +110,22 @@ CapsuleCollider:
   m_Height: 1.5
   m_Direction: 1
   m_Center: {x: 0, y: 0.8, z: 0}
+--- !u!54 &1651812477125486996
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2988330570510031375}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &6586658760571442849
 GameObject:
   m_ObjectHideFlags: 0
@@ -747,6 +764,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6586658760571538103}
   - component: {fileID: 6586658760561927549}
+  - component: {fileID: 906907052391444495}
   m_Layer: 0
   m_Name: Trash_mob
   m_TagString: Untagged
@@ -789,6 +807,23 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &906907052391444495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6586658760571442903}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 499165ebafac8494e9931cc332564b90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  recoilInflincted: 0
+  strength: 0
+  attackRange: 0.55
+  fxHit: {fileID: 2930119308577437415, guid: 0edfdebdd111e744580bed1f63eb1dbf, type: 3}
+  chargeSpeed: 6
 --- !u!1 &6586658760571442905
 GameObject:
   m_ObjectHideFlags: 0
