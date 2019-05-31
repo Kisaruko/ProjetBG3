@@ -43,6 +43,7 @@ public class SwitchBehaviour : MonoBehaviour
     private bool intensityIsMaxed;
     private bool rangeIsMaxed;
     private bool transformIsMaxed;
+
     [Header("Load Components", order = 0)]
     [Space(10, order = 1)]
     public bool isLoading;
@@ -66,6 +67,7 @@ public class SwitchBehaviour : MonoBehaviour
         maxYPos += transform.position.y;
         Invoke("ActivateAtStart", 0.1f);
     }
+
     private void Update()
     {
         if (!isActivated && isLoading)
@@ -128,7 +130,6 @@ public class SwitchBehaviour : MonoBehaviour
             }
         }
     }
-
     public void Unload()
     {
         if (thisObjectLight.intensity > minIntensity)
@@ -161,7 +162,6 @@ public class SwitchBehaviour : MonoBehaviour
         }
         Deactivate();
     }
-
     private void Deactivate()
     {
         myMat.DisableKeyword("_EMISSION");
@@ -176,7 +176,6 @@ public class SwitchBehaviour : MonoBehaviour
             }
         }
     }
-
     private void Activation()
     {
         CameraShake.Shake(0.05f, 0.2f);
