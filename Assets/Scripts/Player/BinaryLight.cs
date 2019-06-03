@@ -12,7 +12,7 @@ public class BinaryLight : MonoBehaviour
     public bool isInvicible = false;
     public float invincibleDuration;
     private MeshRenderer meshrenderer;
-    
+
     [Header("Light Attributes", order = 0)]
     [Space(10, order = 1)]
     public bool gotLight;
@@ -24,7 +24,7 @@ public class BinaryLight : MonoBehaviour
     private SkinnedMeshRenderer charRenderer;
     private Material charMaterial;
 
-    
+
     [Header("Physics Attributes", order = 0)]
     [Space(10, order = 1)]
     public float ejectionForce;
@@ -114,10 +114,10 @@ public class BinaryLight : MonoBehaviour
         }*/
 
         //Debug
-       /*if (Input.GetKeyDown(KeyCode.D))
-        {
-            DropLight(ejectionDistance, ejectionHeight);
-        }*/
+        /*if (Input.GetKeyDown(KeyCode.D))
+         {
+             DropLight(ejectionDistance, ejectionHeight);
+         }*/
         if (Input.GetKeyDown(KeyCode.G))
         {
             GetLight();
@@ -145,7 +145,7 @@ public class BinaryLight : MonoBehaviour
     {
         charMaterial.SetFloat("_EmissiveIntensity", minEmissionIntensity);
         mesh.enabled = true;
-        myCollider.isTrigger = false ;
+        myCollider.isTrigger = false;
         lightRb.drag = 0;
         isRegrabable = false;
         Invoke("LightCanBeRegrabed", 2f);
@@ -209,6 +209,7 @@ public class BinaryLight : MonoBehaviour
             start = Instantiate(rangeStart) as GameObject;
             start.transform.parent = this.transform;
             start.transform.localPosition = Vector3.up;
+            start.transform.localScale = new Vector3(1f, 5f, 1f);
         }
         if (end == null)
         {
@@ -222,18 +223,21 @@ public class BinaryLight : MonoBehaviour
         //End building start and end range indicator
 
         float currentYSize;
-
+        float minRange = 2f;
         currentYSize = start.transform.localScale.y;
 
-        if (currentYSize <= maxRange)
+        float triggers;
+        triggers = Input.GetAxis("Triggers");
+        if (triggers > 0 && currentYSize <= maxRange)
         {
-            //Set the scale of the range indicator
             start.transform.localScale += new Vector3(0f, aimingSpeed * Time.deltaTime, 0f);
         }
-        else
+        if (triggers < 0 && currentYSize >= minRange)
         {
-            reachedMaxRange = true;
+            start.transform.localScale -= new Vector3(0f, aimingSpeed * Time.deltaTime, 0f);
         }
+        //Set the scale of the range indicator
+        //start.transform.localScale += new Vector3(0f, aimingSpeed * Time.deltaTime, 0f);
 
 
         //Set the position and rotation of the range indicator
