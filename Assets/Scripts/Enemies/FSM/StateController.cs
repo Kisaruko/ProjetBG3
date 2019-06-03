@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+public enum Gate { Red = 4, Green, Blue }
+
 public class StateController : MonoBehaviour
 {
     public State currentState;
@@ -28,6 +30,7 @@ public class StateController : MonoBehaviour
 
     public void SetupAI(bool aiActivationFromTrashMobManager)
     {
+        SetGateAllowed(Gate.Green, true);
         //Setup the AI, the way points list will be the one assigned when calling this method, same for the activation of the AI
         aiActive = aiActivationFromTrashMobManager;
         if(aiActive)
@@ -69,5 +72,15 @@ public class StateController : MonoBehaviour
     public bool CheckIfCountDownElapsed(float duration)
     {
         return (stateTimeElapsed >= duration);
+    }
+
+    private void SetGateAllowed(Gate gate, bool allowed)
+    {
+        if (allowed)
+        {
+            navMeshAgent.areaMask |= 1 << (int)gate;
+        }
+        else
+            navMeshAgent.areaMask &= ~(1 << (int)gate);
     }
 }
