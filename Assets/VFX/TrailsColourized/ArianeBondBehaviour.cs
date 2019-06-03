@@ -20,6 +20,7 @@ public class ArianeBondBehaviour : MonoBehaviour
         lightAnchor = GameObject.Find("PlayerLight");
         agent = GetComponent<NavMeshAgent>();
         destination = lightObject.transform;
+        
     }
     private void Update()
     {
@@ -61,5 +62,7 @@ public class ArianeBondBehaviour : MonoBehaviour
             agent.Warp(position);
         }
     }
+
+    
 
 }
