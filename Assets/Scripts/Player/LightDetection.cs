@@ -33,11 +33,12 @@ public class LightDetection : MonoBehaviour
     public GameObject vfxTransmission;
     public float stoppingRange = 0.3f;
     private Rigidbody rb;
-
     //magnetism Variables
     public float magnetismSpeed;
     public float magnetismRangeDivider = 1;
     public bool activeMagnetism = false;
+
+    public GameObject xButton;
 
     #region unityMehods
     private void Start()
@@ -51,7 +52,7 @@ public class LightDetection : MonoBehaviour
         InputCheck();
 
         List<SwitchBehaviour> switchsList = new List<SwitchBehaviour>(); //crée une liste
-
+        List<SwitchBehaviour> potentialTarget = new List<SwitchBehaviour>();
         foreach (Collider hitcol in Physics.OverlapSphere(transform.position, range, ObjectsThatCanBeTouched)) // crée une sphere de detection
         {
             Vector3 toCollider = hitcol.transform.position - transform.position; // get le vecteur entre ennemi et player
@@ -60,13 +61,14 @@ public class LightDetection : MonoBehaviour
             {
                 if (hitcol.GetComponent<SwitchBehaviour>() != null)
                 {
-                    if (isTransmitting)
+                    if (hitcol.GetComponent<SwitchBehaviour>().isActivated == false)
                     {
+                        potentialTarget.Add(hitcol.GetComponent<SwitchBehaviour>());
                         hitcol.GetComponent<SwitchBehaviour>().playerLight = this.gameObject;
 
                         SwitchBehaviour switchbehaviour = hitcol.GetComponent<SwitchBehaviour>();
 
-                        if (hitcol.GetComponent<SwitchBehaviour>().isActivated == false)
+                        if (isTransmitting)
                         {
                             hitcol.GetComponent<SwitchBehaviour>().Loading();
                             switchsList.Add(switchbehaviour);
@@ -76,6 +78,7 @@ public class LightDetection : MonoBehaviour
                             clone.GetComponent<SuckedLightBehaviour>().light = transform;
                             clone.GetComponent<SuckedLightBehaviour>().isSucked = true;
                             clone.GetComponent<SuckedLightBehaviour>().mobSuckingSpot = actualVfxTarget;
+
                         }
                     }
                 }
@@ -91,8 +94,17 @@ public class LightDetection : MonoBehaviour
                     }
                 }
             }
-
-            switchsList.Clear();
+        }
+        if (xButton != null)
+        {
+            if (potentialTarget.Count.Equals(0))
+            {
+                xButton.GetComponent<ButtonDisplayer>().Disappear();
+            }
+            else
+            {
+                xButton.GetComponent<ButtonDisplayer>().Appear();
+            }
         }
     }
     private void InputCheck()
