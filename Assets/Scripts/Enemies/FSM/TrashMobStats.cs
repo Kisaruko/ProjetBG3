@@ -30,5 +30,10 @@ public class TrashMobStats : ScriptableObject
     public float absorbRange;
     public float absorbCooldown;
     public float absorbFactor;
+
+    [Header("Disable Lights Variables")]
+    public float disableRange;
+    public LayerMask objectsToDisable;
+    public float disableCooldown;
     
 }
