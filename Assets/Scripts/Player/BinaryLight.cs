@@ -71,6 +71,12 @@ public class BinaryLight : MonoBehaviour
     public float maxEmissionIntensity;
     public float minEmissionIntensity;
 
+
+    [Header("Mouse Variables", order = 0)]
+    [Space(10, order = 1)]
+    public float speedMultiplierWithMouse;
+    public bool playWithMouse;
+
     private void Start()
     {
         lightRb = LightObject.GetComponent<Rigidbody>();
@@ -95,7 +101,7 @@ public class BinaryLight : MonoBehaviour
         {
             //charMaterial.SetColor("_EmissionColor", Color.white); //Active l'emissive du bras du joueur OBSOLETE AVEC LE SHADER SILHOUETTE
 
-            if (Input.GetButtonDown("Throw") || Input.GetMouseButtonDown(0))
+            if (Input.GetButtonDown("Throw") || Input.GetMouseButtonDown(1))
             {
                 anim.SetBool("isAiming", true);
                 anim.SetBool("launch", false);
@@ -227,14 +233,31 @@ public class BinaryLight : MonoBehaviour
         currentYSize = start.transform.localScale.y;
 
         float triggers;
+        float mouseScroll;
         triggers = Input.GetAxis("Triggers");
-        if (triggers > 0 && currentYSize <= maxRange)
+        mouseScroll = Input.GetAxis("Mouse ScrollWheel");
+
+        if (triggers > 0 || mouseScroll> 0&& currentYSize <= maxRange)
         {
-            start.transform.localScale += new Vector3(0f, aimingSpeed * Time.deltaTime, 0f);
+            if (!playWithMouse)
+            {
+                start.transform.localScale += new Vector3(0f, aimingSpeed * Time.deltaTime, 0f);
+            }
+            else
+            {
+                start.transform.localScale += new Vector3(0f, aimingSpeed*speedMultiplierWithMouse * Time.deltaTime, 0f);
+            }
         }
-        if (triggers < 0 && currentYSize >= minRange)
+        if (triggers < 0 || mouseScroll <0&& currentYSize >= minRange)
         {
-            start.transform.localScale -= new Vector3(0f, aimingSpeed * Time.deltaTime, 0f);
+            if (!playWithMouse)
+            {
+                start.transform.localScale -= new Vector3(0f, aimingSpeed * Time.deltaTime, 0f);
+            }
+            else
+            {
+                start.transform.localScale -= new Vector3(0f, aimingSpeed * speedMultiplierWithMouse * Time.deltaTime, 0f);
+            }
         }
         //Set the scale of the range indicator
         //start.transform.localScale += new Vector3(0f, aimingSpeed * Time.deltaTime, 0f);
@@ -266,7 +289,7 @@ public class BinaryLight : MonoBehaviour
         }*/
         #endregion
 
-        if (Input.GetButtonUp("Throw") || Input.GetMouseButtonUp(0))
+        if (Input.GetButtonUp("Throw") || Input.GetMouseButtonUp(1))
         {
             //Physics alterations
             isThrown = true;
