@@ -40,6 +40,7 @@ public class ChainReaction : MonoBehaviour
         }
         return switchsList;
     }
+
     private void FixedUpdate()
     {
         frames++;
@@ -55,6 +56,7 @@ public class ChainReaction : MonoBehaviour
             }
         }
     }
+
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
