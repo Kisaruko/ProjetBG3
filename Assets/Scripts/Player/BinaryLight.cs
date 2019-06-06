@@ -237,26 +237,32 @@ public class BinaryLight : MonoBehaviour
         triggers = Input.GetAxis("Triggers");
         mouseScroll = Input.GetAxis("Mouse ScrollWheel");
 
-        if (triggers > 0 || mouseScroll> 0&& currentYSize <= maxRange)
+        if (triggers > 0 || mouseScroll> 0 )
         {
-            if (!playWithMouse)
+            if (currentYSize <= maxRange)
             {
-                start.transform.localScale += new Vector3(0f, aimingSpeed * Time.deltaTime, 0f);
-            }
-            else
-            {
-                start.transform.localScale += new Vector3(0f, aimingSpeed*speedMultiplierWithMouse * Time.deltaTime, 0f);
+                if (!playWithMouse)
+                {
+                    start.transform.localScale += new Vector3(0f, aimingSpeed * Time.deltaTime, 0f);
+                }
+                else
+                {
+                    start.transform.localScale += new Vector3(0f, aimingSpeed * speedMultiplierWithMouse * Time.deltaTime, 0f);
+                }
             }
         }
-        if (triggers < 0 || mouseScroll <0&& currentYSize >= minRange)
+        if (triggers < 0 || mouseScroll <0)
         {
-            if (!playWithMouse)
+            if (currentYSize >= minRange)
             {
-                start.transform.localScale -= new Vector3(0f, aimingSpeed * Time.deltaTime, 0f);
-            }
-            else
-            {
-                start.transform.localScale -= new Vector3(0f, aimingSpeed * speedMultiplierWithMouse * Time.deltaTime, 0f);
+                if (!playWithMouse)
+                {
+                    start.transform.localScale -= new Vector3(0f, aimingSpeed * Time.deltaTime, 0f);
+                }
+                else
+                {
+                    start.transform.localScale -= new Vector3(0f, aimingSpeed * speedMultiplierWithMouse * Time.deltaTime, 0f);
+                }
             }
         }
         //Set the scale of the range indicator

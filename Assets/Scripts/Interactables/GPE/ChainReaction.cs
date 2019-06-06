@@ -36,6 +36,10 @@ public class ChainReaction : MonoBehaviour
 
                     }
                 }
+                if(hitcol.GetComponent<EmitWhenTrigger>() != null)
+                {
+                    hitcol.GetComponent<EmitWhenTrigger>().ActivateEmission();
+                }
             }
         }
         return switchsList;
