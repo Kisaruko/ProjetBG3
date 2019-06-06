@@ -20,6 +20,10 @@ public class EmitWhenTrigger : MonoBehaviour
             light = GetComponent<Light>();
             light.enabled = false;
         }
+        if(isActivated)
+        {
+            ActivateEmission();
+        }
     }
     public void ActivateEmission()
     {
