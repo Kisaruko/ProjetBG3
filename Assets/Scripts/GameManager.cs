@@ -7,10 +7,12 @@ public class GameManager : MonoBehaviour
 {
 
     public static GameManager _instance;
+
+    [Header("Shader Pencil Variables")]
+    public Material pencilMat;
     private GameObject player;
     private float myDeltaTime;
     private bool isTimeScaleAltered;
-    public Material pencilMat;
     private Camera myCam;
     private CameraBehaviour camParent;
     private ImageEffect imageeffect;
@@ -24,15 +26,23 @@ public class GameManager : MonoBehaviour
     public Color flashDrawColor;
     public Color flashBackGroundColor;
 
+    [Header("Scene Management Variables")]
+    public string menuSceneName;
+    public string gameOverSceneName;
+    public string lastScene;
+    
+
     [Space(15)]
     public int FPSLimit;
 
 
     void Awake()
     {
+        DontDestroyOnLoad(this);
         _instance = this;
         QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = FPSLimit;
+        
     }
     #region MainMethods
     private void Start()
@@ -78,7 +88,14 @@ public class GameManager : MonoBehaviour
 
     public void Restart()
     {
-        Scene scene = SceneManager.GetActiveScene(); SceneManager.LoadScene(scene.name);
+        Scene scene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(scene.name);
+    }
+
+    public void GameOver()
+    {
+        lastScene = SceneManager.GetActiveScene().name;
+        SceneManager.LoadScene(gameOverSceneName);
     }
 
     #region ImpactEffect
