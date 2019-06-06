@@ -73,11 +73,14 @@ public class SwitchBehaviour : MonoBehaviour
     {
         if (!isActivated && isLoading)
         {
-            if (playerLight.GetComponent<LightDetection>() != null)
+            if(playerLight != null)
             {
-                if (Vector3.Distance(transform.position, playerLight.transform.position) > playerLight.GetComponent<LightDetection>().range * 2)
+                if (playerLight.GetComponent<LightDetection>() != null)
                 {
-                    deactivateEvent.Invoke();
+                    if (Vector3.Distance(transform.position, playerLight.transform.position) > playerLight.GetComponent<LightDetection>().range * 2)
+                    {
+                        deactivateEvent.Invoke();
+                    }
                 }
             }
         }

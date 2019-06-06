@@ -36,10 +36,15 @@ public class ChainReaction : MonoBehaviour
 
                     }
                 }
+                if(hitcol.GetComponent<EmitWhenTrigger>() != null)
+                {
+                    hitcol.GetComponent<EmitWhenTrigger>().ActivateEmission();
+                }
             }
         }
         return switchsList;
     }
+
     private void FixedUpdate()
     {
         frames++;
@@ -55,6 +60,7 @@ public class ChainReaction : MonoBehaviour
             }
         }
     }
+
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;

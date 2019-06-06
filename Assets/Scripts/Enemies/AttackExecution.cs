@@ -52,7 +52,7 @@ public class AttackExecution : MonoBehaviour
 
     private void RestartOnCollision()
     {
-        GameManager._instance.Restart();
+        GameManager._instance.GameOver();
     }
 
     private void OnDrawGizmosSelected()

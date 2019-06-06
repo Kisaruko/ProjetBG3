@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpawnerRock : ActivableObjects
+public class SpawnerWithRate : ActivableObjects
 {
     public GameObject objectToSpawn;
     public float timeBeforeSpawn;
     public float spawnRate;
     public bool isSpawning = true;
     public float timeBeforeDestroyObject;
+    public int nbObjectToSpawnEachRate;
 
     public override void Activate()
     {
@@ -29,8 +30,11 @@ public class SpawnerRock : ActivableObjects
     {
         if (isSpawning)
         {
-            GameObject clone = Instantiate(objectToSpawn, transform.position, Quaternion.identity);
-            Destroy(clone, timeBeforeDestroyObject);
+            for (int i = 0; i < nbObjectToSpawnEachRate; i++)
+            {
+                GameObject clone = Instantiate(objectToSpawn, transform.position, Quaternion.identity);
+                Destroy(clone, timeBeforeDestroyObject);
+            }
         }
     }
 }
