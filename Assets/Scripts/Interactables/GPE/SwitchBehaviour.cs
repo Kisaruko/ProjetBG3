@@ -38,7 +38,7 @@ public class SwitchBehaviour : MonoBehaviour
     private MeshRenderer mesh;
     private Material[] materials;
     private Material myMat;
-
+    private Material myMat2;
     //Booléens d'activation
     private bool intensityIsMaxed;
     private bool rangeIsMaxed;
@@ -64,6 +64,7 @@ public class SwitchBehaviour : MonoBehaviour
         mesh = GetComponent<MeshRenderer>();
         materials = mesh.materials;
         myMat = materials[1];
+        myMat2 = materials[0];
         maxYPos += transform.position.y;
         Invoke("ActivateAtStart", 0.1f);
     }
@@ -72,11 +73,14 @@ public class SwitchBehaviour : MonoBehaviour
     {
         if (!isActivated && isLoading)
         {
-            if (playerLight.GetComponent<LightDetection>() != null)
+            if(playerLight != null)
             {
-                if (Vector3.Distance(transform.position, playerLight.transform.position) > playerLight.GetComponent<LightDetection>().range * 2)
+                if (playerLight.GetComponent<LightDetection>() != null)
                 {
-                    deactivateEvent.Invoke();
+                    if (Vector3.Distance(transform.position, playerLight.transform.position) > playerLight.GetComponent<LightDetection>().range * 2)
+                    {
+                        deactivateEvent.Invoke();
+                    }
                 }
             }
         }
@@ -181,6 +185,7 @@ public class SwitchBehaviour : MonoBehaviour
         GetComponent<Outline>().RemoveOutline();
         CameraShake.Shake(0.05f, 0.2f);
         myMat.EnableKeyword("_EMISSION");
+        myMat2.EnableKeyword("_EMISSION");
         isLoading = false;
         Instantiate(maxLightVfx, transform.position, Quaternion.identity);
         isActivated = true;

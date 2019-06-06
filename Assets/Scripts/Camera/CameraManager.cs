@@ -7,6 +7,7 @@ public class CameraManager : MonoBehaviour
 {
     public float newCamHeight;
     public float newCamDistance;
+    public float newCamAngle;
 
     public float timeToMoveCam;
 
@@ -22,6 +23,7 @@ public class CameraManager : MonoBehaviour
         //Si le joueur touche, ça set les valeurs de camera données au behaviour de la camera
         if(other.CompareTag("Player"))
         {
+            DOTween.To(() => cameraBehaviour.xCamRotation, x => cameraBehaviour.xCamRotation = x, newCamAngle, timeToMoveCam);
             DOTween.To(() => cameraBehaviour.camHeight, x => cameraBehaviour.camHeight = x, newCamHeight, timeToMoveCam);
             //cameraBehaviour.camHeight = newCamHeight;
             DOTween.To(() => cameraBehaviour.camDistance, x => cameraBehaviour.camDistance = x, newCamDistance, timeToMoveCam);

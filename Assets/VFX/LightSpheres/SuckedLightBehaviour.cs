@@ -25,7 +25,10 @@ public class SuckedLightBehaviour : MonoBehaviour
         if (isSucked)
         {
             ParticlesGoToTarget();
-            transform.position = light.position;
+            if (light != null)
+            {
+                transform.position = light.position;
+            }
         }
     }
     private void OnParticleTrigger()
