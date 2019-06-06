@@ -42,8 +42,6 @@ public class EmitWhenTrigger : MonoBehaviour
             myMat.EnableKeyword("_EMISSION");
             isActivated = true;
         }
-        
-        
         //Destroy(this);
     }
 
