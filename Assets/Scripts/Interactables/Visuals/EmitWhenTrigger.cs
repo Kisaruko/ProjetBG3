@@ -10,7 +10,8 @@ public class EmitWhenTrigger : MonoBehaviour
     public GameObject vfxDestroy;
     private Light light;
 
-    public bool isActivated = false;
+    [HideInInspector] public bool isActivated = false;
+    public bool activateAtStart;
     private void Start()
     {
         mesh = GetComponent<MeshRenderer>();
@@ -19,6 +20,10 @@ public class EmitWhenTrigger : MonoBehaviour
         {
             light = GetComponent<Light>();
             light.enabled = false;
+        }
+        if(activateAtStart)
+        {
+            ActivateEmission();
         }
     }
     public void ActivateEmission()
