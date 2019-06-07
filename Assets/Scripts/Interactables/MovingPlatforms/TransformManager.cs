@@ -19,6 +19,7 @@ public class TransformManager : ActivableObjects
 
     [Header("Rotation Values", order = 0)]
     [Space(10, order = 1)]
+    public bool workWithNotchs;
     public Vector3 endRotation;
     private Vector3 startRotation;
 
@@ -32,6 +33,8 @@ public class TransformManager : ActivableObjects
     public float scaleSpeed = 1;
 
 
+    private bool canRotate = true;
+
     private void Start()
     {
         thisTransform = transform;
@@ -39,6 +42,7 @@ public class TransformManager : ActivableObjects
         startRotation = transform.rotation.eulerAngles;
         startScale = transform.localScale;
     }
+
     public override void Activate()
     {
         if (movePos)
@@ -49,9 +53,18 @@ public class TransformManager : ActivableObjects
         {
             transform.DOScale(endScale, scaleSpeed);
         }
-        if (moveRotation)
+        if (moveRotation && canRotate)
         {
-            transform.DORotate(endRotation, rotateSpeed, RotateMode.Fast);
+            if (!workWithNotchs)
+            {
+                transform.DORotate(endRotation, rotateSpeed, RotateMode.Fast);
+            }
+            else
+            {
+                transform.DORotate(transform.rotation.eulerAngles + endRotation, rotateSpeed, RotateMode.Fast);
+                canRotate = false;
+                Invoke("CoolDown", rotateSpeed +0.1f);
+            }
         }
     }
     public override void Deactivate()
@@ -66,7 +79,15 @@ public class TransformManager : ActivableObjects
         }
         if (moveRotation)
         {
-            transform.DORotate(startRotation, rotateSpeed, RotateMode.Fast);
+            if (!workWithNotchs)
+            {
+                transform.DORotate(startRotation, rotateSpeed, RotateMode.Fast);
+            }
         }
     }
+    private void CoolDown()
+    {
+        canRotate = true;
+    }
+
 }
