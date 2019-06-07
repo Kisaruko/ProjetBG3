@@ -12,6 +12,7 @@ public class EmitWhenTrigger : MonoBehaviour
 
     [HideInInspector] public bool isActivated = false;
     public bool activateAtStart;
+
     private void Start()
     {
         mesh = GetComponent<MeshRenderer>();
@@ -26,6 +27,7 @@ public class EmitWhenTrigger : MonoBehaviour
             ActivateEmission();
         }
     }
+
     public void ActivateEmission()
     {
         if(!isActivated)
@@ -42,8 +44,6 @@ public class EmitWhenTrigger : MonoBehaviour
             myMat.EnableKeyword("_EMISSION");
             isActivated = true;
         }
-        
-        
         //Destroy(this);
     }
 
