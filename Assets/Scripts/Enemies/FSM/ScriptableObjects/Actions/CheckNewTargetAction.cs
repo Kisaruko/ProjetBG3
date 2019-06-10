@@ -26,8 +26,18 @@ public class CheckNewTargetAction : Action
                 float distToTarget = Vector3.Distance(controller.transform.position, target.position);
                 if (!Physics.Raycast(controller.transform.position, dirToTarget, distToTarget, controller.trashMobStats.obstacleMask))
                 {
-                    controller.trashMobStats.visibleTargets.Add(target);
-                    controller.chaseTarget = controller.trashMobStats.visibleTargets.Last();
+                    if(target.GetComponent<SwitchBehaviour>() != null && target.GetComponent<SwitchBehaviour>().isActivated)
+                    {
+                        controller.trashMobStats.visibleTargets.Add(target);
+                        controller.chaseTarget = controller.trashMobStats.visibleTargets.Last();
+                    }
+                    if(target.GetComponent<LightManager>())
+                    {
+                        controller.trashMobStats.visibleTargets.Add(target);
+                        controller.chaseTarget = controller.trashMobStats.visibleTargets.Last();
+                    }
+                    //controller.trashMobStats.visibleTargets.Add(target);
+                    //controller.chaseTarget = controller.trashMobStats.visibleTargets.Last();
                 }
             }
         }
