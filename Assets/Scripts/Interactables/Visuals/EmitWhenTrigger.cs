@@ -13,9 +13,13 @@ public class EmitWhenTrigger : MonoBehaviour
     [HideInInspector] public bool isActivated = false;
     public bool activateAtStart;
 
+    public GameObject[] flowerShapes;
+
     private void Start()
     {
-        mesh = GetComponent<MeshRenderer>();
+        flowerShapes[Random.Range(0, flowerShapes.Length)].SetActive(true);
+
+        mesh = GetComponentInChildren<MeshRenderer>();
         myMat = mesh.material;
         if(GetComponent<Light>() != null)
         {
