@@ -9,6 +9,7 @@ public class SpawnerOneByOne : MonoBehaviour
     private GameObject clone;
     public bool destroyByTime;
     public bool mustLockZRigidbody;
+    public bool mustLockXRigidbody;
     public float timeBeforeDestroy;
     private void Start()
     {
@@ -22,6 +23,10 @@ public class SpawnerOneByOne : MonoBehaviour
             if (mustLockZRigidbody)
             {
                 clone.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionZ;
+            }
+            if (mustLockXRigidbody)
+            {
+                clone.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionX;
             }
             //SecurityCheck
             if (destroyByTime)
