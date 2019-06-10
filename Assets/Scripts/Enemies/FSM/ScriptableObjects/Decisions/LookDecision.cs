@@ -27,7 +27,14 @@ public class LookDecision : Decision
                 float distToTarget = Vector3.Distance(controller.transform.position, target.position);
                 if(!Physics.Raycast(controller.transform.position, dirToTarget, distToTarget, controller.trashMobStats.obstacleMask))
                 {
-                    return true;
+                    if (target.GetComponent<SwitchBehaviour>() != null && target.GetComponent<SwitchBehaviour>().isActivated)
+                    {
+                        return true;
+                    }
+                    if (target.GetComponent<LightManager>())
+                    {
+                        return true;
+                    }
                 }
             }
         }
