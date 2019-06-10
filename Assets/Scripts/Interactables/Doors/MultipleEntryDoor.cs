@@ -37,6 +37,14 @@ public class MultipleEntryDoor : ActivableObjects
         {
             if (canBeDesactivated)
             {
+                if (transform.GetChild(nbChildThatGotEmissive).GetComponent<RootBehaviour>() != null)
+                {
+                    transform.GetChild(nbChildThatGotEmissive).GetComponent<RootBehaviour>().Deactivate();
+                }
+                else
+                {
+                    Debug.LogWarning("This child (number in script) doesn't got a rootBehaviour");
+                }
                 Deactivate();
             }
         }

@@ -25,7 +25,10 @@ public class SuckedLightBehaviour : MonoBehaviour
         if (isSucked)
         {
             ParticlesGoToTarget();
-            transform.position = light.position;
+            if (light != null)
+            {
+                transform.position = light.position;
+            }
         }
     }
     private void OnParticleTrigger()
@@ -61,9 +64,12 @@ public class SuckedLightBehaviour : MonoBehaviour
         // Change seulement les particules en vie
         for (int i = 0; i < numParticlesAlive; i++)
         {
-            // particleSpeed += 0.05f; // augmente la vitesse des particules toutes les frames
-            Vector3 newVelocity = m_Particles[i].position - mobSuckingSpot.transform.position; // Calcule la direction vers le joueur
-            m_Particles[i].velocity = (newVelocity * particlesSpeed) * -1; // Set la velocité du particule concerné
+            if ( mobSuckingSpot != null)
+            {
+                // particleSpeed += 0.05f; // augmente la vitesse des particules toutes les frames
+                Vector3 newVelocity = m_Particles[i].position - mobSuckingSpot.transform.position; // Calcule la direction vers le joueur
+                m_Particles[i].velocity = (newVelocity * particlesSpeed) * -1; // Set la velocité du particule concerné
+            }
         }
         // Applique les changements au particule system
         ps.SetParticles(m_Particles, numParticlesAlive);

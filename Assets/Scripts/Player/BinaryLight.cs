@@ -12,7 +12,7 @@ public class BinaryLight : MonoBehaviour
     public bool isInvicible = false;
     public float invincibleDuration;
     private MeshRenderer meshrenderer;
-    
+
     [Header("Light Attributes", order = 0)]
     [Space(10, order = 1)]
     public bool gotLight;
@@ -24,7 +24,7 @@ public class BinaryLight : MonoBehaviour
     private SkinnedMeshRenderer charRenderer;
     private Material charMaterial;
 
-    
+
     [Header("Physics Attributes", order = 0)]
     [Space(10, order = 1)]
     public float ejectionForce;
@@ -71,6 +71,12 @@ public class BinaryLight : MonoBehaviour
     public float maxEmissionIntensity;
     public float minEmissionIntensity;
 
+
+    [Header("Mouse Variables", order = 0)]
+    [Space(10, order = 1)]
+    public float speedMultiplierWithMouse;
+    public bool playWithMouse;
+
     private void Start()
     {
         lightRb = LightObject.GetComponent<Rigidbody>();
@@ -95,7 +101,7 @@ public class BinaryLight : MonoBehaviour
         {
             //charMaterial.SetColor("_EmissionColor", Color.white); //Active l'emissive du bras du joueur OBSOLETE AVEC LE SHADER SILHOUETTE
 
-            if (Input.GetButtonDown("Throw") || Input.GetMouseButtonDown(0))
+            if (Input.GetButtonDown("Throw") || Input.GetMouseButtonDown(1))
             {
                 anim.SetBool("isAiming", true);
                 anim.SetBool("launch", false);
@@ -114,10 +120,10 @@ public class BinaryLight : MonoBehaviour
         }*/
 
         //Debug
-       /*if (Input.GetKeyDown(KeyCode.D))
-        {
-            DropLight(ejectionDistance, ejectionHeight);
-        }*/
+        /*if (Input.GetKeyDown(KeyCode.D))
+         {
+             DropLight(ejectionDistance, ejectionHeight);
+         }*/
         if (Input.GetKeyDown(KeyCode.G))
         {
             GetLight();
@@ -145,7 +151,7 @@ public class BinaryLight : MonoBehaviour
     {
         charMaterial.SetFloat("_EmissiveIntensity", minEmissionIntensity);
         mesh.enabled = true;
-        myCollider.isTrigger = false ;
+        myCollider.isTrigger = false;
         lightRb.drag = 0;
         isRegrabable = false;
         Invoke("LightCanBeRegrabed", 2f);
@@ -209,6 +215,7 @@ public class BinaryLight : MonoBehaviour
             start = Instantiate(rangeStart) as GameObject;
             start.transform.parent = this.transform;
             start.transform.localPosition = Vector3.up;
+            start.transform.localScale = new Vector3(1f, 5f, 1f);
         }
         if (end == null)
         {
@@ -222,18 +229,44 @@ public class BinaryLight : MonoBehaviour
         //End building start and end range indicator
 
         float currentYSize;
-
+        float minRange = 2f;
         currentYSize = start.transform.localScale.y;
 
-        if (currentYSize <= maxRange)
+        float triggers;
+        float mouseScroll;
+        triggers = Input.GetAxis("Triggers");
+        mouseScroll = Input.GetAxis("Mouse ScrollWheel");
+
+        if (triggers > 0 || mouseScroll> 0 )
         {
-            //Set the scale of the range indicator
-            start.transform.localScale += new Vector3(0f, aimingSpeed * Time.deltaTime, 0f);
+            if (currentYSize <= maxRange)
+            {
+                if (!playWithMouse)
+                {
+                    start.transform.localScale += new Vector3(0f, aimingSpeed * Time.deltaTime, 0f);
+                }
+                else
+                {
+                    start.transform.localScale += new Vector3(0f, aimingSpeed * speedMultiplierWithMouse * Time.deltaTime, 0f);
+                }
+            }
         }
-        else
+        if (triggers < 0 || mouseScroll <0)
         {
-            reachedMaxRange = true;
+            if (currentYSize >= minRange)
+            {
+                if (!playWithMouse)
+                {
+                    start.transform.localScale -= new Vector3(0f, aimingSpeed * Time.deltaTime, 0f);
+                }
+                else
+                {
+                    start.transform.localScale -= new Vector3(0f, aimingSpeed * speedMultiplierWithMouse * Time.deltaTime, 0f);
+                }
+            }
         }
+        //Set the scale of the range indicator
+        //start.transform.localScale += new Vector3(0f, aimingSpeed * Time.deltaTime, 0f);
 
 
         //Set the position and rotation of the range indicator
@@ -262,7 +295,7 @@ public class BinaryLight : MonoBehaviour
         }*/
         #endregion
 
-        if (Input.GetButtonUp("Throw") || Input.GetMouseButtonUp(0))
+        if (Input.GetButtonUp("Throw") || Input.GetMouseButtonUp(1))
         {
             //Physics alterations
             isThrown = true;

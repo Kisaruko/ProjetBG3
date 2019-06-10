@@ -26,19 +26,25 @@ public class ChainReaction : MonoBehaviour
                 {
                     SwitchBehaviour switchbehaviour = hitcol.GetComponent<SwitchBehaviour>();
 
-                        if (switchbehaviour != null) // si l'ennemi a le composant enemy life
-                        {
-                            switchsList.Add(switchbehaviour);// add un composant a la liste
-                            hitcol.GetComponent<SwitchBehaviour>().playerLight = this.gameObject;
-                            hitcol.GetComponent<SwitchBehaviour>().Loading();
-                            int index = Random.Range(0, switchsList.Count);
-                            actualVfxTarget = switchsList[index].transform;
-                        }
+                    if (switchbehaviour != null) // si l'ennemi a le composant enemy life
+                    {
+                        switchsList.Add(switchbehaviour);// add un composant a la liste
+                        hitcol.GetComponent<SwitchBehaviour>().playerLight = this.gameObject;
+                        hitcol.GetComponent<SwitchBehaviour>().Loading();
+                        int index = Random.Range(0, switchsList.Count);
+                        actualVfxTarget = switchsList[index].transform;
+
+                    }
+                }
+                if(hitcol.GetComponent<EmitWhenTrigger>() != null)
+                {
+                    hitcol.GetComponent<EmitWhenTrigger>().ActivateEmission();
                 }
             }
         }
         return switchsList;
     }
+
     private void FixedUpdate()
     {
         frames++;
@@ -54,6 +60,7 @@ public class ChainReaction : MonoBehaviour
             }
         }
     }
+
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;

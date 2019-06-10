@@ -20,6 +20,7 @@ public class ArianeBondBehaviour : MonoBehaviour
         lightAnchor = GameObject.Find("PlayerLight");
         agent = GetComponent<NavMeshAgent>();
         destination = lightObject.transform;
+        
     }
     private void Update()
     {
@@ -52,25 +53,16 @@ public class ArianeBondBehaviour : MonoBehaviour
             }
         }
 
-        /*if (destination != null)
+        if(agent.pathStatus == NavMeshPathStatus.PathInvalid)
         {
-            if(destination == lightAnchor.transform)
-            {
-                transform.DOMove(lightAnchor.transform.position, vfxSpeed);
-                if (Vector3.Distance(transform.position, lightAnchor.transform.position) < rangeBeforeComeBack)
-                {
-                    destination = lightObject.transform;
-                }
-            }
-            if (destination == lightObject.transform)
-            {
-                transform.DOMove(lightObject.transform.position, vfxSpeed);
-                if (Vector3.Distance(transform.position, lightObject.transform.position) < rangeBeforeComeBack)
-                {
-                    destination = lightAnchor.transform;
-                }
-            }
-        }*/
+            Vector3 position = transform.position;
+            NavMeshHit hit;
+            NavMesh.SamplePosition(position, out hit, 10.0f, -1);
+            position = hit.position;
+            agent.Warp(position);
+        }
     }
+
+    
 
 }
