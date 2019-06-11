@@ -12,7 +12,7 @@ public class ChainReaction : MonoBehaviour
     private Transform actualVfxTarget;
     private int frames;
 
-    private int loadMultiplier = 5;
+    private int loadMultiplier = 15;
 
     public List<SwitchBehaviour> GetSwitchInRange()
     {
