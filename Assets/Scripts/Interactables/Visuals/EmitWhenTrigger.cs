@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EmitWhenTrigger : MonoBehaviour
 {
-    private Material myMat;
+    private Material[] myMat;
     private MeshRenderer mesh;
     public GameObject vfxShine;
     public GameObject vfxDestroy;
@@ -13,14 +13,10 @@ public class EmitWhenTrigger : MonoBehaviour
     [HideInInspector] public bool isActivated = false;
     public bool activateAtStart;
 
-    public GameObject[] flowerShapes;
-
     private void Start()
     {
-        flowerShapes[Random.Range(0, flowerShapes.Length)].SetActive(true);
-
-        mesh = GetComponentInChildren<MeshRenderer>();
-        myMat = mesh.material;
+        mesh = GetComponent<MeshRenderer>();
+        myMat = mesh.materials;
         if(GetComponent<Light>() != null)
         {
             light = GetComponent<Light>();
@@ -45,7 +41,10 @@ public class EmitWhenTrigger : MonoBehaviour
             {
                 light.enabled = true;
             }
-            myMat.EnableKeyword("_EMISSION");
+            foreach (Material mat in myMat)
+            {
+                mat.EnableKeyword("_EMISSION");
+            }
             isActivated = true;
         }
         //Destroy(this);
@@ -60,7 +59,11 @@ public class EmitWhenTrigger : MonoBehaviour
             {
                 light.enabled = false;
             }
-            myMat.DisableKeyword("_EMISSION");
+            foreach (Material mat in myMat)
+            {
+                mat.DisableKeyword("_EMISSION");
+            }
+            
             isActivated = false;
         }
         
