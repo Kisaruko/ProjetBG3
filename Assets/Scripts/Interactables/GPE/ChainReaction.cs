@@ -12,6 +12,8 @@ public class ChainReaction : MonoBehaviour
     private Transform actualVfxTarget;
     private int frames;
 
+    private int loadMultiplier = 5;
+
     public List<SwitchBehaviour> GetSwitchInRange()
     {
         List<SwitchBehaviour> switchsList = new List<SwitchBehaviour>(); //crée une liste
@@ -30,7 +32,10 @@ public class ChainReaction : MonoBehaviour
                     {
                         switchsList.Add(switchbehaviour);// add un composant a la liste
                         hitcol.GetComponent<SwitchBehaviour>().playerLight = this.gameObject;
-                        hitcol.GetComponent<SwitchBehaviour>().Loading();
+                        for (int i = 0; i < loadMultiplier; i++)
+                        {
+                            hitcol.GetComponent<SwitchBehaviour>().Loading();
+                        }
                         int index = Random.Range(0, switchsList.Count);
                         actualVfxTarget = switchsList[index].transform;
 
