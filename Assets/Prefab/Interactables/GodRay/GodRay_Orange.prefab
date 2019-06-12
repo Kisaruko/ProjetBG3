@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 6981929410774953501}
   - component: {fileID: 6981929410774953473}
   - component: {fileID: 6981929410774953472}
-  - component: {fileID: 6981929410774953474}
   m_Layer: 0
   m_Name: Light
   m_TagString: Untagged
@@ -147,19 +146,6 @@ MonoBehaviour:
   _TrackChangesDuringPlaytime: 0
   _SortingLayerID: 0
   _SortingOrder: 0
---- !u!114 &6981929410774953474
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6981929410774953500}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 031dc173b8912b246aaed3b7e88df54e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  EulerSpeed: {x: 0, y: 30, z: 0}
 --- !u!1 &6981929411077015958
 GameObject:
   m_ObjectHideFlags: 0
@@ -237,6 +223,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 532180043699660359}
+  - component: {fileID: 8678606839020547975}
   m_Layer: 0
   m_Name: GodRay_Orange
   m_TagString: Untagged
@@ -251,7 +238,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8261066043585775526}
-  m_LocalRotation: {x: -0, y: -0.96592593, z: -0, w: -0.25881878}
+  m_LocalRotation: {x: -0, y: -0.96592593, z: 0, w: -0.25881898}
   m_LocalPosition: {x: -6.54, y: -1.69, z: 91.75}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -260,3 +247,16 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -210, z: 0}
+--- !u!114 &8678606839020547975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8261066043585775526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 031dc173b8912b246aaed3b7e88df54e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EulerSpeed: {x: 0, y: 30, z: 0}
