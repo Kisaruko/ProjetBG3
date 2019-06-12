@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EmitWhenTrigger : MonoBehaviour
 {
-    private Material myMat;
+    private Material[] myMat;
     private MeshRenderer mesh;
     public GameObject vfxShine;
     public GameObject vfxDestroy;
@@ -16,7 +16,8 @@ public class EmitWhenTrigger : MonoBehaviour
     private void Start()
     {
         mesh = GetComponent<MeshRenderer>();
-        myMat = mesh.material;
+        myMat = mesh.materials;
+
         if(GetComponent<Light>() != null)
         {
             light = GetComponent<Light>();
@@ -25,6 +26,10 @@ public class EmitWhenTrigger : MonoBehaviour
         if(activateAtStart)
         {
             ActivateEmission();
+        }
+        if(!activateAtStart)
+        {
+            DeactivateEmission();
         }
     }
 
@@ -41,7 +46,10 @@ public class EmitWhenTrigger : MonoBehaviour
             {
                 light.enabled = true;
             }
-            myMat.EnableKeyword("_EMISSION");
+            foreach (Material mat in myMat)
+            {
+                mat.EnableKeyword("_EMISSION");
+            }
             isActivated = true;
         }
         //Destroy(this);
@@ -56,7 +64,11 @@ public class EmitWhenTrigger : MonoBehaviour
             {
                 light.enabled = false;
             }
-            myMat.DisableKeyword("_EMISSION");
+            foreach (Material mat in myMat)
+            {
+                mat.DisableKeyword("_EMISSION");
+            }
+            
             isActivated = false;
         }
         

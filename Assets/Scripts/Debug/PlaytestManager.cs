@@ -11,7 +11,7 @@ public class PlaytestManager : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Keypad1))
         {
-            SceneManager.LoadScene("PT1_Deplacement");
+            SceneManager.LoadScene("PT_Sombre");
         }
         if (Input.GetKeyDown(KeyCode.Keypad2))
         {
