@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 438082143624378476}
   - component: {fileID: 438082143624378464}
   - component: {fileID: 9153718213963458421}
+  - component: {fileID: 3252154240575635308}
+  - component: {fileID: 2311442136722275364}
   m_Layer: 18
   m_Name: EmitObjectPlaceHolder
   m_TagString: Untagged
@@ -70,12 +72,6 @@ MonoBehaviour:
     type: 3}
   isActivated: 0
   activateAtStart: 0
-  flowerShapes:
-  - {fileID: 2374718693231434196}
-  - {fileID: 9041801681949564983}
-  - {fileID: 710049164204654135}
-  - {fileID: 4767444089252585781}
-  - {fileID: 2586714697042082095}
 --- !u!54 &438082143624378464
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -130,6 +126,51 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!23 &3252154240575635308
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 438082143624378478}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 8828a0b897ae8aa42ac1cd88adea5d48, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &2311442136722275364
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 438082143624378478}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &710049164204654135
 GameObject:
   m_ObjectHideFlags: 0
