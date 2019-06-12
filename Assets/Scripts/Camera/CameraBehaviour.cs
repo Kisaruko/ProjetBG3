@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class CameraBehaviour : MonoBehaviour
 {
@@ -97,5 +98,12 @@ public class CameraBehaviour : MonoBehaviour
         }
 
         Gizmos.DrawSphere(transform.position, 1.5f);
+    }
+
+    public void SetNewParameters(float newHeight, float newDistance, float newAngle, float TimeForTranslate)
+    {
+        DOTween.To(() => xCamRotation, x => xCamRotation = x, newAngle, TimeForTranslate);
+        DOTween.To(() => camHeight, x => camHeight = x, newHeight, TimeForTranslate);
+        DOTween.To(() => camDistance, x => camDistance = x, newDistance, TimeForTranslate);
     }
 }
