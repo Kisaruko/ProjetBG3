@@ -17,6 +17,7 @@ public class EmitWhenTrigger : MonoBehaviour
     {
         mesh = GetComponent<MeshRenderer>();
         myMat = mesh.materials;
+
         if(GetComponent<Light>() != null)
         {
             light = GetComponent<Light>();
@@ -25,6 +26,10 @@ public class EmitWhenTrigger : MonoBehaviour
         if(activateAtStart)
         {
             ActivateEmission();
+        }
+        if(!activateAtStart)
+        {
+            DeactivateEmission();
         }
     }
 
