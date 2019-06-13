@@ -46,9 +46,9 @@ public class LightManager : MonoBehaviour
         {
             StartCoroutine("StartIncrease");
         }
-        if(shortLight.intensity <= -0.5f)
+        if(shortLight.intensity <= 0.005f)
         {
-            GameManager._instance.Restart();
+            GameManager._instance.GameOver();
         }
     }
 
