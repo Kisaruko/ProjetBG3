@@ -10,13 +10,14 @@ public class ButtonDisplayer : MonoBehaviour
     public float heightFromPlayer;
     private SpriteRenderer sprite;
     public ParticleSystem particles;
-
+    private ParticleSystem bodyShapevfx;
     private void Start()
     {
         playerPos = GameObject.Find("Player").transform;
         sprite = GetComponent<SpriteRenderer>();
         transform.DOScale(0.15f, 0.5f).SetLoops(-1, LoopType.Yoyo);
         particles = GetComponentInChildren<ParticleSystem>();
+        bodyShapevfx = GetComponent<ParticleSystem>();
     }
 
     private void Update()
@@ -31,11 +32,13 @@ public class ButtonDisplayer : MonoBehaviour
         isActive = true;
         sprite.enabled = true;
         particles.Play();
+        bodyShapevfx.Play();
     }
     public void Disappear()
     {
         isActive = false;
         sprite.enabled = false;
+        bodyShapevfx.Stop();
         particles.Stop();
     }
 
