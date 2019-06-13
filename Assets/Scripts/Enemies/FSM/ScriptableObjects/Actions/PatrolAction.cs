@@ -19,7 +19,7 @@ public class PatrolAction : Action
         controller.animator.SetBool("Chasing", true);
         if(timer >= controller.trashMobStats.patrolWanderTime)
         {
-            Vector3 newPos = RandomNavCircle(controller.transform.position, controller.trashMobStats.patrolDist);
+            Vector3 newPos = RandomNavCircle(controller.spawnPosition, controller.trashMobStats.patrolDist);
             controller.navMeshAgent.SetDestination(newPos);
             timer = 0;
         }
