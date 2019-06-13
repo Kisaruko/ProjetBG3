@@ -42,6 +42,8 @@ public class BinaryLight : MonoBehaviour
     public float aimingSpeed;
     private Vector3 lastPosReticule;
     private Vector3 cursor = Vector3.zero;
+    Vector3 boundsMin;
+    Vector3 boundsMax;
     public float maxRange;
     [Range(0, 500)]
     public float throwHorizontalSpeed;
@@ -211,6 +213,17 @@ public class BinaryLight : MonoBehaviour
         }
 
         Vector3 playerPosition = this.transform.position;
+        
+
+        if (start == null)
+        {
+            start = Instantiate(rangeStart) as GameObject;
+            start.transform.position = playerPosition + Vector3.up;
+            boundsMin = start.GetComponentInChildren<SpriteRenderer>().bounds.min;
+            boundsMax = start.GetComponentInChildren<SpriteRenderer>().bounds.max;
+        }
+
+        
 
         if (end == null)
         {
@@ -219,6 +232,9 @@ public class BinaryLight : MonoBehaviour
             cursor = playerPosition;
             end.transform.localRotation = Quaternion.Euler(90f, 0f, 0f);
         }
+        float endWidth = 0f;
+        if (end != null)
+            endWidth = end.GetComponent<SpriteRenderer>().bounds.size.x;
 
         if (end != null)
         {
@@ -238,6 +254,15 @@ public class BinaryLight : MonoBehaviour
             end.transform.position = cursor + Vector3.up;
 
         }
+
+        if (start != null)
+        {
+            float dist = Vector3.Distance(playerPosition, cursor);
+            start.transform.localScale = new Vector3(start.transform.localScale.x, dist, start.transform.localScale.z);
+
+            Vector3 dir = (cursor - playerPosition).normalized;
+        }
+
         if (Vector3.Distance(end.transform.position, transform.position) < maxRange)
         {
             playerMovement.moveSpeed = 0f;
@@ -247,6 +272,7 @@ public class BinaryLight : MonoBehaviour
             playerMovement.moveSpeed = speedWhileAiming;
         }
 
+        
 
         #region OLD Reticule Avec Zoom
         /*
@@ -436,20 +462,5 @@ public class BinaryLight : MonoBehaviour
     private void OnDrawGizmos()
     {
 
-
-        //Gizmos.DrawWireSphere(transform.position, maxRange);
-
-        Vector3 cursorDirection = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
-        cursorDirection *= aimingSpeed * Time.deltaTime;
-        Vector3 cursorExpectedPosition = cursor + cursorDirection;
-
-        //Gizmos.color = Color.red;
-        //Gizmos.DrawSphere(cursorExpectedPosition, 1f);
-
-        Vector3 toCursor = cursorExpectedPosition - transform.position;
-        toCursor = Vector3.ClampMagnitude(toCursor, maxRange);
-        cursor = transform.position + toCursor;
-        //Gizmos.color = Color.yellow;
-        //Gizmos.DrawSphere(cursorExpectedPosition, 0.8f);
     }
 }
