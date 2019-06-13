@@ -18,6 +18,10 @@ public class ActiveStateDecision : Decision
         {
             return true;
         }
+        if(controller.chaseTarget.gameObject.activeSelf && controller.trashMobStats.visibleTargets.Count == 0)
+        {
+            return false;
+        }
         else
             return false;
 
