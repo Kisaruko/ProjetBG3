@@ -467,7 +467,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6232519935335321014}
-  m_LocalRotation: {x: -0, y: 1, z: -0, w: -0.00000035762784}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0.00000028088027}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
@@ -494,6 +494,8 @@ MonoBehaviour:
   getLightOnTrigger: 1
   feedBackPs: {fileID: 6232519935850636796}
   rangeBeforeActivateEmissive: 8
+  getLightFx: {fileID: 3841994394410309888, guid: 43a00288736ac584b8dd2a3f655bbf5a,
+    type: 3}
 --- !u!135 &6232519935335321009
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -622,7 +624,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.3
+      scalar: 0.6
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -1253,7 +1255,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 1
+      value: 3.04
       mode: 0
       spread: 0
       speed:
@@ -1372,7 +1374,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 30
+      scalar: 100
       minScalar: 10
       maxCurve:
         serializedVersion: 2

@@ -10,6 +10,7 @@ public class LightSanctuary : MonoBehaviour
     private BinaryLight binarylight;
     private Transform player;
     public float rangeBeforeActivateEmissive;
+    public GameObject getLightFx;
 
     private void Start()
     {
@@ -38,6 +39,10 @@ public class LightSanctuary : MonoBehaviour
                     playerLight.transform.parent = null;
                     playerLight.transform.position = transform.position + Vector3.up;
                 }
+                if (getLightFx != null)
+                {
+                    Instantiate(getLightFx, playerLight.transform.position, Quaternion.identity);
+                }
             }
         }
     }
@@ -51,7 +56,6 @@ public class LightSanctuary : MonoBehaviour
                 feedBackPs.Stop();
             }
             GetComponentInChildren<RootBehaviour>().Deactivate();
-
         }
         else
         {
@@ -66,6 +70,7 @@ public class LightSanctuary : MonoBehaviour
             else
             {
                 GetComponentInChildren<RootBehaviour>().Deactivate();
+                feedBackPs.Stop();
             }
         }
     }
