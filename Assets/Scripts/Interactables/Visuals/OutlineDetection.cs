@@ -9,6 +9,7 @@ public class OutlineDetection : MonoBehaviour
     private Outline outline;
     private SwitchBehaviour switchbehaviour;
     private PressurePlateBehaviour pressurePlateBehaviour;
+    private TransformManager transformManager;
     private bool startSettingOutline;
 
     private void Start()
@@ -27,9 +28,13 @@ public class OutlineDetection : MonoBehaviour
         {
             pressurePlateBehaviour = GetComponentInParent<PressurePlateBehaviour>();
         }
+        if(GetComponent<TransformManager>() != null)
+        {
+           transformManager = GetComponent<TransformManager>();
+        }
         Invoke("WaitBeforeStartOutline", 0.1f);
     }
-
+    
     private void WaitBeforeStartOutline()
     {
         startSettingOutline = true;
@@ -49,6 +54,10 @@ public class OutlineDetection : MonoBehaviour
                 outline.SetOutline();
             }
 
+            if (transformManager != null && Vector3.Distance(transform.position, lightTransform.position) < 5f)
+            {
+                outline.SetOutline();
+            }
             if (Vector3.Distance(transform.position, lightTransform.position) > 5f)
             {
                 outline.RemoveOutline();
