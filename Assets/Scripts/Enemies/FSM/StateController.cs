@@ -15,6 +15,7 @@ public class StateController : MonoBehaviour
     public Animator animator;
     public GameObject fxAbsorb;
 
+    [HideInInspector] public Vector3 spawnPosition;
     [HideInInspector] public NavMeshAgent navMeshAgent;
     [HideInInspector] public List<Transform> wayPointList;
     [HideInInspector] public int nextWayPoint;
@@ -26,6 +27,7 @@ public class StateController : MonoBehaviour
     private void Awake()
     {
         navMeshAgent = GetComponent<NavMeshAgent>(); //Get the Nav Mesh Agent Component
+        spawnPosition = transform.position;
     }
 
     public void SetupAI(bool aiActivationFromTrashMobManager)
@@ -50,16 +52,6 @@ public class StateController : MonoBehaviour
         currentState.UpdateState(this);
         stateTimeElapsed += Time.deltaTime;
     }
-
-    /*private void OnDrawGizmos()
-    {
-        if(currentState != null && eyes != null)
-        {
-            Gizmos.color = currentState.sceneGizmoColor;
-            Gizmos.DrawWireSphere(eyes.position, trashMobStats.lookSphereCastRadius);
-            Gizmos.DrawRay(eyes.position, eyes.transform.forward.normalized * trashMobStats.lookRange);
-        }
-    }*/
 
     public void TransitionToState(State nextState)
     {
