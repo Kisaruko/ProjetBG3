@@ -5,15 +5,18 @@ using UnityEngine;
 public class LightSanctuary : MonoBehaviour
 {
     private GameObject playerLight;
-    public bool getLightOnTrigger;
+    [HideInInspector]public bool getLightOnTrigger =true; // this variable can be obsolete at a certain design point of the godray
     public ParticleSystem feedBackPs;
     private BinaryLight binarylight;
+    private Transform player;
+    public float rangeBeforeActivateEmissive;
 
     private void Start()
     {
         playerLight = FindObjectOfType<LightManager>().gameObject;
         binarylight = FindObjectOfType<BinaryLight>();
-        InvokeRepeating("CheckIfPlayerGotLight", 0.1f, 1f);
+        InvokeRepeating("CheckIfPlayerGotLight", 0.1f, 0.1f);
+        player = GameObject.Find("Player").transform;
     }
 
     private void OnTriggerStay(Collider other)
@@ -38,6 +41,7 @@ public class LightSanctuary : MonoBehaviour
             }
         }
     }
+
     private void CheckIfPlayerGotLight()
     {
         if(binarylight.gotLight)
@@ -46,13 +50,29 @@ public class LightSanctuary : MonoBehaviour
             {
                 feedBackPs.Stop();
             }
+            GetComponentInChildren<RootBehaviour>().Deactivate();
+
         }
         else
         {
-            if (feedBackPs != null)
+            if (Vector3.Distance(transform.position+ transform.forward * 2, player.position)<rangeBeforeActivateEmissive)
             {
-                feedBackPs.Play();
+                GetComponentInChildren<RootBehaviour>().Activate();
+                if (feedBackPs != null)
+                {
+                    feedBackPs.Play();
+                }
+            }
+            else
+            {
+                GetComponentInChildren<RootBehaviour>().Deactivate();
             }
         }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.DrawWireSphere(transform.position+transform.forward*2, rangeBeforeActivateEmissive);
+        Gizmos.color = Color.magenta;
     }
 }
