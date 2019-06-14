@@ -19,6 +19,13 @@ public class LightDetection : MonoBehaviour
     private BinaryLight binaryLight;
     [Header("Vfx Attributes", order = 0)]
     [Space(10, order = 1)]
+    public GameObject loader;
+    public GameObject vfxTransmission;
+
+    [Header("Object Attributes", order = 0)]
+    [Space(10, order = 1)]
+    public float stoppingRange = 0.3f;
+
     #region old
     /*  public bool followTarget;
       public float particlesSpeed;
@@ -30,8 +37,6 @@ public class LightDetection : MonoBehaviour
       ParticleSystem.VelocityOverLifetimeModule velocityOverLifetime;
       private GameObject particlesTarget;*/
     #endregion
-    public GameObject vfxTransmission;
-    public float stoppingRange = 0.3f;
     private Rigidbody rb;
     //magnetism Variables
     public float magnetismSpeed;
@@ -70,6 +75,8 @@ public class LightDetection : MonoBehaviour
 
                         if (isTransmitting)
                         {
+                            CameraShake.Shake(0.1f, 0.05f);
+                            loader.SetActive(true);
                             hitcol.GetComponent<SwitchBehaviour>().Loading();
                             switchsList.Add(switchbehaviour);
                             int index = Random.Range(0, switchsList.Count);
@@ -78,9 +85,9 @@ public class LightDetection : MonoBehaviour
                             clone.GetComponent<SuckedLightBehaviour>().light = transform;
                             clone.GetComponent<SuckedLightBehaviour>().isSucked = true;
                             clone.GetComponent<SuckedLightBehaviour>().mobSuckingSpot = actualVfxTarget;
-
                         }
                     }
+
                 }
                 if (hitcol.GetComponent<EmitWhenTrigger>() != null)
                 {
@@ -94,6 +101,10 @@ public class LightDetection : MonoBehaviour
                     }
                 }
             }
+            if(switchsList.Count <=0)
+            {
+                loader.SetActive(false);
+            }
         }
         if (xButton != null)
         {
@@ -106,6 +117,7 @@ public class LightDetection : MonoBehaviour
                 xButton.GetComponent<ButtonDisplayer>().Appear();
             }
         }
+
     }
     private void InputCheck()
     {

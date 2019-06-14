@@ -14,7 +14,8 @@ public class ActiveStateDecision : Decision
     private bool ActiveState(StateController controller)
     {
         if (controller.chaseTarget.gameObject.activeSelf && 
-            Vector3.Distance(controller.transform.position, controller.chaseTarget.position) < controller.trashMobStats.lookRange)
+            Vector3.Distance(controller.transform.position, controller.chaseTarget.position) < controller.trashMobStats.lookRange &&
+            controller.trashMobStats.visibleTargets.Count != 0)
         {
             return true;
         }
