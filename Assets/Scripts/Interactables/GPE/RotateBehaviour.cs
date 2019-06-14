@@ -19,11 +19,11 @@ public class RotateBehaviour : ActivableObjects
     }
     public override void Activate()
     {
-        isActivated = true;
+        isActivated = false;
     }
     public override void Deactivate()
     {
-        isActivated = false;
+        isActivated = true;
     }
 
 }
