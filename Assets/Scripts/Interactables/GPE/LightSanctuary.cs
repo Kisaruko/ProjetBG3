@@ -8,14 +8,12 @@ public class LightSanctuary : MonoBehaviour
     public bool getLightOnTrigger;
     public ParticleSystem feedBackPs;
     private BinaryLight binarylight;
-    private ScaleOverTime scaleovertime;
 
     private void Start()
     {
         playerLight = FindObjectOfType<LightManager>().gameObject;
         binarylight = FindObjectOfType<BinaryLight>();
         InvokeRepeating("CheckIfPlayerGotLight", 0.1f, 1f);
-        scaleovertime = this.transform.parent.GetComponentInChildren<ScaleOverTime>();
     }
 
     private void OnTriggerStay(Collider other)
@@ -25,8 +23,6 @@ public class LightSanctuary : MonoBehaviour
             if (Input.GetButtonDown("Attack"))
             {
                 feedBackPs.Stop();
-                scaleovertime.isScaling = false;
-                scaleovertime.SetScaling();
                 if (getLightOnTrigger)
                 {
                     other.gameObject.GetComponentInParent<BinaryLight>().GetLight();
@@ -47,8 +43,6 @@ public class LightSanctuary : MonoBehaviour
             {
                 feedBackPs.Stop();
             }
-            scaleovertime.isScaling = false;
-            scaleovertime.SetScaling();
         }
         else
         {
@@ -56,8 +50,6 @@ public class LightSanctuary : MonoBehaviour
             {
                 feedBackPs.Play();
             }
-            scaleovertime.isScaling = true;
-            scaleovertime.SetScaling();
         }
     }
 }

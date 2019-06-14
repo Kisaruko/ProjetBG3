@@ -29,16 +29,22 @@ public class ButtonDisplayer : MonoBehaviour
    public void Appear()
     {
         isActive = true;
-      //  sprite.enabled = true;
+        //sprite.enabled = true;
         //particles.Play();
-        bouncyCircle.SetActive(true);
+        if(bouncyCircle != null)
+        {
+            bouncyCircle.SetActive(true);
+        }
     }
     public void Disappear()
     {
         isActive = false;
         sprite.enabled = false;
         particles.Stop();
-        bouncyCircle.SetActive(false);
+        if (bouncyCircle != null)
+        {
+            bouncyCircle.SetActive(false);
+        }
     }
 
 
