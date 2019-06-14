@@ -251,8 +251,10 @@ public class BinaryLight : MonoBehaviour
             }
             if (playWithMouse)
             {
+                
+
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                Plane plane = new Plane(Vector3.up, Vector3.zero);
+                Plane plane = new Plane(Vector3.up, transform.position);
                 float distance;
                 if(plane.Raycast(ray, out distance))
                 {
@@ -480,6 +482,6 @@ public class BinaryLight : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-
+        
     }
 }
