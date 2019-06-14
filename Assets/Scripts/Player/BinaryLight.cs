@@ -238,13 +238,33 @@ public class BinaryLight : MonoBehaviour
                 cursor = transform.position;
             }
 
-            Vector3 cursorDirection = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
-            cursorDirection *= aimingSpeed * Time.deltaTime;
-            Vector3 cursorExpectedPosition = cursor + cursorDirection;
+            if (!playWithMouse)
+            {
+                Vector3 cursorDirection = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
+                cursorDirection *= aimingSpeed * Time.deltaTime;
+                Vector3 cursorExpectedPosition = cursor + cursorDirection;
 
-            Vector3 toCursor = cursorExpectedPosition - transform.position;
-            toCursor = Vector3.ClampMagnitude(toCursor, maxRange);
-            cursor = transform.position + toCursor;
+                Vector3 toCursor = cursorExpectedPosition - transform.position;
+                toCursor = Vector3.ClampMagnitude(toCursor, maxRange);
+                cursor = transform.position + toCursor;
+
+            }
+            if (playWithMouse)
+            {
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                Plane plane = new Plane(Vector3.up, Vector3.zero);
+                float distance;
+                if(plane.Raycast(ray, out distance))
+                {
+                    Vector3 target = ray.GetPoint(distance);
+                    Vector3 direction = target - transform.position;
+                    float rotation = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
+                    transform.rotation = Quaternion.Euler(0, rotation, 0);
+
+                    direction = Vector3.ClampMagnitude(direction, maxRange);
+                    cursor = transform.position + direction + (Vector3.up / 2);
+                }
+            }
 
             end.transform.position = cursor + (Vector3.up / 2);
 
@@ -271,7 +291,7 @@ public class BinaryLight : MonoBehaviour
             playerMovement.moveSpeed = speedWhileAiming;
         }
 
-        
+
 
         #region OLD Reticule Avec Zoom
         /*
