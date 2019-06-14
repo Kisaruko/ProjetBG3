@@ -43,13 +43,19 @@ public class LightSanctuary : MonoBehaviour
     {
         if(binarylight.gotLight)
         {
-            feedBackPs.Stop();
+            if (feedBackPs != null)
+            {
+                feedBackPs.Stop();
+            }
             scaleovertime.isScaling = false;
             scaleovertime.SetScaling();
         }
         else
         {
-            feedBackPs.Play();
+            if (feedBackPs != null)
+            {
+                feedBackPs.Play();
+            }
             scaleovertime.isScaling = true;
             scaleovertime.SetScaling();
         }
