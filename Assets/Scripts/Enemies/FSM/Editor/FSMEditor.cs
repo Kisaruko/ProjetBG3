@@ -31,6 +31,11 @@ public class FSMEditor : Editor
         Handles.color = new Color(0.5694f, 0f, 1f, 1f);
         Handles.DrawWireDisc(controller.transform.position, Vector3.up, controller.trashMobStats.absorbRange);
 
+        Handles.color = new Color(1f, 1f, 1f, 0.05f);
+        Handles.DrawSolidDisc(controller.transform.position, Vector3.up, controller.trashMobStats.patrolDist);
+        Handles.color = new Color(1f, 1f, 1f, 1f);
+        Handles.DrawWireDisc(controller.transform.position, Vector3.up, controller.trashMobStats.patrolDist);
+
         GUIStyle labelStyle = new GUIStyle();
         labelStyle.fontSize = 15;
         labelStyle.normal.textColor = Color.white;

@@ -41,6 +41,9 @@ public class BinaryLight : MonoBehaviour
     public float speedWhileAiming;
     public float aimingSpeed;
     private Vector3 lastPosReticule;
+    private Vector3 cursor = Vector3.zero;
+    Vector3 boundsMin;
+    Vector3 boundsMax;
     public float maxRange;
     [Range(0, 500)]
     public float throwHorizontalSpeed;
@@ -209,6 +212,69 @@ public class BinaryLight : MonoBehaviour
             playerMovement.moveSpeed = 0f;
         }
 
+        Vector3 playerPosition = this.transform.position;
+
+        if (start == null)
+        {
+            start = Instantiate(rangeStart) as GameObject;
+            start.transform.position = playerPosition + (Vector3.up / 2) + (transform.forward * 1.5f);
+        }
+
+        if (end == null)
+        {
+            end = Instantiate(rangeEnd) as GameObject;
+            //end.transform.parent = this.transform;
+            cursor = playerPosition + (transform.forward * 1.5f);
+            end.transform.localRotation = Quaternion.Euler(90f, 0f, 0f);
+        }
+        float endWidth = 0f;
+        if (end != null)
+            endWidth = end.GetComponent<SpriteRenderer>().bounds.size.x;
+
+        if (end != null)
+        {
+            if (cursor == Vector3.zero)
+            {
+                cursor = transform.position;
+            }
+
+            Vector3 cursorDirection = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
+            cursorDirection *= aimingSpeed * Time.deltaTime;
+            Vector3 cursorExpectedPosition = cursor + cursorDirection;
+
+            Vector3 toCursor = cursorExpectedPosition - transform.position;
+            toCursor = Vector3.ClampMagnitude(toCursor, maxRange);
+            cursor = transform.position + toCursor;
+
+            end.transform.position = cursor + (Vector3.up / 2);
+
+        }
+
+        if (start != null)
+        {
+            float dist = Vector3.Distance(playerPosition, cursor);
+            start.transform.localScale = new Vector3(start.transform.localScale.x, dist, start.transform.localScale.z);
+
+            Vector3 dir = cursor - transform.position;
+            float yAngle = Vector3.SignedAngle(dir, Vector3.forward, Vector3.up);
+
+            start.transform.position = playerPosition + (Vector3.up / 2);
+            start.transform.rotation = Quaternion.Euler(90f, -yAngle, 0f);
+        }
+
+        if (Vector3.Distance(end.transform.position, transform.position) < maxRange)
+        {
+            playerMovement.moveSpeed = 0f;
+        }
+        else
+        {
+            playerMovement.moveSpeed = speedWhileAiming;
+        }
+
+        
+
+        #region OLD Reticule Avec Zoom
+        /*
         //Build start and end range indicator in order to use them
         if (start == null)
         {
@@ -251,6 +317,7 @@ public class BinaryLight : MonoBehaviour
                 }
             }
         }
+
         if (triggers < 0 || mouseScroll <0)
         {
             if (currentYSize >= minRange)
@@ -265,6 +332,7 @@ public class BinaryLight : MonoBehaviour
                 }
             }
         }
+
         //Set the scale of the range indicator
         //start.transform.localScale += new Vector3(0f, aimingSpeed * Time.deltaTime, 0f);
 
@@ -276,7 +344,8 @@ public class BinaryLight : MonoBehaviour
         {
             end.transform.localPosition = new Vector3(0f, 1f, start.transform.localScale.y);
             end.transform.localRotation = Quaternion.Euler(90f, 0f, 0f);
-        }
+        }*/
+        #endregion
 
         #region OLD
         /*if (reachedMaxRange == false)
@@ -387,4 +456,10 @@ public class BinaryLight : MonoBehaviour
         vfxBondClone = Instantiate(vfxBond, lightAnchor.position, Quaternion.identity);
     }
     #endregion
+
+
+    private void OnDrawGizmos()
+    {
+
+    }
 }
