@@ -22,7 +22,10 @@ public class LightSanctuary : MonoBehaviour
         {
             if (Input.GetButtonDown("Attack"))
             {
-                feedBackPs.Stop();
+                if (feedBackPs != null)
+                {
+                    feedBackPs.Stop();
+                }
                 if (getLightOnTrigger)
                 {
                     other.gameObject.GetComponentInParent<BinaryLight>().GetLight();
