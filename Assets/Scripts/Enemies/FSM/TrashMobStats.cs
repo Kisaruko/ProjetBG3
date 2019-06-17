@@ -13,6 +13,9 @@ public class TrashMobStats : ScriptableObject
     public float patrolDist;
     public float patrolWanderTime;
 
+    [Header("Wandering Variables")]
+    public float wanderTimeBeforePatrol;
+
     [Header("Detection Variables")]
     public float lookRange;
     [Range(0,360)]
