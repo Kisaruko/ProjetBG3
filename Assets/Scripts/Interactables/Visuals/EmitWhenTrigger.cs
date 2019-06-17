@@ -10,6 +10,7 @@ public class EmitWhenTrigger : MonoBehaviour
     public GameObject vfxShine;
     public GameObject vfxDestroy;
     private Light light;
+    private Light light2;
     private Animator anim;
     [HideInInspector] public bool isActivated = false;
     public bool activateAtStart;
@@ -30,12 +31,17 @@ public class EmitWhenTrigger : MonoBehaviour
         {
             anim = GetComponentInChildren<Animator>();
         }
-        if (GetComponent<Light>() != null)
+        if (GetComponentInChildren<Light>() != null)
         {
-            light = GetComponent<Light>();
+            light = GetComponentInChildren<Light>();
             light.enabled = false;
         }
-        if(activateAtStart)
+        if (GetComponent<Light>() != null)
+        {
+            light2 = GetComponent<Light>();
+            light2.enabled = false;
+        }
+        if (activateAtStart)
         {
             ActivateEmission();
         }
@@ -65,6 +71,10 @@ public class EmitWhenTrigger : MonoBehaviour
             {
                 light.enabled = true;
             }
+            if (light2 != null)
+            {
+                light2.enabled = true;
+            }
             foreach (Material mat in myMat)
             {
                 mat.EnableKeyword("_EMISSION");
@@ -86,6 +96,10 @@ public class EmitWhenTrigger : MonoBehaviour
             if (light != null)
             {
                 light.enabled = false;
+            }
+            if (light2 != null)
+            {
+                light2.enabled = false;
             }
             foreach (Material mat in myMat)
             {
