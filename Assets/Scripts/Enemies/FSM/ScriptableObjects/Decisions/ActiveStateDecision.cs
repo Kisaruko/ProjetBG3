@@ -21,6 +21,5 @@ public class ActiveStateDecision : Decision
         }
         else
             return false;
-
     }
 }

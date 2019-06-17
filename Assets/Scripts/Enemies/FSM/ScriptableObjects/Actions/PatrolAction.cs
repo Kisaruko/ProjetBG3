@@ -16,6 +16,7 @@ public class PatrolAction : Action
     private void Patrol(StateController controller)
     {
         timer += Time.deltaTime;
+        controller.navMeshAgent.isStopped = false;
         controller.animator.SetBool("Chasing", true);
         if(timer >= controller.trashMobStats.patrolWanderTime)
         {
