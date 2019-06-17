@@ -22,7 +22,7 @@ public class LightSanctuary : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.layer == 11 && other.GetComponentInParent<BinaryLight>().gotLight == false)
+        if (other.gameObject.layer == 11 && other.GetComponentInParent<BinaryLight>().gotLight == false && binarylight.isRegrabable == true )
         {
             if (Input.GetButtonDown("Attack"))
             {
