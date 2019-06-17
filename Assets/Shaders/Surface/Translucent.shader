@@ -62,7 +62,7 @@
 			fixed diff = max (0, dot (s.Normal, lightDir));
 			float nh = max (0, dot (s.Normal, h));
 			float spec = pow (nh, s.Specular*128.0) * s.Gloss;
-			fixed3 diffAlbedo = (s.Albedo * _LightColor0.rgb * diff + _LightColor0.rgb * _SpecColor.rgb * spec) * (atten * 2);
+			fixed3 diffAlbedo = (s.Albedo * _LightColor0.rgb * diff + _LightColor0.rgb * _SpecColor.rgb * spec) * (atten * 12); // base 2
 
 			// Add the two together.
 			fixed4 c;
