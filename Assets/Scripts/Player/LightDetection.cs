@@ -75,7 +75,7 @@ public class LightDetection : MonoBehaviour
 
                         if (isTransmitting)
                         {
-                            CameraShake.Shake(0.1f, 0.05f);
+                            CameraShake.Shake(0.1f, 0.02f);
                             if (loader != null)
                             {
                                 loader.SetActive(true);
