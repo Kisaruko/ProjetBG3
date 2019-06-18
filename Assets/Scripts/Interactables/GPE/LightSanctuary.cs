@@ -11,9 +11,17 @@ public class LightSanctuary : MonoBehaviour
     private Transform player;
     public float rangeBeforeActivateEmissive;
     public GameObject getLightFx;
-    public Color colorBlink;
+    public Color myColor;
     private Material myMat;
     private bool pulse;
+
+    [Header("PulseOptions", order = 0)]
+    [Space(10, order = 1)]
+    public float minIntensity;
+    public float maxIntensity;
+    public float pulsateSpeed;
+    public float pulsateMaxDistance;
+
     private void Start()
     {
         playerLight = FindObjectOfType<LightManager>().gameObject;
@@ -21,6 +29,7 @@ public class LightSanctuary : MonoBehaviour
         InvokeRepeating("CheckIfPlayerGotLight", 0.1f, 0.1f);
         player = GameObject.Find("Player").transform;
         myMat = GetComponentInChildren<MeshRenderer>().material;
+        myColor = myMat.color;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -110,7 +119,11 @@ public class LightSanctuary : MonoBehaviour
     {
         if (pulse)
         {
-            StartPulsating(60f, 150f, 4.5f, 2f);
+            StartPulsating(minIntensity, maxIntensity, pulsateSpeed, pulsateMaxDistance);
+        }
+        else
+        {
+            myMat.color = myColor;
         }
     }
 }
