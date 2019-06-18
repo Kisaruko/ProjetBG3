@@ -7,19 +7,21 @@ public class LightDetection : MonoBehaviour
     [Header("TriggerOptions", order = 0)]
     [Space(10, order = 1)]
     private bool isTransmitting;
-
+    private bool switchInRange;
     public float range;
     public LayerMask ObjectsThatCanBeTouched;
     private Light thisLight;
 
     private Transform actualVfxTarget;
 
-    public ParticleSystem ps;
+
     public LayerMask exceptionLayer;
     private BinaryLight binaryLight;
     [Header("Vfx Attributes", order = 0)]
     [Space(10, order = 1)]
-    public GameObject loader;
+    public ParticleSystem ps;
+    public ParticleSystem canActivateSwitchsFx;
+    public ParticleSystem loader;
     public GameObject vfxTransmission;
 
     [Header("Object Attributes", order = 0)]
@@ -51,11 +53,15 @@ public class LightDetection : MonoBehaviour
         binaryLight = GameObject.Find("Player").GetComponent<BinaryLight>();
         thisLight = GetComponentInChildren<Light>();
         rb = GetComponent<Rigidbody>();
+        canActivateSwitchsFx.Stop();
     }
     private void Update()
     {
         InputCheck();
-
+        SwitchDetection();
+    }
+    private void SwitchDetection()
+    {
         List<SwitchBehaviour> switchsList = new List<SwitchBehaviour>(); //crée une liste
         List<SwitchBehaviour> potentialTarget = new List<SwitchBehaviour>();
         foreach (Collider hitcol in Physics.OverlapSphere(transform.position, range, ObjectsThatCanBeTouched)) // crée une sphere de detection
@@ -64,22 +70,22 @@ public class LightDetection : MonoBehaviour
             Ray ray = new Ray(transform.position, toCollider); // trace un rayon entre les deux
             if (!Physics.Raycast(ray, toCollider.magnitude, ~ObjectsThatCanBeTouched)) // si le ray ne touche pas de mur
             {
+
                 if (hitcol.GetComponent<SwitchBehaviour>() != null)
                 {
                     if (hitcol.GetComponent<SwitchBehaviour>().isActivated == false)
                     {
                         potentialTarget.Add(hitcol.GetComponent<SwitchBehaviour>());
                         hitcol.GetComponent<SwitchBehaviour>().playerLight = this.gameObject;
-
                         SwitchBehaviour switchbehaviour = hitcol.GetComponent<SwitchBehaviour>();
 
                         if (isTransmitting)
                         {
                             CameraShake.Shake(0.1f, 0.02f);
-                            if (loader != null)
+                         /*   if (loader != null)
                             {
-                                loader.SetActive(true);
-                            }
+                                loader.Play();
+                            }*/
                             hitcol.GetComponent<SwitchBehaviour>().Loading();
                             switchsList.Add(switchbehaviour);
                             int index = Random.Range(0, switchsList.Count);
@@ -92,6 +98,7 @@ public class LightDetection : MonoBehaviour
                     }
 
                 }
+
                 if (hitcol.GetComponent<EmitWhenTrigger>() != null)
                 {
                     hitcol.GetComponent<EmitWhenTrigger>().ActivateEmission();
@@ -104,26 +111,24 @@ public class LightDetection : MonoBehaviour
                     }
                 }
             }
-            if (loader != null)
-            {
-                if (switchsList.Count <= 0)
-                {
-                    loader.SetActive(false);
-                }
-            }
         }
         if (xButton != null)
         {
             if (potentialTarget.Count.Equals(0))
             {
                 xButton.GetComponent<ButtonDisplayer>().Disappear();
+                canActivateSwitchsFx.Stop();
             }
             else
             {
                 xButton.GetComponent<ButtonDisplayer>().Appear();
+                canActivateSwitchsFx.Play();
+                if (Input.GetButtonDown("Attack"))
+                {
+                    loader.Play();
+                }
             }
         }
-
     }
     private void InputCheck()
     {
@@ -135,6 +140,14 @@ public class LightDetection : MonoBehaviour
         {
             isTransmitting = false;
         }
+       /* if (Input.GetButton("Attack") || Input.GetKey(KeyCode.Space))
+        {
+            canActivateSwitchsFx.Stop();
+        }
+        else
+        {
+            canActivateSwitchsFx.Play();
+        }*/
     }
     private void FixedUpdate()
     {
