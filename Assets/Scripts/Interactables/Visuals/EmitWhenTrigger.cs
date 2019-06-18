@@ -15,7 +15,14 @@ public class EmitWhenTrigger : MonoBehaviour
     [HideInInspector] public bool isActivated = false;
     public bool activateAtStart;
     public bool doCamShake = true;
+
+
     private void Start()
+    {
+        Invoke("SetEverything", 0.1f);
+    }
+
+    private void SetEverything()
     {
         if (GetComponent<MeshRenderer>() != null)
         {
@@ -27,7 +34,7 @@ public class EmitWhenTrigger : MonoBehaviour
             skinnedMesh = GetComponentInChildren<SkinnedMeshRenderer>();
             myMat = skinnedMesh.materials;
         }
-        if(GetComponentInChildren<Animator>() != null)
+        if (GetComponentInChildren<Animator>() != null)
         {
             anim = GetComponentInChildren<Animator>();
         }
@@ -45,12 +52,11 @@ public class EmitWhenTrigger : MonoBehaviour
         {
             ActivateEmission();
         }
-        if(!activateAtStart)
+        if (!activateAtStart)
         {
             DeactivateEmission();
         }
     }
-
     public void ActivateEmission()
     {
         if (anim != null)
