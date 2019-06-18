@@ -11,12 +11,14 @@ public class LightDetection : MonoBehaviour
     public float range;
     public LayerMask ObjectsThatCanBeTouched;
     private Light thisLight;
-
+    private Animator anim;
     private Transform actualVfxTarget;
-
+    [HideInInspector]public bool IsInAGodRay;
 
     public LayerMask exceptionLayer;
     private BinaryLight binaryLight;
+    private PlayerMovement playermovement;
+
     [Header("Vfx Attributes", order = 0)]
     [Space(10, order = 1)]
     public ParticleSystem ps;
@@ -46,14 +48,16 @@ public class LightDetection : MonoBehaviour
     public bool activeMagnetism = false;
 
     public GameObject xButton;
-
     #region unityMehods
     private void Start()
     {
         binaryLight = GameObject.Find("Player").GetComponent<BinaryLight>();
+        playermovement = binaryLight.gameObject.GetComponent<PlayerMovement>();
+        anim = binaryLight.gameObject.GetComponentInChildren<Animator>();
         thisLight = GetComponentInChildren<Light>();
         rb = GetComponent<Rigidbody>();
         canActivateSwitchsFx.Stop();
+        
     }
     private void Update()
     {
@@ -135,23 +139,40 @@ public class LightDetection : MonoBehaviour
         if (Input.GetButtonDown("Attack") || Input.GetKeyDown(KeyCode.Space))
         {
             isTransmitting = true;
+            if (!IsInAGodRay)
+            {
+                anim.SetBool("StartTransmitting", true);
+                anim.SetBool("isTransmitting", true);
+                Invoke("AnimationSetter", 0.2f);
+                playermovement.moveSpeed = 0f;
+            }
         }
         if (Input.GetButtonUp("Attack") || Input.GetKeyUp(KeyCode.Space))
         {
             isTransmitting = false;
+            if (!IsInAGodRay)
+            {
+                anim.SetBool("isTransmitting", false);
+                playermovement.moveSpeed = 6f;
+            }
+
         }
-       /* if (Input.GetButton("Attack") || Input.GetKey(KeyCode.Space))
-        {
-            canActivateSwitchsFx.Stop();
-        }
-        else
-        {
-            canActivateSwitchsFx.Play();
-        }*/
+        /* if (Input.GetButton("Attack") || Input.GetKey(KeyCode.Space))
+         {
+             canActivateSwitchsFx.Stop();
+         }
+         else
+         {
+             canActivateSwitchsFx.Play();
+         }*/
     }
     private void FixedUpdate()
     {
         StopObject();
+    }
+    private void AnimationSetter()
+    {
+        anim.SetBool("StartTransmitting", false);
     }
     private void StopObject()
     {

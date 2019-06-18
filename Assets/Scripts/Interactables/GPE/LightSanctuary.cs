@@ -28,6 +28,7 @@ public class LightSanctuary : MonoBehaviour
         if (other.gameObject.layer == 11 && other.GetComponentInParent<BinaryLight>().gotLight == false && binarylight.isRegrabable == true)
         {
             pulse = true;
+            playerLight.GetComponent<LightDetection>().IsInAGodRay = true;
         }
     }
     private void OnTriggerExit(Collider other)
@@ -35,6 +36,7 @@ public class LightSanctuary : MonoBehaviour
         if (other.gameObject.layer == 11)
         {
             pulse = false;
+            playerLight.GetComponent<LightDetection>().IsInAGodRay = false;
         }
     }
     private void OnTriggerStay(Collider other)
