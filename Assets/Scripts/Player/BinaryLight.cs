@@ -225,11 +225,8 @@ public class BinaryLight : MonoBehaviour
             end = Instantiate(rangeEnd) as GameObject;
             //end.transform.parent = this.transform;
             cursor = playerPosition + (transform.forward * 1.5f);
-            end.transform.localRotation = Quaternion.Euler(90f, 0f, 0f);
+            end.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
         }
-        float endWidth = 0f;
-        if (end != null)
-            endWidth = end.GetComponent<SpriteRenderer>().bounds.size.x;
 
         if (end != null)
         {
@@ -264,7 +261,7 @@ public class BinaryLight : MonoBehaviour
                     transform.rotation = Quaternion.Euler(0, rotation, 0);
 
                     direction = Vector3.ClampMagnitude(direction, maxRange);
-                    cursor = transform.position + direction + (Vector3.up / 2);
+                    cursor = transform.position + direction;
                 }
             }
 
@@ -275,13 +272,13 @@ public class BinaryLight : MonoBehaviour
         if (start != null)
         {
             float dist = Vector3.Distance(playerPosition, cursor);
-            start.transform.localScale = new Vector3(start.transform.localScale.x, dist, start.transform.localScale.z);
+            start.transform.localScale = new Vector3(start.transform.localScale.x, start.transform.localScale.y, -dist + ((end.transform.localScale.z / 100) / 2));
 
             Vector3 dir = cursor - transform.position;
             float yAngle = Vector3.SignedAngle(dir, Vector3.forward, Vector3.up);
 
             start.transform.position = playerPosition + (Vector3.up / 2);
-            start.transform.rotation = Quaternion.Euler(90f, -yAngle, 0f);
+            start.transform.rotation = Quaternion.Euler(0f, -yAngle, 0f);
         }
 
         if (Vector3.Distance(end.transform.position, transform.position) < maxRange)
