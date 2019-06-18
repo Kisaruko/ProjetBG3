@@ -6,24 +6,42 @@ public class EmitWhenTrigger : MonoBehaviour
 {
     private Material[] myMat;
     private MeshRenderer mesh;
+    private SkinnedMeshRenderer skinnedMesh;
     public GameObject vfxShine;
     public GameObject vfxDestroy;
     private Light light;
-
+    private Light light2;
+    private Animator anim;
     [HideInInspector] public bool isActivated = false;
     public bool activateAtStart;
-
+    public bool doCamShake = true;
     private void Start()
     {
-        mesh = GetComponent<MeshRenderer>();
-        myMat = mesh.materials;
-
-        if(GetComponent<Light>() != null)
+        if (GetComponent<MeshRenderer>() != null)
         {
-            light = GetComponent<Light>();
+            mesh = GetComponent<MeshRenderer>();
+            myMat = mesh.materials;
+        }
+        if (GetComponentInChildren<SkinnedMeshRenderer>() != null)
+        {
+            skinnedMesh = GetComponentInChildren<SkinnedMeshRenderer>();
+            myMat = skinnedMesh.materials;
+        }
+        if(GetComponentInChildren<Animator>() != null)
+        {
+            anim = GetComponentInChildren<Animator>();
+        }
+        if (GetComponentInChildren<Light>() != null)
+        {
+            light = GetComponentInChildren<Light>();
             light.enabled = false;
         }
-        if(activateAtStart)
+        if (GetComponent<Light>() != null)
+        {
+            light2 = GetComponent<Light>();
+            light2.enabled = false;
+        }
+        if (activateAtStart)
         {
             ActivateEmission();
         }
@@ -35,9 +53,16 @@ public class EmitWhenTrigger : MonoBehaviour
 
     public void ActivateEmission()
     {
-        if(!isActivated)
+        if (anim != null)
         {
-            CameraShake.Shake(0.05f, 0.05f);
+            anim.SetBool("IsActivated", true);
+        }
+        if (!isActivated)
+        {
+            if (doCamShake)
+            {
+                CameraShake.Shake(0.05f, 0.05f);
+            }
             if (vfxShine != null)
             {
                 Instantiate(vfxShine, transform.position, Quaternion.identity);
@@ -45,6 +70,10 @@ public class EmitWhenTrigger : MonoBehaviour
             if (light != null)
             {
                 light.enabled = true;
+            }
+            if (light2 != null)
+            {
+                light2.enabled = true;
             }
             foreach (Material mat in myMat)
             {
@@ -59,10 +88,18 @@ public class EmitWhenTrigger : MonoBehaviour
     {
         if(isActivated)
         {
+            if (anim != null)
+            {
+                anim.SetBool("IsActivated", false);
+            }
             CameraShake.Shake(0.05f, 0.05f);
             if (light != null)
             {
                 light.enabled = false;
+            }
+            if (light2 != null)
+            {
+                light2.enabled = false;
             }
             foreach (Material mat in myMat)
             {

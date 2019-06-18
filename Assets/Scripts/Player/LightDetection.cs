@@ -75,8 +75,11 @@ public class LightDetection : MonoBehaviour
 
                         if (isTransmitting)
                         {
-                            CameraShake.Shake(0.1f, 0.05f);
-                            loader.SetActive(true);
+                            CameraShake.Shake(0.1f, 0.02f);
+                            if (loader != null)
+                            {
+                                loader.SetActive(true);
+                            }
                             hitcol.GetComponent<SwitchBehaviour>().Loading();
                             switchsList.Add(switchbehaviour);
                             int index = Random.Range(0, switchsList.Count);
@@ -101,9 +104,12 @@ public class LightDetection : MonoBehaviour
                     }
                 }
             }
-            if(switchsList.Count <=0)
+            if (loader != null)
             {
-                loader.SetActive(false);
+                if (switchsList.Count <= 0)
+                {
+                    loader.SetActive(false);
+                }
             }
         }
         if (xButton != null)

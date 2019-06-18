@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 3.5
   rotationSpeed: 1.2
-  patrolDist: 8
+  patrolDist: 5
   patrolWanderTime: 2
+  wanderTimeBeforePatrol: 0.5
   lookRange: 20
   lookAngle: 360
   targetMask:
@@ -29,7 +30,7 @@ MonoBehaviour:
   attackCooldown: 1
   absorbRange: 2
   absorbCooldown: 0.2
-  absorbFactor: 0.025
+  absorbFactor: 0.15
   disableRange: 2
   objectsToDisable:
     serializedVersion: 2

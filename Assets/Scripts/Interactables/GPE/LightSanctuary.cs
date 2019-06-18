@@ -5,28 +5,48 @@ using UnityEngine;
 public class LightSanctuary : MonoBehaviour
 {
     private GameObject playerLight;
-    public bool getLightOnTrigger;
+    [HideInInspector]public bool getLightOnTrigger =true; // this variable can be obsolete at a certain design point of the godray
     public ParticleSystem feedBackPs;
     private BinaryLight binarylight;
-    private ScaleOverTime scaleovertime;
-
+    private Transform player;
+    public float rangeBeforeActivateEmissive;
+    public GameObject getLightFx;
+    public Color colorBlink;
+    private Material myMat;
+    private bool pulse;
     private void Start()
     {
         playerLight = FindObjectOfType<LightManager>().gameObject;
         binarylight = FindObjectOfType<BinaryLight>();
-        InvokeRepeating("CheckIfPlayerGotLight", 0.1f, 1f);
-        scaleovertime = this.transform.parent.GetComponentInChildren<ScaleOverTime>();
+        InvokeRepeating("CheckIfPlayerGotLight", 0.1f, 0.1f);
+        player = GameObject.Find("Player").transform;
+        myMat = GetComponentInChildren<MeshRenderer>().material;
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.layer == 11 && other.GetComponentInParent<BinaryLight>().gotLight == false && binarylight.isRegrabable == true)
+        {
+            pulse = true;
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.layer == 11)
+        {
+            pulse = false;
+        }
+    }
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.layer == 11 && other.GetComponentInParent<BinaryLight>().gotLight == false)
+        if (other.gameObject.layer == 11 && other.GetComponentInParent<BinaryLight>().gotLight == false && binarylight.isRegrabable == true )
         {
             if (Input.GetButtonDown("Attack"))
             {
-                feedBackPs.Stop();
-                scaleovertime.isScaling = false;
-                scaleovertime.SetScaling();
+                if (feedBackPs != null)
+                {
+                    feedBackPs.Stop();
+                }
                 if (getLightOnTrigger)
                 {
                     other.gameObject.GetComponentInParent<BinaryLight>().GetLight();
@@ -36,22 +56,60 @@ public class LightSanctuary : MonoBehaviour
                     playerLight.transform.parent = null;
                     playerLight.transform.position = transform.position + Vector3.up;
                 }
+                if (getLightFx != null)
+                {
+                    Instantiate(getLightFx, playerLight.transform.position, Quaternion.identity);
+                }
             }
         }
     }
+
     private void CheckIfPlayerGotLight()
     {
         if(binarylight.gotLight)
         {
-            feedBackPs.Stop();
-            scaleovertime.isScaling = false;
-            scaleovertime.SetScaling();
+            if (feedBackPs != null)
+            {
+                feedBackPs.Stop();
+            }
+            GetComponentInChildren<RootBehaviour>().Deactivate();
         }
         else
         {
-            feedBackPs.Play();
-            scaleovertime.isScaling = true;
-            scaleovertime.SetScaling();
+            if (Vector3.Distance(transform.position+ transform.forward * 2, player.position)<rangeBeforeActivateEmissive)
+            {
+                GetComponentInChildren<RootBehaviour>().Activate();
+                if (feedBackPs != null)
+                {
+                    feedBackPs.Play();
+                }
+            }
+            else
+            {
+                GetComponentInChildren<RootBehaviour>().Deactivate();
+                feedBackPs.Stop();
+            }
+        }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.DrawWireSphere(transform.position+transform.forward*2, rangeBeforeActivateEmissive);
+        Gizmos.color = Color.magenta;
+    }
+    void StartPulsating(float minIntensity, float maxIntensity, float pulsateSpeed, float pulsateMaxDistance)
+    {
+        float emission = Mathf.Lerp(minIntensity, maxIntensity, Mathf.PingPong(Time.time * pulsateSpeed, pulsateMaxDistance));
+        Color baseColor = myMat.color;
+        Color finalColor = baseColor * Mathf.LinearToGammaSpace(emission);
+        myMat.SetColor("_EmissionColor", finalColor);
+    }
+    private void Update()
+    {
+        if (pulse)
+        {
+            StartPulsating(60f, 150f, 4.5f, 2f);
         }
     }
 }
+

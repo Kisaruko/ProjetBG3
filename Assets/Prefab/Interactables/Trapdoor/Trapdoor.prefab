@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3871818466725558604}
   - component: {fileID: 3743864044841888556}
   m_Layer: 0
-  m_Name: Colliders
+  m_Name: Colliders1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29,7 +29,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1821570575347144889}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &3743864044841888556
 BoxCollider:
@@ -70,14 +70,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1821570575346779289}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.121046, y: 1.1210455, z: 1.121046}
   m_Children:
-  - {fileID: 5837534865059632898}
-  - {fileID: 3871818466725558604}
   - {fileID: 5968198495982857545}
   - {fileID: 5968198495982857547}
+  - {fileID: 5837534865059632898}
+  - {fileID: 3871818466725558604}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -110,7 +110,7 @@ NavMeshObstacle:
   m_Enabled: 0
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: 1.71, y: 0.24900001, z: 1.71}
+  m_Extents: {x: 1.71, y: 0.53, z: 1.71}
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 1
@@ -158,7 +158,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1821570575347144889}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &3475255927657736041
 BoxCollider:
@@ -204,7 +204,7 @@ Transform:
   m_Children:
   - {fileID: 5968198495982857551}
   m_Father: {fileID: 1821570575347144889}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &5968198495983660393
 MeshFilter:
@@ -283,7 +283,7 @@ Transform:
   m_Children:
   - {fileID: 5968198495982857549}
   m_Father: {fileID: 1821570575347144889}
-  m_RootOrder: 3
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &5968198495983660395
 MeshFilter:
@@ -421,12 +421,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4b3ef3f4639e7d4fa7ea1a232c0f867, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tilingX: 0
-  tilingY: 0
+  tilingX: 1
+  tilingY: 1
   offsetY: 0
-  maxUvOffsetX: 0
-  minUvOffsetX: 0
-  scrollFactor: 0
+  maxUvOffsetX: 0.77
+  minUvOffsetX: -0.55
+  scrollFactor: 0.04
 --- !u!1 &5968198495982825839
 GameObject:
   m_ObjectHideFlags: 0
@@ -517,9 +517,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4b3ef3f4639e7d4fa7ea1a232c0f867, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tilingX: 0
-  tilingY: 0
+  tilingX: 1
+  tilingY: 1
   offsetY: 0
-  maxUvOffsetX: 0
-  minUvOffsetX: 0
-  scrollFactor: 0
+  maxUvOffsetX: 0.77
+  minUvOffsetX: -0.55
+  scrollFactor: 0.04

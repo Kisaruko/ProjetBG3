@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d632841c55b118d46927a77a11cee6b4, type: 3}
+  m_Name: Wandering TrashMob
+  m_EditorClassIdentifier: 
+  actions:
+  - {fileID: 11400000, guid: 49df7050bc4f56747bd47930689ad848, type: 2}
+  transitions:
+  - decision: {fileID: 11400000, guid: a88bff54985d7394c9922d767e3b1f81, type: 2}
+    trueState: {fileID: 11400000, guid: 413f9de48899e074e9eb31d9229fb599, type: 2}
+    falseState: {fileID: 11400000, guid: 765322ab782187c4e82c61474f99af46, type: 2}
+  sceneGizmoColor: {r: 1, g: 0.6484024, b: 0, a: 1}
