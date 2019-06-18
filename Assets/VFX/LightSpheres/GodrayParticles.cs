@@ -18,6 +18,7 @@ public class GodrayParticles : MonoBehaviour
     public PlayerBehaviour playerBehaviour;
     public CapsuleCollider playerCollider;
 
+
     #region MainMethods
     private void Start()
     {
