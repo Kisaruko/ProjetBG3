@@ -13,7 +13,7 @@ public class LightDetection : MonoBehaviour
     private Light thisLight;
     private Animator anim;
     private Transform actualVfxTarget;
-    [HideInInspector]public bool IsInAGodRay;
+    [HideInInspector] public bool IsInAGodRay;
 
     public LayerMask exceptionLayer;
     private BinaryLight binaryLight;
@@ -57,7 +57,7 @@ public class LightDetection : MonoBehaviour
         thisLight = GetComponentInChildren<Light>();
         rb = GetComponent<Rigidbody>();
         canActivateSwitchsFx.Stop();
-        
+
     }
     private void Update()
     {
@@ -70,48 +70,52 @@ public class LightDetection : MonoBehaviour
         List<SwitchBehaviour> potentialTarget = new List<SwitchBehaviour>();
         foreach (Collider hitcol in Physics.OverlapSphere(transform.position, range, ObjectsThatCanBeTouched)) // crée une sphere de detection
         {
-            Vector3 toCollider = hitcol.transform.position - transform.position; // get le vecteur entre ennemi et player
-            Ray ray = new Ray(transform.position, toCollider); // trace un rayon entre les deux
-            if (!Physics.Raycast(ray, toCollider.magnitude, ~ObjectsThatCanBeTouched)) // si le ray ne touche pas de mur
+            if (hitcol.gameObject.layer == 18)
             {
-
-                if (hitcol.GetComponent<SwitchBehaviour>() != null)
+                Vector3 toCollider = hitcol.transform.position - transform.position+Vector3.up *5; // get le vecteur entre ennemi et player
+                Ray ray = new Ray(transform.position, toCollider); // trace un rayon entre les deux
+                if (!Physics.Raycast(ray, toCollider.magnitude, ~ObjectsThatCanBeTouched)) // si le ray ne touche pas de mur
                 {
-                    if (hitcol.GetComponent<SwitchBehaviour>().isActivated == false)
+                    if (hitcol.GetComponent<EmitWhenTrigger>() != null)
                     {
-                        potentialTarget.Add(hitcol.GetComponent<SwitchBehaviour>());
-                        hitcol.GetComponent<SwitchBehaviour>().playerLight = this.gameObject;
-                        SwitchBehaviour switchbehaviour = hitcol.GetComponent<SwitchBehaviour>();
-
-                        if (isTransmitting)
+                        hitcol.GetComponent<EmitWhenTrigger>().ActivateEmission();
+                    }
+                }
+            }
+            else
+            {
+                Vector3 toCollider = hitcol.transform.position - transform.position; // get le vecteur entre ennemi et player
+                Ray ray = new Ray(transform.position, toCollider); // trace un rayon entre les deux
+                if (!Physics.Raycast(ray, toCollider.magnitude, ~ObjectsThatCanBeTouched)) // si le ray ne touche pas de mur
+                {
+                    if (hitcol.GetComponent<SwitchBehaviour>() != null)
+                    {
+                        if (hitcol.GetComponent<SwitchBehaviour>().isActivated == false)
                         {
-                            CameraShake.Shake(0.1f, 0.02f);
-                         /*   if (loader != null)
+                            potentialTarget.Add(hitcol.GetComponent<SwitchBehaviour>());
+                            hitcol.GetComponent<SwitchBehaviour>().playerLight = this.gameObject;
+                            SwitchBehaviour switchbehaviour = hitcol.GetComponent<SwitchBehaviour>();
+
+                            if (isTransmitting)
                             {
-                                loader.Play();
-                            }*/
-                            hitcol.GetComponent<SwitchBehaviour>().Loading();
-                            switchsList.Add(switchbehaviour);
-                            int index = Random.Range(0, switchsList.Count);
-                            actualVfxTarget = switchsList[index].transform;
-                            GameObject clone = Instantiate(vfxTransmission, transform.position, transform.rotation);
-                            clone.GetComponent<SuckedLightBehaviour>().light = transform;
-                            clone.GetComponent<SuckedLightBehaviour>().isSucked = true;
-                            clone.GetComponent<SuckedLightBehaviour>().mobSuckingSpot = actualVfxTarget;
+                                CameraShake.Shake(0.1f, 0.02f);
+                                hitcol.GetComponent<SwitchBehaviour>().Loading();
+                                switchsList.Add(switchbehaviour);
+                                int index = Random.Range(0, switchsList.Count);
+                                actualVfxTarget = switchsList[index].transform;
+                                GameObject clone = Instantiate(vfxTransmission, transform.position, transform.rotation);
+                                clone.GetComponent<SuckedLightBehaviour>().light = transform;
+                                clone.GetComponent<SuckedLightBehaviour>().isSucked = true;
+                                clone.GetComponent<SuckedLightBehaviour>().mobSuckingSpot = actualVfxTarget;
+                            }
                         }
                     }
-
-                }
-
-                if (hitcol.GetComponent<EmitWhenTrigger>() != null)
-                {
-                    hitcol.GetComponent<EmitWhenTrigger>().ActivateEmission();
-                }
-                if (hitcol.gameObject.layer == 11 && transform.parent == null && binaryLight.isRegrabable == true && activeMagnetism == true)
-                {
-                    if (Vector3.Distance(transform.position, hitcol.transform.position) < range / magnetismRangeDivider)
+                    if (hitcol.gameObject.layer == 11 && transform.parent == null && binaryLight.isRegrabable == true && activeMagnetism == true)
                     {
-                        rb.velocity = (hitcol.transform.position - transform.position).normalized * magnetismSpeed;
+                        if (Vector3.Distance(transform.position, hitcol.transform.position) < range / magnetismRangeDivider)
+                        {
+                            rb.velocity = (hitcol.transform.position - transform.position).normalized * magnetismSpeed;
+                        }
                     }
                 }
             }
