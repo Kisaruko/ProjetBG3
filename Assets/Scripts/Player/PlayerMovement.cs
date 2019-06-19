@@ -26,6 +26,7 @@ public class PlayerMovement : MonoBehaviour
     public float slopeRayHeight;
     public float steepSlopeAngle;
     public float slopeThreshold;
+    private bool isFalling;
 
     [Header("Dash Variables")]
     public float lifeUsageOnDash;
@@ -115,6 +116,13 @@ public class PlayerMovement : MonoBehaviour
         return (Physics.Raycast(transform.position+Vector3.up, -transform.up, distToGround + 1.01f));
     }
 
+    private void CoolDownFallAnimation()
+    {
+        if (isFalling)
+        {
+            anim.SetBool("isGrounded", true);
+        }
+    }
     void Movement()
     {
         //Input Logic
@@ -137,10 +145,14 @@ public class PlayerMovement : MonoBehaviour
         if (IsGrounded())
         {
             gravity = 0f;
+            isFalling = true;
+            Invoke("CoolDownFallAnimation", 0.2f);
         }
         else
         {
             gravity = -1f;
+            isFalling = false;
+            anim.SetBool("isGrounded", false);
         }
 
         if (isRecoiling == false && isDashing == false) // si le joueur ne prend pas un recul
