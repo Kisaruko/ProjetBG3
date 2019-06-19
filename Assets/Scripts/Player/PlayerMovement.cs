@@ -223,7 +223,6 @@ public class PlayerMovement : MonoBehaviour
                     lightManager.canDash = false;
                     shinyBody.Play();
                     Instantiate(trailDashParticles, transform.position, Quaternion.identity);
-
                     isReadyToDash = false; // le joueur ne peut pas redasher
                     isDashing = true; // le joueur est en train de dasher
                     Dash();

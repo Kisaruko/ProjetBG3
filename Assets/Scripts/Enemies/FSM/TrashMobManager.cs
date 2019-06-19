@@ -11,6 +11,7 @@ public class TrashMobManager : MonoBehaviour
     private void Awake()
     {
         controller = GetComponent<StateController>();
+        controller.trashMobStats.myMat = GetComponentInChildren<SkinnedMeshRenderer>().material;
         aiActive = true;
     }
 
