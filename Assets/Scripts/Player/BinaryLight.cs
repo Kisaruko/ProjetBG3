@@ -145,6 +145,7 @@ public class BinaryLight : MonoBehaviour
     private void AnimatorSetter()
     {
         anim.SetBool("getLight", false);
+        anim.SetBool("GetOnStatue", false);
         playerMovement.moveSpeed = baseSpeed;
     }
     /// <summary>
@@ -173,7 +174,14 @@ public class BinaryLight : MonoBehaviour
         if (isRegrabable)
         {
             charMaterial.SetFloat("_EmissiveIntensity", maxEmissionIntensity);
-            anim.SetBool("getLight", true);
+            if(LightObject.GetComponent<LightDetection>().IsInAGodRay)
+            {
+                anim.SetBool("GetOnStatue", true);
+            }
+            else
+            {
+                anim.SetBool("getLight", true);
+            }
             mesh.enabled = false;
             playerMovement.moveSpeed = 0f;
             myCollider.isTrigger = true;
