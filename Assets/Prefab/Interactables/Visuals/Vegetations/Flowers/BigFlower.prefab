@@ -446,6 +446,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2866717199326894518}
   - component: {fileID: 2866717199332460690}
+  - component: {fileID: 4089939683146878391}
   m_Layer: 0
   m_Name: grande_fleur
   m_TagString: Untagged
@@ -481,7 +482,7 @@ SkinnedMeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
-  m_RenderingLayerMask: 1
+  m_RenderingLayerMask: 0
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 8828a0b897ae8aa42ac1cd88adea5d48, type: 2}
@@ -536,6 +537,23 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.021675617, y: 0.082855046, z: -0.0019731522}
     m_Extent: {x: 0.24048245, y: 0.6651388, z: 0.24048245}
   m_DirtyAABB: 0
+--- !u!114 &4089939683146878391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2866717199327184278}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40e57747430161940983bba59153a45f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetRenderer: {fileID: 2866717199332460690}
+  materials:
+  - {fileID: 2100000, guid: 6a38a1b721ed59346bcd52d6ea8ed582, type: 2}
+  - {fileID: 2100000, guid: fb2462ae9a0c4244e862ce2a429f039c, type: 2}
+  - {fileID: 2100000, guid: fcc2a757ebc217c479bbd289213bb106, type: 2}
 --- !u!1 &2866717199327184280
 GameObject:
   m_ObjectHideFlags: 0
@@ -888,7 +906,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 3.41, z: 0}
 --- !u!108 &1569612661909991477
 Light:
   m_ObjectHideFlags: 0
