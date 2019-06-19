@@ -51,8 +51,10 @@ public class BinaryLight : MonoBehaviour
     public float throwVerticalSpeed;
     public GameObject rangeStart;
     public GameObject rangeEnd;
+    public GameObject rangeUnderCrosshair;
     private GameObject start;
     private GameObject end;
+    private GameObject range;
     public float lightSpeed;
     [Header("Vfx Attributes", order = 0)]
     [Space(10, order = 1)]
@@ -236,6 +238,12 @@ public class BinaryLight : MonoBehaviour
             end.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
         }
 
+        if (range == null)
+        {
+            range = Instantiate(rangeUnderCrosshair) as GameObject;
+            range.transform.position = playerPosition + (Vector3.up / 2) + (transform.forward * 1.5f);
+        }
+
         if (end != null)
         {
             if (cursor == Vector3.zero)
@@ -275,6 +283,19 @@ public class BinaryLight : MonoBehaviour
 
             end.transform.position = cursor + (Vector3.up / 2);
 
+        }
+
+        if (range != null)
+        {
+            RaycastHit hit;
+            if (Physics.Raycast(cursor, -Vector3.up, out hit, Mathf.Infinity))
+            {
+                float dist = hit.distance;
+                Debug.DrawRay(cursor, -Vector3.up * hit.distance, Color.red);
+
+                range.transform.DOScaleY(dist, 0.2f);
+            }
+            range.transform.position = cursor;
         }
 
         if (start != null)
@@ -404,6 +425,7 @@ public class BinaryLight : MonoBehaviour
 
             Destroy(start);
             Destroy(end);
+            Destroy(range);
 
             playerMovement.moveSpeed = baseSpeed;
 
