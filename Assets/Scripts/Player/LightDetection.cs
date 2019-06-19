@@ -141,10 +141,11 @@ public class LightDetection : MonoBehaviour
             isTransmitting = true;
             if (!IsInAGodRay)
             {
+                playermovement.moveSpeed = 0f;
+                anim.SetBool("isMoving", false);
                 anim.SetBool("StartTransmitting", true);
                 anim.SetBool("isTransmitting", true);
                 Invoke("AnimationSetter", 0.2f);
-                playermovement.moveSpeed = 0f;
             }
         }
         if (Input.GetButtonUp("Attack") || Input.GetKeyUp(KeyCode.Space))
