@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "PluggableAI/Decisions/Look")]
 public class LookDecision : Decision
 {
-
+    public GameObject startChaseVfx;
     public override bool Decide(StateController controller)
     {
         bool targetVisible = Look(controller);
@@ -29,10 +29,12 @@ public class LookDecision : Decision
                 {
                     if (target.GetComponent<SwitchBehaviour>() != null &&  !target.GetComponent<SwitchBehaviour>().isAtMinimum)
                     {
+                        Instantiate(startChaseVfx, controller.transform.position, Quaternion.identity);
                         return true;
                     }
                     if (target.GetComponent<LightManager>())
                     {
+                        Instantiate(startChaseVfx, controller.transform.position, Quaternion.identity);
                         return true;
                     }
                 }
