@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RootBehaviour : ActivableObjects
+public class RootTempoBehaviour : ActivableObjects
 {
     [Header("Tiling Values")]
     public float tilingX;
@@ -39,7 +39,7 @@ public class RootBehaviour : ActivableObjects
 
     private void Update()
     {
-        emissiveMaterial.mainTextureOffset = new Vector2(Mathf.Clamp(emissiveMaterial.mainTextureOffset.x, minUvOffsetX, maxUvOffsetX), emissiveMaterial.mainTextureOffset.y);
+        emissiveMaterial.mainTextureOffset = new Vector2(emissiveMaterial.mainTextureOffset.x, emissiveMaterial.mainTextureOffset.y);
 
         if (isActivated)
         {
