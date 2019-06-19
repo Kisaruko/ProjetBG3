@@ -76,11 +76,10 @@ public class LightDetection : MonoBehaviour
                 Ray ray = new Ray(transform.position, toCollider); // trace un rayon entre les deux
                 if (!Physics.Raycast(ray, toCollider.magnitude, ~ObjectsThatCanBeTouched)) // si le ray ne touche pas de mur
                 {
-
-                }
-                if (hitcol.GetComponent<EmitWhenTrigger>() != null)
-                {
-                    hitcol.GetComponent<EmitWhenTrigger>().ActivateEmission();
+                    if (hitcol.GetComponent<EmitWhenTrigger>() != null)
+                    {
+                        hitcol.GetComponent<EmitWhenTrigger>().ActivateEmission();
+                    }
                 }
             }
             else
