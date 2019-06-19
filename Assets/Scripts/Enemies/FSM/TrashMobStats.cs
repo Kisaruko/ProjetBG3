@@ -38,5 +38,11 @@ public class TrashMobStats : ScriptableObject
     public float disableRange;
     public LayerMask objectsToDisable;
     public float disableCooldown;
-    
+
+    [Header("Materials Variables")]
+    public Material myMat;
+    public Color baseColor;
+    public Color finalColor;
+
+
 }

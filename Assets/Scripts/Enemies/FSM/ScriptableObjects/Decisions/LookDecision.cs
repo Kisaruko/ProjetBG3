@@ -6,8 +6,10 @@ using UnityEngine;
 public class LookDecision : Decision
 {
     public GameObject startChaseVfx;
+    private Material myMat;
     public override bool Decide(StateController controller)
     {
+        myMat = controller.GetComponentInChildren<SkinnedMeshRenderer>().material;
         bool targetVisible = Look(controller);
         return targetVisible;
     }
@@ -30,16 +32,20 @@ public class LookDecision : Decision
                     if (target.GetComponent<SwitchBehaviour>() != null &&  !target.GetComponent<SwitchBehaviour>().isAtMinimum)
                     {
                         Instantiate(startChaseVfx, controller.transform.position, Quaternion.identity);
+                        myMat.SetColor("_EmissiveColor", controller.trashMobStats.finalColor);
                         return true;
                     }
                     if (target.GetComponent<LightManager>())
                     {
                         Instantiate(startChaseVfx, controller.transform.position, Quaternion.identity);
+                        myMat.SetColor("_EmissiveColor", controller.trashMobStats.finalColor);
                         return true;
                     }
                 }
             }
         }
+        myMat.SetColor("_EmissiveColor", controller.trashMobStats.baseColor);
+
         return false;
     }
 }
