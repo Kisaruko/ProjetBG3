@@ -51,8 +51,10 @@ public class BinaryLight : MonoBehaviour
     public float throwVerticalSpeed;
     public GameObject rangeStart;
     public GameObject rangeEnd;
+    public GameObject rangeUnderCrosshair;
     private GameObject start;
     private GameObject end;
+    private GameObject range;
     public float lightSpeed;
     [Header("Vfx Attributes", order = 0)]
     [Space(10, order = 1)]
@@ -145,6 +147,7 @@ public class BinaryLight : MonoBehaviour
     private void AnimatorSetter()
     {
         anim.SetBool("getLight", false);
+        anim.SetBool("GetOnStatue", false);
         playerMovement.moveSpeed = baseSpeed;
     }
     /// <summary>
@@ -173,7 +176,14 @@ public class BinaryLight : MonoBehaviour
         if (isRegrabable)
         {
             charMaterial.SetFloat("_EmissiveIntensity", maxEmissionIntensity);
-            anim.SetBool("getLight", true);
+            if(LightObject.GetComponent<LightDetection>().IsInAGodRay)
+            {
+                anim.SetBool("GetOnStatue", true);
+            }
+            else
+            {
+                anim.SetBool("getLight", true);
+            }
             mesh.enabled = false;
             playerMovement.moveSpeed = 0f;
             myCollider.isTrigger = true;
@@ -225,11 +235,14 @@ public class BinaryLight : MonoBehaviour
             end = Instantiate(rangeEnd) as GameObject;
             //end.transform.parent = this.transform;
             cursor = playerPosition + (transform.forward * 1.5f);
-            end.transform.localRotation = Quaternion.Euler(90f, 0f, 0f);
+            end.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
         }
-        float endWidth = 0f;
-        if (end != null)
-            endWidth = end.GetComponent<SpriteRenderer>().bounds.size.x;
+
+        if (range == null)
+        {
+            range = Instantiate(rangeUnderCrosshair) as GameObject;
+            range.transform.position = playerPosition + (Vector3.up / 2) + (transform.forward * 1.5f);
+        }
 
         if (end != null)
         {
@@ -264,7 +277,7 @@ public class BinaryLight : MonoBehaviour
                     transform.rotation = Quaternion.Euler(0, rotation, 0);
 
                     direction = Vector3.ClampMagnitude(direction, maxRange);
-                    cursor = transform.position + direction + (Vector3.up / 2);
+                    cursor = transform.position + direction;
                 }
             }
 
@@ -272,16 +285,29 @@ public class BinaryLight : MonoBehaviour
 
         }
 
+        if (range != null)
+        {
+            RaycastHit hit;
+            if (Physics.Raycast(cursor, -Vector3.up, out hit, Mathf.Infinity))
+            {
+                float dist = hit.distance;
+                Debug.DrawRay(cursor, -Vector3.up * hit.distance, Color.red);
+
+                range.transform.DOScaleY(dist, 0.2f);
+            }
+            range.transform.position = cursor;
+        }
+
         if (start != null)
         {
             float dist = Vector3.Distance(playerPosition, cursor);
-            start.transform.localScale = new Vector3(start.transform.localScale.x, dist, start.transform.localScale.z);
+            start.transform.localScale = new Vector3(start.transform.localScale.x, start.transform.localScale.y, -dist + ((end.transform.localScale.z / 100) / 2));
 
             Vector3 dir = cursor - transform.position;
             float yAngle = Vector3.SignedAngle(dir, Vector3.forward, Vector3.up);
 
             start.transform.position = playerPosition + (Vector3.up / 2);
-            start.transform.rotation = Quaternion.Euler(90f, -yAngle, 0f);
+            start.transform.rotation = Quaternion.Euler(0f, -yAngle, 0f);
         }
 
         if (Vector3.Distance(end.transform.position, transform.position) < maxRange)
@@ -399,6 +425,7 @@ public class BinaryLight : MonoBehaviour
 
             Destroy(start);
             Destroy(end);
+            Destroy(range);
 
             playerMovement.moveSpeed = baseSpeed;
 
