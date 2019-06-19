@@ -8,6 +8,7 @@ public class ChaseAction : Action
     private bool isPulsating;
     private Material myMat;
     private Color baseColor;
+    public Color finalColor;
     public override void Act(StateController controller)
     {
         myMat = controller.GetComponentInChildren<SkinnedMeshRenderer>().material;
@@ -31,7 +32,7 @@ public class ChaseAction : Action
         if (isPulsating)
         {
             float emission = Mathf.Lerp(minIntensity, maxIntensity, Mathf.PingPong(Time.time * pulsateSpeed, pulsateMaxDistance));
-            myMat.SetColor("_EmissiveColor", Color.red);
+            myMat.SetColor("_EmissiveColor", finalColor);
             myMat.SetFloat("_EmissiveIntensity", emission);
         }
         else
