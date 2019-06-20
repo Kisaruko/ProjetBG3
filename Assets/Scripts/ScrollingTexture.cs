@@ -15,6 +15,5 @@ public class ScrollingTexture : MonoBehaviour {
     void LateUpdate ()
     {
         m_mat.mainTextureOffset = scrollSpeed * Time.time;
-       
 	}
 }
