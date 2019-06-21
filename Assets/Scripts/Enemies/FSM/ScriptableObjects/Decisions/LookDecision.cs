@@ -31,13 +31,13 @@ public class LookDecision : Decision
                 {
                     if (target.GetComponent<SwitchBehaviour>() != null &&  !target.GetComponent<SwitchBehaviour>().isAtMinimum)
                     {
-                        Instantiate(startChaseVfx, controller.transform.position, Quaternion.identity);
+                        Instantiate(startChaseVfx, controller.transform.position + Vector3.up*2, Quaternion.identity);
                         myMat.SetColor("_EmissiveColor", controller.trashMobStats.finalColor);
                         return true;
                     }
                     if (target.GetComponent<LightManager>())
                     {
-                        Instantiate(startChaseVfx, controller.transform.position, Quaternion.identity);
+                        Instantiate(startChaseVfx, controller.transform.position + Vector3.up*2, Quaternion.identity);
                         myMat.SetColor("_EmissiveColor", controller.trashMobStats.finalColor);
                         return true;
                     }

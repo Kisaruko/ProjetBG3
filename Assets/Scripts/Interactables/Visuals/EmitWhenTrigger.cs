@@ -15,7 +15,7 @@ public class EmitWhenTrigger : MonoBehaviour
     [HideInInspector] public bool isActivated = false;
     public bool activateAtStart;
     public bool doCamShake = true;
-
+    public Vector3 triggerOffSet;
 
     private void Start()
     {
@@ -115,5 +115,10 @@ public class EmitWhenTrigger : MonoBehaviour
             isActivated = false;
         }
         
+    }
+    private void OnDrawGizmosSelected()
+    {
+            Gizmos.color = Color.cyan;
+            Gizmos.DrawWireSphere(transform.position+ Vector3.up*5 + triggerOffSet, 0.1f);
     }
 }

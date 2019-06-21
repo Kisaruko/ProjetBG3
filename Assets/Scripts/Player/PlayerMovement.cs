@@ -5,7 +5,6 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     #region Variables
-
     public bool controlsAreEnabled;
     public float sensitivity;
     public float distToGround;
@@ -56,6 +55,7 @@ public class PlayerMovement : MonoBehaviour
     public ParticleSystem shinyBody;
     #endregion
 
+
     #region Main Methods
     private void Start()
     {
@@ -71,6 +71,7 @@ public class PlayerMovement : MonoBehaviour
         {
             DashDetection();
             Movement();
+            AnimFallChecker();
         }
     }
 
@@ -111,17 +112,9 @@ public class PlayerMovement : MonoBehaviour
 
     private bool IsGrounded()
     {
-        Debug.DrawRay(transform.position+Vector3.up, -transform.up, Color.red);
+        Debug.DrawRay(transform.position + Vector3.up, -transform.up, Color.red);
 
-        return (Physics.Raycast(transform.position+Vector3.up, -transform.up, distToGround + 1.01f));
-    }
-
-    private void CoolDownFallAnimation()
-    {
-        if (isFalling)
-        {
-            anim.SetBool("isGrounded", true);
-        }
+        return (Physics.Raycast(transform.position + Vector3.up, -transform.up, distToGround + 1.01f));
     }
     void Movement()
     {
@@ -145,14 +138,10 @@ public class PlayerMovement : MonoBehaviour
         if (IsGrounded())
         {
             gravity = 0f;
-            isFalling = true;
-            Invoke("CoolDownFallAnimation", 0.2f);
         }
         else
         {
             gravity = -1f;
-            isFalling = false;
-            anim.SetBool("isGrounded", false);
         }
 
         if (isRecoiling == false && isDashing == false) // si le joueur ne prend pas un recul
@@ -191,9 +180,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 anim.SetBool("isMoving", false);
                 isMoving = false;
-
                 rb.velocity = new Vector3(0f, gravity, 0f) * moveSpeed;  // la vitesse du joueur est de 0
-
                 transform.rotation = lastRotation; // le joueur regarde dans la dernière direction enregistrée
             }
 
@@ -283,6 +270,26 @@ public class PlayerMovement : MonoBehaviour
         StopCoroutine("RecoilTime"); // stop recule
 
     }
-    #endregion
+
+    private void AnimFallChecker()
+    {
+        Ray ray = new Ray(transform.position + transform.up, Vector3.down);
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position + transform.up, Vector3.down, out hit, Mathf.Infinity))
+        {
+            if(hit.collider.CompareTag("Untagged"))
+            {
+                if (Vector3.Distance(hit.point,transform.position)<1f)
+                {
+                    anim.SetBool("isGrounded", true);
+                }
+                else
+                {
+                    anim.SetBool("isGrounded", false);
+                }
+            }
+        }
+    }
 }
+#endregion
 

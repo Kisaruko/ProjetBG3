@@ -184,8 +184,14 @@ public class SwitchBehaviour : MonoBehaviour
     {
         GetComponent<Outline>().RemoveOutline();
         CameraShake.Shake(0.05f, 0.2f);
-        myMat.EnableKeyword("_EMISSION");
-        myMat2.EnableKeyword("_EMISSION");
+        if (myMat != null)
+        {
+            myMat.EnableKeyword("_EMISSION");
+        }
+        if (myMat != null)
+        {
+            myMat2.EnableKeyword("_EMISSION");
+        }
         isLoading = false;
         Instantiate(maxLightVfx, transform.position, Quaternion.identity);
         isActivated = true;
