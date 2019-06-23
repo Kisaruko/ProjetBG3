@@ -25,20 +25,20 @@ public class LightingTreeBehaviour : ActivableObjects
     {
         throw new System.NotImplementedException();
     }
-
+    void StartPulsating(float minIntensity, float maxIntensity, float pulsateSpeed, float pulsateMaxDistance)
+    {
+        float emission = Mathf.Lerp(minIntensity, maxIntensity, Mathf.PingPong(Time.time * pulsateSpeed, pulsateMaxDistance));
+        Color baseColor = myMats[1].color;
+        Color finalColor = baseColor * Mathf.LinearToGammaSpace(emission);
+        myMats[1].SetColor("_EmissionColor", finalColor);
+        myMats[0].SetColor("_EmissionColor", finalColor);
+        troncMat.SetColor("_EmissionColor", finalColor);
+    }
     private void Update()
     {
         if (startGlowing)
         {
-
-            float emission = Mathf.Lerp(minIntensity, maxIntensity, 1f);
-            Color finalColor = baseColor * Mathf.LinearToGammaSpace(emission);
-            myMats[1].EnableKeyword("_EMISSION");
-            myMats[0].EnableKeyword("_EMISSION");
-            troncMat.EnableKeyword("_EMISSION");
-            /* myMats[1].SetColor("_EmissiveIntensity", finalColor);
-             myMats[0].SetColor("_EmissiveIntensity", finalColor);*/
-            troncMat.SetColor("_EmissiveIntensity", finalColor); 
+            StartPulsating(1f,100f,2,2f);
         }
     }
     private void EnlightTree()
