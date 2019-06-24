@@ -55,13 +55,15 @@ MonoBehaviour:
   maxRange: 10
   lightGrowFactor: 0.03
   rangeGlowFactor: 0.03
+  range: 0.1
+  rangeIncreaseFactor: 0.75
+  sphereMaxRange: 100
+  lightTargetSpot: {fileID: 6747333356421760008}
   activationFx: {fileID: 6406447144331391641, guid: 32e8451d6547dae4fb6a9a42190f5ec0,
     type: 3}
-  lightTargetSpot: {fileID: 6747333356421760008}
-  range: 0.1
-  sphereMaxRange: 100
-  rangeIncreaseFactor: 0.75
-  timeBeforeResetCam: 0
+  destroyMobFx: {fileID: 5018255253661281433, guid: ea9b3fa99d5218e4796f11d16b9108a4,
+    type: 3}
+  timeBeforeResetCam: 2
 --- !u!135 &6747333355560019118
 SphereCollider:
   m_ObjectHideFlags: 0
