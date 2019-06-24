@@ -68,6 +68,8 @@ public class LightDetection : MonoBehaviour
     {
         List<SwitchBehaviour> switchsList = new List<SwitchBehaviour>(); //crée une liste
         List<SwitchBehaviour> potentialTarget = new List<SwitchBehaviour>();
+        List<LightingTreeBehaviour> trees = new List<LightingTreeBehaviour>();
+
         foreach (Collider hitcol in Physics.OverlapSphere(transform.position, range, ObjectsThatCanBeTouched)) // crée une sphere de detection
         {
             if (hitcol.gameObject.layer == 18&& hitcol.GetComponent<EmitWhenTrigger>() != null && hitcol.GetComponent<EmitWhenTrigger>().isActivated == false)
@@ -117,12 +119,31 @@ public class LightDetection : MonoBehaviour
                             rb.velocity = (hitcol.transform.position - transform.position).normalized * magnetismSpeed;
                         }
                     }
+
+                    if(hitcol.GetComponent<LightingTreeBehaviour>() != null)
+                    {
+                        if (hitcol.GetComponent<LightingTreeBehaviour>().isActivated == false)
+                        {
+                            trees.Add(hitcol.GetComponent<LightingTreeBehaviour>());
+
+                            if (isTransmitting)
+                            {
+                                CameraShake.Shake(0.1f, 0.02f);
+                                hitcol.GetComponent<LightingTreeBehaviour>().Loading();
+                                actualVfxTarget = hitcol.gameObject.GetComponent<LightingTreeBehaviour>().lightTargetSpot;
+                                GameObject clone = Instantiate(vfxTransmission, transform.position, transform.rotation);
+                                clone.GetComponent<SuckedLightBehaviour>().light = transform;
+                                clone.GetComponent<SuckedLightBehaviour>().isSucked = true;
+                                clone.GetComponent<SuckedLightBehaviour>().mobSuckingSpot = actualVfxTarget;
+                            }
+                        }
+                    }
                 }
             }
         }
         if (xButton != null)
         {
-            if (potentialTarget.Count.Equals(0))
+            if (potentialTarget.Count.Equals(0) && trees.Count.Equals(0))
             {
                 xButton.GetComponent<ButtonDisplayer>().Disappear();
                 canActivateSwitchsFx.Stop();
@@ -138,6 +159,7 @@ public class LightDetection : MonoBehaviour
             }
         }
     }
+
     private void InputCheck()
     {
         if (Input.GetButtonDown("Attack") || Input.GetKeyDown(KeyCode.Space))

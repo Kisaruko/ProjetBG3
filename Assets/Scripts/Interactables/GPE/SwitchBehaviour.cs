@@ -180,7 +180,7 @@ public class SwitchBehaviour : MonoBehaviour
             }
         }
     }
-    private void Activation()
+    public void Activation()
     {
         GetComponent<Outline>().RemoveOutline();
         CameraShake.Shake(0.05f, 0.2f);
@@ -196,10 +196,7 @@ public class SwitchBehaviour : MonoBehaviour
         Instantiate(maxLightVfx, transform.position, Quaternion.identity);
         isActivated = true;
         activationEvent.Invoke();
-        if (playerLight.GetComponent<LightDetection>() != null)
-        {
-           // playerLight.GetComponent<LightDetection>().StopFollow();
-        }
+
         if (assiociatedObject != null)
         {
             if (!haveSetAnEntry)
@@ -215,7 +212,6 @@ public class SwitchBehaviour : MonoBehaviour
         if (activateAtStart == true)
         {
             playerLight = FindObjectOfType<LightManager>().gameObject;
-
             transform.position = transform.position + transform.up;
             thisObjectLight.intensity = maxIntensity;
             thisObjectLight.range = maxRange;
