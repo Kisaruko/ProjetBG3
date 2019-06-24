@@ -7,7 +7,7 @@ public class TrashMobManager : MonoBehaviour
 {
     public bool aiActive;
     private StateController controller;
-
+   // public GameObject destroyVfx;
     private void Awake()
     {
         controller = GetComponent<StateController>();
@@ -19,4 +19,8 @@ public class TrashMobManager : MonoBehaviour
     {
         controller.SetupAI(aiActive);
     }
+  /*  private void OnDestroy()
+    {
+        Instantiate(destroyVfx, transform.position, Quaternion.identity);
+    }*/
 }

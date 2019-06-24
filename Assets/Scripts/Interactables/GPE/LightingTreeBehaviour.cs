@@ -12,24 +12,33 @@ public class LightingTreeBehaviour : ActivableObjects
      public float maxIntensity;
      private Color baseColor;*/
 
+    [Header("Activation Variables")]
     public bool isActivated;
-    private Light thisObjectLight;
     public bool isLoading;
     public float maxIntensity;
     public float maxRange;
     public float lightGrowFactor;
     public float rangeGlowFactor;
-    private bool intensityIsMaxed;
     private bool rangeIsMaxed;
+    private bool intensityIsMaxed;
+
+    [Header("Growing Variables")]
+    public float range;
+    public float rangeIncreaseFactor;
+    public float sphereMaxRange;
+
+    [Header("Visuals Variables")]
+
+    public Transform lightTargetSpot;
+    public GameObject activationFx;
+    public GameObject destroyMobFx;
+    public float timeBeforeResetCam;
+    private Light thisObjectLight;
+    private bool increaseRange;
     private Material[] myMats;
     private Material troncMat;
-    public GameObject activationFx;
-    public Transform lightTargetSpot;
-    public float range;
-    private bool increaseRange;
-    public float sphereMaxRange;
-    public float rangeIncreaseFactor;
-    public float timeBeforeResetCam;
+
+
     private void Start()
     {
         thisObjectLight = GetComponentInChildren<Light>();
@@ -138,6 +147,16 @@ public class LightingTreeBehaviour : ActivableObjects
         {
             other.GetComponent<EmitWhenTrigger>().ActivateEmission();
         }
+        if(other.GetComponent<TrashMobManager>() != null)
+        {
+            Instantiate(destroyMobFx, other.transform.position, Quaternion.identity);
+            Destroy(other.gameObject);
+        }
+        if(other.GetComponent<PressurePlateBehaviour>() != null)
+        {
+            other.GetComponent<PressurePlateBehaviour>().nbObjectOnThis = 10;
+            other.GetComponent<PressurePlateBehaviour>().SetObjectOnThis();
+        }
     }
     private void Update()
     {
@@ -151,8 +170,8 @@ public class LightingTreeBehaviour : ActivableObjects
     private IEnumerator ResetCam()
     {
         Camera.main.GetComponentInParent<CameraBehaviour>().target = FindObjectOfType<PlayerMovement>().transform;
-        yield return new WaitForSeconds(1f);
-        Camera.main.GetComponentInParent<CameraBehaviour>().smoothSpeed = 0;
+        yield return new WaitForSeconds(5f);
+        Camera.main.GetComponentInParent<CameraBehaviour>().ResetCamParameters(5f);
         StopCoroutine("ResetCam");
 
     }

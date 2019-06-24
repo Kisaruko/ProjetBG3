@@ -6,16 +6,22 @@ using DG.Tweening;
 public class CameraBehaviour : MonoBehaviour
 {
     #region Variables
+    [Header("Cam target")]
     public Transform target;
-    public float camHeight = 10f;
-    public float camDistance = 20f;
-    public float camAngle = 0f;
-    public float xCamRotation = 60f;
-    public float smoothSpeed = 0.5f;
-    public float anticipationFactor = 10f;
-
     public bool followTarget;
 
+    [Header("Cam parameters")]
+    public float camHeight; //10
+    public float camDistance; //20
+    public float camAngle;  //0
+    public float xCamRotation; //60
+    public float smoothSpeed; //0.5f
+    public float anticipationFactor; //10
+
+    private float baseCamHeight;
+    private float baseCamDistance;
+    private float basexCamRotation;
+    private float baseSmoothSpeed;
     private Vector3 refVelocity;
     #endregion
 
@@ -31,6 +37,10 @@ public class CameraBehaviour : MonoBehaviour
     void Start()
     {
         HandleCamera();
+        baseCamHeight = camHeight;
+        baseCamDistance = camDistance;
+        basexCamRotation = xCamRotation;
+        baseSmoothSpeed = smoothSpeed;
     }
 
     private void LateUpdate()
@@ -106,4 +116,12 @@ public class CameraBehaviour : MonoBehaviour
         DOTween.To(() => camHeight, x => camHeight = x, newHeight, TimeForTranslate);
         DOTween.To(() => camDistance, x => camDistance = x, newDistance, TimeForTranslate);
     }
+    public void ResetCamParameters(float TimeForTranslate)
+    {
+        DOTween.To(() => xCamRotation, x => xCamRotation = x, basexCamRotation, TimeForTranslate);
+        DOTween.To(() => camHeight, x => camHeight = x, baseCamHeight, TimeForTranslate);
+        DOTween.To(() => camDistance, x => camDistance = x, baseCamDistance, TimeForTranslate);
+        DOTween.To(() => smoothSpeed, x => smoothSpeed = x, baseSmoothSpeed, TimeForTranslate);
+    }
+
 }
