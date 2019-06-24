@@ -111,6 +111,10 @@ public class LightingTreeBehaviour : ActivableObjects
     #endregion
     private void EnlightTree()
     {
+        FindObjectOfType<PlayerMovement>().DisableControls(transform);
+        FindObjectOfType<BinaryLight>().DisableControls();
+        FindObjectOfType<LightDetection>().DisableControls();
+
         Camera.main.GetComponentInParent<CameraBehaviour>().smoothSpeed = 0.1f;
 
         Camera.main.GetComponentInParent<CameraBehaviour>().SetNewParameters(35, 25, 45, 2f);
@@ -166,12 +170,22 @@ public class LightingTreeBehaviour : ActivableObjects
             thisObjectLight.range = range;
             range += rangeIncreaseFactor;
         }
+        if(range >= sphereMaxRange)
+        {
+            if(GetComponent<SphereCollider>() != null)
+            {
+                GetComponent<SphereCollider>().enabled = false;
+            }
+        }
     }
     private IEnumerator ResetCam()
     {
         Camera.main.GetComponentInParent<CameraBehaviour>().target = FindObjectOfType<PlayerMovement>().transform;
         yield return new WaitForSeconds(5f);
         Camera.main.GetComponentInParent<CameraBehaviour>().ResetCamParameters(5f);
+        FindObjectOfType<PlayerMovement>().EnableControls();
+        FindObjectOfType<BinaryLight>().EnableControls();
+        FindObjectOfType<LightDetection>().EnableControls();
         StopCoroutine("ResetCam");
 
     }

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class LightDetection : MonoBehaviour
 {
+    public bool controlsAreEnabled = true;
+
     [Header("TriggerOptions", order = 0)]
     [Space(10, order = 1)]
     private bool isTransmitting;
@@ -57,12 +59,14 @@ public class LightDetection : MonoBehaviour
         thisLight = GetComponentInChildren<Light>();
         rb = GetComponent<Rigidbody>();
         canActivateSwitchsFx.Stop();
-
     }
     private void Update()
     {
-        InputCheck();
-        SwitchDetection();
+        if (controlsAreEnabled)
+        {
+            InputCheck();
+            SwitchDetection();
+        }
     }
     private void SwitchDetection()
     {
@@ -207,6 +211,16 @@ public class LightDetection : MonoBehaviour
         {
             binaryLight.LightCanBeRegrabed();
         }
+    }
+    public void EnableControls()
+    {
+        controlsAreEnabled = true;
+    }
+    public void DisableControls()
+    {
+        controlsAreEnabled = false;
+        anim.SetBool("StartTransmitting", false);
+        anim.SetBool("isTransmitting", false);
     }
     private void OnDrawGizmosSelected()
     {
