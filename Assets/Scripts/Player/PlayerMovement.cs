@@ -9,7 +9,7 @@ public class PlayerMovement : MonoBehaviour
     public float sensitivity;
     public float distToGround;
     public bool isAuthorizedToDash;
-
+    
     [Header("Movement Variables", order = 0)]
     public bool isMoving = false;
     public float moveSpeed;
@@ -20,7 +20,8 @@ public class PlayerMovement : MonoBehaviour
     public bool isInRotation;
     public int isInRotationThreshold; //C'est l'angle minimum pour être considéré en rotation ou non
     public float rotationSpeed;
-
+    private Quaternion fixedRotation;
+    private bool rotationIsFixed;
     [Header("GroundCheck Variables")]
     public float slopeRayHeight;
     public float steepSlopeAngle;
@@ -73,8 +74,14 @@ public class PlayerMovement : MonoBehaviour
             Movement();
             AnimFallChecker();
         }
+        else
+        {
+            if (rotationIsFixed)
+            {
+                transform.rotation = fixedRotation;
+            }
+        }
     }
-
     #endregion
 
     #region Custom Methods
@@ -109,7 +116,6 @@ public class PlayerMovement : MonoBehaviour
         }
         return true;
     }
-
     private bool IsGrounded()
     {
         Debug.DrawRay(transform.position + Vector3.up, -transform.up, Color.red);
@@ -196,7 +202,6 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
-
     public void DashDetection()
     {
         if (isAuthorizedToDash)
@@ -270,7 +275,6 @@ public class PlayerMovement : MonoBehaviour
         StopCoroutine("RecoilTime"); // stop recule
 
     }
-
     private void AnimFallChecker()
     {
         Ray ray = new Ray(transform.position + transform.up, Vector3.down);
@@ -289,6 +293,23 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void DisableControls( Transform objectToLook)
+    {
+        controlsAreEnabled = false;
+        rb.velocity = Vector3.zero;
+        transform.LookAt(objectToLook);
+        fixedRotation = transform.rotation;
+        anim.SetBool("isMoving", false);
+        rotationIsFixed = true;
+        
+    }
+    public void EnableControls()
+    {
+        controlsAreEnabled = true;
+        moveSpeed = BaseSpeed;
+        rotationIsFixed = false;
     }
 }
 #endregion
