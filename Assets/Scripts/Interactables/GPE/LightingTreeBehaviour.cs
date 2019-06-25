@@ -37,6 +37,11 @@ public class LightingTreeBehaviour : ActivableObjects
     private bool increaseRange;
     private Material[] myMats;
     private Material troncMat;
+    private Material receptacleMat;
+    private Material[] socleMats;
+    [Header("Camera and time Variables")]
+    public float TBeforeResetCamAndControls;
+    public float TForCamToBeReset;
 
 
     private void Start()
@@ -44,6 +49,8 @@ public class LightingTreeBehaviour : ActivableObjects
         thisObjectLight = GetComponentInChildren<Light>();
         myMats = GetComponentInChildren<MeshRenderer>().materials;
         troncMat = transform.GetChild(1).GetComponent<MeshRenderer>().material;
+        receptacleMat = transform.GetChild(4).GetComponent<MeshRenderer>().material;
+        socleMats = transform.GetChild(5).GetComponent<MeshRenderer>().materials;
     }
     public override void Activate()
     {
@@ -134,6 +141,17 @@ public class LightingTreeBehaviour : ActivableObjects
         {
             troncMat.EnableKeyword("_EMISSION");
         }
+        if (socleMats[1] != null)
+        {
+            socleMats[1].EnableKeyword("_EMISSION");
+            socleMats[1].SetColor("_EmissionColor", Color.white * 10);
+
+        }
+        if (troncMat != null)
+        {
+            receptacleMat.EnableKeyword("_EMISSION");
+            receptacleMat.SetColor("_EmissionColor", Color.white*10);
+        }
         isLoading = false;
         Instantiate(activationFx, transform.position, Quaternion.identity);
         isActivated = true;
@@ -161,6 +179,10 @@ public class LightingTreeBehaviour : ActivableObjects
             other.GetComponent<PressurePlateBehaviour>().nbObjectOnThis = 10;
             other.GetComponent<PressurePlateBehaviour>().SetObjectOnThis();
         }
+        /*if(other.GetComponent<SpawnerOneByOne>() != null) //Detruit les spawner si besoin (doivent avoir une collider)
+        {
+            Destroy(other.gameObject);
+        }*/
     }
     private void Update()
     {
@@ -181,8 +203,8 @@ public class LightingTreeBehaviour : ActivableObjects
     private IEnumerator ResetCam()
     {
         Camera.main.GetComponentInParent<CameraBehaviour>().target = FindObjectOfType<PlayerMovement>().transform;
-        yield return new WaitForSeconds(5f);
-        Camera.main.GetComponentInParent<CameraBehaviour>().ResetCamParameters(5f);
+        yield return new WaitForSeconds(TBeforeResetCamAndControls);
+        Camera.main.GetComponentInParent<CameraBehaviour>().ResetCamParameters(TForCamToBeReset);
         FindObjectOfType<PlayerMovement>().EnableControls();
         FindObjectOfType<BinaryLight>().EnableControls();
         FindObjectOfType<LightDetection>().EnableControls();
