@@ -37,14 +37,33 @@ public class PressurePlateBehaviour : MonoBehaviour
         {
             if (other.CompareTag(taggedTrigger))
             {
-                //The pressure plate is activated and its Y pos is changed with the pressureFactorY
-                //transform.position = new Vector3(this.transform.position.x, transform.position.y - pressureFactorY, this.transform.position.z);
-                isActivated = true;
-                nbObjectOnThis += 1;
-                ExecuteAnimation();
+                SetObjectOnThis();
             }
         }
-        if(multipleEntryDoor != null)
+
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        //Compare if there is a tag in the List of tag
+        foreach (string taggedTrigger in activationTag)
+        {
+            if (other.CompareTag(taggedTrigger))
+            {
+                RemoveObjectOnThis();
+            }
+        }
+
+    }
+
+    public void SetObjectOnThis()
+    {
+        //The pressure plate is activated and its Y pos is changed with the pressureFactorY
+        //transform.position = new Vector3(this.transform.position.x, transform.position.y - pressureFactorY, this.transform.position.z);
+        isActivated = true;
+        nbObjectOnThis += 1;
+        ExecuteAnimation();
+        if (multipleEntryDoor != null)
         {
             if (!haveSetAnEntry)
             {
@@ -56,22 +75,14 @@ public class PressurePlateBehaviour : MonoBehaviour
             }
         }
     }
-
-    private void OnTriggerExit(Collider other)
+    public void RemoveObjectOnThis()
     {
-        //Compare if there is a tag in the List of tag
-        foreach (string taggedTrigger in activationTag)
-        {
-            if (other.CompareTag(taggedTrigger))
-            {
-                //The pressure plate is not activated || its Y pos comes back to normal || Reset the emission color
-                //transform.position = new Vector3(this.transform.position.x, transform.position.y + pressureFactorY, this.transform.position.z);
-                isActivated = false;
+        //The pressure plate is not activated || its Y pos comes back to normal || Reset the emission color
+        //transform.position = new Vector3(this.transform.position.x, transform.position.y + pressureFactorY, this.transform.position.z);
+        isActivated = false;
 
-                nbObjectOnThis -= 1;
-                ExecuteAnimation();
-            }
-        }
+        nbObjectOnThis -= 1;
+        ExecuteAnimation();
         if (multipleEntryDoor != null)
         {
             for (int i = 0; i < multipleEntryDoor.Length; i++)

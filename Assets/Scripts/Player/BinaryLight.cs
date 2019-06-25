@@ -5,6 +5,9 @@ using DG.Tweening;
 
 public class BinaryLight : MonoBehaviour
 {
+
+    public bool controlsAreEnabled = true;
+
     private PlayerMovement playerMovement;
     private Animator anim;
     private float baseRotationSpeed;
@@ -102,36 +105,39 @@ public class BinaryLight : MonoBehaviour
     }
     private void Update()
     {
-        if (gotLight)
+        if (controlsAreEnabled)
         {
-            //charMaterial.SetColor("_EmissionColor", Color.white); //Active l'emissive du bras du joueur OBSOLETE AVEC LE SHADER SILHOUETTE
-
-            if (Input.GetButtonDown("Throw") || Input.GetMouseButtonDown(1))
+            if (gotLight)
             {
-                anim.SetBool("isAiming", true);
-                anim.SetBool("launch", false);
+                //charMaterial.SetColor("_EmissionColor", Color.white); //Active l'emissive du bras du joueur OBSOLETE AVEC LE SHADER SILHOUETTE
 
-                Aiming();
+                if (Input.GetButtonDown("Throw") || Input.GetMouseButtonDown(1))
+                {
+                    anim.SetBool("isAiming", true);
+                    anim.SetBool("launch", false);
+
+                    Aiming();
+                }
+                if (isAimingLight)
+                {
+                    ManageReticule();
+                }
             }
-            if (isAimingLight)
+
+            /*if (!gotLight)
             {
-                ManageReticule();
+                //charMaterial.SetColor("_EmissionColor", Color.black); //Désactive l'émissive du bras du joueur OBSOLETE AVEC LE SHADER SILHOUETTE
+            }*/
+
+            //Debug
+            /*if (Input.GetKeyDown(KeyCode.D))
+             {
+                 DropLight(ejectionDistance, ejectionHeight);
+             }*/
+            if (Input.GetKeyDown(KeyCode.G))
+            {
+                GetLight();
             }
-        }
-
-        /*if (!gotLight)
-        {
-            //charMaterial.SetColor("_EmissionColor", Color.black); //Désactive l'émissive du bras du joueur OBSOLETE AVEC LE SHADER SILHOUETTE
-        }*/
-
-        //Debug
-        /*if (Input.GetKeyDown(KeyCode.D))
-         {
-             DropLight(ejectionDistance, ejectionHeight);
-         }*/
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            GetLight();
         }
     }
     private void OnCollisionStay(Collision collision)
@@ -170,13 +176,12 @@ public class BinaryLight : MonoBehaviour
         TakeHit();
         ArianeBond();
     }
-
     public void GetLight()
     {
         if (isRegrabable)
         {
             charMaterial.SetFloat("_EmissiveIntensity", maxEmissionIntensity);
-            if(LightObject.GetComponent<LightDetection>().IsInAGodRay)
+            if (LightObject.GetComponent<LightDetection>().IsInAGodRay)
             {
                 anim.SetBool("GetOnStatue", true);
             }
@@ -264,12 +269,12 @@ public class BinaryLight : MonoBehaviour
             }
             if (playWithMouse)
             {
-                
+
 
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 Plane plane = new Plane(Vector3.up, transform.position);
                 float distance;
-                if(plane.Raycast(ray, out distance))
+                if (plane.Raycast(ray, out distance))
                 {
                     Vector3 target = ray.GetPoint(distance);
                     Vector3 direction = target - transform.position;
@@ -475,6 +480,20 @@ public class BinaryLight : MonoBehaviour
         }*/
         #endregion
     }
+
+
+    public void EnableControls()
+    {
+        controlsAreEnabled = true;
+    }
+    public void DisableControls()
+    {
+        controlsAreEnabled = false;
+        anim.SetBool("isAiming", false);
+        anim.SetBool("launch", false);
+        anim.SetBool("GetOnStatue", false);
+        anim.SetBool("getLight", false);
+    }
     #region Player Taking Damage
 
     public void TakeHit()
@@ -498,7 +517,6 @@ public class BinaryLight : MonoBehaviour
         StopCoroutine("InvincibleTime");
     }
     #endregion
-
     #region VFX Management
     private void ArianeBond()
     {
@@ -506,9 +524,4 @@ public class BinaryLight : MonoBehaviour
     }
     #endregion
 
-
-    private void OnDrawGizmos()
-    {
-        
-    }
 }
