@@ -80,7 +80,10 @@ GameObject:
   - component: {fileID: 8210648476866386047}
   - component: {fileID: 8210648476863518815}
   - component: {fileID: 8210648476864486047}
-  m_Layer: 0
+  - component: {fileID: 1236249140}
+  - component: {fileID: 1236249139}
+  - component: {fileID: 1236249141}
+  m_Layer: 18
   m_Name: MiasmeCorrupt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,7 +99,7 @@ Transform:
   m_GameObject: {fileID: 8210648476866741343}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 200, y: 200, z: 200}
   m_Children:
   - {fileID: 8210648476831960824}
   m_Father: {fileID: 0}
@@ -147,3 +150,51 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!64 &1236249140
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8210648476866741343}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 4300000, guid: 92c7884b52b219648942da88222f7949, type: 3}
+--- !u!114 &1236249139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8210648476866741343}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 926bac46de473a449a33691024a252fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxScale: 200
+  minScale: 0
+  shrinkingTime: 3
+  GrowingTime: 10
+  rangeBeforeGrowing: 10
+  purificationShrinkDivider: 2
+  PurificationVfx: {fileID: 1796497189090864979, guid: a96ab4cac268cee4dbec77207707a881,
+    type: 3}
+--- !u!114 &1236249141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8210648476866741343}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ca1969a67f1265418e1cd81354fd9e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scrollXSpeed: 0.1
+  scrollYSpeed: 0.05
