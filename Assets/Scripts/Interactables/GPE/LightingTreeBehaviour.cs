@@ -32,6 +32,7 @@ public class LightingTreeBehaviour : ActivableObjects
     public Transform lightTargetSpot;
     public GameObject activationFx;
     public GameObject destroyMobFx;
+    public GameObject ambiantGoodVfx;
     public float timeBeforeResetCam;
     private Light thisObjectLight;
     private bool increaseRange;
@@ -40,6 +41,7 @@ public class LightingTreeBehaviour : ActivableObjects
     private Material receptacleMat;
     private Material[] socleMats;
     public GameObject ambiantFx;
+    public GameObject highLightDark;
     [Header("Camera and time Variables")]
     public float TBeforeResetCamAndControls;
     public float TForCamToBeReset;
@@ -122,6 +124,7 @@ public class LightingTreeBehaviour : ActivableObjects
         if(ambiantFx !=  null)
         {
             ambiantFx.SetActive(true);
+            highLightDark.SetActive(false);
         }
         FindObjectOfType<PlayerMovement>().DisableControls(transform);
         FindObjectOfType<BinaryLight>().DisableControls();
@@ -149,13 +152,13 @@ public class LightingTreeBehaviour : ActivableObjects
         if (socleMats[1] != null)
         {
             socleMats[1].EnableKeyword("_EMISSION");
-            socleMats[1].SetColor("_EmissionColor", Color.white * 10);
+            socleMats[1].SetColor("_EmissionColor", Color.white * 2);
 
         }
         if (troncMat != null)
         {
             receptacleMat.EnableKeyword("_EMISSION");
-            receptacleMat.SetColor("_EmissionColor", Color.white*10);
+            receptacleMat.SetColor("_EmissionColor", Color.white*2);
         }
         isLoading = false;
         Instantiate(activationFx, transform.position, Quaternion.identity);
@@ -214,6 +217,7 @@ public class LightingTreeBehaviour : ActivableObjects
         Camera.main.GetComponentInParent<CameraBehaviour>().target = FindObjectOfType<PlayerMovement>().transform;
         yield return new WaitForSeconds(TBeforeResetCamAndControls);
         Camera.main.GetComponentInParent<CameraBehaviour>().ResetCamParameters(TForCamToBeReset);
+        Instantiate(ambiantGoodVfx, transform.position, Quaternion.identity);
         FindObjectOfType<PlayerMovement>().EnableControls();
         FindObjectOfType<BinaryLight>().EnableControls();
         FindObjectOfType<LightDetection>().EnableControls();
