@@ -183,6 +183,10 @@ public class LightingTreeBehaviour : ActivableObjects
         {
             Destroy(other.gameObject);
         }*/
+        if(other.GetComponent<CorruptionBehaviour>() != null)
+        {
+            other.GetComponent<CorruptionBehaviour>().Purification();
+        }
     }
     private void Update()
     {

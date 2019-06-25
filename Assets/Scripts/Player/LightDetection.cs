@@ -142,6 +142,10 @@ public class LightDetection : MonoBehaviour
                             }
                         }
                     }
+                    if(hitcol.GetComponent<CorruptionBehaviour>() != null)
+                    {
+                        hitcol.GetComponent<CorruptionBehaviour>().Shrinking();
+                    }
                 }
             }
         }
