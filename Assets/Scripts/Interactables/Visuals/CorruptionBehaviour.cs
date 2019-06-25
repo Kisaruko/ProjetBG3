@@ -17,7 +17,6 @@ public class CorruptionBehaviour : MonoBehaviour
 
     [Header("VFX Variables")]
     public GameObject PurificationVfx;
-
     private bool hasStartGrowing;
     private Transform lightObject;
 
@@ -57,7 +56,7 @@ public class CorruptionBehaviour : MonoBehaviour
 
         if (PurificationVfx != null)
         {
-            Instantiate(PurificationVfx, transform.position, Quaternion.identity);
+            Instantiate(PurificationVfx, transform.position,Quaternion.identity);
         }
         Destroy(this.gameObject, shrinkingTime);
     }
