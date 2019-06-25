@@ -15,5 +15,8 @@ public class ScrollingTexture : MonoBehaviour {
     void LateUpdate ()
     {
         m_mat.mainTextureOffset = scrollSpeed * Time.time;
-	}
+       // m_mat.SetTextureOffset("_BumpMap", scrollSpeed * Time.time);
+        //m_mat.SetTextureOffset("_DissolveTexture", scrollSpeed * Time.time);
+
+    }
 }
