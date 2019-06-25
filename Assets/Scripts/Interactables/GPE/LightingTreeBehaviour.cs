@@ -39,6 +39,7 @@ public class LightingTreeBehaviour : ActivableObjects
     private Material troncMat;
     private Material receptacleMat;
     private Material[] socleMats;
+    public GameObject ambiantFx;
     [Header("Camera and time Variables")]
     public float TBeforeResetCamAndControls;
     public float TForCamToBeReset;
@@ -118,6 +119,10 @@ public class LightingTreeBehaviour : ActivableObjects
     #endregion
     private void EnlightTree()
     {
+        if(ambiantFx !=  null)
+        {
+            ambiantFx.SetActive(true);
+        }
         FindObjectOfType<PlayerMovement>().DisableControls(transform);
         FindObjectOfType<BinaryLight>().DisableControls();
         FindObjectOfType<LightDetection>().DisableControls();
