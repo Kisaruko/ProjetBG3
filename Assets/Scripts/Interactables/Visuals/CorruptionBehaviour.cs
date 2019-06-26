@@ -39,12 +39,15 @@ public class CorruptionBehaviour : MonoBehaviour
     public void Shrinking()
     {
         transform.DOScale(minScale, shrinkingTime);
+        this.gameObject.GetComponent<MeshRenderer>().material.DOColor(Color.black, shrinkingTime);
         hasStartGrowing = false;
     }
 
     public void Growing()
     {
         transform.DOScale(maxScale, GrowingTime);
+        this.gameObject.GetComponent<MeshRenderer>().material.DOColor(Color.white, GrowingTime);
+
         hasStartGrowing = true;
     }
 
@@ -52,7 +55,7 @@ public class CorruptionBehaviour : MonoBehaviour
     {
         isPurified = true;
         hasStartGrowing = true;
-        transform.DOScale(minScale, shrinkingTime /purificationShrinkDivider);
+        transform.DOScale(0.1f, shrinkingTime /purificationShrinkDivider);
 
         if (PurificationVfx != null)
         {
