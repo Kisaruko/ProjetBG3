@@ -76,9 +76,9 @@ public class LightDetection : MonoBehaviour
 
         foreach (Collider hitcol in Physics.OverlapSphere(transform.position, range, ObjectsThatCanBeTouched)) // crée une sphere de detection
         {
-            if (hitcol.gameObject.layer == 18&& hitcol.GetComponent<EmitWhenTrigger>() != null && hitcol.GetComponent<EmitWhenTrigger>().isActivated == false)
+            if (hitcol.gameObject.layer == 18 && hitcol.GetComponent<EmitWhenTrigger>() != null && hitcol.GetComponent<EmitWhenTrigger>().isActivated == false)
             {
-                Vector3 toCollider = hitcol.transform.position - transform.position+Vector3.up *5 + hitcol.GetComponent<EmitWhenTrigger>().triggerOffSet; // get le vecteur entre ennemi et player
+                Vector3 toCollider = hitcol.transform.position - transform.position + Vector3.up * 5 + hitcol.GetComponent<EmitWhenTrigger>().triggerOffSet; // get le vecteur entre ennemi et player
                 Ray ray = new Ray(transform.position, toCollider); // trace un rayon entre les deux
                 if (!Physics.Raycast(ray, toCollider.magnitude, ~ObjectsThatCanBeTouched)) // si le ray ne touche pas de mur
                 {
@@ -124,7 +124,7 @@ public class LightDetection : MonoBehaviour
                         }
                     }
 
-                    if(hitcol.GetComponent<LightingTreeBehaviour>() != null)
+                    if (hitcol.GetComponent<LightingTreeBehaviour>() != null)
                     {
                         if (hitcol.GetComponent<LightingTreeBehaviour>().isActivated == false)
                         {
@@ -142,7 +142,7 @@ public class LightDetection : MonoBehaviour
                             }
                         }
                     }
-                    if(hitcol.GetComponent<CorruptionBehaviour>() != null)
+                    if (hitcol.GetComponent<CorruptionBehaviour>() != null && hitcol.GetComponent<ScrollingTexture>() != null)
                     {
                         hitcol.GetComponent<CorruptionBehaviour>().Shrinking();
                     }
