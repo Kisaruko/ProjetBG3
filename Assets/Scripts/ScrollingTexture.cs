@@ -10,23 +10,27 @@ public class ScrollingTexture : MonoBehaviour {
     public float scrollYSpeed;
     private Vector2 scrollSpeed;
 
-
     private void Start()
     {
         m_mat = GetComponent<MeshRenderer>().material;
-        scrollSpeed = new Vector2(scrollXSpeed, scrollYSpeed);
+        SetSpeed();
+    }
+    public void SetSpeed()
+    {
     }
     void LateUpdate ()
     {
+        scrollSpeed = new Vector2(scrollXSpeed, scrollYSpeed);
+
         if (scrollMainTex)
         {
             m_mat.mainTextureOffset = scrollSpeed * Time.time;
         }
         if(scrollNormal)
         {
-            m_mat.SetTextureOffset("_BumpMap", scrollSpeed * Time.time);
+            m_mat.SetTextureOffset("_BumpMap", m_mat.GetTextureOffset("_BumpMap")+scrollSpeed*Time.deltaTime);
         }
         //m_mat.SetTextureOffset("_DissolveTexture", scrollSpeed * Time.time);
-
     }
+
 }
