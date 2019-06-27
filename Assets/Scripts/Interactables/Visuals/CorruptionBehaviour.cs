@@ -81,13 +81,18 @@ public class CorruptionBehaviour : MonoBehaviour
 
     public void Purification()
     {
+        if (PurificationVfx != null)
+        {
+            Invoke("StartPurification", Random.Range(0.1f, 1f));
+        }
+    }
+
+    private void StartPurification()
+    {
+        Instantiate(PurificationVfx, transform.position, Quaternion.identity);
         isPurified = true;
         hasStartGrowing = true;
         GetComponent<MeshRenderer>().material.DOFloat(1, "_Amount", timeToDissolve);
-        if (PurificationVfx != null)
-        {
-            Instantiate(PurificationVfx, transform.position,Quaternion.identity);
-        }
         Destroy(this.gameObject, shrinkingTime);
     }
 }
