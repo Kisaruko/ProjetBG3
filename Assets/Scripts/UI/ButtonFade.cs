@@ -35,21 +35,21 @@ public class ButtonFade : MonoBehaviour
             b = 0;
         }
 
-        Image buttonImage = button.GetComponent<Image>();
+        //Image buttonImage = button.GetComponent<Image>();
         TextMeshProUGUI buttonText = button.GetComponentInChildren<TextMeshProUGUI>();
 
         //Enable both Button, Image and Text components
         if (!button.enabled)
             button.enabled = true;
 
-        if (!buttonImage.enabled)
-            buttonImage.enabled = true;
+        /*if (!buttonImage.enabled)
+            buttonImage.enabled = true;*/
 
         if (!buttonText.enabled)
             buttonText.enabled = true;
 
         //For Button None or ColorTint mode
-        Color buttonColor = buttonImage.color;
+        //Color buttonColor = buttonImage.color;
         Color textColor = buttonText.color;
 
         //For Button SpriteSwap mode
@@ -65,7 +65,7 @@ public class ButtonFade : MonoBehaviour
 
             if (button.transition == Selectable.Transition.None || button.transition == Selectable.Transition.ColorTint)
             {
-                buttonImage.color = new Color(buttonColor.r, buttonColor.g, buttonColor.b, alpha);//Fade Traget Image
+                //buttonImage.color = new Color(buttonColor.r, buttonColor.g, buttonColor.b, alpha);//Fade Traget Image
                 buttonText.color = new Color(textColor.r, textColor.g, textColor.b, alpha);//Fade Text
             }
             else if (button.transition == Selectable.Transition.SpriteSwap)
@@ -77,7 +77,7 @@ public class ButtonFade : MonoBehaviour
                 colorBlock.disabledColor = new Color(colorBlock.disabledColor.r, colorBlock.disabledColor.g, colorBlock.disabledColor.b, alpha);
 
                 button.colors = colorBlock; //Assign the colors back to the Button
-                buttonImage.color = new Color(buttonColor.r, buttonColor.g, buttonColor.b, alpha);//Fade Traget Image
+                //buttonImage.color = new Color(buttonColor.r, buttonColor.g, buttonColor.b, alpha);//Fade Traget Image
                 buttonText.color = new Color(textColor.r, textColor.g, textColor.b, alpha);//Fade Text
             }
             else
@@ -91,7 +91,7 @@ public class ButtonFade : MonoBehaviour
         if (!fadeIn)
         {
             //Disable both Button, Image and Text components
-            buttonImage.enabled = false;
+            //buttonImage.enabled = false;
             buttonText.enabled = false;
             button.enabled = false;
         }

@@ -226,7 +226,7 @@ public class LightingTreeBehaviour : ActivableObjects
     }
     private void OnDrawGizmosSelected()
     {
-        Gizmos.color = Color.white;
+         Gizmos.color = Color.white;
         Gizmos.DrawWireSphere(transform.position, sphereMaxRange);
-    }
-}
+     }
+}   
