@@ -5,7 +5,7 @@
         _Color ("Color", Color) = (1,1,1,1)
         _MainTex ("Albedo (RGB)", 2D) = "white" {}
 
-        _RippleTex("RippleTex",2D) = "white"{}
+        //_RippleTex("RippleTex",2D) = "white"{}
 	    _RippleOrigin("Ripple Origin", Vector) = (0,0,0,0)
 		_RippleDistance("Ripple Distance", Float) = 0
 		_RippleWidth("Ripple Width", Float) = 0.1
@@ -13,7 +13,7 @@
 		_NormalMap ("Normal map", 2D) = "NormalMap" {}
 		_Smoothness ("Smoothness", Range(0,1)) =0 
          _Metallic ("Metallic", 2D) = "white" {}
-        _Emissive("Emissive", 2D) = "black" {}
+        _Emissive("RippleTex (Emissive)", 2D) = "black" {}
     	_EmissiveColor("_EmissiveColor", Color) = (1,1,1,1)
     	_EmissiveIntensity("_EmissiveIntensity", Range(0,1000) ) = 0.5
 		_StaticEmissive("StaticEmissive", 2D) ="black" {}
@@ -33,7 +33,7 @@
         // Use shader model 3.0 target, to get nicer looking lighting
         #pragma target 3.0
 
-        sampler2D _MainTex,_RippleTex;
+        sampler2D _MainTex;//,_RippleTex;
         sampler2D _Emissive;
 	    float4 _EmissiveColor;
         float _EmissiveIntensity;
@@ -46,7 +46,7 @@
         struct Input
         {
             float2 uv_MainTex;
-			float2 uv_RippleTex;
+			//float2 uv_RippleTex;
 			float3 worldPos;
             float2 uv_Emissive;
 			float2 uv_NormalMap;
@@ -84,7 +84,7 @@
 	    float halfWidth = _RippleWidth *0.5;
 	    float lowerDistance = distance - halfWidth;
 		float upperDistance = distance + halfWidth;
-        fixed4 c = tex2D (_RippleTex, IN.uv_RippleTex) * _Color;
+        //fixed4 c = tex2D (_RippleTex, IN.uv_RippleTex) * _Color;
 		float ringStrength = pow(max(0, 1 - (abs(distance) / halfWidth)), 2.1) *(lowerDistance< 0 && upperDistance> 0);
 
 		//EMISSIONSTUFF
