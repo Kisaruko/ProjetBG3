@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LightingTreeBehaviour : ActivableObjects
+public class LightingTreeBehaviour : MonoBehaviour
 {
     /* [Header("GlowVariables", order = 0)]
      [Space(10, order = 1)]
@@ -46,22 +46,19 @@ public class LightingTreeBehaviour : ActivableObjects
     public float TBeforeResetCamAndControls;
     public float TForCamToBeReset;
 
+    private CentralTreeBehaviour centralTreeBehaviour;
 
     private void Start()
     {
+        if (FindObjectOfType<CentralTreeBehaviour>() != null)
+        {
+            centralTreeBehaviour = FindObjectOfType<CentralTreeBehaviour>();
+        }
         thisObjectLight = GetComponentInChildren<Light>();
         myMats = GetComponentInChildren<MeshRenderer>().materials;
         troncMat = transform.GetChild(1).GetComponent<MeshRenderer>().material;
         receptacleMat = transform.GetChild(4).GetComponent<MeshRenderer>().material;
         socleMats = transform.GetChild(5).GetComponent<MeshRenderer>().materials;
-    }
-    public override void Activate()
-    {
-        throw new System.NotImplementedException();
-    }
-    public override void Deactivate()
-    {
-        throw new System.NotImplementedException();
     }
 
     public void Loading()
@@ -169,6 +166,10 @@ public class LightingTreeBehaviour : ActivableObjects
         {
             GetComponent<RippleSpawn>().SpawnRippleAtPoint(lightTargetSpot);
         }
+        if (centralTreeBehaviour != null)
+        {
+            centralTreeBehaviour.CheckIfAllEntriesAreSet();
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -225,6 +226,7 @@ public class LightingTreeBehaviour : ActivableObjects
         FindObjectOfType<PlayerMovement>().EnableControls();
         FindObjectOfType<BinaryLight>().EnableControls();
         FindObjectOfType<LightDetection>().EnableControls();
+        FindObjectOfType<LightDetection>().isTransmitting = false;
 
         StopCoroutine("ResetCam");
     }
