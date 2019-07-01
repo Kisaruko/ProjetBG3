@@ -49,7 +49,7 @@
 			float2 uv_RippleTex;
 			float3 worldPos;
             float2 uv_Emissive;
-			float2 uv_BumpMap;
+			float2 uv_NormalMap;
 			float2 uv_StaticEmissive;
         };
 
@@ -59,7 +59,7 @@
 		fixed4 _RippleOrigin;
 		float _RippleDistance;
 		float _RippleWidth;
-	    sampler2D _BumpMap;
+	    sampler2D _NormalMap;
 		half _Smoothness;
 		
         // Add instancing support for this shader. You need to check 'Enable Instancing' on materials that use the shader.
@@ -73,11 +73,11 @@
         {
 	        fixed4 z = tex2D (_MainTex, IN.uv_MainTex) * _Color;
 		    o.Albedo = z.rgb;
-		 	o.Normal = UnpackNormal (tex2D (_BumpMap, IN.uv_BumpMap));
+		 	o.Normal = UnpackNormal (tex2D (_NormalMap, IN.uv_NormalMap));
             fixed4 cSpec = tex2D(_Metallic, IN.uv_MainTex);
 			o.Metallic = cSpec.rgb;
 			o.Smoothness = _Smoothness * cSpec.a;
-         //   o.Alpha = z.a;
+          //o.Alpha = z.a;
 
 		//RIPPLESTUFF
 	    float distance = length( IN.worldPos.xyz - _RippleOrigin.xyz) - _RippleDistance * _RippleOrigin.w ;
