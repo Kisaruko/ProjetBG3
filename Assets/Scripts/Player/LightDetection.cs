@@ -8,7 +8,7 @@ public class LightDetection : MonoBehaviour
 
     [Header("TriggerOptions", order = 0)]
     [Space(10, order = 1)]
-    private bool isTransmitting;
+    [HideInInspector] public bool isTransmitting;
     private bool switchInRange;
     public float range;
     public LayerMask ObjectsThatCanBeTouched;
@@ -135,6 +135,22 @@ public class LightDetection : MonoBehaviour
                                 CameraShake.Shake(0.1f, 0.02f);
                                 hitcol.GetComponent<LightingTreeBehaviour>().Loading();
                                 actualVfxTarget = hitcol.gameObject.GetComponent<LightingTreeBehaviour>().lightTargetSpot;
+                                GameObject clone = Instantiate(vfxTransmission, transform.position, transform.rotation);
+                                clone.GetComponent<SuckedLightBehaviour>().light = transform;
+                                clone.GetComponent<SuckedLightBehaviour>().isSucked = true;
+                                clone.GetComponent<SuckedLightBehaviour>().mobSuckingSpot = actualVfxTarget;
+                            }
+                        }
+                    }
+                    if (hitcol.GetComponent<CentralTreeBehaviour>() != null)
+                    {
+                        if (hitcol.GetComponent<CentralTreeBehaviour>().isActivated == false)
+                        {
+                            if (isTransmitting)
+                            {
+                                CameraShake.Shake(0.1f, 0.02f);
+                                hitcol.GetComponent<CentralTreeBehaviour>().Loading();
+                                actualVfxTarget = hitcol.gameObject.GetComponent<CentralTreeBehaviour>().lightTargetSpot;
                                 GameObject clone = Instantiate(vfxTransmission, transform.position, transform.rotation);
                                 clone.GetComponent<SuckedLightBehaviour>().light = transform;
                                 clone.GetComponent<SuckedLightBehaviour>().isSucked = true;
