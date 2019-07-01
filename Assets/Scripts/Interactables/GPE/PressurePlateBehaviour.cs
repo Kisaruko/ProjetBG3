@@ -30,14 +30,21 @@ public class PressurePlateBehaviour : MonoBehaviour
         Invoke("SetDoorAtBeginning", 0.1f);
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         //Compare if there is a tag in the List of tag
         foreach (string taggedTrigger in activationTag)
         {
             if (other.CompareTag(taggedTrigger))
             {
-                SetObjectOnThis();
+                if (other.GetComponent<LightManager>() != null && other.GetComponent<Transform>().parent == null && !haveSetAnEntry)
+                {
+                    SetObjectOnThis();
+                }
+                if(other.GetComponentInParent<PlayerMovement>() != null && !haveSetAnEntry)
+                {
+                    SetObjectOnThis();
+                }
             }
         }
 
@@ -48,7 +55,11 @@ public class PressurePlateBehaviour : MonoBehaviour
         //Compare if there is a tag in the List of tag
         foreach (string taggedTrigger in activationTag)
         {
-            if (other.CompareTag(taggedTrigger))
+            if (other.GetComponent<LightManager>() != null && other.GetComponent<Transform>().parent == null&& haveSetAnEntry)
+            {
+                RemoveObjectOnThis();
+            }
+            if (other.GetComponentInParent<PlayerMovement>() != null && haveSetAnEntry)
             {
                 RemoveObjectOnThis();
             }
@@ -94,6 +105,7 @@ public class PressurePlateBehaviour : MonoBehaviour
                 }
             }
         }
+        haveSetAnEntry = false;
     }
 
     private void SetDoorAtBeginning()
