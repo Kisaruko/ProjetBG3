@@ -124,7 +124,6 @@ GameObject:
   - component: {fileID: 399205034}
   - component: {fileID: 399205033}
   - component: {fileID: 399205032}
-  - component: {fileID: 399205036}
   - component: {fileID: 399205035}
   m_Layer: 0
   m_Name: PlayText
@@ -334,18 +333,6 @@ MonoBehaviour:
   timeBeforeFade: 0.5
   fadeIn: 1
   timeToFade: 1
---- !u!114 &399205036
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 399205030}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8146afe9f84363a47a4c587ab6ad0ac8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &635511222
 GameObject:
   m_ObjectHideFlags: 0
@@ -476,7 +463,6 @@ GameObject:
   - component: {fileID: 1241691987}
   - component: {fileID: 1241691986}
   - component: {fileID: 1241691988}
-  - component: {fileID: 1241691990}
   - component: {fileID: 1241691989}
   m_Layer: 0
   m_Name: OptionsText
@@ -686,18 +672,6 @@ MonoBehaviour:
   timeBeforeFade: 1
   fadeIn: 1
   timeToFade: 1
---- !u!114 &1241691990
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1241691984}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8146afe9f84363a47a4c587ab6ad0ac8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1345403574
 GameObject:
   m_ObjectHideFlags: 0
@@ -766,8 +740,8 @@ Canvas:
   m_GameObject: {fileID: 1345403574}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_RenderMode: 1
+  m_Camera: {fileID: 698200852}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -812,7 +786,6 @@ GameObject:
   - component: {fileID: 1535384820}
   - component: {fileID: 1535384819}
   - component: {fileID: 1535384821}
-  - component: {fileID: 1535384823}
   - component: {fileID: 1535384822}
   m_Layer: 0
   m_Name: CreditsText
@@ -1022,18 +995,6 @@ MonoBehaviour:
   timeBeforeFade: 1.5
   fadeIn: 1
   timeToFade: 1
---- !u!114 &1535384823
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1535384817}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8146afe9f84363a47a4c587ab6ad0ac8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1705642550
 GameObject:
   m_ObjectHideFlags: 0
@@ -1046,7 +1007,6 @@ GameObject:
   - component: {fileID: 1705642553}
   - component: {fileID: 1705642552}
   - component: {fileID: 1705642554}
-  - component: {fileID: 1705642556}
   - component: {fileID: 1705642555}
   m_Layer: 0
   m_Name: QuitText
@@ -1256,18 +1216,6 @@ MonoBehaviour:
   timeBeforeFade: 2
   fadeIn: 1
   timeToFade: 1
---- !u!114 &1705642556
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1705642550}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8146afe9f84363a47a4c587ab6ad0ac8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1706825806
 GameObject:
   m_ObjectHideFlags: 0

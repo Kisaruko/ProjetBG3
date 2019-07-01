@@ -5,7 +5,7 @@
         _Color ("Color", Color) = (1,1,1,1)
         _MainTex ("Albedo (RGB)", 2D) = "white" {}
 
-        _RippleTex("RippleTex",2D) = "white"{}
+        //_RippleTex("RippleTex",2D) = "white"{}
 	    _RippleOrigin("Ripple Origin", Vector) = (0,0,0,0)
 		_RippleDistance("Ripple Distance", Float) = 0
 		_RippleWidth("Ripple Width", Float) = 0.1
@@ -13,7 +13,7 @@
 		_NormalMap ("Normal map", 2D) = "NormalMap" {}
 		_Smoothness ("Smoothness", Range(0,1)) =0 
          _Metallic ("Metallic", 2D) = "white" {}
-        _Emissive("Emissive", 2D) = "black" {}
+        _Emissive("RippleTex (Emissive)", 2D) = "black" {}
     	_EmissiveColor("_EmissiveColor", Color) = (1,1,1,1)
     	_EmissiveIntensity("_EmissiveIntensity", Range(0,1000) ) = 0.5
 		_StaticEmissive("StaticEmissive", 2D) ="black" {}
@@ -33,7 +33,7 @@
         // Use shader model 3.0 target, to get nicer looking lighting
         #pragma target 3.0
 
-        sampler2D _MainTex,_RippleTex;
+        sampler2D _MainTex;//,_RippleTex;
         sampler2D _Emissive;
 	    float4 _EmissiveColor;
         float _EmissiveIntensity;
@@ -46,10 +46,10 @@
         struct Input
         {
             float2 uv_MainTex;
-			float2 uv_RippleTex;
+			//float2 uv_RippleTex;
 			float3 worldPos;
             float2 uv_Emissive;
-			float2 uv_BumpMap;
+			float2 uv_NormalMap;
 			float2 uv_StaticEmissive;
         };
 
@@ -59,7 +59,7 @@
 		fixed4 _RippleOrigin;
 		float _RippleDistance;
 		float _RippleWidth;
-	    sampler2D _BumpMap;
+	    sampler2D _NormalMap;
 		half _Smoothness;
 		
         // Add instancing support for this shader. You need to check 'Enable Instancing' on materials that use the shader.
@@ -73,18 +73,18 @@
         {
 	        fixed4 z = tex2D (_MainTex, IN.uv_MainTex) * _Color;
 		    o.Albedo = z.rgb;
-		 	o.Normal = UnpackNormal (tex2D (_BumpMap, IN.uv_BumpMap));
+		 	o.Normal = UnpackNormal (tex2D (_NormalMap, IN.uv_NormalMap));
             fixed4 cSpec = tex2D(_Metallic, IN.uv_MainTex);
 			o.Metallic = cSpec.rgb;
 			o.Smoothness = _Smoothness * cSpec.a;
-         //   o.Alpha = z.a;
+          //o.Alpha = z.a;
 
 		//RIPPLESTUFF
 	    float distance = length( IN.worldPos.xyz - _RippleOrigin.xyz) - _RippleDistance * _RippleOrigin.w ;
 	    float halfWidth = _RippleWidth *0.5;
 	    float lowerDistance = distance - halfWidth;
 		float upperDistance = distance + halfWidth;
-        fixed4 c = tex2D (_RippleTex, IN.uv_RippleTex) * _Color;
+        //fixed4 c = tex2D (_RippleTex, IN.uv_RippleTex) * _Color;
 		float ringStrength = pow(max(0, 1 - (abs(distance) / halfWidth)), 2.1) *(lowerDistance< 0 && upperDistance> 0);
 
 		//EMISSIONSTUFF
