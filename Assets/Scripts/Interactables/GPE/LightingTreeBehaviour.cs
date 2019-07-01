@@ -50,7 +50,10 @@ public class LightingTreeBehaviour : MonoBehaviour
 
     private void Start()
     {
-        centralTreeBehaviour = FindObjectOfType<CentralTreeBehaviour>();
+        if (FindObjectOfType<CentralTreeBehaviour>() != null)
+        {
+            centralTreeBehaviour = FindObjectOfType<CentralTreeBehaviour>();
+        }
         thisObjectLight = GetComponentInChildren<Light>();
         myMats = GetComponentInChildren<MeshRenderer>().materials;
         troncMat = transform.GetChild(1).GetComponent<MeshRenderer>().material;
@@ -163,7 +166,10 @@ public class LightingTreeBehaviour : MonoBehaviour
         {
             GetComponent<RippleSpawn>().SpawnRippleAtPoint(lightTargetSpot);
         }
-        centralTreeBehaviour.CheckIfAllEntriesAreSet();
+        if (centralTreeBehaviour != null)
+        {
+            centralTreeBehaviour.CheckIfAllEntriesAreSet();
+        }
     }
 
     private void OnTriggerEnter(Collider other)
