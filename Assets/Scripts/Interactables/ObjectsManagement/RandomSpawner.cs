@@ -16,7 +16,10 @@ public class RandomSpawner : MonoBehaviour
     #region Methods
     private void Start()
     {
-        Spawn();
+        if (activateAtStart)
+        {
+            Spawn();
+        }
     }
     private void OnTriggerEnter(Collider other)
     {

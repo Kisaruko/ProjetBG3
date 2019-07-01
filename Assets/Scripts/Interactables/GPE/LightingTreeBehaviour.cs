@@ -165,6 +165,10 @@ public class LightingTreeBehaviour : ActivableObjects
         isActivated = true;
         increaseRange = true;
         StartCoroutine("ResetCam");
+        if (GetComponent<RippleSpawn>() != null)
+        {
+            GetComponent<RippleSpawn>().SpawnRippleAtPoint(lightTargetSpot);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -221,8 +225,8 @@ public class LightingTreeBehaviour : ActivableObjects
         FindObjectOfType<PlayerMovement>().EnableControls();
         FindObjectOfType<BinaryLight>().EnableControls();
         FindObjectOfType<LightDetection>().EnableControls();
-        StopCoroutine("ResetCam");
 
+        StopCoroutine("ResetCam");
     }
     private void OnDrawGizmosSelected()
     {
