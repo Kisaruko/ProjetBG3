@@ -12,6 +12,8 @@ public class LightingTreeBehaviour : MonoBehaviour
      public float maxIntensity;
      private Color baseColor;*/
 
+    public GameObject LinkedCorruption;
+
     [Header("Activation Variables")]
     public bool isActivated;
     public bool isLoading;
@@ -168,6 +170,10 @@ public class LightingTreeBehaviour : MonoBehaviour
         }
         if (centralTreeBehaviour != null)
         {
+            if(LinkedCorruption != null)
+            {
+                LinkedCorruption.GetComponent<CorruptionBehaviour>().Purification();
+            }
             centralTreeBehaviour.CheckIfAllEntriesAreSet();
         }
     }
