@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 580919128135639112}
   - component: {fileID: 580919128139063400}
   - component: {fileID: 580919128137933480}
+  - component: {fileID: 5229346745630354858}
+  - component: {fileID: 7104031402395502634}
   m_Layer: 0
   m_Name: pCylinder106
   m_TagString: Untagged
@@ -77,6 +79,45 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &5229346745630354858
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 580919128136006760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ca1969a67f1265418e1cd81354fd9e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scrollMainTex: 0
+  scrollNormal: 1
+  scrollXSpeed: 0.075
+  scrollYSpeed: 0.075
+--- !u!114 &7104031402395502634
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 580919128136006760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 926bac46de473a449a33691024a252fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxScale: 200
+  minScale: 150
+  shrinkingTime: 5
+  GrowingTime: 10
+  rangeBeforeGrowing: 10
+  purificationShrinkDivider: 1
+  PurificationVfx: {fileID: 4342865990254298442, guid: 7ef27874556cecf4bafadd0df8eed819,
+    type: 3}
+  timeToDissolve: 5
+  newScrollX: 0.05
+  newScrollY: 0.05
 --- !u!1 &580919128136006766
 GameObject:
   m_ObjectHideFlags: 0
