@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 340410873}
   - component: {fileID: 340410875}
   - component: {fileID: 340410874}
+  - component: {fileID: 7066481648337647629}
+  - component: {fileID: 7054799053011533365}
   m_Layer: 0
   m_Name: Perso
   m_TagString: Untagged
@@ -77,6 +79,45 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &7066481648337647629
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 340410872}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 926bac46de473a449a33691024a252fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxScale: 200
+  minScale: 150
+  shrinkingTime: 5
+  GrowingTime: 10
+  rangeBeforeGrowing: 10
+  purificationShrinkDivider: 1
+  PurificationVfx: {fileID: 4342865990254298442, guid: 7ef27874556cecf4bafadd0df8eed819,
+    type: 3}
+  timeToDissolve: 5
+  newScrollX: 0.05
+  newScrollY: 0.05
+--- !u!114 &7054799053011533365
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 340410872}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ca1969a67f1265418e1cd81354fd9e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scrollMainTex: 0
+  scrollNormal: 1
+  scrollXSpeed: 0.075
+  scrollYSpeed: 0.075
 --- !u!1 &561225470
 GameObject:
   m_ObjectHideFlags: 0
@@ -191,6 +232,8 @@ GameObject:
   - component: {fileID: 2071883495}
   - component: {fileID: 2071883494}
   - component: {fileID: 4346719867068886150}
+  - component: {fileID: 3671039992960054576}
+  - component: {fileID: 5738360200629675298}
   m_Layer: 0
   m_Name: Racines
   m_TagString: Untagged
@@ -269,5 +312,46 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ca1969a67f1265418e1cd81354fd9e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollXSpeed: 0.025
-  scrollYSpeed: 0.025
+  scrollMainTex: 0
+  scrollNormal: 1
+  scrollXSpeed: 0.075
+  scrollYSpeed: 0.075
+--- !u!114 &3671039992960054576
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2071883492}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 926bac46de473a449a33691024a252fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxScale: 200
+  minScale: 150
+  shrinkingTime: 5
+  GrowingTime: 10
+  rangeBeforeGrowing: 10
+  purificationShrinkDivider: 1
+  PurificationVfx: {fileID: 4342865990254298442, guid: 7ef27874556cecf4bafadd0df8eed819,
+    type: 3}
+  timeToDissolve: 5
+  newScrollX: 0.05
+  newScrollY: 0.05
+--- !u!114 &5738360200629675298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2071883492}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ca1969a67f1265418e1cd81354fd9e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scrollMainTex: 0
+  scrollNormal: 0
+  scrollXSpeed: 0
+  scrollYSpeed: 0
