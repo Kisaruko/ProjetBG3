@@ -340,8 +340,6 @@ GameObject:
   - component: {fileID: 6913696441364486494}
   - component: {fileID: 3757883784052550090}
   - component: {fileID: 184069419}
-  - component: {fileID: 184069418}
-  - component: {fileID: 1769964851}
   m_Layer: 0
   m_Name: CamParent
   m_TagString: Untagged
@@ -377,13 +375,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
+  followTarget: 1
   camHeight: 10
   camDistance: 9
   camAngle: 0
   xCamRotation: 50
   smoothSpeed: 0
   anticipationFactor: 0
-  followTarget: 1
 --- !u!95 &184069419
 Animator:
   serializedVersion: 3
@@ -403,35 +401,3 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &184069418
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6913696441364486493}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf62b0d47e21a594284a4919d793d347, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isBehindWall: 0
-  mat: {fileID: 2100000, guid: 50084c7ac5604c149b34f413c81009a7, type: 2}
-  maxRange: 20
-  dissolveSpeed: 0.1
---- !u!114 &1769964851
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6913696441364486493}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ae201140f610724e87b5807f558ffe9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  rotateSpeed: 0.1
-  isRotating: 0
-  timeRotate: 0
