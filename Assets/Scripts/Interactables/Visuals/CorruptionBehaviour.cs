@@ -5,10 +5,7 @@ using DG.Tweening;
 
 public class CorruptionBehaviour : MonoBehaviour
 {
-    [Header("Scale Variables")]
 
-    public float maxScale;
-    public float minScale;
     public float shrinkingTime;
     public float GrowingTime;
     public float rangeBeforeGrowing;
