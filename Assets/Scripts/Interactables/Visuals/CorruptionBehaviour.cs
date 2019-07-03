@@ -10,7 +10,7 @@ public class CorruptionBehaviour : MonoBehaviour
     public float GrowingTime;
     public float rangeBeforeGrowing;
 
-    public float purificationShrinkDivider= 1;
+    public float purificationShrinkDivider = 1;
 
     [Header("VFX Variables")]
     public GameObject PurificationVfx;
@@ -30,7 +30,7 @@ public class CorruptionBehaviour : MonoBehaviour
     private void Start()
     {
         lightObject = FindObjectOfType<LightDetection>().transform;
-        if(GetComponent<ScrollingTexture>() != null)
+        if (GetComponent<ScrollingTexture>() != null)
         {
             scrollingtexture = GetComponent<ScrollingTexture>();
             baseScrollX = scrollingtexture.scrollXSpeed;
@@ -51,8 +51,8 @@ public class CorruptionBehaviour : MonoBehaviour
 
     public void Shrinking()
     {
-       // transform.DOScale(minScale, shrinkingTime);
-        if(scrollingtexture != null)
+        // transform.DOScale(minScale, shrinkingTime);
+        if (scrollingtexture != null)
         {
             DOTween.To(() => scrollingtexture.scrollXSpeed, x => scrollingtexture.scrollXSpeed = x, newScrollX, shrinkingTime);
             DOTween.To(() => scrollingtexture.scrollYSpeed, x => scrollingtexture.scrollYSpeed = x, newScrollY, shrinkingTime);
@@ -64,7 +64,7 @@ public class CorruptionBehaviour : MonoBehaviour
 
     public void Growing()
     {
-      //  transform.DOScale(maxScale, GrowingTime);
+        //  transform.DOScale(maxScale, GrowingTime);
         if (scrollingtexture != null)
         {
             DOTween.To(() => scrollingtexture.scrollXSpeed, x => scrollingtexture.scrollXSpeed = x, baseScrollX, GrowingTime);
@@ -80,6 +80,10 @@ public class CorruptionBehaviour : MonoBehaviour
     {
         if (PurificationVfx != null)
         {
+            if(GetComponent<ToggleParticleManager>() != null)
+            {
+                GetComponent<ToggleParticleManager>().Off();
+            }
             Invoke("StartPurification", Random.Range(0.1f, 1f));
         }
     }
@@ -91,6 +95,13 @@ public class CorruptionBehaviour : MonoBehaviour
         hasStartGrowing = true;
         GetComponent<MeshRenderer>().material.DOFloat(1, "_Amount", timeToDissolve);
         Destroy(this.gameObject, shrinkingTime);
+    }
+    private void OnDestroy()
+    {
+        if (GetComponent<ToggleParticleManager>() != null)
+        {
+            CameraShake.Shake(0.5f, 1f);
+        }
     }
 }
 
