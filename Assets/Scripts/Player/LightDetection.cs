@@ -169,7 +169,10 @@ public class LightDetection : MonoBehaviour
         {
             if (potentialTarget.Count.Equals(0) && trees.Count.Equals(0))
             {
-                xButton.GetComponent<ButtonDisplayer>().Disappear();
+                if (!IsInAGodRay)
+                {
+                    xButton.GetComponent<ButtonDisplayer>().Disappear();
+                }
                 canActivateSwitchsFx.Stop();
             }
             else
