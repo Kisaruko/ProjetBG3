@@ -7,7 +7,7 @@ public class EmitWhenTrigger : MonoBehaviour
     private Material[] myMat;
     private MeshRenderer mesh;
     private SkinnedMeshRenderer skinnedMesh;
-    public GameObject vfxShine;
+    public GameObject[] vfxShine;
     public GameObject vfxDestroy;
     private Light light;
     private Light light2;
@@ -71,7 +71,9 @@ public class EmitWhenTrigger : MonoBehaviour
             }
             if (vfxShine != null)
             {
-                Instantiate(vfxShine, transform.position, Quaternion.identity);
+                int randomSpawnNumber = Random.Range(0,vfxShine.Length);
+
+                Instantiate(vfxShine[randomSpawnNumber], transform.position, Quaternion.identity);
             }
             if (light != null)
             {
