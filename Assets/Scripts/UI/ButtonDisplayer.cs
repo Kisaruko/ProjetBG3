@@ -15,7 +15,7 @@ public class ButtonDisplayer : MonoBehaviour
     {
         playerPos = GameObject.Find("Player").transform;
         sprite = GetComponent<SpriteRenderer>();
-    //    transform.DOScale(0.15f, 0.5f).SetLoops(-1, LoopType.Yoyo);
+        transform.DOScale(0.15f, 0.5f).SetLoops(-1, LoopType.Yoyo);
         particles = GetComponentInChildren<ParticleSystem>();
     }
 
@@ -29,8 +29,8 @@ public class ButtonDisplayer : MonoBehaviour
    public void Appear()
     {
         isActive = true;
-        //sprite.enabled = true;
-        //particles.Play();
+        sprite.enabled = true;
+        particles.Play();
         if(bouncyCircle != null)
         {
             bouncyCircle.SetActive(true);
