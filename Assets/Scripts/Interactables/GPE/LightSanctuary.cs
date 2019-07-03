@@ -22,6 +22,8 @@ public class LightSanctuary : MonoBehaviour
     public float pulsateSpeed;
     public float pulsateMaxDistance;
 
+    public GameObject xButton;
+
     private void Start()
     {
         playerLight = FindObjectOfType<LightManager>().gameObject;
@@ -29,6 +31,7 @@ public class LightSanctuary : MonoBehaviour
         InvokeRepeating("CheckIfPlayerGotLight", 0.1f, 0.1f);
         player = GameObject.Find("Player").transform;
         myMat = GetComponentInChildren<MeshRenderer>().material;
+        xButton = FindObjectOfType<ButtonDisplayer>().gameObject;
         myColor = myMat.color;
     }
 
@@ -46,14 +49,18 @@ public class LightSanctuary : MonoBehaviour
         {
             pulse = false;
             playerLight.GetComponent<LightDetection>().IsInAGodRay = false;
+            xButton.GetComponent<ButtonDisplayer>().Disappear();
         }
     }
     private void OnTriggerStay(Collider other)
     {
         if (other.gameObject.layer == 11 && other.GetComponentInParent<BinaryLight>().gotLight == false && binarylight.isRegrabable == true )
         {
+            xButton.GetComponent<ButtonDisplayer>().Appear();
             if (Input.GetButtonDown("Attack"))
             {
+                xButton.GetComponent<ButtonDisplayer>().Disappear();
+
                 if (feedBackPs != null)
                 {
                     feedBackPs.Stop();
