@@ -25,7 +25,7 @@ public class SettingsMenu : MonoBehaviour
         {
             if(resolutions[i].width >= 1280 && resolutions[i].height >= 600)
             {
-                string option = resolutions[i].width + "x" + resolutions[i].height;
+                string option = resolutions[i].width + " x " + resolutions[i].height;
                 options.Add(option);
             }
             
