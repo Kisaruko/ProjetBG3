@@ -10,7 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7102132254239328370}
   - component: {fileID: 7102132254239328371}
-  m_Layer: 0
+  - component: {fileID: 590784549422461315}
+  m_Layer: 19
   m_Name: SpawnerOneByOne
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -47,4 +48,18 @@ MonoBehaviour:
   checkTimeBeforeEachInvoke: 1
   destroyByTime: 0
   mustLockZRigidbody: 1
+  mustLockXRigidbody: 0
   timeBeforeDestroy: 20
+--- !u!135 &590784549422461315
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7102132254239328369}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.01
+  m_Center: {x: 0, y: 0, z: 0}
