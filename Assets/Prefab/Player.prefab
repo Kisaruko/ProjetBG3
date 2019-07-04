@@ -284,8 +284,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 1
-      minScalar: 0.3
+      scalar: 0.6
+      minScalar: 0.2
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -19003,7 +19003,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2023587057
 Transform:
   m_ObjectHideFlags: 0
@@ -58550,6 +58550,11 @@ PrefabInstance:
     - target: {fileID: 1658330145072530419, guid: 6e57c7693cecf0e44bd12ad89c823122,
         type: 3}
       propertyPath: ShapeModule.m_UseMeshColors
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1658330145072530419, guid: 6e57c7693cecf0e44bd12ad89c823122,
+        type: 3}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.scalar
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1658330145072530419, guid: 6e57c7693cecf0e44bd12ad89c823122,
