@@ -11,6 +11,9 @@ public class MultipleEntryDoor : ActivableObjects
     public int nbChildThatGotEmissive = 2;
     public bool reverseBehaviour;
 
+    [Header("Trappe Only")]
+    public bool isAtrap;
+    public GameObject[] roots;
     private void Start()
     {
         anim = GetComponent<Animator>();
@@ -38,27 +41,48 @@ public class MultipleEntryDoor : ActivableObjects
         {
             if (ActualEntriesSet >= NumberOfEntries)
             {
-                if (transform.GetChild(nbChildThatGotEmissive).GetComponent<RootBehaviour>() != null)
+                if (!isAtrap)
                 {
-                    transform.GetChild(nbChildThatGotEmissive).GetComponent<RootBehaviour>().Activate();
+                    if (transform.GetChild(nbChildThatGotEmissive).GetComponent<RootBehaviour>() != null)
+                    {
+                        transform.GetChild(nbChildThatGotEmissive).GetComponent<RootBehaviour>().Activate();
+                    }
+                    else
+                    {
+                        Debug.LogWarning("This child (number in script) doesn't got a rootBehaviour");
+                    }
                 }
                 else
                 {
-                    Debug.LogWarning("This child (number in script) doesn't got a rootBehaviour");
+                    for (int i = 0; i < roots.Length; i++)
+                    {
+                        roots[i].GetComponent<RootBehaviour>().Activate();
+                    }
                 }
                 Activate();
+
             }
             else
             {
                 if (canBeDesactivated)
                 {
-                    if (transform.GetChild(nbChildThatGotEmissive).GetComponent<RootBehaviour>() != null)
+                    if (!isAtrap)
                     {
-                        transform.GetChild(nbChildThatGotEmissive).GetComponent<RootBehaviour>().Deactivate();
+                        if (transform.GetChild(nbChildThatGotEmissive).GetComponent<RootBehaviour>() != null)
+                        {
+                            transform.GetChild(nbChildThatGotEmissive).GetComponent<RootBehaviour>().Deactivate();
+                        }
+                        else
+                        {
+                            Debug.LogWarning("This child (number in script) doesn't got a rootBehaviour");
+                        }
                     }
                     else
                     {
-                        Debug.LogWarning("This child (number in script) doesn't got a rootBehaviour");
+                        for (int i = 0; i < roots.Length; i++)
+                        {
+                            roots[i].GetComponent<RootBehaviour>().Deactivate();
+                        }
                     }
                     Deactivate();
                 }
@@ -68,13 +92,20 @@ public class MultipleEntryDoor : ActivableObjects
         {
             if (ActualEntriesSet >= NumberOfEntries)
             {
-                if (transform.GetChild(nbChildThatGotEmissive).GetComponent<RootBehaviour>() != null)
+                if (!isAtrap)
                 {
-                    transform.GetChild(nbChildThatGotEmissive).GetComponent<RootBehaviour>().Deactivate();
+                    if (transform.GetChild(nbChildThatGotEmissive).GetComponent<RootBehaviour>() != null)
+                    {
+                        transform.GetChild(nbChildThatGotEmissive).GetComponent<RootBehaviour>().Deactivate();
+                    }
+                    else
+                    {
+                        Debug.LogWarning("This child (number in script) doesn't got a rootBehaviour");
+                    }
                 }
-                else
+                for (int i = 0; i < roots.Length; i++)
                 {
-                    Debug.LogWarning("This child (number in script) doesn't got a rootBehaviour");
+                    roots[i].GetComponent<RootBehaviour>().Activate();
                 }
                 Deactivate();
             }
@@ -82,13 +113,23 @@ public class MultipleEntryDoor : ActivableObjects
             {
                 if (canBeDesactivated)
                 {
-                    if (transform.GetChild(nbChildThatGotEmissive).GetComponent<RootBehaviour>() != null)
+                    if (!isAtrap)
                     {
-                        transform.GetChild(nbChildThatGotEmissive).GetComponent<RootBehaviour>().Activate();
+                        if (transform.GetChild(nbChildThatGotEmissive).GetComponent<RootBehaviour>() != null)
+                        {
+                            transform.GetChild(nbChildThatGotEmissive).GetComponent<RootBehaviour>().Activate();
+                        }
+                        else
+                        {
+                            Debug.LogWarning("This child (number in script) doesn't got a rootBehaviour");
+                        }
                     }
                     else
                     {
-                        Debug.LogWarning("This child (number in script) doesn't got a rootBehaviour");
+                        for (int i = 0; i < roots.Length; i++)
+                        {
+                            roots[i].GetComponent<RootBehaviour>().Deactivate();
+                        }
                     }
                     Activate();
                 }
