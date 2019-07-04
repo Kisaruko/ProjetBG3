@@ -146,6 +146,8 @@ public class LightDetection : MonoBehaviour
                     {
                         if (hitcol.GetComponent<CentralTreeBehaviour>().isActivated == false)
                         {
+                            trees.Add(hitcol.GetComponent<LightingTreeBehaviour>());
+
                             if (isTransmitting)
                             {
                                 CameraShake.Shake(0.1f, 0.02f);
@@ -169,7 +171,10 @@ public class LightDetection : MonoBehaviour
         {
             if (potentialTarget.Count.Equals(0) && trees.Count.Equals(0))
             {
-                xButton.GetComponent<ButtonDisplayer>().Disappear();
+                if (!IsInAGodRay)
+                {
+                    xButton.GetComponent<ButtonDisplayer>().Disappear();
+                }
                 canActivateSwitchsFx.Stop();
             }
             else

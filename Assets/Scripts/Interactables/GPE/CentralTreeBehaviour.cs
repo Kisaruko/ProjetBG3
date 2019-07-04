@@ -62,12 +62,10 @@ public class CentralTreeBehaviour : MonoBehaviour
         if (nbEntrySet == 1)
         {
             //doSomething
-            Debug.Log(nbEntrySet);
         }
         if (nbEntrySet >= nbEntryToBeSet)
         {
             //DoSomething
-            Debug.Log(nbEntrySet);
         }
     }
 
