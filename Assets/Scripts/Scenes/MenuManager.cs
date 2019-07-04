@@ -8,7 +8,7 @@ public class MenuManager : MonoBehaviour
 
     public void StartGame()
     {
-        SceneManager.LoadScene("Loading", LoadSceneMode.Single);
+        Initiate.Fade("Loading", Color.black, 0.5f);
     }
 
     public void QuitGame()
@@ -18,11 +18,16 @@ public class MenuManager : MonoBehaviour
 
     public void LoadCredits()
     {
-
+        Initiate.Fade("Credits", Color.black, 0.8f);
     }
 
     public void LoadOptions()
     {
+        Initiate.Fade("Options", Color.black, 0.8f);
+    }
 
+    public void ReturnToMenu()
+    {
+        Initiate.Fade("MainMenu", Color.black, 0.8f);
     }
 }
