@@ -96,12 +96,5 @@ public class CorruptionBehaviour : MonoBehaviour
         GetComponent<MeshRenderer>().material.DOFloat(1, "_Amount", timeToDissolve);
         Destroy(this.gameObject, timeToDissolve +1);
     }
-    private void OnDestroy()
-    {
-        if (GetComponent<ToggleParticleManager>() != null)
-        {
-            CameraShake.Shake(0.5f, 1f);
-        }
-    }
 }
 

@@ -15,6 +15,8 @@ public class SettingsMenu : MonoBehaviour
 
     private void Start()
     {
+        
+
         resolutions = Screen.resolutions;
 
         resolutionDropdown.ClearOptions();
@@ -41,17 +43,12 @@ public class SettingsMenu : MonoBehaviour
         resolutionDropdown.RefreshShownValue();
 
         m_colorGrading = m_profile.GetSetting<ColorGrading>();
+        m_colorGrading.gamma.value = new Vector4(0f, 0f, 0f, 0f);
     }
 
     public void SetGamma(float gamma)
     {
         m_colorGrading.gamma.value = new Vector4(0f, 0f, 0f, gamma);
-        Debug.Log(m_colorGrading.gamma.value);
-    }
-
-    public void SetQuality(int qualityIndex)
-    {
-        QualitySettings.SetQualityLevel(qualityIndex);
     }
 
     public void SetResolution(int resolutionIndex)
