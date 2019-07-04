@@ -446,7 +446,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2866717199326894518}
   - component: {fileID: 2866717199332460690}
-  - component: {fileID: 4089939683146878391}
   m_Layer: 0
   m_Name: grande_fleur
   m_TagString: Untagged
@@ -537,23 +536,6 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.021675617, y: 0.082855046, z: -0.0019731522}
     m_Extent: {x: 0.24048245, y: 0.6651388, z: 0.24048245}
   m_DirtyAABB: 0
---- !u!114 &4089939683146878391
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2866717199327184278}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40e57747430161940983bba59153a45f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  targetRenderer: {fileID: 2866717199332460690}
-  materials:
-  - {fileID: 2100000, guid: 6a38a1b721ed59346bcd52d6ea8ed582, type: 2}
-  - {fileID: 2100000, guid: fb2462ae9a0c4244e862ce2a429f039c, type: 2}
-  - {fileID: 2100000, guid: fcc2a757ebc217c479bbd289213bb106, type: 2}
 --- !u!1 &2866717199327184280
 GameObject:
   m_ObjectHideFlags: 0
@@ -886,7 +868,7 @@ Transform:
   m_GameObject: {fileID: 7842043701959667502}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.0925012, y: 1.0925012, z: 1.0925012}
+  m_LocalScale: {x: 1.0925012, y: 1.0925014, z: 1.0925013}
   m_Children:
   - {fileID: 2866717199326894516}
   - {fileID: 7671006435983525625}
@@ -926,7 +908,7 @@ MonoBehaviour:
   isActivated: 0
   activateAtStart: 0
   doCamShake: 0
-  triggerOffSet: {x: 0, y: 0, z: 0}
+  triggerOffSet: {x: -0.01, y: -1.78, z: -1.43}
 --- !u!54 &7842043701959667488
 Rigidbody:
   m_ObjectHideFlags: 0
