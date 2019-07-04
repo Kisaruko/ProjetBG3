@@ -46,12 +46,6 @@ public class SettingsMenu : MonoBehaviour
     public void SetGamma(float gamma)
     {
         m_colorGrading.gamma.value = new Vector4(0f, 0f, 0f, gamma);
-        Debug.Log(m_colorGrading.gamma.value);
-    }
-
-    public void SetQuality(int qualityIndex)
-    {
-        QualitySettings.SetQualityLevel(qualityIndex);
     }
 
     public void SetResolution(int resolutionIndex)

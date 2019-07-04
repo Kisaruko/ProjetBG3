@@ -94,7 +94,7 @@ public class CorruptionBehaviour : MonoBehaviour
         isPurified = true;
         hasStartGrowing = true;
         GetComponent<MeshRenderer>().material.DOFloat(1, "_Amount", timeToDissolve);
-        Destroy(this.gameObject, shrinkingTime);
+        Destroy(this.gameObject, timeToDissolve +1);
     }
     private void OnDestroy()
     {
