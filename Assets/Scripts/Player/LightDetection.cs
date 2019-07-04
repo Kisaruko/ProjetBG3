@@ -146,6 +146,8 @@ public class LightDetection : MonoBehaviour
                     {
                         if (hitcol.GetComponent<CentralTreeBehaviour>().isActivated == false)
                         {
+                            trees.Add(hitcol.GetComponent<LightingTreeBehaviour>());
+
                             if (isTransmitting)
                             {
                                 CameraShake.Shake(0.1f, 0.02f);
