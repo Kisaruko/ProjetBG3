@@ -14,11 +14,11 @@ public class DeadZone : MonoBehaviour
             //Compare if there is a tag in the List of tag
             foreach (string taggedTrigger in activationTag)
             {
-                if (other.CompareTag(taggedTrigger) && other.GetComponentInParent<PlayerMovement>() != null)
+                if (other.CompareTag(taggedTrigger) && other.GetComponentInParent<PlayerMovement>() == null)
                 {
                     Destroy(other.gameObject);
                 }
-                else
+                if(other.GetComponentInParent<PlayerMovement>() != null)
                 {
                     if (vfxHit != null)
                     {
