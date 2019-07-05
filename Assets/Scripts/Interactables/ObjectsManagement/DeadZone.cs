@@ -13,9 +13,13 @@ public class DeadZone : MonoBehaviour
             //Compare if there is a tag in the List of tag
             foreach (string taggedTrigger in activationTag)
             {
-                if (other.CompareTag(taggedTrigger))
+                if (other.CompareTag(taggedTrigger) && other.GetComponentInParent<PlayerMovement>() != null)
                 {
                     Destroy(other.gameObject);
+                }
+                else
+                {
+                    Initiate.Fade("GameOver", Color.black, 0.8f);
                 }
             }
         }
