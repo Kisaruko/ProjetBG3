@@ -24,10 +24,13 @@ public class PressurePlateBehaviour : MonoBehaviour
     [Header("Vfx Variables")]
     public GameObject activationVFX;
 
+    private bool canBeReUsed;
+
     void Start()
     {
         emissiveMat = emissiveMesh.material;
         Invoke("SetDoorAtBeginning", 0.1f);
+        ExitCoolDown();
     }
 
     private void OnTriggerStay(Collider other)
@@ -35,7 +38,7 @@ public class PressurePlateBehaviour : MonoBehaviour
         //Compare if there is a tag in the List of tag
         foreach (string taggedTrigger in activationTag)
         {
-            if (other.CompareTag(taggedTrigger))
+            if (other.CompareTag(taggedTrigger)&& canBeReUsed)
             {
                 if (other.GetComponent<LightManager>() != null && other.GetComponent<Transform>().parent == null && !haveSetAnEntry)
                 {
@@ -55,13 +58,18 @@ public class PressurePlateBehaviour : MonoBehaviour
         //Compare if there is a tag in the List of tag
         foreach (string taggedTrigger in activationTag)
         {
-            if (other.GetComponent<LightManager>() != null && other.GetComponent<Transform>().parent == null&& haveSetAnEntry)
+            if (other.CompareTag(taggedTrigger) && canBeReUsed)
             {
-                RemoveObjectOnThis();
-            }
-            if (other.GetComponentInParent<PlayerMovement>() != null && haveSetAnEntry)
-            {
-                RemoveObjectOnThis();
+                if (other.GetComponent<LightManager>() != null && other.GetComponent<Transform>().parent == null && haveSetAnEntry)
+                {
+                    RemoveObjectOnThis();
+                }
+                if (other.GetComponentInParent<PlayerMovement>() != null && haveSetAnEntry)
+                {
+                    RemoveObjectOnThis();
+                }
+                canBeReUsed = false;
+                Invoke("ExitCoolDown", 0.1f);
             }
         }
 
@@ -138,5 +146,9 @@ public class PressurePlateBehaviour : MonoBehaviour
             deactivateEvent.Invoke();
             nbObjectOnThis = 0;
         }
+    }
+    private void ExitCoolDown()
+    {
+        canBeReUsed = true;
     }
 }

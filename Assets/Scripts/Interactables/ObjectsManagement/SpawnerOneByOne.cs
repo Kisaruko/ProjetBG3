@@ -35,4 +35,11 @@ public class SpawnerOneByOne : MonoBehaviour
             }
         }
     }
+    private void OnDestroy()
+    {
+        if(clone != null)
+        {
+            Destroy(clone.gameObject);
+        }
+    }
 }
