@@ -15,14 +15,14 @@ public class ScrollingTexture : MonoBehaviour {
         m_mat = GetComponent<MeshRenderer>().material;
         SetSpeed();
     }
+
     public void SetSpeed()
     {
         scrollSpeed = new Vector2(scrollXSpeed, scrollYSpeed);
-
     }
+
     void LateUpdate ()
     {
-
         if (scrollMainTex)
         {
             m_mat.mainTextureOffset = scrollSpeed * Time.time;
