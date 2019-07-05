@@ -48,6 +48,10 @@ public class PressurePlateBehaviour : MonoBehaviour
                 {
                     SetObjectOnThis();
                 }
+                if (other.GetComponent<TrashMobManager>() != null && !haveSetAnEntry)
+                {
+                    SetObjectOnThis();
+                }
             }
         }
 
@@ -68,11 +72,14 @@ public class PressurePlateBehaviour : MonoBehaviour
                 {
                     RemoveObjectOnThis();
                 }
+                if(other.GetComponent<TrashMobManager>()!= null && haveSetAnEntry)
+                {
+                    RemoveObjectOnThis();
+                }
                 canBeReUsed = false;
                 Invoke("ExitCoolDown", 0.1f);
             }
         }
-
     }
 
     public void SetObjectOnThis()

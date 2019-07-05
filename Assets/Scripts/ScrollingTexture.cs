@@ -17,10 +17,11 @@ public class ScrollingTexture : MonoBehaviour {
     }
     public void SetSpeed()
     {
+        scrollSpeed = new Vector2(scrollXSpeed, scrollYSpeed);
+
     }
     void LateUpdate ()
     {
-        scrollSpeed = new Vector2(scrollXSpeed, scrollYSpeed);
 
         if (scrollMainTex)
         {
