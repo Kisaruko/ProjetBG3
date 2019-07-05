@@ -18,7 +18,7 @@ public class DeadZone : MonoBehaviour
                 {
                     Destroy(other.gameObject);
                 }
-                else
+                if(other.GetComponentInParent<PlayerMovement>() != null)
                 {
                     if (vfxHit != null)
                     {
