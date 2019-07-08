@@ -65,7 +65,7 @@ public class GameManager : MonoBehaviour
         #region lerping Shader
         if (isTimeScaleAltered)
         {
-            Time.timeScale = Mathf.MoveTowards(Time.timeScale, 1f, myDeltaTime * 0.1f);
+            //Time.timeScale = Mathf.MoveTowards(Time.timeScale, 1f, myDeltaTime * 0.1f);
             pencilMat.SetFloat("_ColorThreshold", Mathf.MoveTowards(pencilMat.GetFloat("_ColorThreshold"), 1f, myDeltaTime * 6.27f));
             pencilMat.SetFloat("_GradThresh", Mathf.MoveTowards(pencilMat.GetFloat("_GradThresh"), 0.03f, myDeltaTime * 1.98f));
             pencilMat.SetFloat("_OutLineTresh", Mathf.MoveTowards(pencilMat.GetFloat("_OutLineTresh"), 3f, myDeltaTime * 198));
@@ -108,7 +108,7 @@ public class GameManager : MonoBehaviour
     {
         pencilMat.SetColor("_DrawingColor", impactDrawColor);
         pencilMat.SetColor("_BackGroundColor", impactBackGroundColor);
-        Time.timeScale = 0.01f;
+        //Time.timeScale = 0.01f;
         imageeffect.isFiltered = true;
         isTimeScaleAltered = true;
         yield return new WaitForSecondsRealtime(timeAlteredDuration);
