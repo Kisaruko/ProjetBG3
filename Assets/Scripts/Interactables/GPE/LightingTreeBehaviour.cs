@@ -48,6 +48,7 @@ public class LightingTreeBehaviour : MonoBehaviour
     [Header("Camera and time Variables")]
     public float TBeforeResetCamAndControls;
     public float TForCamToBeReset;
+    public float camMoveTime = 1;
 
     private CentralTreeBehaviour centralTreeBehaviour;
 
@@ -229,7 +230,7 @@ public class LightingTreeBehaviour : MonoBehaviour
       // Camera.main.GetComponentInParent<CameraBehaviour>().target = FindObjectOfType<PlayerMovement>().transform;
         yield return new WaitForSeconds(TBeforeResetCamAndControls);
         Instantiate(ambiantGoodVfx, transform.position, Quaternion.identity);
-        FindObjectOfType<CentralTreeBehaviour>().ShowTree();
+        FindObjectOfType<CentralTreeBehaviour>().ShowTree(camMoveTime);
         if (LinkedCorruption != null)
         {
             LinkedCorruption.GetComponent<CorruptionBehaviour>().Purification();

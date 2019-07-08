@@ -220,9 +220,9 @@ public class CentralTreeBehaviour : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, sphereMaxRange);
     }
 
-    public void ShowTree()
+    public void ShowTree(float speed)
     {
-        Camera.main.GetComponentInParent<CameraBehaviour>().smoothSpeed = 1f;
+        Camera.main.GetComponentInParent<CameraBehaviour>().smoothSpeed = speed;
         Camera.main.GetComponentInParent<CameraBehaviour>().target = transform;
         Invoke("ResetCam", 6f);
     }
