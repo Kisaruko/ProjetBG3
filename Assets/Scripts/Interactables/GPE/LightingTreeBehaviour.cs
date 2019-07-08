@@ -134,7 +134,7 @@ public class LightingTreeBehaviour : MonoBehaviour
 
         Camera.main.GetComponentInParent<CameraBehaviour>().smoothSpeed = 0.1f;
 
-        Camera.main.GetComponentInParent<CameraBehaviour>().SetNewParameters(35, 25, 45, 2f);
+        Camera.main.GetComponentInParent<CameraBehaviour>().SetNewParameters(18, 25, 45, 2f);
 
         Camera.main.GetComponentInParent<CameraBehaviour>().target = thisObjectLight.transform;
         CameraShake.Shake(0.05f, 0.2f);
@@ -233,8 +233,9 @@ public class LightingTreeBehaviour : MonoBehaviour
         if (LinkedCorruption != null)
         {
             LinkedCorruption.GetComponent<CorruptionBehaviour>().Purification();
-            LinkedCorruption.GetComponentInChildren<Light>().DOIntensity(10f, 1f).SetLoops(1, LoopType.Yoyo);
-            
+            LinkedCorruption.GetComponentInChildren<Light>().DOIntensity(10f, 0f); 
+            LinkedCorruption.GetComponentInChildren<Light>().DOIntensity(0f, 5f);
+
         }
         FindObjectOfType<PlayerMovement>().EnableControls();
         FindObjectOfType<BinaryLight>().EnableControls();
