@@ -6,6 +6,8 @@ public class CentralTreeBehaviour : MonoBehaviour
 {
     public int nbEntrySet;
     public int nbEntryToBeSet = 2;
+    public Transform newCamPos;
+
     /* [Header("GlowVariables", order = 0)]
      [Space(10, order = 1)]
 
@@ -43,7 +45,6 @@ public class CentralTreeBehaviour : MonoBehaviour
     private Material[] socleMats;
     public GameObject ambiantFx;
     public GameObject highLightDark;
-
     private CentralTreeBehaviour centralTreeBehaviour;
 
     private void Start()
@@ -61,7 +62,7 @@ public class CentralTreeBehaviour : MonoBehaviour
         nbEntrySet++;
         if (nbEntrySet == 1)
         {
-            //doSomething
+
         }
         if (nbEntrySet >= nbEntryToBeSet)
         {
@@ -166,7 +167,6 @@ public class CentralTreeBehaviour : MonoBehaviour
             GetComponent<RippleSpawn>().SpawnRippleAtPoint(lightTargetSpot);
         }
     }
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.GetComponent<SwitchBehaviour>() != null && other.GetComponent<SwitchBehaviour>().isActivated == false)
@@ -214,11 +214,22 @@ public class CentralTreeBehaviour : MonoBehaviour
             }
         }
     }
-
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.white;
         Gizmos.DrawWireSphere(transform.position, sphereMaxRange);
+    }
+
+    public void ShowTree()
+    {
+        Camera.main.GetComponentInParent<CameraBehaviour>().smoothSpeed = 1f;
+        Camera.main.GetComponentInParent<CameraBehaviour>().target = transform;
+        Invoke("ResetCam", 6f);
+    }
+    private void ResetCam()
+    {
+        Camera.main.GetComponentInParent<CameraBehaviour>().target = FindObjectOfType<PlayerMovement>().transform;
+        Camera.main.GetComponentInParent<CameraBehaviour>().ResetCamParameters(2f);
     }
 
 }

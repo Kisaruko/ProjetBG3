@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class LightingTreeBehaviour : MonoBehaviour
 {
@@ -171,10 +172,6 @@ public class LightingTreeBehaviour : MonoBehaviour
         }
         if (centralTreeBehaviour != null)
         {
-            if(LinkedCorruption != null)
-            {
-                LinkedCorruption.GetComponent<CorruptionBehaviour>().Purification();
-            }
             centralTreeBehaviour.CheckIfAllEntriesAreSet();
         }
     }
@@ -229,10 +226,16 @@ public class LightingTreeBehaviour : MonoBehaviour
     }
     private IEnumerator ResetCam()
     {
-        Camera.main.GetComponentInParent<CameraBehaviour>().target = FindObjectOfType<PlayerMovement>().transform;
+      // Camera.main.GetComponentInParent<CameraBehaviour>().target = FindObjectOfType<PlayerMovement>().transform;
         yield return new WaitForSeconds(TBeforeResetCamAndControls);
-        Camera.main.GetComponentInParent<CameraBehaviour>().ResetCamParameters(TForCamToBeReset);
         Instantiate(ambiantGoodVfx, transform.position, Quaternion.identity);
+        FindObjectOfType<CentralTreeBehaviour>().ShowTree();
+        if (LinkedCorruption != null)
+        {
+            LinkedCorruption.GetComponent<CorruptionBehaviour>().Purification();
+            LinkedCorruption.GetComponentInChildren<Light>().DOIntensity(10f, 1f).SetLoops(1, LoopType.Yoyo);
+            
+        }
         FindObjectOfType<PlayerMovement>().EnableControls();
         FindObjectOfType<BinaryLight>().EnableControls();
         FindObjectOfType<LightDetection>().EnableControls();
