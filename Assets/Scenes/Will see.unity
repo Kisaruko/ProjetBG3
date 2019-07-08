@@ -5832,7 +5832,8 @@ GameObject:
   - component: {fileID: 212760858}
   - component: {fileID: 212760861}
   - component: {fileID: 212760860}
-  m_Layer: 0
+  - component: {fileID: 212760862}
+  m_Layer: 19
   m_Name: arbre1 (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5936,6 +5937,20 @@ MonoBehaviour:
   SupplementDestroy: {fileID: 0}
   newScrollX: 0
   newScrollY: 0
+--- !u!64 &212760862
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 212760856}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 4300000, guid: 3df4f2e5723c4b74eae2c34b30f813a4, type: 3}
 --- !u!1001 &213015063
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -32582,7 +32597,7 @@ PrefabInstance:
     - target: {fileID: 2494119085572232644, guid: 5733fbb819ba3af41bcf6280a96cf917,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 42.645702
+      value: 42.11
       objectReference: {fileID: 0}
     - target: {fileID: 2494119085572232644, guid: 5733fbb819ba3af41bcf6280a96cf917,
         type: 3}
@@ -32592,7 +32607,7 @@ PrefabInstance:
     - target: {fileID: 2494119085572232644, guid: 5733fbb819ba3af41bcf6280a96cf917,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 5.147838
+      value: 5.8
       objectReference: {fileID: 0}
     - target: {fileID: 2494119085572232644, guid: 5733fbb819ba3af41bcf6280a96cf917,
         type: 3}
@@ -32633,6 +32648,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2494119085572232647, guid: 5733fbb819ba3af41bcf6280a96cf917,
+        type: 3}
+      propertyPath: activateAtStart
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1544708889893164467, guid: 5733fbb819ba3af41bcf6280a96cf917,
         type: 3}
@@ -35986,7 +36006,7 @@ GameObject:
   - component: {fileID: 988817011}
   - component: {fileID: 988817010}
   - component: {fileID: 988817012}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: arbre2 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36098,10 +36118,10 @@ MeshCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 988817006}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
+  m_IsTrigger: 1
+  m_Enabled: 1
   serializedVersion: 3
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 14
   m_Mesh: {fileID: 4300152, guid: c28de85588416194490a6cf486925a7e, type: 3}
 --- !u!4 &990692312 stripped
@@ -51149,7 +51169,7 @@ PrefabInstance:
     - target: {fileID: 2494119085572232644, guid: 5733fbb819ba3af41bcf6280a96cf917,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 39.459698
+      value: 40.96
       objectReference: {fileID: 0}
     - target: {fileID: 2494119085572232644, guid: 5733fbb819ba3af41bcf6280a96cf917,
         type: 3}
@@ -51159,7 +51179,7 @@ PrefabInstance:
     - target: {fileID: 2494119085572232644, guid: 5733fbb819ba3af41bcf6280a96cf917,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 11.087837
+      value: 10.14
       objectReference: {fileID: 0}
     - target: {fileID: 2494119085572232644, guid: 5733fbb819ba3af41bcf6280a96cf917,
         type: 3}
@@ -51200,6 +51220,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7320618190210433987, guid: 5733fbb819ba3af41bcf6280a96cf917,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2494119085572232647, guid: 5733fbb819ba3af41bcf6280a96cf917,
+        type: 3}
+      propertyPath: activateAtStart
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1544708889893164467, guid: 5733fbb819ba3af41bcf6280a96cf917,
         type: 3}
@@ -62490,7 +62520,7 @@ Light:
   serializedVersion: 8
   m_Type: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1.5
+  m_Intensity: 2
   m_Range: 8.4605465
   m_SpotAngle: 56.270798
   m_CookieSize: 10
