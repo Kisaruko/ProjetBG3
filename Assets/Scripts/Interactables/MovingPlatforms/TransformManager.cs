@@ -61,7 +61,7 @@ public class TransformManager : ActivableObjects
             }
             else
             {
-                transform.DORotate(transform.rotation.eulerAngles + endRotation, rotateSpeed, RotateMode.Fast);
+                transform.DORotate(transform.rotation.eulerAngles - endRotation, rotateSpeed, RotateMode.Fast);
                 canRotate = false;
                 Invoke("CoolDown", rotateSpeed +0.1f);
             }

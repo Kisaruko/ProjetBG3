@@ -17,6 +17,7 @@ public class CorruptionBehaviour : MonoBehaviour
     private bool hasStartGrowing;
     private Transform lightObject;
     public float timeToDissolve;
+    public GameObject SupplementDestroy;
 
     [Header("Scrolling Variables")]
     public float newScrollX;
@@ -84,6 +85,7 @@ public class CorruptionBehaviour : MonoBehaviour
             {
                 GetComponent<ToggleParticleManager>().Off();
             }
+
             Invoke("StartPurification", Random.Range(0.1f, 1f));
         }
     }
@@ -94,7 +96,15 @@ public class CorruptionBehaviour : MonoBehaviour
         isPurified = true;
         hasStartGrowing = true;
         GetComponent<MeshRenderer>().material.DOFloat(1, "_Amount", timeToDissolve);
+        Invoke("AddVfx", 1f);
         Destroy(this.gameObject, timeToDissolve +1);
+    }
+    private void AddVfx()
+    {
+        if (SupplementDestroy != null)
+        {
+            Instantiate(SupplementDestroy, transform.position, Quaternion.identity);
+        }
     }
 }
 
