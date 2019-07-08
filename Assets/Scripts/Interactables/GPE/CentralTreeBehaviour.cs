@@ -65,6 +65,7 @@ public class CentralTreeBehaviour : MonoBehaviour
         }
         if (nbEntrySet >= nbEntryToBeSet)
         {
+            highLightDark.SetActive(false);
             //DoSomething
         }
     }
@@ -132,7 +133,6 @@ public class CentralTreeBehaviour : MonoBehaviour
         if (ambiantFx != null)
         {
             ambiantFx.SetActive(true);
-            highLightDark.SetActive(false);
         }
 
         if (myMats[1] != null)

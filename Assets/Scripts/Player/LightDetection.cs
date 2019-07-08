@@ -150,17 +150,19 @@ public class LightDetection : MonoBehaviour
                     {
                         if (hitcol.GetComponent<CentralTreeBehaviour>().isActivated == false)
                         {
-                            trees.Add(hitcol.GetComponent<LightingTreeBehaviour>());
-
+                            //trees.Add(hitcol.GetComponent<LightingTreeBehaviour>());
                             if (isTransmitting)
                             {
-                                CameraShake.Shake(0.1f, 0.02f);
-                                hitcol.GetComponent<CentralTreeBehaviour>().Loading();
-                                actualVfxTarget = hitcol.gameObject.GetComponent<CentralTreeBehaviour>().lightTargetSpot;
-                                GameObject clone = Instantiate(vfxTransmission, transform.position, transform.rotation);
-                                clone.GetComponent<SuckedLightBehaviour>().light = transform;
-                                clone.GetComponent<SuckedLightBehaviour>().isSucked = true;
-                                clone.GetComponent<SuckedLightBehaviour>().mobSuckingSpot = actualVfxTarget;
+                                if (hitcol.GetComponent<CentralTreeBehaviour>().nbEntrySet == 2)
+                                {
+                                    CameraShake.Shake(0.1f, 0.02f);
+                                    hitcol.GetComponent<CentralTreeBehaviour>().Loading();
+                                    actualVfxTarget = hitcol.gameObject.GetComponent<CentralTreeBehaviour>().lightTargetSpot;
+                                    GameObject clone = Instantiate(vfxTransmission, transform.position, transform.rotation);
+                                    clone.GetComponent<SuckedLightBehaviour>().light = transform;
+                                    clone.GetComponent<SuckedLightBehaviour>().isSucked = true;
+                                    clone.GetComponent<SuckedLightBehaviour>().mobSuckingSpot = actualVfxTarget;
+                                }
                             }
                         }
                     }
