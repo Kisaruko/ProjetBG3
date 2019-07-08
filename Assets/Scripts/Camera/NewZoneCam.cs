@@ -18,6 +18,11 @@ public class NewZoneCam : MonoBehaviour
 
     private void Start()
     {
+        Invoke("SetParameters", .25f);
+    }
+
+    private void SetParameters()
+    {
         cameraBehaviour = GameObject.FindGameObjectWithTag("MainCamera").GetComponentInParent<CameraBehaviour>();
         oldCamHeight = cameraBehaviour.camHeight;
         oldCamDist = cameraBehaviour.camDistance;

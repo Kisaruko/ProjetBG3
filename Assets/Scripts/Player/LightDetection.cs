@@ -53,6 +53,10 @@ public class LightDetection : MonoBehaviour
     #region unityMehods
     private void Start()
     {
+        if(FindObjectOfType<ButtonDisplayer>()!= null)
+        {
+            xButton = FindObjectOfType<ButtonDisplayer>().gameObject;
+        }
         binaryLight = GameObject.Find("Player").GetComponent<BinaryLight>();
         playermovement = binaryLight.gameObject.GetComponent<PlayerMovement>();
         anim = binaryLight.gameObject.GetComponentInChildren<Animator>();

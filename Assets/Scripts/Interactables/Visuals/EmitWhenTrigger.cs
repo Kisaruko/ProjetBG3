@@ -83,11 +83,14 @@ public class EmitWhenTrigger : MonoBehaviour
             {
                 light2.enabled = true;
             }
-            foreach (Material mat in myMat)
+            if (myMat != null)
             {
-                mat.EnableKeyword("_EMISSION");
+                foreach (Material mat in myMat)
+                {
+                    mat.EnableKeyword("_EMISSION");
+                }
+                isActivated = true;
             }
-            isActivated = true;
         }
         //Destroy(this);
     }
