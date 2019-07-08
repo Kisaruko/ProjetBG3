@@ -94,4 +94,9 @@ public class ArthropodeBehaviour : MonoBehaviour
         mustMove = true;
         havechooseDestination = false;
     }
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.white;
+        Gizmos.DrawWireCube(transform.position,new Vector3( range, 0f, range));
+    }
 }
