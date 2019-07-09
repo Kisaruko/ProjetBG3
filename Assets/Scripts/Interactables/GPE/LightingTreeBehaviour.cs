@@ -207,6 +207,10 @@ public class LightingTreeBehaviour : MonoBehaviour
             {
                 other.GetComponent<CorruptionBehaviour>().Purification();
             }
+            if(other.GetComponent<Light>() != null)
+            {
+                other.GetComponent<Light>().DOIntensity(0, 3f);
+            }
         }
     }
     private void Update()
