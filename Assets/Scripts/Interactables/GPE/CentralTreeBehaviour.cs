@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using DG.Tweening;
 public class CentralTreeBehaviour : MonoBehaviour
 {
     public int nbEntrySet;
@@ -199,6 +199,10 @@ public class CentralTreeBehaviour : MonoBehaviour
         if (other.GetComponent<CorruptionBehaviour>() != null)
         {
             other.GetComponent<CorruptionBehaviour>().Purification();
+        }
+        if (other.GetComponent<Light>() != null)
+        {
+            other.GetComponent<Light>().DOIntensity(0, 3f);
         }
     }
     private void Update()
