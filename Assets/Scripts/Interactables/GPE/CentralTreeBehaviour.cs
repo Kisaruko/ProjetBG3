@@ -169,23 +169,26 @@ public class CentralTreeBehaviour : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<SwitchBehaviour>() != null && other.GetComponent<SwitchBehaviour>().isActivated == false)
+        if (isActivated)
         {
-            other.GetComponent<SwitchBehaviour>().Activation();
-        }
-        if (other.GetComponent<EmitWhenTrigger>() != null)
-        {
-            other.GetComponent<EmitWhenTrigger>().ActivateEmission();
-        }
-        if (other.GetComponent<TrashMobManager>() != null)
-        {
-            Instantiate(destroyMobFx, other.transform.position, Quaternion.identity);
-            Destroy(other.gameObject);
-        }
-        if (other.GetComponent<PressurePlateBehaviour>() != null)
-        {
-            other.GetComponent<PressurePlateBehaviour>().nbObjectOnThis = 10;
-            other.GetComponent<PressurePlateBehaviour>().SetObjectOnThis();
+            if (other.GetComponent<SwitchBehaviour>() != null && other.GetComponent<SwitchBehaviour>().isActivated == false)
+            {
+                other.GetComponent<SwitchBehaviour>().Activation();
+            }
+            if (other.GetComponent<EmitWhenTrigger>() != null)
+            {
+                other.GetComponent<EmitWhenTrigger>().ActivateEmission();
+            }
+            if (other.GetComponent<TrashMobManager>() != null)
+            {
+                Instantiate(destroyMobFx, other.transform.position, Quaternion.identity);
+                Destroy(other.gameObject);
+            }
+            if (other.GetComponent<PressurePlateBehaviour>() != null)
+            {
+                other.GetComponent<PressurePlateBehaviour>().nbObjectOnThis = 10;
+                other.GetComponent<PressurePlateBehaviour>().SetObjectOnThis();
+            }
         }
 
         /*if(other.GetComponent<SpawnerOneByOne>() != null) //Detruit les spawner si besoin (doivent avoir une collider)
