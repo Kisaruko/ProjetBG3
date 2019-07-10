@@ -6,8 +6,8 @@ public class RippleSpawn : MonoBehaviour
 {
     public RippleState state;
 
-    /* ///DEBUG
-      void Update()
+     ///DEBUG
+    /*  void Update()
       {
           if(Input.GetMouseButtonDown(0))
           {

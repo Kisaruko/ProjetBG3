@@ -166,6 +166,10 @@ public class CentralTreeBehaviour : MonoBehaviour
         {
             GetComponent<RippleSpawn>().SpawnRippleAtPoint(lightTargetSpot);
         }
+        Camera.main.GetComponentInParent<CameraBehaviour>().camHeight = 75f;
+        Camera.main.GetComponentInParent<CameraBehaviour>().camDistance = 30f;
+        Camera.main.GetComponentInParent<CameraBehaviour>().smoothSpeed = 1f;
+        Invoke("LoadEndingScene", 10f);
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -237,6 +241,10 @@ public class CentralTreeBehaviour : MonoBehaviour
     {
         Camera.main.GetComponentInParent<CameraBehaviour>().target = FindObjectOfType<PlayerMovement>().transform;
         Camera.main.GetComponentInParent<CameraBehaviour>().ResetCamParameters(2f);
+    }
+    private void LoadEndingScene()
+    {
+        Initiate.Fade("Victory Menu", Color.cyan, 0.3f);
     }
 
 }
