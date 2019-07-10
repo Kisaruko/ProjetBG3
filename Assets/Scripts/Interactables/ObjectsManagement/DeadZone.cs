@@ -18,19 +18,20 @@ public class DeadZone : MonoBehaviour
                 {
                     Destroy(other.gameObject);
                 }
-                if(other.GetComponentInParent<PlayerMovement>() != null)
-                {
-                    if (vfxHit != null)
-                    {
-                        Instantiate(vfxHit, other.transform.position, Quaternion.identity);
-                    }
-                    GameManager.ShowAnImpact(0.3f);
-                    CameraShake.Shake(0.1f, 0.2f);
-                    other.GetComponentInParent<PlayerMovement>().Recoil(transform, 3f);
-                    other.GetComponentInParent<BinaryLight>().TakeHit();
-                    Initiate.Fade("GameOver",Color.black, 0.8f);
-                }
+
             }
+        }
+        if (other.GetComponentInParent<PlayerMovement>() != null)
+        {
+            if (vfxHit != null)
+            {
+                Instantiate(vfxHit, other.transform.position, Quaternion.identity);
+            }
+            GameManager.ShowAnImpact(1f);
+            CameraShake.Shake(0.1f, 0.2f);
+            other.GetComponentInParent<PlayerMovement>().Recoil(transform, 3f);
+            other.GetComponentInParent<BinaryLight>().TakeHit();
+            Initiate.Fade("GameOver", Color.black, 0.8f);
         }
     }
 }
