@@ -91,6 +91,10 @@ public class EmitWhenTrigger : MonoBehaviour
                 }
                 isActivated = true;
             }
+            if(GetComponent<FMODUnity.StudioEventEmitter>() != null)
+            {
+                SendMessage("Play");
+            }
         }
         //Destroy(this);
     }
