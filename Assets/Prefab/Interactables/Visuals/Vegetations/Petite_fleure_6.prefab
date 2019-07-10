@@ -82,6 +82,7 @@ GameObject:
   - component: {fileID: 765684296818251247}
   - component: {fileID: 788283635158963334}
   - component: {fileID: 2149387249828195694}
+  - component: {fileID: 1383882835833629506}
   m_Layer: 18
   m_Name: Petite_fleure_6
   m_TagString: Untagged
@@ -184,3 +185,26 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 4.5152164, y: 5.09587, z: 4.5465784}
   m_Center: {x: 0, y: -0.061974406, z: 0}
+--- !u!114 &1383882835833629506
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7829500567546545326}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: event:/feedback/flower/flower_feedback
+  PlayEvent: 0
+  StopEvent: 0
+  CollisionTag: 
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 15
+  OverrideMaxDistance: 50
