@@ -19,7 +19,7 @@ public class LightMagnetism : MonoBehaviour
     private bool newMovement = false;
     public PlayerBehaviour playerBehaviour;
     public CapsuleCollider playerCollider;
-#endregion
+    #endregion
     #region Main Methods
     private void Start()
     {
@@ -50,13 +50,10 @@ public class LightMagnetism : MonoBehaviour
         for (int i = 0; i < numEnter; i++) // pour chaque particle qui ont trigger
         {
             ParticleSystem.Particle p = enter[i]; // crée le tableau
-            playerBehaviour.RegenLifeOnCac();
             p.remainingLifetime = 0f; // destruction de la particle en mettant son lifetime a 0
             enter[i] = p; // ajoute au tableau
         }
         ps.SetTriggerParticles(ParticleSystemTriggerEventType.Enter, enter); // Applique les changements
-
-
     }
     #endregion mainMethods
     #region Custom Methods

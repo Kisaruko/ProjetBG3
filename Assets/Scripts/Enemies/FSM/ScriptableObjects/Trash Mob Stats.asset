@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1ff428aa58e285499cf0cfecfabcab5, type: 3}
+  m_Name: Trash Mob Stats
+  m_EditorClassIdentifier: 
+  moveSpeed: 31.8
+  rotationSpeed: 1.2
+  patrolDist: 5
+  patrolWanderTime: 2
+  wanderTimeBeforePatrol: 0.5
+  lookRange: 30.1
+  lookAngle: 360
+  targetMask:
+    serializedVersion: 2
+    m_Bits: 98304
+  obstacleMask:
+    serializedVersion: 2
+    m_Bits: 1
+  visibleTargets: []
+  attackRange: 4
+  attackCooldown: 1
+  absorbRange: 2
+  absorbCooldown: 0.2
+  absorbFactor: 0.15
+  disableRange: 2
+  objectsToDisable:
+    serializedVersion: 2
+    m_Bits: 262144
+  disableCooldown: 1
+  myMat: {fileID: 2100000, guid: be0cc0d4bc852f741a1afe252c7936c8, type: 2}
+  baseColor: {r: 0.6117647, g: 0.13333334, b: 0.77254903, a: 1}
+  finalColor: {r: 1, g: 0, b: 0, a: 1}

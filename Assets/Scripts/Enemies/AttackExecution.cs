@@ -10,36 +10,73 @@ public class AttackExecution : MonoBehaviour
     public int strength;
     public float attackRange;
     private Rigidbody rb;
-    public TrashMobBehaviour trashmobbehaviour;
+    private SimpleAI simpleIA;
+    public GameObject fxHit;
+    private bool isCharging = false;
+    public float chargeSpeed;
+
     private void Start()
     {
         anim = GetComponent<Animator>();
         player = GameObject.Find("Player");
         rb = GetComponentInParent<Rigidbody>();
-        trashmobbehaviour = GetComponentInParent<TrashMobBehaviour>();
+        simpleIA = GetComponentInParent<SimpleAI>();
     }
+
     public void AttackExecute()
     {
         foreach (Collider hitcol in Physics.OverlapSphere(transform.position + transform.right, attackRange)) // Draw une sphere devant l'ennemi de radius attackrange
         {
             if (hitcol.gameObject.CompareTag("Player")) //Pour chaque joueur dans la zone
             {
-                player.GetComponent<PlayerMovement>().Recoil(transform, recoilInflincted); //Appelle la fonction recoil du joueur et inflige un recul de valeur recoilInflected
-                player.GetComponent<PlayerBehaviour>().TakeHit(strength); // Appelle la fonction qui fait perdre des pdv au joueur , le joueur perd 'strength' pdv
+                if (player.GetComponent<BinaryLight>().isInvicible == false)
+                {
+                    Instantiate(fxHit, hitcol.transform.position, Quaternion.identity);
+                    GameManager.ShowAnImpact(1f);
+                    CameraShake.Shake(0.1f, 0.2f);
+                    player.GetComponent<PlayerMovement>().Recoil(transform, recoilInflincted);
+                    player.GetComponent<BinaryLight>().TakeHit();
+                    Initiate.Fade("GameOver", Color.black, 0.8f);
+                    if (player.GetComponent<BinaryLight>().gotLight == false)
+                    {
+                       // Destroy(player.gameObject);
+                    }
+                    //Invoke("RestartOnCollision", 0.2f);
+                    player.GetComponent<BinaryLight>().DropLight(400f,400f);
+                }
                 anim.SetBool("Attack", false);
             }
         }
     }
-    private void OnDrawGizmos()
+
+    private void RestartOnCollision()
     {
-        Gizmos.DrawWireSphere(transform.position+transform.right, attackRange);
+        GameManager._instance.GameOver();
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.DrawWireSphere(transform.position + transform.right, attackRange);
     }
     public void StartCharge()
     {
-        trashmobbehaviour.isCharging = true;
+        this.transform.parent.rotation = Quaternion.LookRotation(player.transform.position - this.transform.position);
+
+        isCharging = true;
     }
     public void StopCharge()
     {
-        trashmobbehaviour.isCharging = false;
+        isCharging = false;
+        rb.isKinematic = true;
+        rb.velocity= Vector3.zero;
+        anim.SetBool("Attack", false);
+    }
+    private void FixedUpdate()
+    {
+        if(isCharging)
+        {
+            rb.isKinematic = false;
+            rb.velocity = (this.transform.parent.forward) * chargeSpeed; //Il avance toujours vers l'avant
+        }
     }
 }

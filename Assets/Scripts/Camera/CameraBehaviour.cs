@@ -1,27 +1,46 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class CameraBehaviour : MonoBehaviour
 {
     #region Variables
+    [Header("Cam target")]
     public Transform target;
-    public float camHeight = 10f;
-    public float camDistance = 20f;
-    public float camAngle = 0f;
-    public float xCamRotation = 60f;
-    public float smoothSpeed = 0.5f;
-    public float anticipationFactor = 10f;
-
     public bool followTarget;
 
+    [Header("Cam parameters")]
+    public float camHeight; //10
+    public float camDistance; //20
+    public float camAngle;  //0
+    public float xCamRotation; //60
+    public float smoothSpeed; //0.5f
+    public float anticipationFactor; //10
+
+    private float baseCamHeight;
+    private float baseCamDistance;
+    private float basexCamRotation;
+    private float baseSmoothSpeed;
     private Vector3 refVelocity;
     #endregion
 
     #region Main Methods
+    private void Awake()
+    {
+        if(target == null)
+        {
+            target = GameObject.FindGameObjectWithTag("Player").transform;
+        }
+    }
+
     void Start()
     {
         HandleCamera();
+        baseCamHeight = camHeight;
+        baseCamDistance = camDistance;
+        basexCamRotation = xCamRotation;
+        baseSmoothSpeed = smoothSpeed;
     }
 
     private void LateUpdate()
@@ -68,7 +87,7 @@ public class CameraBehaviour : MonoBehaviour
 
         //Move the position
         Vector3 flatTargetPosition = target.position;
-        flatTargetPosition.y = 0f;
+        //flatTargetPosition.y = 0f;
         Vector3 finalPosition = flatTargetPosition + rotatedVector + anticipatedVector;
         //Debug.DrawLine(target.position, finalPosition, Color.blue);
 
@@ -90,4 +109,19 @@ public class CameraBehaviour : MonoBehaviour
 
         Gizmos.DrawSphere(transform.position, 1.5f);
     }
+
+    public void SetNewParameters(float newHeight, float newDistance, float newAngle, float TimeForTranslate)
+    {
+        DOTween.To(() => xCamRotation, x => xCamRotation = x, newAngle, TimeForTranslate);
+        DOTween.To(() => camHeight, x => camHeight = x, newHeight, TimeForTranslate);
+        DOTween.To(() => camDistance, x => camDistance = x, newDistance, TimeForTranslate);
+    }
+    public void ResetCamParameters(float TimeForTranslate)
+    {
+        DOTween.To(() => xCamRotation, x => xCamRotation = x, basexCamRotation, TimeForTranslate);
+        DOTween.To(() => camHeight, x => camHeight = x, baseCamHeight, TimeForTranslate);
+        DOTween.To(() => camDistance, x => camDistance = x, baseCamDistance, TimeForTranslate);
+        DOTween.To(() => smoothSpeed, x => smoothSpeed = x, baseSmoothSpeed, TimeForTranslate);
+    }
+
 }
