@@ -32,17 +32,16 @@ public class AttackExecution : MonoBehaviour
                 if (player.GetComponent<BinaryLight>().isInvicible == false)
                 {
                     Instantiate(fxHit, hitcol.transform.position, Quaternion.identity);
-                    GameManager.ShowAnImpact(0.3f);
+                    GameManager.ShowAnImpact(1f);
                     CameraShake.Shake(0.1f, 0.2f);
+                    player.GetComponent<PlayerMovement>().Recoil(transform, recoilInflincted);
+                    player.GetComponent<BinaryLight>().TakeHit();
+                    Initiate.Fade("GameOver", Color.black, 0.8f);
                     if (player.GetComponent<BinaryLight>().gotLight == false)
                     {
-                        Destroy(player.gameObject);
+                       // Destroy(player.gameObject);
                     }
-                    player.GetComponent<PlayerMovement>().Recoil(transform, recoilInflincted); //Appelle la fonction recoil du joueur et inflige un recul de valeur recoilInflected
-
-                    player.GetComponent<BinaryLight>().TakeHit();
-
-                    Invoke("RestartOnCollision", 0.2f);
+                    //Invoke("RestartOnCollision", 0.2f);
                     player.GetComponent<BinaryLight>().DropLight(400f,400f);
                 }
                 anim.SetBool("Attack", false);
