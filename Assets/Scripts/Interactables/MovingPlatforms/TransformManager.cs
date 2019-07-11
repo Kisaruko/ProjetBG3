@@ -66,6 +66,11 @@ public class TransformManager : ActivableObjects
                 Invoke("CoolDown", rotateSpeed +0.1f);
             }
         }
+
+        if(GetComponent<FMODUnity.StudioEventEmitter>())
+        {
+            SendMessage("Play");
+        }
     }
     public override void Deactivate()
     {
