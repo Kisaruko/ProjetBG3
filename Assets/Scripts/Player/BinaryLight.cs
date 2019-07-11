@@ -466,6 +466,7 @@ public class BinaryLight : MonoBehaviour
         if (LightObject.transform.parent == null)
         {
             LightObject.transform.DOMove(end.transform.position, lightSpeed * Time.deltaTime);
+            SendMessage("Play");
         }
         ArianeBond();
         #region OLD
