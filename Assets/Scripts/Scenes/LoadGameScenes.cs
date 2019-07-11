@@ -43,7 +43,7 @@ public class LoadGameScenes : MonoBehaviour
             }
         }
 
-        for (int i = 0; i < sceneLoads.Count; ++i)
+        for (int i = 0; i < sceneLoads.Count; i++)
         {
             sceneLoads[i].allowSceneActivation = true;
             while (!sceneLoads[i].isDone)

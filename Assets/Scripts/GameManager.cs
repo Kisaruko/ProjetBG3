@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 public class GameManager : MonoBehaviour
 {
@@ -30,10 +31,14 @@ public class GameManager : MonoBehaviour
     public string menuSceneName;
     public string gameOverSceneName;
     public string lastScene;
-    
+
 
     [Space(15)]
     public int FPSLimit;
+
+    float volume = -80f;
+    FMOD.Studio.Bus master;
+    
 
 
     void Awake()
@@ -42,7 +47,8 @@ public class GameManager : MonoBehaviour
         _instance = this;
         QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = FPSLimit;
-        
+        master = FMODUnity.RuntimeManager.GetBus("bus:/Master");
+
     }
     #region MainMethods
     private void Start()
@@ -52,13 +58,15 @@ public class GameManager : MonoBehaviour
         imageeffect = myCam.GetComponent<ImageEffect>();
         camParent = myCam.GetComponentInParent<CameraBehaviour>();
         pencilMat.SetFloat("_GradThresh", 0.2f);
-        pencilMat.SetFloat("_OutLineTresh",20f);
+        pencilMat.SetFloat("_OutLineTresh", 20f);
         baseGradTresh = pencilMat.GetFloat("_GradThresh");
         baseOutlineTresh = pencilMat.GetFloat("_OutLineTresh");
         player = GameObject.Find("Player");
         playermovement = player.GetComponent<PlayerMovement>();
         attack = player.GetComponentInChildren<Attack>();
         playershoot = player.GetComponent<PlayerShoot>();
+
+        Invoke("SetVolume", 3f);
     }
     private void Update()
     {
@@ -135,9 +143,15 @@ public class GameManager : MonoBehaviour
         //camParent.camHeight = 10f;
         isTimeScaleAltered = false;
         Time.timeScale = 1f;
-        
-        
+
+
         StopCoroutine("ZoomOnAction");
+    }
+
+    public void SetVolume()
+    {
+        DOTween.To(() => volume, x => volume = x, 0f, 1f);
+        master.setVolume(volume);
     }
 
     #endregion
@@ -149,11 +163,11 @@ public class GameManager : MonoBehaviour
     }
     private IEnumerator ControlsRemoved()
     {
-       playermovement.controlsAreEnabled = false;
-       attack.AuthorizedToAttack = false;
-       playershoot.AuthorizedToShoot = false;
-       StopCoroutine("ControlsRemoved");
-       yield return null;
+        playermovement.controlsAreEnabled = false;
+        attack.AuthorizedToAttack = false;
+        playershoot.AuthorizedToShoot = false;
+        StopCoroutine("ControlsRemoved");
+        yield return null;
     }
     public static void RestoreControls()
     {

@@ -140,9 +140,13 @@ public class MultipleEntryDoor : ActivableObjects
     public override void Activate()
     {
         anim.SetBool("isActivated", true);
+        GetComponent<FMODUnity.StudioEventEmitter>().SetParameter("doorActivated", 1f);
+        SendMessage("Play");
     }
     public override void Deactivate()
     {
         anim.SetBool("isActivated", false);
+        GetComponent<FMODUnity.StudioEventEmitter>().SetParameter("doorActivated", 0f);
+        SendMessage("Play");
     }
 }
