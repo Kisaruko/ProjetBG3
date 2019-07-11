@@ -18,10 +18,14 @@ public class DoorBehaviour : ActivableObjects
     public override void Activate()
     {
         animator.SetBool("isActivated", true);
+        GetComponent<FMODUnity.StudioEventEmitter>().SetParameter("doorActivated", 1f);
+        SendMessage("Play");
     }
     public override void Deactivate()
     {
         animator.SetBool("isActivated", false);
+        GetComponent<FMODUnity.StudioEventEmitter>().SetParameter("doorActivated", 0f);
+        SendMessage("Play");
     }
     private void SetAtStart()
     {
