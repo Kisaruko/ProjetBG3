@@ -175,6 +175,11 @@ public class LightingTreeBehaviour : MonoBehaviour
         {
             centralTreeBehaviour.CheckIfAllEntriesAreSet();
         }
+
+        if(GetComponent<FMODUnity.StudioEventEmitter>())
+        {
+            SendMessage("Play");
+        }
     }
 
     private void OnTriggerEnter(Collider other)

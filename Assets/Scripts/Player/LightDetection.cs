@@ -182,6 +182,7 @@ public class LightDetection : MonoBehaviour
                     xButton.GetComponent<ButtonDisplayer>().Disappear();
                 }
                 canActivateSwitchsFx.Stop();
+
             }
             else
             {
@@ -190,6 +191,8 @@ public class LightDetection : MonoBehaviour
                 if (Input.GetButtonDown("Attack"))
                 {
                     loader.Play();
+                    GetComponent<FMODUnity.StudioEventEmitter>().SetParameter("receptacleActivated", 0f);
+                    SendMessage("Play");
                 }
             }
         }

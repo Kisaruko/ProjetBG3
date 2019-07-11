@@ -5062,6 +5062,7 @@ GameObject:
   - component: {fileID: 7978608173454579962}
   - component: {fileID: 7978608173454579963}
   - component: {fileID: 3682504325553236616}
+  - component: {fileID: 5449901925023995713}
   m_Layer: 16
   m_Name: CentralTree
   m_TagString: Untagged
@@ -5161,6 +5162,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nbEntrySet: 2
   nbEntryToBeSet: 2
+  newCamPos: {fileID: 0}
   isActivated: 0
   isLoading: 0
   maxIntensity: 3.5
@@ -5179,6 +5181,29 @@ MonoBehaviour:
     type: 3}
   ambiantFx: {fileID: 7978608173071587695}
   highLightDark: {fileID: 4848271968007924970}
+--- !u!114 &5449901925023995713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3682504325553236619}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: event:/feedback/arbres/reveal_arbres
+  PlayEvent: 0
+  StopEvent: 0
+  CollisionTag: 
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 0
+  OverrideMaxDistance: 0
 --- !u!1 &4848271968007924970
 GameObject:
   m_ObjectHideFlags: 0

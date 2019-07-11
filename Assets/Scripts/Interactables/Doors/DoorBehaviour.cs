@@ -25,6 +25,7 @@ public class DoorBehaviour : ActivableObjects
     {
         animator.SetBool("isActivated", false);
         GetComponent<FMODUnity.StudioEventEmitter>().SetParameter("doorActivated", 0f);
+        SendMessage("Stop");
         SendMessage("Play");
     }
     private void SetAtStart()
