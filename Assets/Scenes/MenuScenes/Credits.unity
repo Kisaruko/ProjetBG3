@@ -5923,6 +5923,11 @@ PrefabInstance:
       propertyPath: noiseIntensity
       value: 0.35
       objectReference: {fileID: 0}
+    - target: {fileID: 6232519935335321011, guid: 4fb473c473869ae4188286cead26cdc3,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6232519935335354770, guid: 4fb473c473869ae4188286cead26cdc3,
         type: 3}
       propertyPath: m_LocalRotation.x
@@ -6023,16 +6028,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0.47100002
       objectReference: {fileID: 0}
-    - target: {fileID: 6232519935850636770, guid: 4fb473c473869ae4188286cead26cdc3,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1755725114277898387, guid: 4fb473c473869ae4188286cead26cdc3,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 7c9473ec802dded4791bfd113d773f73, type: 2}
+    - target: {fileID: 6232519935850636770, guid: 4fb473c473869ae4188286cead26cdc3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6232519935333061490, guid: 4fb473c473869ae4188286cead26cdc3,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -6045,6 +6050,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6232519935099524232, guid: 4fb473c473869ae4188286cead26cdc3, type: 3}
+    - {fileID: 6232519935335321011, guid: 4fb473c473869ae4188286cead26cdc3, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 4fb473c473869ae4188286cead26cdc3, type: 3}
 --- !u!4 &696652005 stripped
 Transform:
@@ -17093,7 +17099,9 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: 'Level Design
+  m_text: 'Game Design
+
+    Level Design
 
     Light Artist'
   m_isRightToLeft: 0
@@ -17165,12 +17173,12 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 2033537061}
-    characterCount: 25
+    characterCount: 37
     spriteCount: 0
-    spaceCount: 3
-    wordCount: 4
+    spaceCount: 5
+    wordCount: 6
     linkCount: 0
-    lineCount: 2
+    lineCount: 3
     pageCount: 1
     materialCount: 1
   m_havePropertiesChanged: 0
@@ -17215,18 +17223,6 @@ PrefabInstance:
     - target: {fileID: 100002, guid: 3bdabb6ff68eb99448128b7133122e4d, type: 3}
       propertyPath: m_Name
       value: lierres_gr_5 (2)
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 3bdabb6ff68eb99448128b7133122e4d, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -9.277
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 3bdabb6ff68eb99448128b7133122e4d, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1.057
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 3bdabb6ff68eb99448128b7133122e4d, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -3.242
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 3bdabb6ff68eb99448128b7133122e4d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -17288,6 +17284,18 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: beec0b033379e3c4db92d159d7d83a51, type: 2}
+    - target: {fileID: 400000, guid: 3bdabb6ff68eb99448128b7133122e4d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -9.277
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 3bdabb6ff68eb99448128b7133122e4d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.057
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 3bdabb6ff68eb99448128b7133122e4d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -3.242
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3bdabb6ff68eb99448128b7133122e4d, type: 3}
 --- !u!1001 &2049331789
