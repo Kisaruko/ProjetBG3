@@ -24,11 +24,12 @@ MonoBehaviour:
   - {fileID: 114911449406729182}
   - {fileID: 114015859426808842}
   - {fileID: 114768069192103718}
+  - {fileID: 114206222573977358}
   MasterBanks:
   - {fileID: 114580859242805050}
   StringsBanks:
   - {fileID: 114642111797917204}
-  stringsBankWriteTime: 636984605586499290
+  stringsBankWriteTime: 636984616557977859
   cacheVersion: 3
 --- !u!114 &114003863516122132
 MonoBehaviour:
@@ -540,6 +541,46 @@ MonoBehaviour:
   - Name: Desktop
     Value: 876864
   Exists: 1
+--- !u!114 &114190229004516906
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/door/doorActivated
+  m_EditorClassIdentifier: 
+  Name: doorActivated
+  Min: 0
+  Max: 1
+  Default: 0
+  Exists: 0
+--- !u!114 &114206222573977358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/feedback/cast_launch/cast_light
+  m_EditorClassIdentifier: 
+  Path: event:/feedback/cast_launch/cast_light
+  guid: dd318de8404a0a4c97524a2fb7c151ff
+  Banks:
+  - {fileID: 114847773110049610}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 3740
 --- !u!114 &114212546568441318
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -870,7 +911,7 @@ MonoBehaviour:
   Is3D: 1
   IsOneShot: 1
   Parameters:
-  - {fileID: 114608744041231334}
+  - {fileID: 114333449745369318}
   MinDistance: 80
   MaxDistance: 80
   Length: 2000
@@ -1023,6 +1064,23 @@ MonoBehaviour:
   FileSizes:
   - Name: Desktop
     Value: 12474
+  Exists: 1
+--- !u!114 &114333449745369318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/door/doorActivated
+  m_EditorClassIdentifier: 
+  Name: doorActivated
+  Min: 0
+  Max: 1
+  Default: 0
   Exists: 1
 --- !u!114 &114339301631764294
 MonoBehaviour:
@@ -1703,7 +1761,7 @@ MonoBehaviour:
   m_Name: bank:/Master Bank.bank
   m_EditorClassIdentifier: 
   Path: D:\_Travail\_ProjetsUnity\Projet_BG3\ProjetBG3-FMOD\Build\Desktop\Master Bank.bank
-  lastModified: 636984599819905076
+  lastModified: 636984616557868127
   LoadResult: 0
   FileSizes:
   - Name: Desktop
@@ -1762,7 +1820,7 @@ MonoBehaviour:
   Min: 0
   Max: 1
   Default: 0
-  Exists: 1
+  Exists: 0
 --- !u!114 &114611644717804698
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1829,11 +1887,11 @@ MonoBehaviour:
   m_Name: bank:/Master Bank.strings.bank
   m_EditorClassIdentifier: 
   Path: ProjetBG3-FMOD\Build\Desktop\Master Bank.strings.bank
-  lastModified: 636984605586499290
+  lastModified: 636984616557977859
   LoadResult: 0
   FileSizes:
   - Name: Desktop
-    Value: 1140
+    Value: 1194
   Exists: 1
 --- !u!114 &114646575500481404
 MonoBehaviour:
@@ -2383,6 +2441,23 @@ MonoBehaviour:
   Max: 1
   Default: 0
   Exists: 0
+--- !u!114 &114847565921644248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/door/doorActivated
+  m_EditorClassIdentifier: 
+  Name: doorActivated
+  Min: 0
+  Max: 1
+  Default: 0
+  Exists: 0
 --- !u!114 &114847773110049610
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2397,11 +2472,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: D:\_Travail\_ProjetsUnity\Projet_BG3\ProjetBG3-FMOD\Build\Desktop\Feedback
     Bank.bank
-  lastModified: 636984605586489326
+  lastModified: 636984616559718449
   LoadResult: 0
   FileSizes:
   - Name: Desktop
-    Value: 547616
+    Value: 611552
   Exists: 1
 --- !u!114 &114854195113223560
 MonoBehaviour:
@@ -2445,6 +2520,23 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 5811
+--- !u!114 &114862487596316628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/door/doorActivated
+  m_EditorClassIdentifier: 
+  Name: doorActivated
+  Min: 0
+  Max: 1
+  Default: 0
+  Exists: 0
 --- !u!114 &114871646026600842
 MonoBehaviour:
   m_ObjectHideFlags: 0
