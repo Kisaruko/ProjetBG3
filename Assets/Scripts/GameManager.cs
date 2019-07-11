@@ -35,9 +35,6 @@ public class GameManager : MonoBehaviour
 
     [Space(15)]
     public int FPSLimit;
-
-    float volume = -80f;
-    FMOD.Studio.Bus master;
     
 
 
@@ -47,7 +44,6 @@ public class GameManager : MonoBehaviour
         _instance = this;
         QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = FPSLimit;
-        master = FMODUnity.RuntimeManager.GetBus("bus:/Master");
 
     }
     #region MainMethods
@@ -65,8 +61,6 @@ public class GameManager : MonoBehaviour
         playermovement = player.GetComponent<PlayerMovement>();
         attack = player.GetComponentInChildren<Attack>();
         playershoot = player.GetComponent<PlayerShoot>();
-
-        Invoke("SetVolume", 3f);
     }
     private void Update()
     {
@@ -146,12 +140,6 @@ public class GameManager : MonoBehaviour
 
 
         StopCoroutine("ZoomOnAction");
-    }
-
-    public void SetVolume()
-    {
-        DOTween.To(() => volume, x => volume = x, 0f, 1f);
-        master.setVolume(volume);
     }
 
     #endregion
