@@ -20,7 +20,7 @@ public class NewZoneCam : MonoBehaviour
 
     private void Start()
     {
-        Invoke("SetParameters", .25f);
+        Invoke("SetParameters", 3f);
     }
 
     private void SetParameters()
@@ -34,7 +34,7 @@ public class NewZoneCam : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == 11)
+        if (other.gameObject.layer == 11 || other.gameObject.GetComponentInParent<PlayerMovement>() != null)
         {
             DOTween.To(() => cameraBehaviour.xCamRotation, x => cameraBehaviour.xCamRotation = x, newCamAngle, timeToMoveCam);
             DOTween.To(() => cameraBehaviour.camHeight, x => cameraBehaviour.camHeight = x, newCamHeight, timeToMoveCam);
@@ -44,7 +44,7 @@ public class NewZoneCam : MonoBehaviour
     }
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.layer == 11)
+        if (other.gameObject.layer == 11 || other.gameObject.GetComponentInParent<PlayerMovement>() != null)
         {
             DOTween.To(() => cameraBehaviour.xCamRotation, x => cameraBehaviour.xCamRotation = x, oldCamAngle, timeToMoveCam);
             DOTween.To(() => cameraBehaviour.camHeight, x => cameraBehaviour.camHeight = x, oldCamHeight, timeToMoveCam);
