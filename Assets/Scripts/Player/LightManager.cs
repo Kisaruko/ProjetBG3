@@ -48,7 +48,9 @@ public class LightManager : MonoBehaviour
         }
         if(shortLight.intensity <= 0.005f)
         {
-            GameManager._instance.GameOver();
+            GameManager.ShowAnImpact(1f);
+            CameraShake.Shake(0.1f, 0.2f);
+            Initiate.Fade("GameOver", Color.black, 0.8f);
         }
     }
 
