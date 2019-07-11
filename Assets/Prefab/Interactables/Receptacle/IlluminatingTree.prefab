@@ -14295,6 +14295,7 @@ GameObject:
   - component: {fileID: 6747333355560019119}
   - component: {fileID: 66442962}
   - component: {fileID: 66442963}
+  - component: {fileID: 7523842934581766201}
   m_Layer: 16
   m_Name: IlluminatingTree
   m_TagString: Untagged
@@ -14359,6 +14360,7 @@ MonoBehaviour:
   highLightDark: {fileID: 3310480486952116930}
   TBeforeResetCamAndControls: 5
   TForCamToBeReset: 5
+  camMoveTime: 1
 --- !u!135 &6747333355560019118
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -14415,6 +14417,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mymat: {fileID: 2100000, guid: 4fa11a2f4409eef438a1a7c810daa9f7, type: 2}
   speed: 0.5
+--- !u!114 &7523842934581766201
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6747333355560019107}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: event:/feedback/arbres/reveal_arbres
+  PlayEvent: 0
+  StopEvent: 0
+  CollisionTag: 
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 0
+  OverrideMaxDistance: 0
 --- !u!1 &6747333355791573933
 GameObject:
   m_ObjectHideFlags: 0

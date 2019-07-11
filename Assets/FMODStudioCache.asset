@@ -27,11 +27,15 @@ MonoBehaviour:
   - {fileID: 114238077957717360}
   - {fileID: 114069875828054608}
   - {fileID: 114810761943333604}
+  - {fileID: 114702657598074514}
+  - {fileID: 114680684237863622}
+  - {fileID: 114038814573581054}
+  - {fileID: 114244394627208472}
   MasterBanks:
   - {fileID: 114580859242805050}
   StringsBanks:
   - {fileID: 114642111797917204}
-  stringsBankWriteTime: 636984633409961526
+  stringsBankWriteTime: 636984851307100628
   cacheVersion: 3
 --- !u!114 &114003863516122132
 MonoBehaviour:
@@ -51,6 +55,23 @@ MonoBehaviour:
   Default: 0
   Exists: 1
 --- !u!114 &114006093473728688
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/door/doorActivated
+  m_EditorClassIdentifier: 
+  Name: doorActivated
+  Min: 0
+  Max: 1
+  Default: 0
+  Exists: 0
+--- !u!114 &114007844401981090
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -112,6 +133,45 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 8598
+--- !u!114 &114012571480051180
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/door/doorActivated
+  m_EditorClassIdentifier: 
+  Name: doorActivated
+  Min: 0
+  Max: 1
+  Default: 0
+  Exists: 0
+--- !u!114 &114012785007760122
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/feedback/transfer_light
+  m_EditorClassIdentifier: 
+  Path: event:/feedback/transfer_light
+  guid: 0a4435de6c8c1b48813826ae0abd6cb8
+  Banks: []
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 32000
 --- !u!114 &114015859426808842
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -212,6 +272,29 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 2197
+--- !u!114 &114038814573581054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/music/themes-piano-FX
+  m_EditorClassIdentifier: 
+  Path: event:/music/themes-piano-FX
+  guid: 8e8077603d3f2f4b88702d1b3a7df5e7
+  Banks:
+  - {fileID: 114580859242805050}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 192087
 --- !u!114 &114043400164448578
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -338,6 +421,23 @@ MonoBehaviour:
   MinDistance: 0
   MaxDistance: 0
   Length: 2000
+--- !u!114 &114083800396545052
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/door/doorActivated
+  m_EditorClassIdentifier: 
+  Name: doorActivated
+  Min: 0
+  Max: 1
+  Default: 0
+  Exists: 0
 --- !u!114 &114096208296591420
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -597,6 +697,23 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 7701
+--- !u!114 &114163566806876706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/door/doorActivated
+  m_EditorClassIdentifier: 
+  Name: doorActivated
+  Min: 0
+  Max: 1
+  Default: 0
+  Exists: 0
 --- !u!114 &114173076414878860
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -690,6 +807,23 @@ MonoBehaviour:
   Max: 1
   Default: 0
   Exists: 0
+--- !u!114 &114205895204686062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/door/doorActivated
+  m_EditorClassIdentifier: 
+  Name: doorActivated
+  Min: 0
+  Max: 1
+  Default: 0
+  Exists: 0
 --- !u!114 &114206222573977358
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -734,6 +868,23 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 5811
+--- !u!114 &114215601018420962
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/receptacle/receptacleActivated
+  m_EditorClassIdentifier: 
+  Name: receptacleActivated
+  Min: 0
+  Max: 1
+  Default: 0
+  Exists: 1
 --- !u!114 &114221283982996130
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -906,6 +1057,30 @@ MonoBehaviour:
   - Name: Desktop
     Value: 876864
   Exists: 0
+--- !u!114 &114244394627208472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/music/main
+  m_EditorClassIdentifier: 
+  Path: event:/music/main
+  guid: 2f8097fbc8cdf44e91c01795010cc4dd
+  Banks:
+  - {fileID: 114580859242805050}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 1
+  Parameters:
+  - {fileID: 114262855929025590}
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 192087
 --- !u!114 &114245970194581726
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -952,6 +1127,23 @@ MonoBehaviour:
   MaxDistance: 20
   Length: 5102
 --- !u!114 &114253779253279040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/door/doorActivated
+  m_EditorClassIdentifier: 
+  Name: doorActivated
+  Min: 0
+  Max: 1
+  Default: 0
+  Exists: 0
+--- !u!114 &114254227299132920
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1027,6 +1219,23 @@ MonoBehaviour:
   - Name: Desktop
     Value: 12474
   Exists: 0
+--- !u!114 &114262855929025590
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/main/CorruptionIn
+  m_EditorClassIdentifier: 
+  Name: CorruptionIn
+  Min: 0
+  Max: 1
+  Default: 0
+  Exists: 1
 --- !u!114 &114271810865528604
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1065,7 +1274,7 @@ MonoBehaviour:
   Is3D: 1
   IsOneShot: 1
   Parameters:
-  - {fileID: 114188932039094310}
+  - {fileID: 114838487638770032}
   MinDistance: 80
   MaxDistance: 80
   Length: 2000
@@ -1138,6 +1347,57 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 2183
+--- !u!114 &114303978904832556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/door/doorActivated
+  m_EditorClassIdentifier: 
+  Name: doorActivated
+  Min: 0
+  Max: 1
+  Default: 0
+  Exists: 0
+--- !u!114 &114306859699696076
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/receptacle/receptacleActivated
+  m_EditorClassIdentifier: 
+  Name: receptacleActivated
+  Min: 0
+  Max: 1
+  Default: 0
+  Exists: 0
+--- !u!114 &114311414394269592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/door/doorActivated
+  m_EditorClassIdentifier: 
+  Name: doorActivated
+  Min: 0
+  Max: 1
+  Default: 0
+  Exists: 0
 --- !u!114 &114320948273353608
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1360,6 +1620,23 @@ MonoBehaviour:
   MinDistance: 0
   MaxDistance: 0
   Length: 186088
+--- !u!114 &114387037641327012
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/door/doorActivated
+  m_EditorClassIdentifier: 
+  Name: doorActivated
+  Min: 0
+  Max: 1
+  Default: 0
+  Exists: 0
 --- !u!114 &114390126385641666
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1546,7 +1823,41 @@ MonoBehaviour:
   Max: 1
   Default: 0
   Exists: 0
+--- !u!114 &114435639221430058
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/receptacle/receptacleActivated
+  m_EditorClassIdentifier: 
+  Name: receptacleActivated
+  Min: 0
+  Max: 1
+  Default: 0
+  Exists: 0
 --- !u!114 &114437591523728732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/door/doorActivated
+  m_EditorClassIdentifier: 
+  Name: doorActivated
+  Min: 0
+  Max: 1
+  Default: 0
+  Exists: 0
+--- !u!114 &114451105452634382
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1608,6 +1919,40 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 2197
+--- !u!114 &114453004069931678
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/receptacle/receptacleActivated
+  m_EditorClassIdentifier: 
+  Name: receptacleActivated
+  Min: 0
+  Max: 1
+  Default: 0
+  Exists: 0
+--- !u!114 &114453085084475424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/door/doorActivated
+  m_EditorClassIdentifier: 
+  Name: doorActivated
+  Min: 0
+  Max: 1
+  Default: 0
+  Exists: 0
 --- !u!114 &114456774127405272
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1703,6 +2048,23 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 2960
+--- !u!114 &114481320534124714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/door/doorActivated
+  m_EditorClassIdentifier: 
+  Name: doorActivated
+  Min: 0
+  Max: 1
+  Default: 0
+  Exists: 0
 --- !u!114 &114482128837097976
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2022,6 +2384,23 @@ MonoBehaviour:
   MinDistance: 15
   MaxDistance: 50
   Length: 4550
+--- !u!114 &114574456550525424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/door/doorActivated
+  m_EditorClassIdentifier: 
+  Name: doorActivated
+  Min: 0
+  Max: 1
+  Default: 0
+  Exists: 0
 --- !u!114 &114574798102523894
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2058,11 +2437,11 @@ MonoBehaviour:
   m_Name: bank:/Master Bank.bank
   m_EditorClassIdentifier: 
   Path: D:\_Travail\_ProjetsUnity\Projet_BG3\ProjetBG3-FMOD\Build\Desktop\Master Bank.bank
-  lastModified: 636984633409871670
+  lastModified: 636984851307000930
   LoadResult: 0
   FileSizes:
   - Name: Desktop
-    Value: 1448288
+    Value: 7972448
   Exists: 1
 --- !u!114 &114597703097647520
 MonoBehaviour:
@@ -2154,6 +2533,23 @@ MonoBehaviour:
   Max: 1
   Default: 0
   Exists: 0
+--- !u!114 &114629871565139524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/door/doorActivated
+  m_EditorClassIdentifier: 
+  Name: doorActivated
+  Min: 0
+  Max: 1
+  Default: 0
+  Exists: 0
 --- !u!114 &114640137564517888
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2184,12 +2580,29 @@ MonoBehaviour:
   m_Name: bank:/Master Bank.strings.bank
   m_EditorClassIdentifier: 
   Path: ProjetBG3-FMOD\Build\Desktop\Master Bank.strings.bank
-  lastModified: 636984633409961526
+  lastModified: 636984851307100628
   LoadResult: 0
   FileSizes:
   - Name: Desktop
-    Value: 1296
+    Value: 1498
   Exists: 1
+--- !u!114 &114643265569562000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/door/doorActivated
+  m_EditorClassIdentifier: 
+  Name: doorActivated
+  Min: 0
+  Max: 1
+  Default: 0
+  Exists: 0
 --- !u!114 &114646575500481404
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2345,6 +2758,30 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 3029
+--- !u!114 &114680684237863622
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/feedback/receptacles/receptacle
+  m_EditorClassIdentifier: 
+  Path: event:/feedback/receptacles/receptacle
+  guid: 0a4435de6c8c1b48813826ae0abd6cb8
+  Banks:
+  - {fileID: 114847773110049610}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 1
+  Parameters:
+  - {fileID: 114215601018420962}
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 32000
 --- !u!114 &114682059708386428
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2413,6 +2850,30 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 2643
+--- !u!114 &114702657598074514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/feedback/arbres/reveal_arbres
+  m_EditorClassIdentifier: 
+  Path: event:/feedback/arbres/reveal_arbres
+  guid: ebe579f4e0904a45b2d7d6de3949bdd2
+  Banks:
+  - {fileID: 114580859242805050}
+  - {fileID: 114847773110049610}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 2000
 --- !u!114 &114705845424834032
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2453,6 +2914,57 @@ MonoBehaviour:
   MinDistance: 15
   MaxDistance: 50
   Length: 4550
+--- !u!114 &114725478005899414
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/door/doorActivated
+  m_EditorClassIdentifier: 
+  Name: doorActivated
+  Min: 0
+  Max: 1
+  Default: 0
+  Exists: 0
+--- !u!114 &114732227640058612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/door/doorActivated
+  m_EditorClassIdentifier: 
+  Name: doorActivated
+  Min: 0
+  Max: 1
+  Default: 0
+  Exists: 0
+--- !u!114 &114737524282557216
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/door/doorActivated
+  m_EditorClassIdentifier: 
+  Name: doorActivated
+  Min: 0
+  Max: 1
+  Default: 0
+  Exists: 0
 --- !u!114 &114744313270335142
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2524,6 +3036,23 @@ MonoBehaviour:
   - Name: Desktop
     Value: 12474
   Exists: 1
+--- !u!114 &114759864020064224
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/door/doorActivated
+  m_EditorClassIdentifier: 
+  Name: doorActivated
+  Min: 0
+  Max: 1
+  Default: 0
+  Exists: 0
 --- !u!114 &114765366604650404
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2776,6 +3305,23 @@ MonoBehaviour:
   MinDistance: 15
   MaxDistance: 50
   Length: 4550
+--- !u!114 &114838487638770032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/door/doorActivated
+  m_EditorClassIdentifier: 
+  Name: doorActivated
+  Min: 0
+  Max: 1
+  Default: 0
+  Exists: 1
 --- !u!114 &114844054342999902
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2824,11 +3370,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: D:\_Travail\_ProjetsUnity\Projet_BG3\ProjetBG3-FMOD\Build\Desktop\Feedback
     Bank.bank
-  lastModified: 636984633411504431
+  lastModified: 636984851308048203
   LoadResult: 0
   FileSizes:
   - Name: Desktop
-    Value: 697472
+    Value: 1554304
   Exists: 1
 --- !u!114 &114854195113223560
 MonoBehaviour:
@@ -2873,6 +3419,23 @@ MonoBehaviour:
   MaxDistance: 20
   Length: 5811
 --- !u!114 &114862487596316628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/door/doorActivated
+  m_EditorClassIdentifier: 
+  Name: doorActivated
+  Min: 0
+  Max: 1
+  Default: 0
+  Exists: 0
+--- !u!114 &114868418030805296
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3156,6 +3719,23 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 7701
+--- !u!114 &114961894217201992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/receptacle/receptacleActivated
+  m_EditorClassIdentifier: 
+  Name: receptacleActivated
+  Min: 0
+  Max: 1
+  Default: 0
+  Exists: 0
 --- !u!114 &114962544044012188
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3283,6 +3863,23 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 2960
+--- !u!114 &114991640429210370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/door/doorActivated
+  m_EditorClassIdentifier: 
+  Name: doorActivated
+  Min: 0
+  Max: 1
+  Default: 0
+  Exists: 0
 --- !u!114 &114992021980416278
 MonoBehaviour:
   m_ObjectHideFlags: 0

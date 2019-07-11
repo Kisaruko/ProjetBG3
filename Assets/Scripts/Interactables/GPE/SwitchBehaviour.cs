@@ -101,6 +101,7 @@ public class SwitchBehaviour : MonoBehaviour
             else
             {
                 intensityIsMaxed = true;
+                
             }
             if (transform.position.y < maxYPos && transformYCountAsSwitchActivation)
             {
@@ -130,6 +131,9 @@ public class SwitchBehaviour : MonoBehaviour
                 if (rangeIsMaxed && intensityIsMaxed)
                 {
                     Activation();
+                    GetComponent<FMODUnity.StudioEventEmitter>().SetParameter("receptacleActivated", 1f);
+                    SendMessage("Stop");
+                    SendMessage("Play");
                 }
             }
         }

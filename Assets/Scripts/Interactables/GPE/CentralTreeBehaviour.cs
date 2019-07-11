@@ -170,6 +170,11 @@ public class CentralTreeBehaviour : MonoBehaviour
         Camera.main.GetComponentInParent<CameraBehaviour>().camDistance = 30f;
         Camera.main.GetComponentInParent<CameraBehaviour>().smoothSpeed = 1f;
         Invoke("LoadEndingScene", 10f);
+
+        if (GetComponent<FMODUnity.StudioEventEmitter>())
+        {
+            SendMessage("Play");
+        }
     }
     private void OnTriggerEnter(Collider other)
     {
