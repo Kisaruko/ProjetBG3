@@ -188,6 +188,7 @@ public class BinaryLight : MonoBehaviour
             else
             {
                 anim.SetBool("getLight", true);
+                SendMessage("Play");
             }
             mesh.enabled = false;
             playerMovement.moveSpeed = 0f;
@@ -466,7 +467,6 @@ public class BinaryLight : MonoBehaviour
         if (LightObject.transform.parent == null)
         {
             LightObject.transform.DOMove(end.transform.position, lightSpeed * Time.deltaTime);
-            SendMessage("Play");
         }
         ArianeBond();
         #region OLD
