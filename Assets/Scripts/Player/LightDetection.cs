@@ -32,6 +32,9 @@ public class LightDetection : MonoBehaviour
     [Space(10, order = 1)]
     public float stoppingRange = 0.3f;
 
+
+    private bool soundChecker;
+
     #region old
     /*  public bool followTarget;
       public float particlesSpeed;
@@ -191,7 +194,11 @@ public class LightDetection : MonoBehaviour
                 if (Input.GetButtonDown("Attack"))
                 {
                     loader.Play();
-                    
+                }
+                if (isTransmitting && soundChecker == false)
+                {
+                    SendMessage("Play");
+                    soundChecker = true;
                 }
             }
         }
@@ -219,6 +226,7 @@ public class LightDetection : MonoBehaviour
             isTransmitting = false;
             if (!IsInAGodRay)
             {
+                soundChecker = false;
                 anim.SetBool("isTransmitting", false);
                 playermovement.moveSpeed = 6f;
             }
