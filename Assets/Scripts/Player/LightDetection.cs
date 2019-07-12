@@ -191,8 +191,7 @@ public class LightDetection : MonoBehaviour
                 if (Input.GetButtonDown("Attack"))
                 {
                     loader.Play();
-                    GetComponent<FMODUnity.StudioEventEmitter>().SetParameter("receptacleActivated", 0f);
-                    SendMessage("Play");
+                    
                 }
             }
         }
@@ -210,6 +209,9 @@ public class LightDetection : MonoBehaviour
                 anim.SetBool("StartTransmitting", true);
                 anim.SetBool("isTransmitting", true);
                 Invoke("AnimationSetter", 0.2f);
+
+                /*GetComponent<FMODUnity.StudioEventEmitter>().SetParameter("receptacleActivated", 0f);
+                SendMessage("Play");*/
             }
         }
         if (Input.GetButtonUp("Attack") || Input.GetKeyUp(KeyCode.Space))
