@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
 using UnityEngine.UI;
+using FMODUnity;
 
 public class LoadGameScenes : MonoBehaviour
 {
@@ -18,6 +19,8 @@ public class LoadGameScenes : MonoBehaviour
     void Start()
     {
         StartGame();
+        var go = GameObject.Find("FMOD.UnityIntegration.RuntimeManager");
+        Destroy(go);
     }
 
     public void StartGame()

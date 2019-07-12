@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using FMODUnity;
 public class MenuManager : MonoBehaviour
 {
 
@@ -28,6 +28,8 @@ public class MenuManager : MonoBehaviour
 
     public void ReturnToMenu()
     {
+        var go = GameObject.Find("FMOD.UnityIntegration.RuntimeManager");
+        Destroy(go);
         Initiate.Fade("MainMenu", Color.black, 0.8f);
     }
 }

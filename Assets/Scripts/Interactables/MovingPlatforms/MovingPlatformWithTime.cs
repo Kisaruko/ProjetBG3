@@ -8,7 +8,7 @@ public class MovingPlatformWithTime : MonoBehaviour
     public GameObject player;
     private void Start()
     {
-        InvokeRepeating("RevertSpeed", 1.5f, 3f);
+        InvokeRepeating("RevertSpeed", 0.5f, .5f);
     }
     private void Update()
     {
