@@ -131,9 +131,7 @@ public class SwitchBehaviour : MonoBehaviour
                 if (rangeIsMaxed && intensityIsMaxed)
                 {
                     Activation();
-                    GetComponent<FMODUnity.StudioEventEmitter>().SetParameter("receptacleActivated", 1f);
-                    SendMessage("Stop");
-                    SendMessage("Play");
+                    
                 }
             }
         }
@@ -210,6 +208,12 @@ public class SwitchBehaviour : MonoBehaviour
             }
         }
         GetComponent<ChainReaction>().GetSwitchInRange();
+
+        if(GetComponent<FMODUnity.StudioEventEmitter>())
+        {
+            SendMessage("Play");
+        }
+        
     }
     private void ActivateAtStart()
     {
