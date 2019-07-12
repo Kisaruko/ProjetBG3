@@ -35,7 +35,7 @@ MonoBehaviour:
   - {fileID: 114580859242805050}
   StringsBanks:
   - {fileID: 114642111797917204}
-  stringsBankWriteTime: 636984851307100628
+  stringsBankWriteTime: 636984861291199129
   cacheVersion: 3
 --- !u!114 &114003863516122132
 MonoBehaviour:
@@ -1077,7 +1077,7 @@ MonoBehaviour:
   Is3D: 0
   IsOneShot: 1
   Parameters:
-  - {fileID: 114262855929025590}
+  - {fileID: 114319022458542966}
   MinDistance: 0
   MaxDistance: 0
   Length: 192087
@@ -1274,7 +1274,7 @@ MonoBehaviour:
   Is3D: 1
   IsOneShot: 1
   Parameters:
-  - {fileID: 114838487638770032}
+  - {fileID: 114313564075831488}
   MinDistance: 80
   MaxDistance: 80
   Length: 2000
@@ -1398,6 +1398,57 @@ MonoBehaviour:
   Max: 1
   Default: 0
   Exists: 0
+--- !u!114 &114313564075831488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/door/doorActivated
+  m_EditorClassIdentifier: 
+  Name: doorActivated
+  Min: 0
+  Max: 1
+  Default: 0
+  Exists: 1
+--- !u!114 &114317267183405044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/door/doorActivated
+  m_EditorClassIdentifier: 
+  Name: doorActivated
+  Min: 0
+  Max: 1
+  Default: 0
+  Exists: 0
+--- !u!114 &114319022458542966
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/main/CorruptionIn
+  m_EditorClassIdentifier: 
+  Name: CorruptionIn
+  Min: 0
+  Max: 1
+  Default: 0
+  Exists: 1
 --- !u!114 &114320948273353608
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2437,7 +2488,7 @@ MonoBehaviour:
   m_Name: bank:/Master Bank.bank
   m_EditorClassIdentifier: 
   Path: D:\_Travail\_ProjetsUnity\Projet_BG3\ProjetBG3-FMOD\Build\Desktop\Master Bank.bank
-  lastModified: 636984851307000930
+  lastModified: 636984861291169227
   LoadResult: 0
   FileSizes:
   - Name: Desktop
@@ -2580,7 +2631,7 @@ MonoBehaviour:
   m_Name: bank:/Master Bank.strings.bank
   m_EditorClassIdentifier: 
   Path: ProjetBG3-FMOD\Build\Desktop\Master Bank.strings.bank
-  lastModified: 636984851307100628
+  lastModified: 636984861291199129
   LoadResult: 0
   FileSizes:
   - Name: Desktop
@@ -2758,6 +2809,23 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 3029
+--- !u!114 &114675677066957330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/receptacle/receptacleActivated
+  m_EditorClassIdentifier: 
+  Name: receptacleActivated
+  Min: 0
+  Max: 1
+  Default: 0
+  Exists: 1
 --- !u!114 &114680684237863622
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2778,7 +2846,7 @@ MonoBehaviour:
   Is3D: 0
   IsOneShot: 1
   Parameters:
-  - {fileID: 114215601018420962}
+  - {fileID: 114675677066957330}
   MinDistance: 0
   MaxDistance: 0
   Length: 32000
@@ -3370,7 +3438,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: D:\_Travail\_ProjetsUnity\Projet_BG3\ProjetBG3-FMOD\Build\Desktop\Feedback
     Bank.bank
-  lastModified: 636984851308048203
+  lastModified: 636984861289488549
   LoadResult: 0
   FileSizes:
   - Name: Desktop
